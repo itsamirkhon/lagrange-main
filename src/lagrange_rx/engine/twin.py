@@ -269,3 +269,72 @@ def _binding(ue: UnitEconomics, rec: _Recourse, price: float, rules: Rules) -> s
 def evaluate_plan_set(graph: CalculationGraph, plan: Plan, scenarios: Sequence[Scenario], rules: Rules,
                       *, allow_emergency: bool = True) -> list[ScenarioOutcome]:
     return [evaluate_plan(graph, plan, s, rules, allow_emergency=allow_emergency) for s in scenarios]
+
+
+# --------------------------------------------------------------------------- calibration
+
+def _month_index(m: str) -> int:
+    return int(m[:4]) * 12 + int(m[5:7]) - 1
+
+
+def last_12_months(graph: CalculationGraph, records):
+    """Records dated in the 12 months before the horizon start."""
+    end = _month_index(graph.horizon_start)
+    return [r for r in records if end - 12 <= _month_index(r.month) < end]
+
+
+def _historical_cost(graph: CalculationGraph, shipments, sales) -> float:
+    cost, used = 0.0, set()
+    for sh in shipments:
+        r = graph.route(sh.route_id)
+        scen = Scenario(id="hist", name="hist", fx={**graph.nominal_fx, r.currency: sh.fx_uzs},
+                        ref_fx_start=1.0, ref_fx_path=(1.0,) * 12, demand=0.0)
+        cost += route_economics(graph, r, scen).unit_cost * sh.packs + r.fixed_per_shipment_uzs
+        if r.id not in used:
+            used.add(r.id)
+            cost += r.fixed_activation_uzs
+    bl_var, bl_fixed = below_line(graph)
+    return cost + bl_var * sum(s.packs for s in sales) + bl_fixed
+
+
+def twin_baseline(graph: CalculationGraph) -> CalibrationResult:
+    """Reproduce the client's actual margin over the last 12 months from its own sales and costs."""
+    require_calculation_graph(graph)
+    missing: list[str] = []
+    shipments = [s for s in last_12_months_shipments(graph)]
+    sales = last_12_months(graph, graph.sales)
+    if not shipments:
+        missing.append("confirmed shipments for the last 12 months")
+    if not sales:
+        missing.append("confirmed sales for the last 12 months")
+    if graph.actual is None:
+        missing.append("confirmed actual result (revenue and total cost) for the last 12 months")
+    try:
+        below_line(graph)
+    except TwinError as exc:
+        missing.append(str(exc))
+    if missing:
+        return CalibrationResult(None, None, None, False, (CalibrationIssue(0.0, 0.0, tuple(missing)),), tuple(missing))
+    revenue = sum(s.packs * s.price_uzs for s in sales)
+    cost = _historical_cost(graph, shipments, sales)
+    twin_margin = (revenue - cost) / revenue
+    actual_margin = graph.actual.margin
+    gap_pp = abs(twin_margin - actual_margin) * 100.0
+    if gap_pp <= CALIBRATION_TOLERANCE_PP:
+        return CalibrationResult(twin_margin, actual_margin, gap_pp, True)
+    hints = _gap_hints(graph, revenue)
+    issue = CalibrationIssue(gap_pp, graph.actual.total_cost_uzs - cost, tuple(hints))
+    return CalibrationResult(twin_margin, actual_margin, gap_pp, False, (issue,), tuple(hints))
+
+
+def last_12_months_shipments(graph: CalculationGraph):
+    return last_12_months(graph, graph.shipments)
+
+
+def _gap_hints(graph: CalculationGraph, twin_revenue: float) -> list[str]:
+    hints = ["cost items not captured by the twin (see unexplained cost)"]
+    if abs(twin_revenue - graph.actual.revenue_uzs) / graph.actual.revenue_uzs > 0.005:
+        hints.append("sales records do not add up to the actual revenue (missing or duplicated sales)")
+    if any(r.pr_uzs is None for r in graph.routes if not r.emergency):
+        hints.append("Pr is unconfirmed for some routes")
+    return hints
