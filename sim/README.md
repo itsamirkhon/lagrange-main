@@ -23,7 +23,23 @@ python3 -m pytest -v
 
 # Run the /ub-mode quality gate (Crapper < 10, Dryer < 0.8, Mutator)
 python3 -m sim.tools.ub_quality_gate
+
+# Launch the interactive Web UI (http://127.0.0.1:8080)
+python3 -m sim.ui --host 127.0.0.1 --port 8080
 ```
+
+### Interactive Web UI (`sim/ui/`)
+
+Start the local dashboard server (`python3 -m sim.ui --host 127.0.0.1 --port 8080`, optional `--sim-dir sim`) to explore calibration KPIs, inspect `L0`–`L4` documents and `manifest.json` corruptions, browse `truth/` tables, and run live `evaluate_plan_on_truth` scenarios:
+
+- `GET /` and `GET /static/{filename}` — Web UI frontend (`index.html`, `styles.css`, `app.js`)
+- `GET /api/overview` — World config, `calibration_report.json` KPIs, and `L0`–`L4` summary counts
+- `GET /api/worlds/{level}` — `manifest.json` enriched with file sizes, `preview_kind`, and `download_url`
+- `GET /api/worlds/{level}/document/{filename}` — Raw document stream (PDF, PNG, JPG, XLSX, CSV, EML)
+- `GET /api/worlds/{level}/preview/{filename}` — Structured preview payload (multi-sheet XLSX, decoded CSV, EML, PDF/image metadata)
+- `GET /api/truth` and `GET /api/truth/{table}?limit=200&sku_id=...` — Ground-truth table list and filtered rows
+- `GET /api/evaluate/baseline` and `POST /api/evaluate` — Baseline and custom scenario profit/regret evaluation
+- `POST /api/regenerate` — Re-run deterministic world generation for `{"seed": <int>}`
 
 ### Evaluation Hook (`evaluate_plan_on_truth`)
 
@@ -69,6 +85,11 @@ sim/
     doc_builders.py         # D1..D13 (+J1) multi-level document builder & manifest writer
   tools/
     ub_quality_gate.py      # /ub-mode Crapper, Dryer, and AST Mutator runner
+  ui/
+    __main__.py             # Web UI CLI (`python3 -m sim.ui --host 127.0.0.1 --port 8080`)
+    api.py                  # Pure inspection, preview, scenario evaluation, and regeneration APIs
+    server.py               # Stdlib ThreadingHTTPServer and route dispatcher
+    static/                 # Accessible HTML/CSS/JS frontend (tabs, native modal dialog, SVG chart)
   README.md                 # This documentation
 ```
 

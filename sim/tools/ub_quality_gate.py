@@ -22,13 +22,17 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
-GENERATOR_DIR = Path(__file__).resolve().parent.parent / "generator"
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+SIM_DIR = Path(__file__).resolve().parent.parent
+GENERATOR_DIR = SIM_DIR / "generator"
+UI_DIR = SIM_DIR / "ui"
+DEFAULT_SOURCE_DIRS: tuple[Path, ...] = (GENERATOR_DIR, UI_DIR)
+REPO_ROOT = SIM_DIR.parent
 
 MUTATION_TARGETS: dict[str, list[str]] = {
-    "calibration.py": ["tests/test_truth_and_eval.py::test_calibration_invariants_and_validation_failures"],
-    "evaluate.py": ["tests/test_truth_and_eval.py::test_evaluate_plan_baseline_and_regret"],
-    "corruptions.py": ["tests/test_corruptions.py"],
+    "generator/calibration.py": ["tests/test_truth_and_eval.py::test_calibration_invariants_and_validation_failures"],
+    "generator/evaluate.py": ["tests/test_truth_and_eval.py::test_evaluate_plan_baseline_and_regret"],
+    "generator/corruptions.py": ["tests/test_corruptions.py"],
+    "ui/api.py": ["tests/test_ui.py"],
 }
 
 
@@ -150,43 +154,54 @@ def _run_pytest_with_trace(test_paths: list[str]) -> dict[str, set[int]]:
     return executed
 
 
+def _resolve_source_dirs(generator_dir: Path | list[Path] | tuple[Path, ...] | None) -> list[Path]:
+    """Normalize source_dir argument into an ordered list of existing directories."""
+    if generator_dir is None:
+        return [d for d in DEFAULT_SOURCE_DIRS if d.exists()]
+    if isinstance(generator_dir, Path):
+        return [generator_dir]
+    return list(generator_dir)
+
+
 def run_crapper(
-    generator_dir: Path = GENERATOR_DIR,
+    generator_dir: Path | list[Path] | tuple[Path, ...] | None = None,
     test_paths: list[str] | None = None,
     threshold: float = 10.0,
 ) -> list[FunctionMetrics]:
-    """Compute CC, trace line coverage, and CRAP score for every generator function."""
+    """Compute CC, trace line coverage, and CRAP score for every function."""
     targets = test_paths or [str(REPO_ROOT / "tests")]
     executed_by_file = _run_pytest_with_trace(targets)
     metrics: list[FunctionMetrics] = []
 
-    for py_file in sorted(generator_dir.glob("*.py")):
-        resolved = str(py_file.resolve())
-        source = py_file.read_text(encoding="utf-8")
-        tree = ast.parse(source, filename=resolved)
-        exec_map = _executable_lines_by_func(source, py_file)
-        ran_lines = executed_by_file.get(resolved, set())
+    for src_dir in _resolve_source_dirs(generator_dir):
+        for py_file in sorted(src_dir.glob("*.py")):
+            resolved = str(py_file.resolve())
+            source = py_file.read_text(encoding="utf-8")
+            tree = ast.parse(source, filename=resolved)
+            exec_map = _executable_lines_by_func(source, py_file)
+            ran_lines = executed_by_file.get(resolved, set())
+            rel_name = f"{src_dir.name}/{py_file.name}"
 
-        for qual_name, func_node in _collect_functions(tree, py_file):
-            cc = compute_cyclomatic_complexity(func_node)
-            short_name = qual_name.rsplit(".", 1)[-1]
-            func_lines = exec_map.get((short_name, func_node.lineno), set())
-            total = len(func_lines)
-            covered = len(func_lines & ran_lines)
-            cov = 1.0 if total == 0 else covered / total
-            crap = (cc ** 2) * ((1.0 - cov) ** 3) + cc
-            metrics.append(
-                FunctionMetrics(
-                    file=py_file.name,
-                    name=qual_name,
-                    lineno=func_node.lineno,
-                    cc=cc,
-                    covered_lines=covered,
-                    total_lines=total,
-                    coverage=round(cov, 4),
-                    crap=round(crap, 2),
+            for qual_name, func_node in _collect_functions(tree, py_file):
+                cc = compute_cyclomatic_complexity(func_node)
+                short_name = qual_name.rsplit(".", 1)[-1]
+                func_lines = exec_map.get((short_name, func_node.lineno), set())
+                total = len(func_lines)
+                covered = len(func_lines & ran_lines)
+                cov = 1.0 if total == 0 else covered / total
+                crap = (cc ** 2) * ((1.0 - cov) ** 3) + cc
+                metrics.append(
+                    FunctionMetrics(
+                        file=rel_name,
+                        name=qual_name,
+                        lineno=func_node.lineno,
+                        cc=cc,
+                        covered_lines=covered,
+                        total_lines=total,
+                        coverage=round(cov, 4),
+                        crap=round(crap, 2),
+                    )
                 )
-            )
     return metrics
 
 
@@ -253,22 +268,24 @@ def _jaccard_counter(a: Counter[str], b: Counter[str]) -> float:
 
 
 def run_dryer(
-    generator_dir: Path = GENERATOR_DIR,
+    generator_dir: Path | list[Path] | tuple[Path, ...] | None = None,
     threshold: float = 0.8,
     min_statements: int = 4,
 ) -> list[DuplicatePair]:
-    """Compare non-trivial functions in generator_dir and return pairs >= threshold."""
+    """Compare non-trivial functions across source dirs and return pairs >= threshold."""
     entries: list[tuple[str, str, Counter[str]]] = []
-    for py_file in sorted(generator_dir.glob("*.py")):
-        tree = ast.parse(py_file.read_text(encoding="utf-8"), filename=str(py_file))
-        for qual_name, func_node in _collect_functions(tree, py_file):
-            stripped = _strip_docstring(func_node)
-            if len(getattr(stripped, "body", [])) < min_statements:
-                continue
-            subtrees = _subtree_hashes(_normalize_ast(stripped))
-            if sum(subtrees.values()) < 6:
-                continue
-            entries.append((py_file.name, qual_name, subtrees))
+    for src_dir in _resolve_source_dirs(generator_dir):
+        for py_file in sorted(src_dir.glob("*.py")):
+            tree = ast.parse(py_file.read_text(encoding="utf-8"), filename=str(py_file))
+            rel_name = f"{src_dir.name}/{py_file.name}"
+            for qual_name, func_node in _collect_functions(tree, py_file):
+                stripped = _strip_docstring(func_node)
+                if len(getattr(stripped, "body", [])) < min_statements:
+                    continue
+                subtrees = _subtree_hashes(_normalize_ast(stripped))
+                if sum(subtrees.values()) < 6:
+                    continue
+                entries.append((rel_name, qual_name, subtrees))
 
     duplicates: list[DuplicatePair] = []
     for idx, (file_a, func_a, sub_a) in enumerate(entries):
@@ -364,15 +381,18 @@ def _test_mutated_module(module_name: str, mutated_source: str, test_files: list
         "sys.meta_path.insert(0, _MutFinder())\n"
         "raise SystemExit(pytest.main(['-x', '-q', '--tb=no', '--no-header', *TESTS]))\n"
     )
-    proc = subprocess.run(
-        [sys.executable, "-c", bootstrap, module_name, *test_files],
-        cwd=str(REPO_ROOT),
-        input=mutated_source,
-        capture_output=True,
-        text=True,
-        timeout=30,
-    )
-    return proc.returncode != 0
+    try:
+        proc = subprocess.run(
+            [sys.executable, "-c", bootstrap, module_name, *test_files],
+            cwd=str(REPO_ROOT),
+            input=mutated_source,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+        return proc.returncode != 0
+    except subprocess.TimeoutExpired:
+        return True
 
 
 def _build_mutant_job(
@@ -392,22 +412,23 @@ def _build_mutant_job(
 
 
 def run_mutator(
-    generator_dir: Path = GENERATOR_DIR,
+    generator_dir: Path | None = None,
     targets: dict[str, list[str]] | None = None,
     max_mutants_per_file: int | None = None,
     max_workers: int = 8,
 ) -> list[MutantResult]:
-    """Run AST mutation testing on pure-logic generator modules."""
+    """Run AST mutation testing on pure-logic modules."""
     target_map = targets or MUTATION_TARGETS
+    base_dir = SIM_DIR if generator_dir is None else generator_dir
     jobs: list[tuple[str, str, int, str, str, str, list[str]]] = []
 
     for filename, test_files in sorted(target_map.items()):
-        py_file = generator_dir / filename
+        py_file = base_dir / filename
         if not py_file.exists():
             continue
         tree = ast.parse(py_file.read_text(encoding="utf-8"), filename=str(py_file))
         sites = _collect_mutation_sites(tree)[:max_mutants_per_file]
-        module_name = f"sim.generator.{py_file.stem}"
+        module_name = ".".join(py_file.resolve().relative_to(REPO_ROOT.resolve()).with_suffix("").parts)
         for site in sites:
             jobs.append(_build_mutant_job(filename, module_name, tree, site, test_files))
 
