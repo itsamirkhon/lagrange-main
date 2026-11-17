@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAGRANGE Rx — Инспектор симуляции дистрибуции</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="header-main">
+        <div class="brand-block">
+          <p class="eyebrow">LAGRANGE Rx · Постановление №3735 · Синтетическая песочница</p>
+          <h1>ООО «CardioImport Distribution» — Инспектор симуляции</h1>
+          <p class="subtitle" id="company-subtitle">Ташкент, Узбекистан · Препарат: Kardiozan 10 мг №30 (SKU_CARDIO_01)</p>
+        </div>
+
+        <form id="regenerate-form" class="seed-form" novalidate>
+          <div class="seed-field">
+            <label for="seed-input">Seed генератора</label>
+            <input id="seed-input" name="seed" type="number" min="0" step="1" value="42" required>
+          </div>
+          <button type="submit" class="btn btn-primary" id="regen-submit-btn">Перегенерировать</button>
+          <span id="regen-status" class="status-pill" role="status" aria-live="polite">Готово (seed=42)</span>
+        </form>
+      </div>
+
+      <section class="kpi-strip" aria-label="Калибровочные показатели эталона">
+        <h2 class="visually-hidden">Ключевые калибровочные показатели</h2>
+        <div class="kpi-grid" id="kpi-grid">
+          <article class="kpi-card">
+            <span class="kpi-label">Годовой объём продаж</span>
+            <strong class="kpi-value" id="kpi-sales">150,000 уп.</strong>
+            <span class="kpi-meta">Окно 2025-11..2026-10</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Потолок розницы (ChChN)</span>
+            <strong class="kpi-value" id="kpi-chchn">ChChN 150,000 сум</strong>
+            <span class="kpi-meta">с НДС 12%</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Потолок опта (ChUN)</span>
+            <strong class="kpi-value" id="kpi-chun">ChUN 125,000 сум</strong>
+            <span class="kpi-meta">с НДС · без НДС 111,607 сум</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Расчётная база</span>
+            <strong class="kpi-value" id="kpi-base">Расч. база 97,050 сум</strong>
+            <span class="kpi-meta">RN + B + BX без НДС</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Чистая маржа (после реформы)</span>
+            <strong class="kpi-value" id="kpi-margin">Маржа 2.50%</strong>
+            <span class="kpi-meta" id="kpi-profit">Прибыль: —</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Маржа до реформы</span>
+            <strong class="kpi-value" id="kpi-pre-margin">До реформы 27.50%</strong>
+            <span class="kpi-meta">Окно 2025-01..2025-10</span>
+          </article>
+        </div>
+      </section>
+    </header>
+
+    <nav class="tab-nav" aria-label="Разделы инспектора">
+      <div role="tablist" aria-label="Представления симуляции" class="tablist">
+        <button type="button" role="tab" id="tab-worlds" aria-selected="true" aria-controls="panel-worlds" tabindex="0">
+          Миры и документы (L0–L4)
+        </button>
+        <button type="button" role="tab" id="tab-corruptions" aria-selected="false" aria-controls="panel-corruptions" tabindex="-1">
+          Манифест порчи (manifest.json)
+        </button>
+        <button type="button" role="tab" id="tab-truth" aria-selected="false" aria-controls="panel-truth" tabindex="-1">
+          Истина мира (truth/)
+        </button>
+        <button type="button" role="tab" id="tab-eval" aria-selected="false" aria-controls="panel-eval" tabindex="-1">
+          Калькулятор плана
+        </button>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section role="tabpanel" id="panel-worlds" aria-labelledby="tab-worlds" class="tab-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Миры документов и уровни шума (L0–L4)</h2>
+            <p class="panel-desc" id="world-level-desc">Выберите уровень сложности мира для просмотра документов и вложенных искажений.</p>
+          </div>
+          <div class="level-pills" role="group" aria-label="Выбор уровня мира" id="world-level-pills">
+            <button type="button" class="pill-btn" data-level="L0" aria-pressed="true">L0 · Эталон</button>
+            <button type="button" class="pill-btn" data-level="L1" aria-pressed="false">L1 · Норма</button>
+            <button type="button" class="pill-btn" data-level="L2" aria-pressed="false">L2 · Типичная ЦА</button>
+            <button type="button" class="pill-btn" data-level="L3" aria-pressed="false">L3 · Беспорядок</button>
+            <button type="button" class="pill-btn" data-level="L4" aria-pressed="false">L4 · Хаос</button>
+          </div>
+        </div>
+
+        <div class="stats-bar" id="world-stats-bar" aria-live="polite"></div>
+
+        <search class="filter-bar">
+          <form id="docs-filter-form" class="filter-form">
+            <div class="filter-field">
+              <label for="docs-search-input">Поиск документа</label>
+              <input id="docs-search-input" type="search" placeholder="Имя файла или truth_ref...">
+            </div>
+            <div class="filter-field">
+              <label for="docs-type-select">Тип документа</label>
+              <select id="docs-type-select">
+                <option value="">Все типы (D1–D13, J1)</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="docs-corrupt-select">Наличие порчи</label>
+              <select id="docs-corrupt-select">
+                <option value="">Все документы</option>
+                <option value="corrupted">Только с искажениями</option>
+                <option value="clean">Только чистые</option>
+              </select>
+            </div>
+          </form>
+        </search>
+
+        <h3 id="docs-table-heading" class="section-subheading">Документы выбранного мира</h3>
+        <div class="table-wrapper" tabindex="0" role="region" aria-labelledby="docs-table-heading">
+          <table class="data-table" id="docs-table">
+            <thead>
+              <tr>
+                <th scope="col">Файл документа</th>
+                <th scope="col">Тип</th>
+                <th scope="col">Формат</th>
+                <th scope="col">Размер</th>
+                <th scope="col">Искажения</th>
+                <th scope="col">Ссылки truth</th>
+                <th scope="col">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="docs-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section role="tabpanel" id="panel-corruptions" aria-labelledby="tab-corruptions" class="tab-panel" hidden>
+        <div class="panel-head">
+          <div>
+            <h2>Журнал операторов порчи (manifest.json)</h2>
+            <p class="panel-desc">Сравнение истинных значений и искажённых представлений по операторам N1–J1.</p>
+          </div>
+        </div>
+
+        <search class="filter-bar">
+          <form id="corr-filter-form" class="filter-form">
+            <div class="filter-field">
+              <label for="corr-level-select">Уровень мира</label>
+              <select id="corr-level-select">
+                <option value="L4">L4 · Хаос</option>
+                <option value="L3">L3 · Беспорядок</option>
+                <option value="L2">L2 · Типичная ЦА</option>
+                <option value="L1">L1 · Норма</option>
+                <option value="L0">L0 · Эталон</option>
+                <option value="ALL">Все уровни (L0–L4)</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="corr-op-select">Оператор</label>
+              <select id="corr-op-select">
+                <option value="">Все операторы</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="corr-rec-select">Восстановимость</label>
+              <select id="corr-rec-select">
+                <option value="">Все</option>
+                <option value="true">Восстановимые</option>
+                <option value="false">Невосстановимые</option>
+              </select>
+            </div>
+          </form>
+        </search>
+
+        <div id="omitted-docs-box" class="callout-box" hidden></div>
+
+        <h3 id="corr-table-heading" class="section-subheading">Записи искажений</h3>
+        <div class="table-wrapper" tabindex="0" role="region" aria-labelledby="corr-table-heading">
+          <table class="data-table" id="corr-table">
+            <thead>
+              <tr>
+                <th scope="col">Документ</th>
+                <th scope="col">Уровень</th>
+                <th scope="col">Оператор</th>
+                <th scope="col">Поле</th>
+                <th scope="col">Истина (true_value)</th>
+                <th scope="col">В документе (shown_value)</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Подсказка восстановления</th>
+              </tr>
+            </thead>
+            <tbody id="corr-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section role="tabpanel" id="panel-truth" aria-labelledby="tab-truth" class="tab-panel" hidden>
+        <div class="panel-head">
+          <div>
+            <h2>Таблицы истины мира (truth/)</h2>
+            <p class="panel-desc">Просмотр первичных таблиц генерации без искажений и шума.</p>
+          </div>
+          <span class="status-pill" id="truth-meta-pill">Загрузка...</span>
+        </div>
+
+        <search class="filter-bar">
+          <form id="truth-filter-form" class="filter-form">
+            <div class="filter-field">
+              <label for="truth-table-select">Таблица</label>
+              <select id="truth-table-select"></select>
+            </div>
+            <div class="filter-field">
+              <label for="truth-sku-select">Фильтр SKU</label>
+              <select id="truth-sku-select">
+                <option value="">Все SKU</option>
+                <option value="SKU_CARDIO_01">SKU_CARDIO_01 (Kardiozan)</option>
+                <option value="SKU_BG_01">SKU_BG_01</option>
+                <option value="SKU_BG_02">SKU_BG_02</option>
+                <option value="SKU_BG_03">SKU_BG_03</option>
+                <option value="SKU_BG_04">SKU_BG_04</option>
+                <option value="SKU_BG_05">SKU_BG_05</option>
+                <option value="SKU_BG_06">SKU_BG_06</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="truth-limit-select">Строк</label>
+              <select id="truth-limit-select">
+                <option value="50">50</option>
+                <option value="200" selected>200</option>
+                <option value="500">500</option>
+              </select>
+            </div>
+          </form>
+        </search>
+
+        <h3 id="truth-table-heading" class="section-subheading">Данные таблицы</h3>
+        <div class="table-wrapper" tabindex="0" role="region" aria-labelledby="truth-table-heading">
+          <table class="data-table" id="truth-table">
+            <thead id="truth-thead"></thead>
+            <tbody id="truth-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section role="tabpanel" id="panel-eval" aria-labelledby="tab-eval" class="tab-panel" hidden>
+        <div class="panel-head">
+          <div>
+            <h2>Калькулятор экономического плана (evaluate_plan_on_truth)</h2>
+            <p class="panel-desc">Проверка сценариев закупки, логистических маршрутов, маркетинга и ценовых потолков на 12-месячном окне.</p>
+          </div>
+        </div>
+
+        <div class="preset-bar" role="group" aria-label="Готовые сценарии" id="eval-presets">
+          <button type="button" class="pill-btn" data-preset="baseline">Базовый план</button>
+          <button type="button" class="pill-btn" data-preset="shortage">Дефицит ×0.5</button>
+          <button type="button" class="pill-btn" data-preset="overstock">Перезакуп ×2.0</button>
+          <button type="button" class="pill-btn" data-preset="air">Срочное авиа (rte_04)</button>
+          <button type="button" class="pill-btn" data-preset="breach">Превышение потолка ЧУН</button>
+        </div>
+
+        <div class="eval-layout">
+          <form id="eval-form" class="eval-form" novalidate>
+            <fieldset class="form-fieldset">
+              <legend>Параметры закупки и ценообразования</legend>
+
+              <div class="form-row">
+                <label for="eval-qty-mult">Множитель объёма закупки (0.1–5.0)</label>
+                <input id="eval-qty-mult" name="order_qty_multiplier" type="number" min="0.1" max="5.0" step="0.05" value="1.0" required>
+              </div>
+
+              <div class="form-row">
+                <label for="eval-price">Цена реализации без НДС (сум/уп., потолок ЧУН: 111 607.14)</label>
+                <input id="eval-price" name="selling_price_ex_vat_uzs" type="number" min="1000" step="100" value="111607.14" required>
+              </div>
+
+              <div class="form-row">
+                <label for="eval-mkt-mult">Множитель маркетингового бюджета (0–5.0)</label>
+                <input id="eval-mkt-mult" name="marketing_multiplier" type="number" min="0" max="5.0" step="0.1" value="1.0" required>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-fieldset">
+              <legend>Маршрут доставки (route_id)</legend>
+              <div class="radio-group" id="eval-route-group">
+                <label class="radio-item">
+                  <input type="radio" name="route_id" value="" checked>
+                  <span>Базовый микс маршрутов плана</span>
+                </label>
+                <label class="radio-item">
+                  <input type="radio" name="route_id" value="rte_01">
+                  <span>rte_01 · Авто через Казахстан ($1,800 + $0.12/уп.)</span>
+                </label>
+                <label class="radio-item">
+                  <input type="radio" name="route_id" value="rte_02">
+                  <span>rte_02 · Авто через Туркменистан ($1,650 + $0.14/уп.)</span>
+                </label>
+                <label class="radio-item">
+                  <input type="radio" name="route_id" value="rte_03">
+                  <span>rte_03 · Ж/Д Чукурсай ($2,200 + $0.09/уп.)</span>
+                </label>
+                <label class="radio-item">
+                  <input type="radio" name="route_id" value="rte_04">
+                  <span>rte_04 · Авиа Ташкент ($4,800 + $0.65/уп.)</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Рассчитать план</button>
+              <span id="eval-error" class="error-text" role="alert"></span>
+            </div>
+          </form>
+
+          <div class="eval-results" aria-live="polite">
+            <h3>Результаты оценки сценария</h3>
+            <div class="metrics-grid" id="eval-metrics-grid"></div>
+            <div class="chart-card">
+              <h3 id="eval-chart-title">Сравнение экономики: сценарий против эталона (млрд сум)</h3>
+              <svg id="eval-chart" class="eval-svg" viewBox="0 0 640 260" role="img" aria-labelledby="eval-chart-title"></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>УЧЕБНЫЙ ОБРАЗЕЦ / SYNTHETIC · LAGRANGE Rx Simulation Workbench · Локальный сервер без внешних зависимостей</p>
+    </footer>
+  </div>
+
+  <dialog id="doc-preview-modal" closedby="any" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow" id="modal-subtitle">Просмотр документа</p>
+        <h2 id="modal-title">Документ</h2>
+      </div>
+      <form method="dialog">
+        <button type="submit" class="btn btn-secondary">Закрыть</button>
+      </form>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </dialog>
+</body>
+</html>
