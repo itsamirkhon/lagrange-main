@@ -1,0 +1,36 @@
+levels:
+  L0:
+    name: "Эталон"
+    description: "Чистые согласованные документы D1-D13 без операторов порчи"
+    intensity_range: [0.0, 0.0]
+    target_intensity: 0.0
+    allow_unrecoverable: false
+    operators: []
+  L1:
+    name: "Нормальный бизнес"
+    description: "XLSX от разных отделов с разными шаблонами; точечные N1, N2, M1"
+    intensity_range: [0.05, 0.10]
+    target_intensity: 0.08
+    allow_unrecoverable: false
+    operators: ["N1", "N2", "M1"]
+  L2:
+    name: "Типичная ЦА"
+    description: "Добавляются PDF и сканы (R1), скриншоты мессенджера (R4), смешение языков (L1), C1, S1, D1x"
+    intensity_range: [0.15, 0.25]
+    target_intensity: 0.20
+    allow_unrecoverable: false
+    operators: ["N1", "N2", "M1", "R1", "R4", "L1", "C1", "S1", "D1x"]
+  L3:
+    name: "Беспорядок"
+    description: "Добавляются фото бумаг с печатью поверх текста (R2) и правками (R3), противоречия X1/X2, валютные/НДС/единицы/арифметика"
+    intensity_range: [0.30, 0.45]
+    target_intensity: 0.38
+    allow_unrecoverable: false
+    operators: ["N1", "N2", "M1", "R1", "R4", "L1", "C1", "S1", "D1x", "R2", "R3", "X1", "X2", "C2", "C3", "V1", "U1", "A1"]
+  L4:
+    name: "Хаос"
+    description: "Массовые пропуски M1, мусорные файлы J1, нечитаемые сканы; часть информации потеряна безвозвратно"
+    intensity_range: [0.50, 0.75]
+    target_intensity: 0.60
+    allow_unrecoverable: true
+    operators: ["N1", "N2", "M1", "R1", "R4", "L1", "C1", "S1", "D1x", "R2", "R3", "X1", "X2", "C2", "C3", "V1", "U1", "A1", "J1"]

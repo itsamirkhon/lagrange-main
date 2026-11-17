@@ -1,0 +1,2316 @@
+{
+  "level": "L1",
+  "seed": 42,
+  "omitted_documents": [],
+  "documents": [
+    {
+      "document": "worlds/L1/documents/D1_1c_sales_2025.csv",
+      "doc_type": "D1",
+      "truth_refs": [
+        "sales/sal_00001",
+        "sales/sal_00002",
+        "sales/sal_00003",
+        "sales/sal_00004",
+        "sales/sal_00005",
+        "sales/sal_00006",
+        "sales/sal_00007",
+        "sales/sal_00008",
+        "sales/sal_00009",
+        "sales/sal_00010",
+        "sales/sal_00011",
+        "sales/sal_00012",
+        "sales/sal_00013",
+        "sales/sal_00014",
+        "sales/sal_00015",
+        "sales/sal_00016",
+        "sales/sal_00017",
+        "sales/sal_00018",
+        "sales/sal_00019",
+        "sales/sal_00020",
+        "sales/sal_00021",
+        "sales/sal_00022",
+        "sales/sal_00023",
+        "sales/sal_00024",
+        "sales/sal_00025"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "sales_slice_2025-04",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              120,
+              620,
+              160
+            ]
+          },
+          "true_value": {
+            "month": "2025-04",
+            "region": "Ташкентская область",
+            "qty_packs": 604
+          },
+          "shown_value": "OMITTED_SLICE",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропущенный срез (Ташкентская область, 2025-04) из регионального отчёта XLSX и остатков склада"
+        },
+        {
+          "operator": "M1",
+          "field": "sales_slice_2025-07",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              120,
+              620,
+              160
+            ]
+          },
+          "true_value": {
+            "month": "2025-07",
+            "region": "Самаркандская область",
+            "qty_packs": 321
+          },
+          "shown_value": "OMITTED_SLICE",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропущенный срез (Самаркандская область, 2025-07) из регионального отчёта XLSX и остатков склада"
+        },
+        {
+          "operator": "M1",
+          "field": "sales_slice_2025-10",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              120,
+              620,
+              160
+            ]
+          },
+          "true_value": {
+            "month": "2025-10",
+            "region": "Бухарская область",
+            "qty_packs": 357
+          },
+          "shown_value": "OMITTED_SLICE",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропущенный срез (Бухарская область, 2025-10) из регионального отчёта XLSX и остатков склада"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              380,
+              41,
+              490,
+              59
+            ]
+          },
+          "true_value": 122056000.0,
+          "shown_value": "122,06 млн",
+          "recoverable": true,
+          "recover_hint": "Привести разделители разрядов к стандартному числу по D2/D9"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              20,
+              42,
+              120,
+              60
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Нормализовать формат периода YYYY-MM по данным реестра продаж"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              380,
+              54,
+              490,
+              72
+            ]
+          },
+          "true_value": 19000000.0,
+          "shown_value": "19 000 000,00",
+          "recoverable": true,
+          "recover_hint": "Привести разделители разрядов к стандартному числу по D2/D9"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              20,
+              58,
+              120,
+              76
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Нормализовать формат периода YYYY-MM по данным реестра продаж"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D1_1c_sales_2026.csv",
+      "doc_type": "D1",
+      "truth_refs": [
+        "sales/sal_01993",
+        "sales/sal_01994",
+        "sales/sal_01995",
+        "sales/sal_01996",
+        "sales/sal_01997",
+        "sales/sal_01998",
+        "sales/sal_01999",
+        "sales/sal_02000",
+        "sales/sal_02001",
+        "sales/sal_02002",
+        "sales/sal_02003",
+        "sales/sal_02004",
+        "sales/sal_02005",
+        "sales/sal_02006",
+        "sales/sal_02007",
+        "sales/sal_02008",
+        "sales/sal_02009",
+        "sales/sal_02010",
+        "sales/sal_02011",
+        "sales/sal_02012",
+        "sales/sal_02013",
+        "sales/sal_02014",
+        "sales/sal_02015",
+        "sales/sal_02016",
+        "sales/sal_02017"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "sales_slice_2026-02",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              120,
+              620,
+              160
+            ]
+          },
+          "true_value": {
+            "month": "2026-02",
+            "region": "Андижанская область",
+            "qty_packs": 223
+          },
+          "shown_value": "OMITTED_SLICE",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропущенный срез (Андижанская область, 2026-02) из регионального отчёта XLSX и остатков склада"
+        },
+        {
+          "operator": "M1",
+          "field": "sales_slice_2026-06",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              120,
+              620,
+              160
+            ]
+          },
+          "true_value": {
+            "month": "2026-06",
+            "region": "Кашкадарьинская область",
+            "qty_packs": 390
+          },
+          "shown_value": "OMITTED_SLICE",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропущенный срез (Кашкадарьинская область, 2026-06) из регионального отчёта XLSX и остатков склада"
+        },
+        {
+          "operator": "M1",
+          "field": "sales_slice_2026-08",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              120,
+              620,
+              160
+            ]
+          },
+          "true_value": {
+            "month": "2026-08",
+            "region": "Ферганская область",
+            "qty_packs": 997
+          },
+          "shown_value": "OMITTED_SLICE",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропущенный срез (Ферганская область, 2026-08) из регионального отчёта XLSX и остатков склада"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              380,
+              41,
+              490,
+              59
+            ]
+          },
+          "true_value": 117968746.98,
+          "shown_value": "117.968.747",
+          "recoverable": true,
+          "recover_hint": "Привести разделители разрядов к стандартному числу по D2/D9"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              20,
+              42,
+              120,
+              60
+            ]
+          },
+          "true_value": "2026-01",
+          "shown_value": "янв. 26",
+          "recoverable": true,
+          "recover_hint": "Нормализовать формат периода YYYY-MM по данным реестра продаж"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              380,
+              54,
+              490,
+              72
+            ]
+          },
+          "true_value": 36607141.92,
+          "shown_value": "36607,1т",
+          "recoverable": true,
+          "recover_hint": "Привести разделители разрядов к стандартному числу по D2/D9"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              20,
+              58,
+              120,
+              76
+            ]
+          },
+          "true_value": "2026-01",
+          "shown_value": "янв. 26",
+          "recoverable": true,
+          "recover_hint": "Нормализовать формат периода YYYY-MM по данным реестра продаж"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D2_sales_tashkent_city.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00001",
+        "sales/sal_00002",
+        "sales/sal_00003",
+        "sales/sal_00043",
+        "sales/sal_00044",
+        "sales/sal_00045",
+        "sales/sal_00085",
+        "sales/sal_00086",
+        "sales/sal_00087",
+        "sales/sal_00127",
+        "sales/sal_00128",
+        "sales/sal_00129",
+        "sales/sal_00170",
+        "sales/sal_00171",
+        "sales/sal_00172",
+        "sales/sal_00212",
+        "sales/sal_00213",
+        "sales/sal_00214",
+        "sales/sal_00255",
+        "sales/sal_00256",
+        "sales/sal_00257",
+        "sales/sal_00298",
+        "sales/sal_00299",
+        "sales/sal_00300",
+        "sales/sal_00340"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-04",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              520,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-04",
+            "qty_packs": 5459
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропуск за 2026-04 из выгрузки 1С и складского движения"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              540,
+              120,
+              680,
+              140
+            ]
+          },
+          "true_value": 240464000.0,
+          "shown_value": "240.464.000",
+          "recoverable": true,
+          "recover_hint": "Удалите текстовые сокращения и пробелы в сумме"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              121,
+              140,
+              141
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите период к ISO YYYY-MM"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00004",
+        "sales/sal_00005",
+        "sales/sal_00006",
+        "sales/sal_00034",
+        "sales/sal_00035",
+        "sales/sal_00036",
+        "sales/sal_00040",
+        "sales/sal_00041",
+        "sales/sal_00042",
+        "sales/sal_00046",
+        "sales/sal_00047",
+        "sales/sal_00048",
+        "sales/sal_00076",
+        "sales/sal_00077",
+        "sales/sal_00078",
+        "sales/sal_00082",
+        "sales/sal_00083",
+        "sales/sal_00084",
+        "sales/sal_00088",
+        "sales/sal_00089",
+        "sales/sal_00090",
+        "sales/sal_00118",
+        "sales/sal_00119",
+        "sales/sal_00120",
+        "sales/sal_00124"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-04",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              520,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-04",
+            "qty_packs": 3290
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропуск за 2026-04 из выгрузки 1С и складского движения"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              540,
+              120,
+              680,
+              140
+            ]
+          },
+          "true_value": 88160000.0,
+          "shown_value": "88.160.000",
+          "recoverable": true,
+          "recover_hint": "Удалите текстовые сокращения и пробелы в сумме"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              121,
+              140,
+              141
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите период к ISO YYYY-MM"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D2_sales_fergana_valley.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00010",
+        "sales/sal_00011",
+        "sales/sal_00012",
+        "sales/sal_00013",
+        "sales/sal_00014",
+        "sales/sal_00015",
+        "sales/sal_00016",
+        "sales/sal_00017",
+        "sales/sal_00018",
+        "sales/sal_00052",
+        "sales/sal_00053",
+        "sales/sal_00054",
+        "sales/sal_00055",
+        "sales/sal_00056",
+        "sales/sal_00057",
+        "sales/sal_00058",
+        "sales/sal_00059",
+        "sales/sal_00060",
+        "sales/sal_00094",
+        "sales/sal_00095",
+        "sales/sal_00096",
+        "sales/sal_00097",
+        "sales/sal_00098",
+        "sales/sal_00099",
+        "sales/sal_00100"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-04",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              520,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-04",
+            "qty_packs": 5593
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропуск за 2026-04 из выгрузки 1С и складского движения"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              540,
+              120,
+              680,
+              140
+            ]
+          },
+          "true_value": 90896000.0,
+          "shown_value": "90896т",
+          "recoverable": true,
+          "recover_hint": "Удалите текстовые сокращения и пробелы в сумме"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              121,
+              140,
+              141
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите период к ISO YYYY-MM"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D2_sales_samarkand_navoi.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00007",
+        "sales/sal_00008",
+        "sales/sal_00009",
+        "sales/sal_00037",
+        "sales/sal_00038",
+        "sales/sal_00039",
+        "sales/sal_00049",
+        "sales/sal_00050",
+        "sales/sal_00051",
+        "sales/sal_00079",
+        "sales/sal_00080",
+        "sales/sal_00081",
+        "sales/sal_00091",
+        "sales/sal_00092",
+        "sales/sal_00093",
+        "sales/sal_00121",
+        "sales/sal_00122",
+        "sales/sal_00123",
+        "sales/sal_00133",
+        "sales/sal_00134",
+        "sales/sal_00135",
+        "sales/sal_00164",
+        "sales/sal_00165",
+        "sales/sal_00166",
+        "sales/sal_00176"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-04",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              520,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-04",
+            "qty_packs": 3034
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропуск за 2026-04 из выгрузки 1С и складского движения"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              540,
+              120,
+              680,
+              140
+            ]
+          },
+          "true_value": 85424000.0,
+          "shown_value": "85 424 000,00",
+          "recoverable": true,
+          "recover_hint": "Удалите текстовые сокращения и пробелы в сумме"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              121,
+              140,
+              141
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите период к ISO YYYY-MM"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00019",
+        "sales/sal_00020",
+        "sales/sal_00021",
+        "sales/sal_00022",
+        "sales/sal_00023",
+        "sales/sal_00024",
+        "sales/sal_00025",
+        "sales/sal_00026",
+        "sales/sal_00027",
+        "sales/sal_00061",
+        "sales/sal_00062",
+        "sales/sal_00063",
+        "sales/sal_00064",
+        "sales/sal_00065",
+        "sales/sal_00066",
+        "sales/sal_00067",
+        "sales/sal_00068",
+        "sales/sal_00069",
+        "sales/sal_00103",
+        "sales/sal_00104",
+        "sales/sal_00105",
+        "sales/sal_00106",
+        "sales/sal_00107",
+        "sales/sal_00108",
+        "sales/sal_00109"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-04",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              520,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-04",
+            "qty_packs": 3961
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропуск за 2026-04 из выгрузки 1С и складского движения"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              540,
+              120,
+              680,
+              140
+            ]
+          },
+          "true_value": 62624000.0,
+          "shown_value": "62,62 млн",
+          "recoverable": true,
+          "recover_hint": "Удалите текстовые сокращения и пробелы в сумме"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              121,
+              140,
+              141
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите период к ISO YYYY-MM"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00028",
+        "sales/sal_00029",
+        "sales/sal_00030",
+        "sales/sal_00031",
+        "sales/sal_00032",
+        "sales/sal_00033",
+        "sales/sal_00070",
+        "sales/sal_00071",
+        "sales/sal_00072",
+        "sales/sal_00073",
+        "sales/sal_00074",
+        "sales/sal_00075",
+        "sales/sal_00112",
+        "sales/sal_00113",
+        "sales/sal_00114",
+        "sales/sal_00115",
+        "sales/sal_00116",
+        "sales/sal_00117",
+        "sales/sal_00155",
+        "sales/sal_00156",
+        "sales/sal_00157",
+        "sales/sal_00158",
+        "sales/sal_00159",
+        "sales/sal_00160",
+        "sales/sal_00197"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-04",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              520,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-04",
+            "qty_packs": 1830
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Восстановите пропуск за 2026-04 из выгрузки 1С и складского движения"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              540,
+              120,
+              680,
+              140
+            ]
+          },
+          "true_value": 34352000.0,
+          "shown_value": "34,35 млн",
+          "recoverable": true,
+          "recover_hint": "Удалите текстовые сокращения и пробелы в сумме"
+        },
+        {
+          "operator": "N2",
+          "field": "period",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              121,
+              140,
+              141
+            ]
+          },
+          "true_value": "2025-01",
+          "shown_value": "янв. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите период к ISO YYYY-MM"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2025-001.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0001",
+        "quotes/q_0002"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2025-10-08",
+          "shown_value": "10/08/2025",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2026-003.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0003",
+        "quotes/q_0004"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2026-06-29",
+          "shown_value": "06/29/2026",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2026-005.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0005",
+        "quotes/q_0006"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2025-04-05",
+          "shown_value": "04/05/2025",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2025-007.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0007",
+        "quotes/q_0008"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2026-04-12",
+          "shown_value": "04/12/2026",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2026-009.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0009",
+        "quotes/q_0010"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2026-09-24",
+          "shown_value": "24 сентября 2026 г.",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2025-011.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0011",
+        "quotes/q_0012"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2025-10-08",
+          "shown_value": "окт. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2026-013.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0013",
+        "quotes/q_0014"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2026-08-13",
+          "shown_value": "13.08.2026",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D3_quote_KP-2026-015.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0015",
+        "quotes/q_0016"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              430,
+              344,
+              520,
+              366
+            ]
+          },
+          "true_value": "2025-02-19",
+          "shown_value": "фев. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите дату действия КП к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D4_carrier_quote_auto_rail.pdf",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0017",
+        "quotes/q_0018",
+        "quotes/q_0019",
+        "quotes/q_0020"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D4_carrier_quote_turkmen_air.pdf",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0021",
+        "quotes/q_0022",
+        "quotes/q_0023",
+        "quotes/q_0024"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D4_carrier_rates_2025.xlsx",
+      "doc_type": "D4",
+      "truth_refs": [
+        "routes/rte_01",
+        "routes/rte_02",
+        "routes/rte_03",
+        "routes/rte_04"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D4_carrier_rates_2026.xlsx",
+      "doc_type": "D4",
+      "truth_refs": [
+        "routes/rte_01",
+        "routes/rte_02",
+        "routes/rte_03",
+        "routes/rte_04"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D4_carrier_chat_auto_kz.png",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0017"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D4_carrier_chat_air_tas.png",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0020"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D5_contract_CNT-SUP-2025-01.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0001",
+        "contracts/cnt_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D5_contract_CNT-SUP-2025-02.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0003",
+        "contracts/cnt_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D5_contract_CNT-SUP-2025-03.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0005"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D5_contract_CNT-SUP-2025-04.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0006"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D5_contract_CNT-CAR-2025-01_02.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0007",
+        "contracts/cnt_0008"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D5_contract_CNT-CAR-2025-03_04.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0009",
+        "contracts/cnt_0010"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_01.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0001",
+        "lots/lot_0001",
+        "shipments/shp_0002",
+        "lots/lot_0002",
+        "lots/lot_0003",
+        "shipments/shp_0003",
+        "lots/lot_0004",
+        "lots/lot_0005",
+        "shipments/shp_0004",
+        "lots/lot_0006"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "dispatch_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              120,
+              300,
+              145
+            ]
+          },
+          "true_value": "2025-01-02",
+          "shown_value": "2 января 2025 г.",
+          "recoverable": true,
+          "recover_hint": "Приведите дату отгрузки к ISO YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_02.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0005",
+        "lots/lot_0007",
+        "shipments/shp_0006",
+        "lots/lot_0008",
+        "shipments/shp_0007",
+        "lots/lot_0009",
+        "shipments/shp_0008",
+        "lots/lot_0010"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "dispatch_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              120,
+              300,
+              145
+            ]
+          },
+          "true_value": "2025-03-02",
+          "shown_value": "2 марта 2025 г.",
+          "recoverable": true,
+          "recover_hint": "Приведите дату отгрузки к ISO YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_03.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0009",
+        "lots/lot_0011",
+        "shipments/shp_0010",
+        "lots/lot_0012",
+        "shipments/shp_0011",
+        "lots/lot_0013",
+        "shipments/shp_0012",
+        "lots/lot_0014"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "dispatch_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              120,
+              300,
+              145
+            ]
+          },
+          "true_value": "2025-05-02",
+          "shown_value": "02.05.2025",
+          "recoverable": true,
+          "recover_hint": "Приведите дату отгрузки к ISO YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_04.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0013",
+        "lots/lot_0015",
+        "shipments/shp_0014",
+        "lots/lot_0016",
+        "lots/lot_0017",
+        "shipments/shp_0015",
+        "lots/lot_0018",
+        "shipments/shp_0016",
+        "lots/lot_0019"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "dispatch_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              120,
+              300,
+              145
+            ]
+          },
+          "true_value": "2025-07-02",
+          "shown_value": "07/02/2025",
+          "recoverable": true,
+          "recover_hint": "Приведите дату отгрузки к ISO YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_05.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0017",
+        "lots/lot_0020",
+        "shipments/shp_0018",
+        "lots/lot_0021",
+        "shipments/shp_0019",
+        "lots/lot_0022",
+        "shipments/shp_0020",
+        "lots/lot_0023"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "dispatch_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              120,
+              300,
+              145
+            ]
+          },
+          "true_value": "2025-09-02",
+          "shown_value": "сен. 25",
+          "recoverable": true,
+          "recover_hint": "Приведите дату отгрузки к ISO YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_06.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0021",
+        "lots/lot_0024",
+        "shipments/shp_0022",
+        "lots/lot_0025",
+        "shipments/shp_0023",
+        "lots/lot_0026",
+        "shipments/shp_0024",
+        "lots/lot_0027"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_07.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0025",
+        "lots/lot_0028",
+        "shipments/shp_0026",
+        "lots/lot_0029",
+        "lots/lot_0030",
+        "shipments/shp_0027",
+        "lots/lot_0031",
+        "shipments/shp_0028",
+        "lots/lot_0032"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_08.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0029",
+        "lots/lot_0033",
+        "shipments/shp_0030",
+        "lots/lot_0034",
+        "shipments/shp_0031",
+        "lots/lot_0035",
+        "lots/lot_0036",
+        "shipments/shp_0032",
+        "lots/lot_0037"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_09.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0033",
+        "lots/lot_0038",
+        "shipments/shp_0034",
+        "lots/lot_0039",
+        "shipments/shp_0035",
+        "lots/lot_0040",
+        "shipments/shp_0036",
+        "lots/lot_0041"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_10.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0037",
+        "lots/lot_0042",
+        "shipments/shp_0038",
+        "lots/lot_0043",
+        "lots/lot_0044",
+        "shipments/shp_0039",
+        "lots/lot_0045",
+        "shipments/shp_0040",
+        "lots/lot_0046"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D6_invoices_bundle_11.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0041",
+        "lots/lot_0047",
+        "shipments/shp_0042",
+        "lots/lot_0048",
+        "shipments/shp_0043",
+        "lots/lot_0049",
+        "shipments/shp_0044",
+        "lots/lot_0050"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D7_customs_summary_2025.xlsx",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0001",
+        "customs/cus_0002",
+        "customs/cus_0003",
+        "customs/cus_0004",
+        "customs/cus_0005",
+        "customs/cus_0006",
+        "customs/cus_0007",
+        "customs/cus_0008",
+        "customs/cus_0009",
+        "customs/cus_0010",
+        "customs/cus_0011",
+        "customs/cus_0012",
+        "customs/cus_0013",
+        "customs/cus_0014",
+        "customs/cus_0015",
+        "customs/cus_0016",
+        "customs/cus_0017",
+        "customs/cus_0018",
+        "customs/cus_0019",
+        "customs/cus_0020",
+        "customs/cus_0021",
+        "customs/cus_0022",
+        "customs/cus_0023",
+        "customs/cus_0024"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D7_customs_summary_2025.pdf",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0001",
+        "customs/cus_0002",
+        "customs/cus_0003",
+        "customs/cus_0004",
+        "customs/cus_0005",
+        "customs/cus_0006",
+        "customs/cus_0007",
+        "customs/cus_0008",
+        "customs/cus_0009",
+        "customs/cus_0010",
+        "customs/cus_0011",
+        "customs/cus_0012",
+        "customs/cus_0013",
+        "customs/cus_0014",
+        "customs/cus_0015",
+        "customs/cus_0016",
+        "customs/cus_0017",
+        "customs/cus_0018",
+        "customs/cus_0019",
+        "customs/cus_0020",
+        "customs/cus_0021",
+        "customs/cus_0022",
+        "customs/cus_0023",
+        "customs/cus_0024"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "clearance_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              140,
+              176,
+              240,
+              196
+            ]
+          },
+          "true_value": "2025-02-21",
+          "shown_value": "02/21/2025",
+          "recoverable": true,
+          "recover_hint": "Приведите дату ГТД к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D7_customs_summary_2026.xlsx",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0025",
+        "customs/cus_0026",
+        "customs/cus_0027",
+        "customs/cus_0028",
+        "customs/cus_0029",
+        "customs/cus_0030",
+        "customs/cus_0031",
+        "customs/cus_0032",
+        "customs/cus_0033",
+        "customs/cus_0034",
+        "customs/cus_0035",
+        "customs/cus_0036",
+        "customs/cus_0037",
+        "customs/cus_0038",
+        "customs/cus_0039",
+        "customs/cus_0040",
+        "customs/cus_0041",
+        "customs/cus_0042",
+        "customs/cus_0043",
+        "customs/cus_0044"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D7_customs_summary_2026.pdf",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0025",
+        "customs/cus_0026",
+        "customs/cus_0027",
+        "customs/cus_0028",
+        "customs/cus_0029",
+        "customs/cus_0030",
+        "customs/cus_0031",
+        "customs/cus_0032",
+        "customs/cus_0033",
+        "customs/cus_0034",
+        "customs/cus_0035",
+        "customs/cus_0036",
+        "customs/cus_0037",
+        "customs/cus_0038",
+        "customs/cus_0039",
+        "customs/cus_0040",
+        "customs/cus_0041",
+        "customs/cus_0042",
+        "customs/cus_0043",
+        "customs/cus_0044"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "clearance_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              140,
+              176,
+              240,
+              196
+            ]
+          },
+          "true_value": "2026-02-21",
+          "shown_value": "21.02.2026",
+          "recoverable": true,
+          "recover_hint": "Приведите дату ГТД к формату YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_01.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0001",
+        "lots/lot_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_02.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0004",
+        "lots/lot_0003"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_03.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0005",
+        "lots/lot_0006"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_04.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0007",
+        "lots/lot_0008"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_05.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0009",
+        "lots/lot_0010"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_06.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0011",
+        "lots/lot_0012"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_photo_01.jpg",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0001",
+        "lots/lot_0002",
+        "lots/lot_0003",
+        "lots/lot_0006",
+        "lots/lot_0008",
+        "lots/lot_0010"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_photo_02.jpg",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0007",
+        "lots/lot_0012",
+        "lots/lot_0014",
+        "lots/lot_0016",
+        "lots/lot_0017",
+        "lots/lot_0019"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_photo_03.jpg",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0013",
+        "lots/lot_0021",
+        "lots/lot_0023",
+        "lots/lot_0025",
+        "lots/lot_0027",
+        "lots/lot_0029"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D8_waybill_photo_04.jpg",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0020",
+        "lots/lot_0030",
+        "lots/lot_0032",
+        "lots/lot_0034",
+        "lots/lot_0037",
+        "lots/lot_0039"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D9_warehouse_stock_2025_H1.xlsx",
+      "doc_type": "D9",
+      "truth_refs": [
+        "lots/lot_0001",
+        "lots/lot_0002",
+        "lots/lot_0003",
+        "lots/lot_0004",
+        "lots/lot_0005",
+        "lots/lot_0006",
+        "lots/lot_0007",
+        "lots/lot_0008",
+        "lots/lot_0009",
+        "lots/lot_0010",
+        "lots/lot_0011",
+        "lots/lot_0012",
+        "lots/lot_0013",
+        "lots/lot_0014",
+        "writeoffs/wo_0001"
+      ],
+      "corruptions": [
+        {
+          "operator": "N1",
+          "field": "initial_qty",
+          "location": {
+            "page": 1,
+            "bbox": [
+              300,
+              120,
+              400,
+              145
+            ]
+          },
+          "true_value": 16500,
+          "shown_value": "16,5т",
+          "recoverable": true,
+          "recover_hint": "Нормализуйте числовой формат прихода партии"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D9_warehouse_stock_2025_H2.xlsx",
+      "doc_type": "D9",
+      "truth_refs": [
+        "lots/lot_0015",
+        "lots/lot_0016",
+        "lots/lot_0017",
+        "lots/lot_0018",
+        "lots/lot_0019",
+        "lots/lot_0020",
+        "lots/lot_0021",
+        "lots/lot_0022",
+        "lots/lot_0023",
+        "lots/lot_0024",
+        "lots/lot_0025",
+        "lots/lot_0026",
+        "lots/lot_0027"
+      ],
+      "corruptions": [
+        {
+          "operator": "N1",
+          "field": "initial_qty",
+          "location": {
+            "page": 1,
+            "bbox": [
+              300,
+              120,
+              400,
+              145
+            ]
+          },
+          "true_value": 10500,
+          "shown_value": "10.500",
+          "recoverable": true,
+          "recover_hint": "Нормализуйте числовой формат прихода партии"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D9_warehouse_stock_2026.xlsx",
+      "doc_type": "D9",
+      "truth_refs": [
+        "lots/lot_0028",
+        "lots/lot_0029",
+        "lots/lot_0030",
+        "lots/lot_0031",
+        "lots/lot_0032",
+        "lots/lot_0033",
+        "lots/lot_0034",
+        "lots/lot_0035",
+        "lots/lot_0036",
+        "lots/lot_0037",
+        "lots/lot_0038",
+        "lots/lot_0039",
+        "lots/lot_0040",
+        "lots/lot_0041",
+        "lots/lot_0042",
+        "lots/lot_0043",
+        "lots/lot_0044",
+        "lots/lot_0045",
+        "lots/lot_0046",
+        "lots/lot_0047",
+        "lots/lot_0048",
+        "lots/lot_0049",
+        "lots/lot_0050",
+        "writeoffs/wo_0002"
+      ],
+      "corruptions": [
+        {
+          "operator": "N1",
+          "field": "initial_qty",
+          "location": {
+            "page": 1,
+            "bbox": [
+              300,
+              120,
+              400,
+              145
+            ]
+          },
+          "true_value": 13500,
+          "shown_value": "13,5т",
+          "recoverable": true,
+          "recover_hint": "Нормализуйте числовой формат прихода партии"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D10_payments_credit_2025.xlsx",
+      "doc_type": "D10",
+      "truth_refs": [
+        "credit/crd_0001",
+        "credit/crd_0002",
+        "credit/crd_0003",
+        "credit/crd_0004",
+        "credit/crd_0005",
+        "credit/crd_0006",
+        "credit/crd_0007",
+        "credit/crd_0008",
+        "credit/crd_0009",
+        "credit/crd_0010",
+        "credit/crd_0011",
+        "credit/crd_0012",
+        "costs/cst_0001",
+        "costs/cst_0002",
+        "costs/cst_0003",
+        "costs/cst_0004",
+        "costs/cst_0005",
+        "costs/cst_0006",
+        "costs/cst_0007",
+        "costs/cst_0008",
+        "costs/cst_0009",
+        "costs/cst_0010",
+        "costs/cst_0011",
+        "costs/cst_0012",
+        "costs/cst_0013",
+        "costs/cst_0014",
+        "costs/cst_0015",
+        "costs/cst_0016",
+        "costs/cst_0017",
+        "costs/cst_0018",
+        "costs/cst_0019",
+        "costs/cst_0020",
+        "costs/cst_0021",
+        "costs/cst_0022",
+        "costs/cst_0023",
+        "costs/cst_0024",
+        "costs/cst_0025",
+        "costs/cst_0026",
+        "costs/cst_0027",
+        "costs/cst_0028",
+        "costs/cst_0029",
+        "costs/cst_0030",
+        "costs/cst_0031",
+        "costs/cst_0032",
+        "costs/cst_0033",
+        "costs/cst_0034",
+        "costs/cst_0035",
+        "costs/cst_0036",
+        "costs/cst_0037",
+        "costs/cst_0038",
+        "costs/cst_0039",
+        "costs/cst_0040",
+        "costs/cst_0041",
+        "costs/cst_0042",
+        "costs/cst_0043",
+        "costs/cst_0044",
+        "costs/cst_0045",
+        "costs/cst_0046",
+        "costs/cst_0047",
+        "costs/cst_0048",
+        "costs/cst_0049",
+        "costs/cst_0050",
+        "costs/cst_0051",
+        "costs/cst_0052",
+        "costs/cst_0053",
+        "costs/cst_0054",
+        "costs/cst_0055",
+        "costs/cst_0056",
+        "costs/cst_0057",
+        "costs/cst_0058",
+        "costs/cst_0059",
+        "costs/cst_0060",
+        "costs/cst_0061",
+        "costs/cst_0062",
+        "costs/cst_0063",
+        "costs/cst_0064",
+        "costs/cst_0065",
+        "costs/cst_0066",
+        "costs/cst_0067",
+        "costs/cst_0068",
+        "costs/cst_0069",
+        "costs/cst_0070",
+        "costs/cst_0121",
+        "costs/cst_0122",
+        "costs/cst_0133",
+        "costs/cst_0134",
+        "costs/cst_0135",
+        "costs/cst_0136",
+        "costs/cst_0137",
+        "costs/cst_0138",
+        "costs/cst_0139",
+        "costs/cst_0140",
+        "costs/cst_0141",
+        "costs/cst_0142",
+        "costs/cst_0143",
+        "costs/cst_0144",
+        "costs/cst_0145",
+        "costs/cst_0146",
+        "costs/cst_0147",
+        "costs/cst_0148",
+        "costs/cst_0149",
+        "costs/cst_0150",
+        "costs/cst_0151",
+        "costs/cst_0152",
+        "costs/cst_0153",
+        "costs/cst_0154",
+        "costs/cst_0155",
+        "costs/cst_0156",
+        "costs/cst_0157",
+        "costs/cst_0158",
+        "costs/cst_0159",
+        "costs/cst_0160",
+        "costs/cst_0161",
+        "costs/cst_0162",
+        "costs/cst_0163",
+        "costs/cst_0164",
+        "costs/cst_0165",
+        "costs/cst_0166",
+        "costs/cst_0167",
+        "costs/cst_0168",
+        "costs/cst_0169",
+        "costs/cst_0170",
+        "costs/cst_0171",
+        "costs/cst_0172",
+        "costs/cst_0173",
+        "costs/cst_0174",
+        "costs/cst_0175",
+        "costs/cst_0176",
+        "costs/cst_0177",
+        "costs/cst_0178",
+        "costs/cst_0179",
+        "costs/cst_0180",
+        "costs/cst_0181",
+        "costs/cst_0182",
+        "costs/cst_0183",
+        "costs/cst_0184",
+        "costs/cst_0185",
+        "costs/cst_0186",
+        "costs/cst_0187",
+        "costs/cst_0188",
+        "costs/cst_0189",
+        "costs/cst_0190",
+        "costs/cst_0191",
+        "costs/cst_0192",
+        "costs/cst_0193",
+        "costs/cst_0194",
+        "costs/cst_0195",
+        "costs/cst_0196",
+        "costs/cst_0197",
+        "costs/cst_0198",
+        "costs/cst_0199",
+        "costs/cst_0200",
+        "costs/cst_0201",
+        "costs/cst_0202",
+        "costs/cst_0203",
+        "costs/cst_0204"
+      ],
+      "corruptions": [
+        {
+          "operator": "N1",
+          "field": "amount_uzs",
+          "location": {
+            "page": 2,
+            "bbox": [
+              340,
+              120,
+              460,
+              140
+            ]
+          },
+          "true_value": 24640000.0,
+          "shown_value": "24 640 000,00",
+          "recoverable": true,
+          "recover_hint": "Приведите сумму затрат к числовому формату"
+        },
+        {
+          "operator": "N1",
+          "field": "amount_uzs",
+          "location": {
+            "page": 2,
+            "bbox": [
+              340,
+              145,
+              460,
+              165
+            ]
+          },
+          "true_value": 23760000.0,
+          "shown_value": "23760т",
+          "recoverable": true,
+          "recover_hint": "Приведите сумму затрат к числовому формату"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D10_payments_credit_2026.xlsx",
+      "doc_type": "D10",
+      "truth_refs": [
+        "credit/crd_0013",
+        "credit/crd_0014",
+        "credit/crd_0015",
+        "credit/crd_0016",
+        "credit/crd_0017",
+        "credit/crd_0018",
+        "credit/crd_0019",
+        "credit/crd_0020",
+        "credit/crd_0021",
+        "credit/crd_0022",
+        "costs/cst_0071",
+        "costs/cst_0072",
+        "costs/cst_0073",
+        "costs/cst_0074",
+        "costs/cst_0075",
+        "costs/cst_0076",
+        "costs/cst_0077",
+        "costs/cst_0078",
+        "costs/cst_0079",
+        "costs/cst_0080",
+        "costs/cst_0081",
+        "costs/cst_0082",
+        "costs/cst_0083",
+        "costs/cst_0084",
+        "costs/cst_0085",
+        "costs/cst_0086",
+        "costs/cst_0087",
+        "costs/cst_0088",
+        "costs/cst_0089",
+        "costs/cst_0090",
+        "costs/cst_0091",
+        "costs/cst_0092",
+        "costs/cst_0093",
+        "costs/cst_0094",
+        "costs/cst_0095",
+        "costs/cst_0096",
+        "costs/cst_0097",
+        "costs/cst_0098",
+        "costs/cst_0099",
+        "costs/cst_0100",
+        "costs/cst_0101",
+        "costs/cst_0102",
+        "costs/cst_0103",
+        "costs/cst_0104",
+        "costs/cst_0105",
+        "costs/cst_0106",
+        "costs/cst_0107",
+        "costs/cst_0108",
+        "costs/cst_0109",
+        "costs/cst_0110",
+        "costs/cst_0111",
+        "costs/cst_0112",
+        "costs/cst_0113",
+        "costs/cst_0114",
+        "costs/cst_0115",
+        "costs/cst_0116",
+        "costs/cst_0117",
+        "costs/cst_0118",
+        "costs/cst_0119",
+        "costs/cst_0120",
+        "costs/cst_0123",
+        "costs/cst_0124",
+        "costs/cst_0125",
+        "costs/cst_0126",
+        "costs/cst_0127",
+        "costs/cst_0128",
+        "costs/cst_0129",
+        "costs/cst_0130",
+        "costs/cst_0131",
+        "costs/cst_0132",
+        "costs/cst_0205",
+        "costs/cst_0206",
+        "costs/cst_0207",
+        "costs/cst_0208",
+        "costs/cst_0209",
+        "costs/cst_0210",
+        "costs/cst_0211",
+        "costs/cst_0212",
+        "costs/cst_0213",
+        "costs/cst_0214",
+        "costs/cst_0215",
+        "costs/cst_0216",
+        "costs/cst_0217",
+        "costs/cst_0218",
+        "costs/cst_0219",
+        "costs/cst_0220",
+        "costs/cst_0221",
+        "costs/cst_0222",
+        "costs/cst_0223",
+        "costs/cst_0224",
+        "costs/cst_0225",
+        "costs/cst_0226",
+        "costs/cst_0227",
+        "costs/cst_0228",
+        "costs/cst_0229",
+        "costs/cst_0230",
+        "costs/cst_0231",
+        "costs/cst_0232",
+        "costs/cst_0233",
+        "costs/cst_0234",
+        "costs/cst_0235",
+        "costs/cst_0236",
+        "costs/cst_0237",
+        "costs/cst_0238",
+        "costs/cst_0239",
+        "costs/cst_0240",
+        "costs/cst_0241",
+        "costs/cst_0242",
+        "costs/cst_0243",
+        "costs/cst_0244",
+        "costs/cst_0245",
+        "costs/cst_0246",
+        "costs/cst_0247",
+        "costs/cst_0248",
+        "costs/cst_0249",
+        "costs/cst_0250",
+        "costs/cst_0251",
+        "costs/cst_0252",
+        "costs/cst_0253",
+        "costs/cst_0254",
+        "costs/cst_0255",
+        "costs/cst_0256",
+        "costs/cst_0257",
+        "costs/cst_0258",
+        "costs/cst_0259",
+        "costs/cst_0260",
+        "costs/cst_0261",
+        "costs/cst_0262",
+        "costs/cst_0263",
+        "costs/cst_0264"
+      ],
+      "corruptions": [
+        {
+          "operator": "N1",
+          "field": "amount_uzs",
+          "location": {
+            "page": 2,
+            "bbox": [
+              340,
+              120,
+              460,
+              140
+            ]
+          },
+          "true_value": 29722000.0,
+          "shown_value": "29.722.000",
+          "recoverable": true,
+          "recover_hint": "Приведите сумму затрат к числовому формату"
+        },
+        {
+          "operator": "N1",
+          "field": "amount_uzs",
+          "location": {
+            "page": 2,
+            "bbox": [
+              340,
+              145,
+              460,
+              165
+            ]
+          },
+          "true_value": 24508000.0,
+          "shown_value": "24 508 000,00",
+          "recoverable": true,
+          "recover_hint": "Приведите сумму затрат к числовому формату"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L1/documents/D11_memo_marketing_2025.jpg",
+      "doc_type": "D11",
+      "truth_refs": [
+        "costs/cst_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D11_memo_logistics_2025.jpg",
+      "doc_type": "D11",
+      "truth_refs": [
+        "costs/cst_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D11_memo_writeoffs_2026.jpg",
+      "doc_type": "D11",
+      "truth_refs": [
+        "costs/cst_0121"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D11_memo_finance_2026.jpg",
+      "doc_type": "D11",
+      "truth_refs": [
+        "costs/cst_0181"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D12_email_quotes_2025.eml",
+      "doc_type": "D12",
+      "truth_refs": [
+        "quotes/q_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D12_email_contracts_2025.eml",
+      "doc_type": "D12",
+      "truth_refs": [
+        "contracts/cnt_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D12_email_customs_2026.eml",
+      "doc_type": "D12",
+      "truth_refs": [
+        "customs/cus_0044"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D12_email_supplier_2026.eml",
+      "doc_type": "D12",
+      "truth_refs": [
+        "quotes/q_0005"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D12_email_printout_contracts.pdf",
+      "doc_type": "D12",
+      "truth_refs": [
+        "contracts/cnt_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D12_email_printout_customs.pdf",
+      "doc_type": "D12",
+      "truth_refs": [
+        "customs/cus_0044"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D13_registry_extract_2025.csv",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0001",
+        "registry_events/reg_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D13_registry_extract_2025.pdf",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0003"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D13_registry_extract_2026.csv",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0001",
+        "registry_events/reg_0002",
+        "registry_events/reg_0003"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L1/documents/D13_registry_extract_2026.pdf",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0003"
+      ],
+      "corruptions": []
+    }
+  ]
+}

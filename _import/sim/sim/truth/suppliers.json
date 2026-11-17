@@ -1,0 +1,62 @@
+[
+  {
+    "address": "Узбекистан, Индия, ул. Индустриальная, д. 65 (SYNTHETIC)",
+    "contact_person": "Сардор Исмаилов",
+    "country": "Индия",
+    "currency": "USD",
+    "inn": "000177350 (SYNTHETIC)",
+    "lead_time_days": 22,
+    "min_order_qty": 5000,
+    "monthly_capacity": 35000,
+    "name": "Medisynth S.A. (Индия, SYNTHETIC)",
+    "payment_terms": "60 дней отсрочка",
+    "reliability_prob": 0.93,
+    "supplier_code": "ZBP-IND",
+    "supplier_id": "sup_01"
+  },
+  {
+    "address": "Узбекистан, Турция, ул. Навоийская (учебн.), д. 146 (SYNTHETIC)",
+    "contact_person": "Азиз Юлдашева",
+    "country": "Турция",
+    "currency": "USD",
+    "inn": "000785024 (SYNTHETIC)",
+    "lead_time_days": 18,
+    "min_order_qty": 3000,
+    "monthly_capacity": 22000,
+    "name": "VektorPharm Pvt. Ltd. (Турция, SYNTHETIC)",
+    "payment_terms": "30% предоплата / 70% по прибытии",
+    "reliability_prob": 0.95,
+    "supplier_code": "ANAT-TR",
+    "supplier_id": "sup_02"
+  },
+  {
+    "address": "Узбекистан, Германия, ул. Логистическая, д. 126 (SYNTHETIC)",
+    "contact_person": "Нодира Рахимова",
+    "country": "Германия",
+    "currency": "EUR",
+    "inn": "000550316 (SYNTHETIC)",
+    "lead_time_days": 24,
+    "min_order_qty": 4000,
+    "monthly_capacity": 25000,
+    "name": "VektorPharm S.A. (Германия, SYNTHETIC)",
+    "payment_terms": "45 дней отсрочка",
+    "reliability_prob": 0.97,
+    "supplier_code": "BALT-DE",
+    "supplier_id": "sup_03"
+  },
+  {
+    "address": "Узбекистан, Словения, ул. Логистическая, д. 96 (SYNTHETIC)",
+    "contact_person": "Шахноза Мирзаева",
+    "country": "Словения",
+    "currency": "EUR",
+    "inn": "000840484 (SYNTHETIC)",
+    "lead_time_days": 21,
+    "min_order_qty": 2500,
+    "monthly_capacity": 18000,
+    "name": "BalticGalen Pvt. Ltd. (Словения, SYNTHETIC)",
+    "payment_terms": "100% аккредитив",
+    "reliability_prob": 0.94,
+    "supplier_code": "KRK-SI",
+    "supplier_id": "sup_04"
+  }
+]

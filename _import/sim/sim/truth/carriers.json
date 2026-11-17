@@ -1,0 +1,38 @@
+[
+  {
+    "carrier_id": "car_01",
+    "contact_person": "Фарход Турсунов",
+    "inn": "000182922 (SYNTHETIC)",
+    "mode": "Auto via Kazakhstan",
+    "mode_ru": "Авто через Казахстан",
+    "name": "NavoiFreight Forwarding (SYNTHETIC)",
+    "reliability_prob": 0.92
+  },
+  {
+    "carrier_id": "car_02",
+    "contact_person": "Азиз Назаров",
+    "inn": "000844867 (SYNTHETIC)",
+    "mode": "Auto via Turkmenistan",
+    "mode_ru": "Авто через Туркменистан",
+    "name": "NavoiFreight Lines (SYNTHETIC)",
+    "reliability_prob": 0.9
+  },
+  {
+    "carrier_id": "car_03",
+    "contact_person": "Дилноза Мирзаева",
+    "inn": "000730469 (SYNTHETIC)",
+    "mode": "Rail",
+    "mode_ru": "Ж/Д",
+    "name": "SteppeTrans Express (SYNTHETIC)",
+    "reliability_prob": 0.95
+  },
+  {
+    "carrier_id": "car_04",
+    "contact_person": "Шахноза Исмаилов",
+    "inn": "000903808 (SYNTHETIC)",
+    "mode": "Air",
+    "mode_ru": "Авиа",
+    "name": "TuranCargo Logistics (SYNTHETIC)",
+    "reliability_prob": 0.98
+  }
+]
