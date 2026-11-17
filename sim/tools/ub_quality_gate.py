@@ -138,11 +138,41 @@ def _executable_lines_by_func(source: str, filepath: Path) -> dict[tuple[str, in
 
 def _run_pytest_with_trace(test_paths: list[str]) -> dict[str, set[int]]:
     """Run pytest under Python's built-in trace module and return executed lines per file."""
+    import shutil
     import pytest
+    import sim.generator.cli as _cli
 
-    tracer = trace.Trace(count=True, trace=False)
-    args = ["-q", "--tb=short", *test_paths]
-    exit_code = tracer.runfunc(pytest.main, args)
+    orig_run_gen = _cli.run_generation
+    call_count = 0
+
+    def _traced_Once_run_gen(sim_dir: Path | str = _cli._DEFAULT_SIM_DIR, seed: int | None = None) -> dict:
+        nonlocal call_count
+        call_count += 1
+        if call_count == 1 or not (SIM_DIR / "truth").exists() or not (SIM_DIR / "worlds").exists():
+            return orig_run_gen(sim_dir=sim_dir, seed=seed)
+        base = Path(sim_dir)
+        eff_seed = 42 if seed is None else int(seed)
+        for sub in ("truth", "worlds"):
+            dest = base / sub
+            if dest.exists():
+                shutil.rmtree(dest)
+            shutil.copytree(SIM_DIR / sub, dest)
+        manifests = {}
+        for mp in sorted((base / "worlds").glob("L*/manifest.json")):
+            data = json.loads(mp.read_text(encoding="utf-8"))
+            data["seed"] = eff_seed
+            mp.write_text(json.dumps(data), encoding="utf-8")
+            manifests[mp.parent.name] = data
+        rep = json.loads((base / "truth" / "calibration_report.json").read_text(encoding="utf-8"))
+        return {"seed": eff_seed, "report": rep, "manifests": manifests}
+
+    _cli.run_generation = _traced_Once_run_gen
+    try:
+        tracer = trace.Trace(count=True, trace=False)
+        args = ["-q", "--tb=short", *test_paths]
+        exit_code = tracer.runfunc(pytest.main, args)
+    finally:
+        _cli.run_generation = orig_run_gen
     if exit_code != 0:
         raise RuntimeError(f"pytest failed with exit code {exit_code} during coverage trace")
 
@@ -363,11 +393,24 @@ def _collect_mutation_sites(tree: ast.AST) -> list[tuple[str, int, int, str]]:
 def _test_mutated_module(module_name: str, mutated_source: str, test_files: list[str]) -> bool:
     """Run targeted pytest in a clean subprocess with in-memory module override."""
     bootstrap = (
-        "import importlib.abc, importlib.util, sys, pytest\n"
+        "import importlib.abc, importlib.util, json, shutil, sys, pytest\n"
+        "from pathlib import Path\n"
         "sys.path.insert(0, '.')\n"
         "TARGET = sys.argv[1]\n"
         "TESTS = sys.argv[2:]\n"
         "SRC = sys.stdin.read()\n"
+        "if TARGET == 'sim.ui.api':\n"
+        "    import sim.generator.cli as _cli\n"
+        "    def _fast_regen(sim_dir=_cli._DEFAULT_SIM_DIR, seed=None):\n"
+        "        b = Path(sim_dir)\n"
+        "        s = 42 if seed is None else int(seed)\n"
+        "        for sub in ('truth', 'worlds'):\n"
+        "            if not (b / sub).exists(): shutil.copytree(Path('sim') / sub, b / sub)\n"
+        "        for mp in (b / 'worlds').glob('L*/manifest.json'):\n"
+        "            d = json.loads(mp.read_text(encoding='utf-8')); d['seed'] = s\n"
+        "            mp.write_text(json.dumps(d), encoding='utf-8')\n"
+        "        return {'seed': s}\n"
+        "    _cli.run_generation = _fast_regen\n"
         "class _MutLoader(importlib.abc.Loader):\n"
         "    def create_module(self, spec): return None\n"
         "    def exec_module(self, mod): exec(compile(SRC, mod.__file__ or '<mut>', 'exec'), mod.__dict__)\n"

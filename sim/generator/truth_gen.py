@@ -14,6 +14,7 @@ from sim.generator.config_loader import load_fx_table, load_registry_sku
 from sim.generator.domain import (
     generate_address,
     generate_carrier_name,
+    generate_counterparty_name,
     generate_person_name,
     generate_supplier_name,
     generate_synthetic_inn,
@@ -41,6 +42,7 @@ TRUTH_TABLE_NAMES: tuple[str, ...] = (
 _SUPPLIER_SPECS: tuple[dict[str, Any], ...] = (
     {
         "supplier_id": "sup_01",
+        "supplier_code": "ZBP-IND",
         "country": "Индия",
         "currency": "USD",
         "payment_terms": "60 дней отсрочка",
@@ -51,6 +53,7 @@ _SUPPLIER_SPECS: tuple[dict[str, Any], ...] = (
     },
     {
         "supplier_id": "sup_02",
+        "supplier_code": "ANAT-TR",
         "country": "Турция",
         "currency": "USD",
         "payment_terms": "30% предоплата / 70% по прибытии",
@@ -61,6 +64,7 @@ _SUPPLIER_SPECS: tuple[dict[str, Any], ...] = (
     },
     {
         "supplier_id": "sup_03",
+        "supplier_code": "BALT-DE",
         "country": "Германия",
         "currency": "EUR",
         "payment_terms": "45 дней отсрочка",
@@ -71,6 +75,7 @@ _SUPPLIER_SPECS: tuple[dict[str, Any], ...] = (
     },
     {
         "supplier_id": "sup_04",
+        "supplier_code": "KRK-SI",
         "country": "Словения",
         "currency": "EUR",
         "payment_terms": "100% аккредитив",
@@ -91,6 +96,7 @@ _CARRIER_SPECS: tuple[dict[str, Any], ...] = (
 _ROUTE_SPECS: tuple[dict[str, Any], ...] = (
     {
         "route_id": "rte_01",
+        "route_code": "KZ-AUTO-01",
         "carrier_id": "car_01",
         "mode": "Auto via Kazakhstan",
         "corridor": "Индия/ЕАЭС -> Казахстан -> Ташкент",
@@ -102,6 +108,7 @@ _ROUTE_SPECS: tuple[dict[str, Any], ...] = (
     },
     {
         "route_id": "rte_02",
+        "route_code": "TM-AUTO-02",
         "carrier_id": "car_02",
         "mode": "Auto via Turkmenistan",
         "corridor": "Турция -> Туркменистан -> Ташкент",
@@ -113,6 +120,7 @@ _ROUTE_SPECS: tuple[dict[str, Any], ...] = (
     },
     {
         "route_id": "rte_03",
+        "route_code": "CHUK-RAIL-03",
         "carrier_id": "car_03",
         "mode": "Rail",
         "corridor": "ЕС/РФ -> Казахстан -> Ж/Д Чукурсай",
@@ -124,6 +132,7 @@ _ROUTE_SPECS: tuple[dict[str, Any], ...] = (
     },
     {
         "route_id": "rte_04",
+        "route_code": "TAS-AIR-04",
         "carrier_id": "car_04",
         "mode": "Air",
         "corridor": "Международный хаб -> Аэропорт Ташкент",
@@ -136,10 +145,10 @@ _ROUTE_SPECS: tuple[dict[str, Any], ...] = (
 )
 
 # Monthly focus-SKU sales volumes across 22 months (2025-01..2026-10).
-# Last 12 months (index 10..21: 2025-11..2026-10) sum to exactly 150,000 packs.
+# Last 12 months (index 10..21: 2025-11..2026-10) sum to 149,250 packs (within 150,000 ±3%).
 _FOCUS_MONTHLY_SALES: tuple[int, ...] = (
     11200, 11400, 11800, 11600, 11200, 10800, 10500, 10700, 11300, 11800,
-    12800, 13400, 13600, 12900, 12600, 12100, 11600, 11200, 11500, 12200, 12800, 13300,
+    12740, 13320, 13510, 12840, 12520, 12040, 11530, 11140, 11430, 12140, 12770, 13270,
 )
 
 # Monthly focus-SKU shipment quantities (one focus shipment per month).
@@ -233,6 +242,9 @@ def _build_skus(config: dict[str, Any]) -> pd.DataFrame:
             "trade_name": focus["trade_name"],
             "inn_name": focus["inn_name"],
             "dosage_form": focus["dosage_form"],
+            "nomenclature_code": focus.get("nomenclature_code", "00-000142"),
+            "reg_cert_no": focus.get("reg_cert_no", "DV/X 04812/01/25"),
+            "ean13": focus.get("ean13", "4780099120014"),
             "is_focus": True,
             "pack_blisters": int(focus["pack_blisters"]),
             "blister_tabs": int(focus["blister_tabs"]),
@@ -244,7 +256,7 @@ def _build_skus(config: dict[str, Any]) -> pd.DataFrame:
         }
     ]
     vat = float(targets["vat_rate"])
-    for bg in config["background_skus"]:
+    for idx, bg in enumerate(config["background_skus"], start=1):
         retail = float(bg["retail_uzs"])
         rows.append(
             {
@@ -252,6 +264,9 @@ def _build_skus(config: dict[str, Any]) -> pd.DataFrame:
                 "trade_name": bg["trade_name"],
                 "inn_name": bg["inn_name"],
                 "dosage_form": "таблетки, покрытые оболочкой (SYNTHETIC)",
+                "nomenclature_code": bg.get("nomenclature_code", f"00-00020{idx}"),
+                "reg_cert_no": bg.get("reg_cert_no", f"DV/X 0481{2 + idx}/01/25"),
+                "ean13": bg.get("ean13", f"47800991200{14 + idx}"),
                 "is_focus": False,
                 "pack_blisters": 3,
                 "blister_tabs": 10,
@@ -269,18 +284,26 @@ def _build_registry_events(config: dict[str, Any], registry_sku: dict[str, Any])
     t = config["calibration_targets"]
     vat = float(t["vat_rate"])
     sku_id = config["focus_sku"]["sku_id"]
+    rn_1, b_1 = 127000.0, 2633.91
+    bx_1 = round(0.02 * rn_1, 2)
+    rn_2, b_2 = 132000.0, 2751.30
+    bx_2 = round(0.02 * rn_2, 2)
+    rn_3 = float(t["rn_uzs"])
+    b_3 = float(t["b_uzs"])
+    bx_3 = round(0.02 * rn_3, 2)
     rows = [
         {
             "event_id": "reg_0001",
+            "registry_record_no": "RE-3735-2025-01",
             "sku_id": sku_id,
             "event_date": registry_sku.get("initial_registration_date", "2025-01-15"),
             "effective_from": "2025-01-01",
             "confirmed_date": "2025-01-15",
             "event_type": "initial_registration",
-            "rn_uzs": 127000.0,
-            "b_uzs": 3500.0,
-            "bx_uzs": 1673.91,
-            "calc_base_ex_vat_uzs": 132173.91,
+            "rn_uzs": rn_1,
+            "b_uzs": b_1,
+            "bx_uzs": bx_1,
+            "calc_base_ex_vat_uzs": round(rn_1 + b_1 + bx_1, 2),
             "wholesale_ex_vat_uzs": 152000.0,
             "chun_with_vat_uzs": round(152000.0 * (1.0 + vat), 2),
             "chchn_with_vat_uzs": round(152000.0 * (1.0 + vat) * 1.2, 2),
@@ -289,15 +312,16 @@ def _build_registry_events(config: dict[str, Any], registry_sku: dict[str, Any])
         },
         {
             "event_id": "reg_0002",
+            "registry_record_no": "RE-3735-2025-07",
             "sku_id": sku_id,
             "event_date": registry_sku.get("indexation_date", "2025-07-01"),
             "effective_from": "2025-07-01",
             "confirmed_date": "2025-07-01",
             "event_type": "para_20_indexation",
-            "rn_uzs": 132000.0,
-            "b_uzs": 3650.0,
-            "bx_uzs": 1741.30,
-            "calc_base_ex_vat_uzs": 137391.30,
+            "rn_uzs": rn_2,
+            "b_uzs": b_2,
+            "bx_uzs": bx_2,
+            "calc_base_ex_vat_uzs": round(rn_2 + b_2 + bx_2, 2),
             "wholesale_ex_vat_uzs": 158000.0,
             "chun_with_vat_uzs": round(158000.0 * (1.0 + vat), 2),
             "chchn_with_vat_uzs": round(158000.0 * (1.0 + vat) * 1.2, 2),
@@ -306,15 +330,16 @@ def _build_registry_events(config: dict[str, Any], registry_sku: dict[str, Any])
         },
         {
             "event_id": "reg_0003",
+            "registry_record_no": "RE-3735-2025-11",
             "sku_id": sku_id,
             "event_date": registry_sku.get("effective_from", "2025-11-01"),
             "effective_from": registry_sku.get("effective_from", "2025-11-01"),
             "confirmed_date": registry_sku.get("revision_date", "2026-07-01"),
             "event_type": "downward_price_revision",
-            "rn_uzs": float(t["rn_uzs"]),
-            "b_uzs": float(t["b_uzs"]),
-            "bx_uzs": float(t["bx_uzs"]),
-            "calc_base_ex_vat_uzs": float(t["calc_base_ex_vat_uzs"]),
+            "rn_uzs": rn_3,
+            "b_uzs": b_3,
+            "bx_uzs": bx_3,
+            "calc_base_ex_vat_uzs": round(rn_3 + b_3 + bx_3, 2),
             "wholesale_ex_vat_uzs": float(t["wholesale_ex_vat_uzs"]),
             "chun_with_vat_uzs": float(t["chun_with_vat_uzs"]),
             "chchn_with_vat_uzs": float(t["chchn_with_vat_uzs"]),
@@ -343,13 +368,14 @@ def _build_supplier_quotes(
         rows.append(
             {
                 "quote_id": f"q_{idx + 1:04d}",
+                "quote_number": f"KP-{q_date.year}-{idx + 1:03d}",
                 "quote_type": "supplier",
                 "entity_id": sup["supplier_id"],
                 "sku_id": sku_row["sku_id"],
                 "route_id": "",
                 "quote_date": q_date.isoformat(),
                 "valid_until": valid_until.isoformat(),
-                "unit_price": round(base_price * float(rng.uniform(0.97, 1.04)), 2),
+                "unit_price": round(base_price * float(rng.uniform(0.985, 1.035)), 2),
                 "currency": sup["currency"],
                 "min_order_qty": int(sup["min_order_qty"]),
                 "lead_time_days": int(sup["lead_time_days"]),
@@ -374,6 +400,7 @@ def _build_carrier_quotes(
         rows.append(
             {
                 "quote_id": f"q_{17 + idx:04d}",
+                "quote_number": f"KP-{q_date.year}-{17 + idx:03d}",
                 "quote_type": "carrier",
                 "entity_id": rte["carrier_id"],
                 "sku_id": "SKU_CARDIO_01",
@@ -398,20 +425,18 @@ def _build_quotes(
     skus: pd.DataFrame,
 ) -> pd.DataFrame:
     dates = ["2025-01-05", "2025-07-10", "2026-01-12", "2026-05-15", "2026-08-10"]
-    focus_cip = float(skus.loc[skus["sku_id"] == "SKU_CARDIO_01", "base_cip_usd"].iloc[0])
-    sup_rows = _build_supplier_quotes(rng, suppliers, skus, dates, focus_cip)
+    sup_rows = _build_supplier_quotes(rng, suppliers, skus, dates, 7.32)
     car_rows = _build_carrier_quotes(rng, routes, dates)
     return pd.DataFrame(sup_rows + car_rows)
 
 
 def _build_contracts(suppliers: pd.DataFrame, carriers: pd.DataFrame, quotes: pd.DataFrame) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
-    # 6 supplier contracts + amendments (cnt_0001..cnt_0006)
     sup_configs = [
-        ("cnt_0001", "", "sup_01", "CNT-SUP-2025-01", "2025-01-05", "2025-01-05", "2025-12-31", 7.25, 5000, "expired", "Первичный договор поставки"),
-        ("cnt_0002", "cnt_0001", "sup_01", "CNT-SUP-2025-01-A1", "2025-10-20", "2025-11-01", "2026-12-31", 7.10, 5000, "active", "Доп. соглашение №1: снижение CIP после пересмотра реестра"),
-        ("cnt_0003", "", "sup_02", "CNT-SUP-2025-02", "2025-01-10", "2025-01-10", "2026-12-31", 7.35, 3000, "active", "Резервный поставщик Турция"),
-        ("cnt_0004", "cnt_0003", "sup_02", "CNT-SUP-2025-02-A1", "2026-06-15", "2026-07-01", "2027-06-30", 7.18, 3000, "active", "Продление и фиксация цены"),
+        ("cnt_0001", "", "sup_01", "CNT-SUP-2025-01", "2025-01-05", "2025-01-05", "2025-12-31", 7.48, 5000, "expired", "Первичный договор поставки"),
+        ("cnt_0002", "cnt_0001", "sup_01", "CNT-SUP-2025-01-A1", "2025-10-20", "2025-11-01", "2026-12-31", 7.22, 5000, "active", "Доп. соглашение №1: снижение CIP после пересмотра реестра"),
+        ("cnt_0003", "", "sup_02", "CNT-SUP-2025-02", "2025-01-10", "2025-01-10", "2026-12-31", 7.42, 3000, "active", "Резервный поставщик Турция"),
+        ("cnt_0004", "cnt_0003", "sup_02", "CNT-SUP-2025-02-A1", "2026-06-15", "2026-07-01", "2027-06-30", 7.15, 3000, "active", "Продление и фиксация цены"),
         ("cnt_0005", "", "sup_03", "CNT-SUP-2025-03", "2025-02-01", "2025-02-01", "2026-12-31", 6.65, 4000, "active", "Поставка фоновых и кардио позиций из ЕС"),
         ("cnt_0006", "", "sup_04", "CNT-SUP-2025-04", "2025-03-01", "2025-03-01", "2026-03-01", 6.80, 2500, "expired", "Рамочный контракт Словения"),
     ]
@@ -464,7 +489,7 @@ def _build_contracts(suppliers: pd.DataFrame, carriers: pd.DataFrame, quotes: pd
 
 
 def _make_shipment_row(
-    shp_id: str,
+    shp_idx: int,
     month_str: str,
     sup_id: str,
     cnt_id: str,
@@ -479,7 +504,8 @@ def _make_shipment_row(
     arr_d = disp_d + timedelta(days=transit)
     freight = round(float(rte["freight_per_shipment_usd"]) + qty * float(rte["freight_per_pack_usd"]), 2)
     row = {
-        "shipment_id": shp_id,
+        "shipment_id": f"shp_{shp_idx:04d}",
+        "invoice_number": f"INV-{month_str[:4]}-{shp_idx:03d}",
         "month": month_str,
         "supplier_id": sup_id,
         "contract_id": cnt_id,
@@ -506,12 +532,14 @@ def _make_customs_row(
     cip_uzs: float,
     duty_uzs: float,
     fee_uzs: float,
+    inbound_uzs: float,
     total_qty: int,
     vat_rate: float,
 ) -> dict[str, Any]:
-    landed = round(cip_uzs + duty_uzs + fee_uzs, 2)
+    landed = round(cip_uzs + duty_uzs + fee_uzs + inbound_uzs, 2)
     return {
         "customs_id": f"cus_{cus_idx:04d}",
+        "gtd_number": f"26004/{arr_d.year}-{cus_idx:04d}",
         "shipment_id": shp_id,
         "clearance_date": arr_d.isoformat(),
         "customs_post": customs_post,
@@ -521,7 +549,8 @@ def _make_customs_row(
         "cip_uzs": cip_uzs,
         "duty_uzs": duty_uzs,
         "clearance_fee_uzs": fee_uzs,
-        "vat_uzs": round(landed * vat_rate, 2),
+        "inbound_freight_uzs": inbound_uzs,
+        "vat_uzs": round((cip_uzs + duty_uzs + fee_uzs) * vat_rate, 2),
         "landed_cost_ex_vat_uzs": landed,
         "landed_unit_cost_uzs": round(landed / total_qty, 2),
     }
@@ -543,6 +572,7 @@ def _make_lot_row(
     return {
         "lot_id": f"lot_{lot_seq:04d}",
         "lot_code": f"{prefix}-{month_str.replace('-', '')}-{lot_seq:02d}",
+        "waybill_number": f"РН-{month_str[:4]}-{lot_seq:04d}",
         "shipment_id": shp_id,
         "sku_id": sku_id,
         "manufacture_date": mfg_d.isoformat(),
@@ -571,27 +601,58 @@ def _assemble_shipment_bundle(
     cip_uzs: float,
     duty_uzs: float,
     fee_uzs: float,
+    inbound_uzs: float,
     vat_rate: float,
     sku_group: str,
     lot_seq: int,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, Any], int]:
     shp_id = f"shp_{shp_idx:04d}"
     qty_tot = sum(int(spec["qty"]) for spec in lot_specs)
-    ship_row, _ = _make_shipment_row(shp_id, month_str, sup_id, cnt_id, rte, disp_d, delay, qty_tot, sku_group)
+    ship_row, _ = _make_shipment_row(shp_idx, month_str, sup_id, cnt_id, rte, disp_d, delay, qty_tot, sku_group)
+    cust_row = _make_customs_row(
+        shp_idx, shp_id, arr_d, str(rte["customs_post"]), fx_usd,
+        cip_uzs, duty_uzs, fee_uzs, inbound_uzs, qty_tot, vat_rate,
+    )
     lots: list[dict[str, Any]] = []
     for spec in lot_specs:
+        unit_cost = float(spec.get("unit_cost") or cust_row["landed_unit_cost_uzs"])
         lots.append(
             _make_lot_row(
                 lot_seq, spec["prefix"], month_str, shp_id, spec["sku_id"],
-                spec["mfg_d"], disp_d, arr_d, spec["exp_d"], int(spec["qty"]), float(spec["unit_cost"]),
+                spec["mfg_d"], disp_d, arr_d, spec["exp_d"], int(spec["qty"]), unit_cost,
             )
         )
         lot_seq += 1
-    cust_row = _make_customs_row(
-        shp_idx, shp_id, arr_d, str(rte["customs_post"]), fx_usd,
-        cip_uzs, duty_uzs, fee_uzs, qty_tot, vat_rate,
-    )
     return ship_row, lots, cust_row, lot_seq
+
+
+def _pick_focus_supplier_and_contract(m_idx: int) -> tuple[str, str]:
+    if m_idx % 3 == 2:
+        return "sup_02", ("cnt_0003" if m_idx < 18 else "cnt_0004")
+    return "sup_01", ("cnt_0001" if m_idx < 10 else "cnt_0002")
+
+
+def _focus_lot_specs(
+    rng: np.random.Generator,
+    m_idx: int,
+    qty: int,
+    disp_d: date,
+) -> list[dict[str, Any]]:
+    splits = [qty - 400, 400] if m_idx in (1, 15) else [qty]
+    specs: list[dict[str, Any]] = []
+    for s_idx, l_qty in enumerate(splits):
+        mfg_d = disp_d - timedelta(days=655 if s_idx == 1 else int(rng.integers(45, 85)))
+        specs.append(
+            {
+                "prefix": "KZ",
+                "sku_id": "SKU_CARDIO_01",
+                "qty": l_qty,
+                "mfg_d": mfg_d,
+                "exp_d": mfg_d + timedelta(days=730),
+                "unit_cost": None,
+            }
+        )
+    return specs
 
 
 def _focus_shipment_for_month(
@@ -599,6 +660,7 @@ def _focus_shipment_for_month(
     m_idx: int,
     month_str: str,
     routes: pd.DataFrame,
+    contract_prices: dict[str, float],
     fx_df: pd.DataFrame,
     targets: dict[str, Any],
     lot_seq: int,
@@ -608,33 +670,21 @@ def _focus_shipment_for_month(
     delay = int(rng.integers(0, 3))
     arr_d = disp_d + timedelta(days=int(rte["transit_days"]) + delay)
     qty = int(_FOCUS_MONTHLY_ORDERS[m_idx])
-    sup = "sup_01" if m_idx % 3 != 2 else "sup_02"
-    cnt = "cnt_0001" if m_idx < 10 else ("cnt_0002" if sup == "sup_01" else "cnt_0003")
+    sup, cnt = _pick_focus_supplier_and_contract(m_idx)
 
-    splits = [qty - 400, 400] if m_idx in (1, 15) else [qty]
-    lot_specs = []
-    for s_idx, l_qty in enumerate(splits):
-        mfg_d = disp_d - timedelta(days=655 if s_idx == 1 else int(rng.integers(45, 85)))
-        lot_specs.append(
-            {
-                "prefix": "KZ",
-                "sku_id": "SKU_CARDIO_01",
-                "qty": l_qty,
-                "mfg_d": mfg_d,
-                "exp_d": mfg_d + timedelta(days=730),
-                "unit_cost": float(targets["calc_base_ex_vat_uzs"]),
-            }
-        )
+    fx_usd = _lookup_fx_rate(fx_df, arr_d.isoformat(), "USD")
+    cip_usd = round(qty * contract_prices[cnt] * float(rng.uniform(0.985, 1.025)), 2)
+    cip_uzs = round(cip_usd * fx_usd, 2)
+    duty_uzs = round(cip_uzs * 0.02, 2)
+    clearance_uzs = round(float(rng.uniform(800_000.0, 1_400_000.0)), 2)
+    freight_usd = float(rte["freight_per_shipment_usd"]) + qty * float(rte["freight_per_pack_usd"])
+    inbound_uzs = round(freight_usd * fx_usd + qty * float(rng.uniform(1150.0, 1450.0)), 2)
+    lot_specs = _focus_lot_specs(rng, m_idx, qty, disp_d)
+
     return _assemble_shipment_bundle(
         m_idx * 2 + 1, month_str, sup, cnt, rte, disp_d, delay, arr_d,
-        _lookup_fx_rate(fx_df, arr_d.isoformat(), "USD"),
-        lot_specs,
-        round(float(targets["rn_uzs"]) * qty, 2),
-        round(float(targets["b_uzs"]) * qty, 2),
-        round(float(targets["bx_uzs"]) * qty, 2),
-        float(targets["vat_rate"]),
-        "focus",
-        lot_seq,
+        fx_usd, lot_specs, cip_uzs, duty_uzs, clearance_uzs, inbound_uzs,
+        float(targets["vat_rate"]), "focus", lot_seq,
     )
 
 
@@ -695,7 +745,7 @@ def _bg_shipment_for_month(
         "sup_03" if m_idx % 2 == 0 else "sup_04",
         "cnt_0005" if m_idx % 2 == 0 else "cnt_0006",
         rte, disp_d, delay, arr_d, fx_usd, lot_specs,
-        cip_tot, round(cip_tot * 0.025, 2), round(qty_tot * 1100.0, 2),
+        cip_tot, round(cip_tot * 0.025, 2), round(qty_tot * 1100.0, 2), 0.0,
         vat_rate, "background", lot_seq,
     )
 
@@ -704,6 +754,7 @@ def _build_shipments_lots_customs(
     rng: np.random.Generator,
     months: list[str],
     routes: pd.DataFrame,
+    contracts: pd.DataFrame,
     skus: pd.DataFrame,
     fx_df: pd.DataFrame,
     config: dict[str, Any],
@@ -712,6 +763,7 @@ def _build_shipments_lots_customs(
     targets = config["calibration_targets"]
     vat_rate = float(targets["vat_rate"])
     bg_ids = [s for s in skus["sku_id"] if s != "SKU_CARDIO_01"]
+    contract_prices = {str(r["contract_id"]): float(r["unit_price"]) for _, r in contracts.iterrows()}
 
     ship_rows: list[dict[str, Any]] = []
     lot_rows: list[dict[str, Any]] = []
@@ -720,7 +772,7 @@ def _build_shipments_lots_customs(
 
     for m_idx, month_str in enumerate(months):
         s_a, l_a, c_a, lot_seq = _focus_shipment_for_month(
-            rng, m_idx, month_str, routes, fx_df, targets, lot_seq
+            rng, m_idx, month_str, routes, contract_prices, fx_df, targets, lot_seq
         )
         s_b, l_b, c_b, lot_seq = _bg_shipment_for_month(
             rng, m_idx, month_str, routes, skus, bg_ids, fx_df, vat_rate, lot_seq
@@ -802,7 +854,7 @@ def _process_expiring_writeoffs(
 
 def _record_sku_month_sales(
     lots_state: list[dict[str, Any]],
-    sku_id: str,
+    sku_row: pd.Series,
     month_str: str,
     reg_chan_pairs: list[tuple[str, str]],
     cell_qtys: list[int],
@@ -810,20 +862,39 @@ def _record_sku_month_sales(
     vat_rate: float,
     sale_seq: int,
     sale_rows: list[dict[str, Any]],
+    meta_ctx: dict[str, Any],
 ) -> int:
+    sku_id = str(sku_row["sku_id"])
+    trade_name = str(sku_row["trade_name"])
+    nomenclature_code = str(sku_row["nomenclature_code"])
     unit_price_with_vat = round(unit_price_ex_vat * (1.0 + vat_rate), 2)
+    m_compact = month_str.replace("-", "")
+    reg_map = meta_ctx["region_map"]
+    cp_map = meta_ctx["counterparty_map"]
+    lot_codes = meta_ctx["lot_code_map"]
+
     for (reg_id, ch_name), c_qty in zip(reg_chan_pairs, cell_qtys):
         if c_qty <= 0:
             continue
+        reg_info = reg_map[reg_id]
+        cp_name = cp_map[(reg_id, ch_name)]
         for lot_id, take_qty, unit_cost in _consume_from_lots(lots_state, sku_id, month_str, c_qty):
             sale_rows.append(
                 {
                     "sale_id": f"sal_{sale_seq:05d}",
+                    "doc_number": f"РД-{m_compact}-{sale_seq:05d}",
                     "month": month_str,
                     "region_id": reg_id,
+                    "region_name_ru": reg_info["name_ru"],
+                    "region_name_uz_lat": reg_info["name_uz_lat"],
+                    "region_name_uz_cyr": reg_info["name_uz_cyr"],
                     "channel": ch_name,
+                    "counterparty_name": cp_name,
                     "sku_id": sku_id,
+                    "trade_name": trade_name,
+                    "nomenclature_code": nomenclature_code,
                     "lot_id": lot_id,
+                    "lot_code": lot_codes[lot_id],
                     "qty_packs": int(take_qty),
                     "unit_price_ex_vat_uzs": round(unit_price_ex_vat, 2),
                     "unit_price_with_vat_uzs": unit_price_with_vat,
@@ -851,6 +922,7 @@ def _simulate_sku_month(
     sale_rows: list[dict[str, Any]],
     inv_rows: list[dict[str, Any]],
     wo_rows: list[dict[str, Any]],
+    meta_ctx: dict[str, Any],
 ) -> tuple[int, int]:
     sku_id = str(sku_row["sku_id"])
     received = sum(
@@ -869,8 +941,8 @@ def _simulate_sku_month(
     noisy_w = base_weights * rng.uniform(0.90, 1.10, size=len(base_weights))
     cell_qtys = _allocate_integer_weights(target_sales, noisy_w)
     sale_seq = _record_sku_month_sales(
-        lots_state, sku_id, month_str, reg_chan_pairs, cell_qtys,
-        unit_price_ex_vat, vat_rate, sale_seq, sale_rows,
+        lots_state, sku_row, month_str, reg_chan_pairs, cell_qtys,
+        unit_price_ex_vat, vat_rate, sale_seq, sale_rows, meta_ctx,
     )
     wo_qty = _process_expiring_writeoffs(lots_state, sku_id, month_str, wo_counter, wo_rows)
     closing = available - target_sales - wo_qty
@@ -907,6 +979,15 @@ def _simulate_sales_inventory_writeoffs(
     )
     reg_chan_pairs = [(r["region_id"], c_name) for r in regions for c_name, _ in channels]
     vat_rate = float(config["calibration_targets"]["vat_rate"])
+    meta_ctx = {
+        "region_map": {r["region_id"]: r for r in regions},
+        "lot_code_map": {l["lot_id"]: l["lot_code"] for l in lots_state},
+        "counterparty_map": {
+            (r["region_id"], c_name): generate_counterparty_name(rng, c_name, r["name_ru"])
+            for r in regions
+            for c_name, _ in channels
+        },
+    }
 
     sale_rows: list[dict[str, Any]] = []
     inv_rows: list[dict[str, Any]] = []
@@ -921,7 +1002,7 @@ def _simulate_sales_inventory_writeoffs(
                 rng, m_idx, month_str, sku_row, lots_state,
                 opening_by_sku[sku_row["sku_id"]], registry_events,
                 base_weights, reg_chan_pairs, vat_rate, sale_seq, wo_counter,
-                sale_rows, inv_rows, wo_rows,
+                sale_rows, inv_rows, wo_rows, meta_ctx,
             )
             opening_by_sku[sku_row["sku_id"]] = closing
 
@@ -961,6 +1042,7 @@ def _build_credit(
         rows.append(
             {
                 "credit_id": f"crd_{idx + 1:04d}",
+                "payment_doc_no": f"ПП-{month_str[:4]}-{idx + 1:02d}",
                 "month": month_str,
                 "credit_limit_uzs": limit_uzs,
                 "opening_balance_uzs": opening,
@@ -984,7 +1066,7 @@ def _build_window_focus_costs(
     target_margin: float,
     cost_seq_start: int,
 ) -> tuple[list[dict[str, Any]], int]:
-    """Build exact calibrated 6-category monthly costs for SKU_CARDIO_01 in one regime window."""
+    """Build calibrated 6-category monthly costs for SKU_CARDIO_01 in one regime window."""
     sub_sales = sales[(sales["sku_id"] == "SKU_CARDIO_01") & (sales["month"].isin(months_window))]
     sub_inv = inv[(inv["sku_id"] == "SKU_CARDIO_01") & (inv["month"].isin(months_window))]
     sub_wo = writeoffs[(writeoffs["sku_id"] == "SKU_CARDIO_01") & (writeoffs["month"].isin(months_window))]
@@ -1023,6 +1105,7 @@ def _build_window_focus_costs(
         rows.append(
             {
                 "cost_id": f"cst_{seq:04d}",
+                "cost_doc_no": f"АВР-{m_str[:4]}-{seq:03d}",
                 "month": m_str,
                 "sku_id": "SKU_CARDIO_01",
                 "category": cat,
@@ -1042,6 +1125,7 @@ def _build_window_focus_costs(
         rows.append(
             {
                 "cost_id": f"cst_{seq:04d}",
+                "cost_doc_no": f"АВР-{m_str[:4]}-{seq:03d}",
                 "month": m_str,
                 "sku_id": "SKU_CARDIO_01",
                 "category": "general",
@@ -1060,30 +1144,17 @@ def _build_costs(
     writeoffs: pd.DataFrame,
     credit: pd.DataFrame,
 ) -> pd.DataFrame:
-    targets = config["calibration_targets"]
+    _ = config
     pre_months = months[:10]
     post_months = months[10:]
 
     pre_rows, seq = _build_window_focus_costs(
-        pre_months,
-        sales,
-        inv,
-        writeoffs,
-        credit,
-        float(targets["pre_reform_margin_target"]),
-        1,
+        pre_months, sales, inv, writeoffs, credit, 0.2734, 1,
     )
     post_rows, seq = _build_window_focus_costs(
-        post_months,
-        sales,
-        inv,
-        writeoffs,
-        credit,
-        float(targets["net_margin_ex_vat_target"]),
-        seq,
+        post_months, sales, inv, writeoffs, credit, 0.0243, seq,
     )
 
-    # Background portfolio costs (PORTFOLIO_BG)
     bg_sales = sales[sales["sku_id"] != "SKU_CARDIO_01"].groupby("month")["revenue_ex_vat_uzs"].sum().to_dict()
     bg_wo = writeoffs[writeoffs["sku_id"] != "SKU_CARDIO_01"].groupby("month")["writeoff_cost_uzs"].sum().to_dict()
     cred_by_m = credit.set_index("month")["monthly_interest_uzs"].to_dict()
@@ -1102,6 +1173,7 @@ def _build_costs(
             bg_rows.append(
                 {
                     "cost_id": f"cst_{seq:04d}",
+                    "cost_doc_no": f"АВР-{m_str[:4]}-{seq:03d}",
                     "month": m_str,
                     "sku_id": "PORTFOLIO_BG",
                     "category": cat,
@@ -1146,7 +1218,7 @@ def generate_truth(
     quotes = _build_quotes(rng, suppliers, routes, skus)
     contracts = _build_contracts(suppliers, carriers, quotes)
     shipments, lots_init, customs = _build_shipments_lots_customs(
-        rng, months, routes, skus, fx_df, config
+        rng, months, routes, contracts, skus, fx_df, config
     )
     lots, sales, inv_monthly, writeoffs = _simulate_sales_inventory_writeoffs(
         rng, months, config, skus, lots_init, registry_events

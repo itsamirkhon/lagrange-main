@@ -248,6 +248,12 @@ def test_corrupt_language_mix():
     assert all(out != src for out in outputs)
     assert len(outputs) >= 3
     assert corrupt_language_mix(src, np.random.default_rng(3)) == corrupt_language_mix(src, np.random.default_rng(3))
+    bilingual = "Счёт-фактура Договор Kardiozan г. Ташкент упаковок без НДС"
+    mixed = {corrupt_language_mix(bilingual, np.random.default_rng(s)) for s in range(25)}
+    assert any("Hisobvaraq-faktura" in m or "Shartnoma" in m or "Toshkent shahri" in m for m in mixed)
+    assert any("Қардиозан" in m or "qadoq" in m or "QQSsiz" in m for m in mixed)
+    # Multiple pairs can be replaced in a single call (1-2 occurrences)
+    assert any(sum(tok in m for tok in ("Hisobvaraq-faktura", "Shartnoma", "Қардиозан", "Kardiozann", "Toshkent shahri", "qadoq", "QQSsiz")) >= 2 for m in mixed)
     plain = "Angiokor"
     assert corrupt_language_mix(plain, np.random.default_rng(2)) == "Angiokkor"
     assert corrupt_language_mix("A", np.random.default_rng(0)) == "AA"
@@ -325,18 +331,35 @@ def test_plan_level_corruptions_constraints_l0_to_l4():
         assert p1["junk_files"] == []
 
     # L4: high intensity >= 50%, J1 junk files, explicit recoverable=False entries
+    plan_l3 = plan_level_corruptions("L3", levels["L3"], truth, np.random.default_rng(42))
+    assert plan_l3["summary"]["total_count"] >= 180
+    assert all(cnt >= 10 for cnt in plan_l3["summary"]["by_operator"].values())
+
     plan_l4 = plan_level_corruptions("L4", levels["L4"], truth, np.random.default_rng(42))
     assert plan_l4["target_intensity"] >= 0.50
-    assert len(plan_l4["junk_files"]) >= 2
+    assert len(plan_l4["junk_files"]) >= 5
     assert any(item["operator"] == "J1" for item in plan_l4["planned_corruptions"])
     unrec = [item for item in plan_l4["planned_corruptions"] if item["recoverable"] is False]
-    assert len(unrec) >= 2
+    assert len(unrec) >= 15
     assert all("client" in item["recover_hint"].lower() or "original" in item["recover_hint"].lower() or "клиент" in item["recover_hint"].lower() for item in unrec)
     assert len(plan_l4["omitted_documents"]) >= 1
+    assert plan_l4["summary"]["total_count"] >= 280
     assert plan_l4["summary"]["unrecoverable_count"] == len(unrec)
     assert plan_l4["summary"]["recoverable_count"] == plan_l4["summary"]["total_count"] - len(unrec)
-    assert plan_l4["summary"]["by_operator"]["N1"] >= 3
+    assert plan_l4["summary"]["by_operator"]["N1"] >= 15
     assert sum(plan_l4["summary"]["by_operator"].values()) == plan_l4["summary"]["total_count"]
+
+
+def test_no_internal_truth_ids_in_hints_or_fields():
+    truth = _sample_truth_tables()
+    levels = _sample_level_configs()
+    forbidden = ("SKU_CARDIO_01", "SKU_BG_", "lot_id", "shipment_id", "reg_0002", "reg_0003", "quote_id", "contract_id")
+    for lvl in ("L1", "L2", "L3", "L4"):
+        plan = plan_level_corruptions(lvl, levels[lvl], truth, np.random.default_rng(42))
+        for item in plan["planned_corruptions"]:
+            for tok in forbidden:
+                assert tok not in item["recover_hint"], f"Internal token {tok} leaked in hint: {item['recover_hint']}"
+                assert tok not in item["field"], f"Internal token {tok} leaked in field: {item['field']}"
 
 
 def test_plan_level_corruptions_intensity_increases_monotonically():
@@ -437,6 +460,13 @@ def test_image_messenger_crop_clips_right_or_bottom():
     assert c1.width < base.width or c1.height < base.height
     assert c1.width >= int(base.width * 0.75)
     assert c1.height >= int(base.height * 0.75)
+
+    # Exact target_bbox alignment: right edge cuts strictly inside price bbox (x1 < new_w < x2)
+    price_bbox = (610, 320, 740, 355)
+    for seed in range(15):
+        cropped = apply_messenger_crop(base, np.random.default_rng(seed), target_bbox=price_bbox)
+        assert price_bbox[0] < cropped.width < price_bbox[2]
+        assert cropped.height >= price_bbox[3]
 
 
 def test_ensure_watermark_visible_and_deterministic():

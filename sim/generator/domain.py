@@ -114,6 +114,29 @@ _STREETS: tuple[str, ...] = (
     "ул. Индустриальная",
 )
 
+_COUNTERPARTY_TEMPLATES: dict[str, tuple[str, ...]] = {
+    "distributors": (
+        "ООО «ShifoMed Plus»",
+        "ООО «O'rtaOsiyo Farm»",
+        "ООО «Sog'lom Savdo Opt»",
+        "ООО «Turan Med Trade»",
+        "ООО «BaxtFarm Distribution»",
+    ),
+    "pharmacy_chains": (
+        "Сеть аптек «Dorixona 24»",
+        "Сеть аптек «Salomatlik Pharm»",
+        "Сеть аптек «NurDorixona»",
+        "Сеть аптек «MedLine Apteka»",
+        "Сеть аптек «Avicenna Plus»",
+    ),
+    "hospital_tenders": (
+        "Кардиологический центр ({city})",
+        "Многопрофильная клиника ({city})",
+        "Областной медцентр ({city})",
+        "Госпитальный центр ({city})",
+    ),
+}
+
 
 @dataclass
 class SheetSpec:
@@ -196,3 +219,16 @@ def generate_synthetic_inn(rng: np.random.Generator) -> str:
     """Generate a synthetic tax identifier outside real company patterns."""
     digits = int(rng.integers(100000, 999999))
     return f"000{digits} (SYNTHETIC)"
+
+
+def generate_counterparty_name(
+    rng: np.random.Generator,
+    channel: str,
+    region_name_ru: str = "г. Ташкент",
+) -> str:
+    """Generate a deterministic synthetic Uzbek pharmacy, distributor, or clinic name."""
+    if channel not in _COUNTERPARTY_TEMPLATES:
+        raise ValueError(f"Unknown sales channel: {channel}")
+    template = _pick(rng, _COUNTERPARTY_TEMPLATES[channel])
+    city = region_name_ru.replace("г. ", "").replace("Республика ", "")
+    return f"{template.format(city=city)} (SYNTHETIC)"

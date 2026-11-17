@@ -91,17 +91,22 @@ def build_calibration_report(
     focus_ship_ids = set(lots.loc[lots["sku_id"] == focus_id, "shipment_id"])
     focus_customs = customs.loc[customs["shipment_id"].isin(focus_ship_ids)]
     mean_landed_cost = float(focus_customs["landed_unit_cost_uzs"].mean())
+    std_landed_cost = float(focus_customs["landed_unit_cost_uzs"].std(ddof=0))
 
     return {
         "sku_id": focus_id,
         "calibration_window": f"{period['calibration_start_month']}..{period['end_month']}",
         "pre_reform_window": f"{period['start_month']}..{period['pre_reform_end_month']}",
         "annual_sales_packs": int(post["sales_packs"]),
+        "rn_uzs": float(latest_reg["rn_uzs"]),
+        "b_uzs": float(latest_reg["b_uzs"]),
+        "bx_uzs": float(latest_reg["bx_uzs"]),
         "chchn_with_vat_uzs": float(latest_reg["chchn_with_vat_uzs"]),
         "chun_with_vat_uzs": float(latest_reg["chun_with_vat_uzs"]),
         "wholesale_ex_vat_uzs": float(latest_reg["wholesale_ex_vat_uzs"]),
         "calc_base_ex_vat_uzs": float(latest_reg["calc_base_ex_vat_uzs"]),
         "mean_landed_unit_cost_uzs": round(mean_landed_cost, 2),
+        "landed_unit_cost_std_uzs": round(std_landed_cost, 2),
         "revenue_ex_vat_uzs": post["revenue_ex_vat_uzs"],
         "cogs_ex_vat_uzs": post["cogs_ex_vat_uzs"],
         "operating_costs_uzs": post["operating_costs_uzs"],
@@ -124,10 +129,13 @@ def validate_calibration(report: dict[str, Any], config: dict[str, Any]) -> None
         vol_target * (1.0 + vol_tol),
         "annual_sales_packs",
     )
+    bx_share = float(t.get("bx_share", 0.02))
+    _check_approx(float(report["bx_uzs"]), round(bx_share * float(report["rn_uzs"]), 2), 0.05, "bx_uzs (para.19)")
     _check_approx(float(report["chchn_with_vat_uzs"]), float(t["chchn_with_vat_uzs"]), 0.01, "chchn_with_vat_uzs")
     _check_approx(float(report["chun_with_vat_uzs"]), float(t["chun_with_vat_uzs"]), 0.01, "chun_with_vat_uzs")
     _check_approx(float(report["wholesale_ex_vat_uzs"]), float(t["wholesale_ex_vat_uzs"]), 1.0, "wholesale_ex_vat_uzs")
     _check_approx(float(report["calc_base_ex_vat_uzs"]), float(t["calc_base_ex_vat_uzs"]), 10.0, "calc_base_ex_vat_uzs")
+    _check_bounds(float(report["landed_unit_cost_std_uzs"]), 500.0001, 1e9, "landed_unit_cost_std_uzs")
     _check_bounds(
         float(report["net_margin_ex_vat"]),
         float(t["net_margin_ex_vat_min"]),

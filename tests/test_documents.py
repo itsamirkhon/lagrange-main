@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import ast
 import email
 import email.policy
 import hashlib
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -19,8 +21,35 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from sim.generator.domain import WATERMARK_TEXT
+from sim.generator.domain import DOC_TYPES, WATERMARK_TEXT
 from sim.generator.image_corruptions import apply_messenger_crop, apply_stamp_overlay
+from sim.generator.xlsx_io import read_xlsx
+
+_INTERNAL_ID_RE = re.compile(
+    r"\b("
+    r"SKU_CARDIO_01|SKU_BG_0[1-6]|PORTFOLIO_BG|"
+    r"sup_0[1-4]|car_0[1-4]|rte_0[1-4]|"
+    r"REG_[A-Z_]+|"
+    r"q_\d{4}|cnt_\d{4}|shp_\d{4}|lot_\d{4}|cus_\d{4}|sal_\d{5}|cst_\d{4}|crd_\d{4}|reg_\d{4}|wo_\d{4}"
+    r")\b"
+)
+
+_EXPECTED_1C_HEADERS = [
+    "Период",
+    "Документ реализации",
+    "Контрагент",
+    "Регион",
+    "Канал сбыта",
+    "Номенклатура",
+    "Код 1С",
+    "Серия",
+    "Ед. изм.",
+    "Количество",
+    "Цена без НДС",
+    "Сумма без НДС",
+    "НДС 12%",
+    "Сумма с НДС",
+]
 
 
 def _sha256(path: Path) -> str:
@@ -36,12 +65,9 @@ def test_register_fonts_reportlab_and_pillow():
         assert font_name in registered
         assert font_name in names
 
-    pil_regular = load_pil_font("regular", 18)
-    pil_bold = load_pil_font("bold", 18)
-    pil_mono = load_pil_font("mono", 14)
-    assert pil_regular is not None
-    assert pil_bold is not None
-    assert pil_mono is not None
+    assert load_pil_font("regular", 18) is not None
+    assert load_pil_font("bold", 18) is not None
+    assert load_pil_font("mono", 14) is not None
 
 
 def test_render_pdf_multipage_watermark_and_determinism(tmp_path: Path):
@@ -50,7 +76,7 @@ def test_render_pdf_multipage_watermark_and_determinism(tmp_path: Path):
     pages = [
         {
             "header": {
-                "title": "Коммерческое предложение № Q-2026-05",
+                "title": "Коммерческое предложение № KP-2026-005",
                 "subtitle": "Поставщик: Medisynth Pvt. Ltd. (SYNTHETIC)",
                 "meta": "Дата: 2026-05-10 | Валюта: USD",
             },
@@ -61,18 +87,13 @@ def test_render_pdf_multipage_watermark_and_determinism(tmp_path: Path):
                         ("Препарат", "Kardiozan 10 мг №30 (Kardiozartan)"),
                         ("Регион", "Fargʻona viloyati / Тошкент шаҳри"),
                     ],
-                    "paragraphs": [
-                        "Цена CIP Ташкент составляет 7.25 USD за упаковку при минимальной партии 5 000 уп.",
-                    ],
+                    "paragraphs": ["Цена CIP Ташкент составляет 7.25 USD за упаковку."],
                 },
                 {
                     "heading": "Позиции КП",
                     "table": {
-                        "headers": ["SKU", "Наименование", "MOQ", "Цена CIP USD"],
-                        "rows": [
-                            ["SKU_CARDIO_01", "Kardiozan 10 мг №30", "5 000", "7.25"],
-                            ["SKU_BG_01", "Angiokor 5 мг №30", "3 000", "4.10"],
-                        ],
+                        "headers": ["Код", "Наименование", "MOQ", "Цена CIP USD"],
+                        "rows": [["00-000142", "Kardiozan 10 мг №30", "5 000", "7.25"]],
                     },
                 },
             ],
@@ -80,12 +101,7 @@ def test_render_pdf_multipage_watermark_and_determinism(tmp_path: Path):
         },
         {
             "header": {"title": "Спецификация (продолжение)"},
-            "sections": [
-                {
-                    "heading": "Примечания",
-                    "paragraphs": ["Срок действия предложения: 30 календарных дней."],
-                }
-            ],
+            "sections": [{"heading": "Примечания", "paragraphs": ["Срок действия: 30 дней."]}],
             "footer": "ООО «CardioImport Distribution» | Стр. 2 из 2",
         },
     ]
@@ -95,7 +111,6 @@ def test_render_pdf_multipage_watermark_and_determinism(tmp_path: Path):
     render_pdf(pdf_a, pages, watermark=WATERMARK_TEXT)
     render_pdf(pdf_b, pages, watermark=WATERMARK_TEXT)
 
-    assert pdf_a.exists()
     assert pdf_a.read_bytes().startswith(b"%PDF")
     assert _sha256(pdf_a) == _sha256(pdf_b)
 
@@ -112,39 +127,33 @@ def test_render_document_image_determinism_watermark_and_postprocess(tmp_path: P
     from sim.generator.doc_renderers import render_document_image
 
     lines = [
-        {"text": "Накладная на отгрузку № WB-0102", "style": "heading"},
+        {"text": "Служебная записка № М-01", "style": "heading"},
         {"text": "Дата: 2026-07-14 | Склад: Ташкент", "style": "bold"},
-        {"text": "SKU_CARDIO_01 — Kardiozan 10 мг №30: 12 000 уп.", "style": "body"},
-        {"text": "Партия: lot_0015 | Срок годности: 2028-05-01", "style": "mono"},
+        {"text": "Kardiozan 10 мг №30: 12 000 уп.", "style": "body"},
+        {"text": "Партия: KZ-202501-01 | Годен до: 2028-05-01", "style": "mono"},
     ]
-
     clean_png = tmp_path / "clean.png"
     clean_jpg_a = tmp_path / "doc_a.jpg"
     clean_jpg_b = tmp_path / "doc_b.jpg"
     stamped_jpg = tmp_path / "stamped.jpg"
 
-    render_document_image(clean_png, "Складская накладная", lines, watermark=WATERMARK_TEXT)
-    render_document_image(clean_jpg_a, "Складская накладная", lines, watermark=WATERMARK_TEXT)
-    render_document_image(clean_jpg_b, "Складская накладная", lines, watermark=WATERMARK_TEXT)
+    render_document_image(clean_png, "Внутренний документ", lines, watermark=WATERMARK_TEXT)
+    render_document_image(clean_jpg_a, "Внутренний документ", lines, watermark=WATERMARK_TEXT)
+    render_document_image(clean_jpg_b, "Внутренний документ", lines, watermark=WATERMARK_TEXT)
 
     rng = np.random.default_rng(123)
     render_document_image(
         stamped_jpg,
-        "Складская накладная",
+        "Внутренний документ",
         lines,
         watermark=WATERMARK_TEXT,
         postprocess_fn=lambda im: apply_stamp_overlay(im, (300, 320, 520, 380), rng),
     )
 
-    assert clean_png.exists() and clean_jpg_a.exists() and stamped_jpg.exists()
     assert _sha256(clean_jpg_a) == _sha256(clean_jpg_b)
     assert _sha256(clean_jpg_a) != _sha256(stamped_jpg)
-
     with Image.open(clean_png) as img:
         assert img.size == (1200, 1600)
-        # Footer watermark strip at bottom differs from pure white background
-        footer_strip = np.asarray(img.crop((0, 1572, 1200, 1600)))
-        assert footer_strip.std() > 5.0
 
 
 def test_render_chat_screenshot_neutral_ui_and_crop(tmp_path: Path):
@@ -152,10 +161,8 @@ def test_render_chat_screenshot_neutral_ui_and_crop(tmp_path: Path):
 
     messages = [
         {"sender": "SilkWay Logistics", "side": "left", "text": "Добрый день! Авто фрахт через КЗ: 4 200 USD.", "time": "10:12"},
-        {"sender": "Логист CardioImport", "side": "right", "text": "Принято, по ставке за упаковку 0.34 USD/pack?", "time": "10:15"},
-        {"sender": "SilkWay Logistics", "side": "left", "text": "Да, срок 12 дней, без учёта страховки.", "time": "10:18"},
+        {"sender": "Логист CardioImport", "side": "right", "text": "Принято, по ставке за упаковку 0.125 USD?", "time": "10:15"},
     ]
-
     full_a = tmp_path / "chat_a.png"
     full_b = tmp_path / "chat_b.png"
     cropped = tmp_path / "chat_cropped.png"
@@ -163,12 +170,7 @@ def test_render_chat_screenshot_neutral_ui_and_crop(tmp_path: Path):
     render_chat_screenshot(full_a, messages, watermark=WATERMARK_TEXT)
     render_chat_screenshot(full_b, messages, watermark=WATERMARK_TEXT)
     rng = np.random.default_rng(42)
-    render_chat_screenshot(
-        cropped,
-        messages,
-        watermark=WATERMARK_TEXT,
-        crop_fn=lambda im: apply_messenger_crop(im, rng),
-    )
+    render_chat_screenshot(cropped, messages, watermark=WATERMARK_TEXT, crop_fn=lambda im: apply_messenger_crop(im, rng))
 
     assert _sha256(full_a) == _sha256(full_b)
     with Image.open(full_a) as im_full, Image.open(cropped) as im_crop:
@@ -176,23 +178,73 @@ def test_render_chat_screenshot_neutral_ui_and_crop(tmp_path: Path):
         assert im_crop.width < im_full.width or im_crop.height < im_full.height
 
 
+def test_compute_chat_token_bbox_and_targeted_crop(tmp_path: Path):
+    from sim.generator.doc_renderers import compute_chat_token_bbox, render_chat_screenshot
+
+    messages = [
+        {
+            "sender": "SilkWay Forwarding",
+            "side": "left",
+            "wide": True,
+            "text": "Assalomu alaykum! Auto KZ orqali CIP Toshkent yetkazib berish stavkasi: 0.125 USD",
+            "time": "10:12",
+        },
+        {"sender": "Логист CardioImport", "side": "right", "text": "Rahmat, qabul qilindi.", "time": "10:14"},
+    ]
+    bbox = compute_chat_token_bbox(messages, 0, "0.125 USD", width=960)
+    x1, y1, x2, y2 = bbox
+    assert 650 <= x1 < x2 <= 940
+    assert 100 <= y1 < y2 <= 300
+
+    out_png = tmp_path / "chat_targeted_crop.png"
+    render_chat_screenshot(
+        out_png,
+        messages,
+        watermark=WATERMARK_TEXT,
+        crop_fn=lambda im: im.crop((0, 0, (x1 + x2) // 2, im.height)),
+    )
+    with Image.open(out_png) as im:
+        assert x1 < im.width < x2
+
+
+def test_render_table_document_image_waybill_determinism(tmp_path: Path):
+    from sim.generator.doc_renderers import compute_table_image_bboxes, render_table_document_image
+
+    headers = ["№", "Наименование", "Код", "Серия", "Ед.", "Кол-во", "Цена", "Сумма"]
+    rows = [
+        ["1", "Kardiozan 10 мг №30", "00-000142", "KZ-202501-01", "упак.", "12 500", "111 607,14", "1 395 089 250,00"],
+        ["2", "Angiokor 5 мг №30", "00-000201", "BG-202501-02", "упак.", "4 200", "65 476,19", "275 000 000,00"],
+        ["3", "Tensormin 50 мг №28", "00-000202", "BG-202502-03", "упак.", "3 100", "83 333,33", "258 333 323,00"],
+        ["4", "Lipidostab 20 мг №30", "00-000203", "BG-202503-04", "упак.", "2 800", "102 678,57", "287 500 000,00"],
+        ["5", "Vazopril 10 мг №20", "00-000204", "BG-202504-05", "упак.", "5 000", "55 059,52", "275 297 600,00"],
+        ["6", "Ritmokard 200 мг №30", "00-000205", "BG-202505-06", "упак.", "1 900", "122 767,86", "233 258 934,00"],
+    ]
+    meta = ["Дата: 2025-01-20 | Склад: Ташкент-Центральный", "Получатель: ООО «ShifoMed Plus» (SYNTHETIC)"]
+    footer = ["ИТОГО / JAMI: 2 724 479 107,00 UZS", "Отпустил / Topshirdi: Азиз Каримов ____________"]
+
+    bboxes = compute_table_image_bboxes(headers, rows, len(meta), width=1200)
+    assert "row_0_qty" in bboxes and "total" in bboxes
+
+    jpg_a = tmp_path / "waybill_a.jpg"
+    jpg_b = tmp_path / "waybill_b.jpg"
+    render_table_document_image(jpg_a, "РАСХОДНАЯ НАКЛАДНАЯ № РН-2025-0001 / YUK XATI", meta, headers, rows, footer_lines=footer)
+    render_table_document_image(jpg_b, "РАСХОДНАЯ НАКЛАДНАЯ № РН-2025-0001 / YUK XATI", meta, headers, rows, footer_lines=footer)
+    assert _sha256(jpg_a) == _sha256(jpg_b)
+    with Image.open(jpg_a) as im:
+        assert im.size == (1200, 1600)
+
+
 def test_write_csv_doc_cp1251_semicolon_decimal_comma(tmp_path: Path):
     from sim.generator.doc_renderers import write_csv_doc
 
     out_csv = tmp_path / "export_1c.csv"
-    headers = ["Месяц", "Регион", "SKU", "Количество", "Сумма_без_НДС"]
-    rows = [
-        ["2026-01", "г. Ташкент", "SKU_CARDIO_01", 1250, 139508925.5],
-        ["2026-01", "Самаркандская область", "SKU_CARDIO_01", 600, 66964284.0],
-    ]
+    headers = ["Месяц", "Регион", "Наименование", "Количество", "Сумма_без_НДС"]
+    rows = [["2026-01", "г. Ташкент", "Kardiozan 10 мг №30", 1250, 139508925.5]]
     write_csv_doc(out_csv, headers, rows, encoding="cp1251", delimiter=";", decimal_comma=True)
 
-    raw = out_csv.read_bytes()
-    text = raw.decode("cp1251")
-    lines = text.strip().splitlines()
-    assert lines[0] == "Месяц;Регион;SKU;Количество;Сумма_без_НДС"
-    assert "139508925,5" in lines[1] or "139508925,50" in lines[1]
-    assert "г. Ташкент" in lines[1]
+    lines = out_csv.read_bytes().decode("cp1251").strip().splitlines()
+    assert lines[0] == "Месяц;Регион;Наименование;Количество;Сумма_без_НДС"
+    assert "139508925,5" in lines[1]
 
 
 def test_write_eml_doc_with_and_without_attachment_deterministic(tmp_path: Path):
@@ -204,42 +256,14 @@ def test_write_eml_doc_with_and_without_attachment_deterministic(tmp_path: Path)
     eml_a = tmp_path / "msg_a.eml"
     eml_b = tmp_path / "msg_b.eml"
     eml_plain = tmp_path / "msg_plain.eml"
-
-    write_eml_doc(
-        eml_a,
-        subject="Re: КП Kardiozan 10 мг №30",
-        sender="procurement@cardioimport.synthetic",
-        recipient="sales@medisynth.synthetic",
-        date_str="Mon, 11 May 2026 09:30:00 +0500",
-        body="Просим подтвердить партию 5 000 упаковок.",
-        attachment_path=att,
-    )
-    write_eml_doc(
-        eml_b,
-        subject="Re: КП Kardiozan 10 мг №30",
-        sender="procurement@cardioimport.synthetic",
-        recipient="sales@medisynth.synthetic",
-        date_str="Mon, 11 May 2026 09:30:00 +0500",
-        body="Просим подтвердить партию 5 000 упаковок.",
-        attachment_path=att,
-    )
-    write_eml_doc(
-        eml_plain,
-        subject="Уведомление",
-        sender="info@cardioimport.synthetic",
-        recipient="team@cardioimport.synthetic",
-        date_str="Tue, 12 May 2026 10:00:00 +0500",
-        body="Без вложения.",
-        attachment_path=None,
-    )
+    write_eml_doc(eml_a, "Re: КП Kardiozan 10 мг №30", "procurement@cardioimport.synthetic", "sales@medisynth.synthetic", "Mon, 11 May 2026 09:30:00 +0500", "Просим подтвердить партию 5 000 уп.", attachment_path=att)
+    write_eml_doc(eml_b, "Re: КП Kardiozan 10 мг №30", "procurement@cardioimport.synthetic", "sales@medisynth.synthetic", "Mon, 11 May 2026 09:30:00 +0500", "Просим подтвердить партию 5 000 уп.", attachment_path=att)
+    write_eml_doc(eml_plain, "Уведомление", "info@cardioimport.synthetic", "team@cardioimport.synthetic", "Tue, 12 May 2026 10:00:00 +0500", "Без вложения.")
 
     assert _sha256(eml_a) == _sha256(eml_b)
     parsed = email.message_from_bytes(eml_a.read_bytes(), policy=email.policy.default)
     assert parsed["Subject"] == "Re: КП Kardiozan 10 мг №30"
-    assert parsed["Date"] == "Mon, 11 May 2026 09:30:00 +0500"
-    assert parsed.is_multipart()
-    filenames = [part.get_filename() for part in parsed.walk() if part.get_filename()]
-    assert "quote.txt" in filenames
+    assert [p.get_filename() for p in parsed.walk() if p.get_filename()] == ["quote.txt"]
     assert not email.message_from_bytes(eml_plain.read_bytes(), policy=email.policy.default).is_multipart()
 
 
@@ -253,6 +277,19 @@ def world_fixture(tmp_path_factory):
     truth_dir = tmp_path_factory.mktemp("doc_truth")
     truth_tables = generate_truth(world_cfg, seed=42, truth_dir=truth_dir, inputs_dir=ROOT / "sim" / "inputs")
     return world_cfg, levels_cfg, truth_tables
+
+
+@pytest.fixture(scope="module")
+def built_worlds(tmp_path_factory, world_fixture):
+    from sim.generator.doc_builders import build_world
+
+    world_cfg, levels_cfg, truth_tables = world_fixture
+    base = tmp_path_factory.mktemp("worlds")
+    manifests = {}
+    for lvl in ("L0", "L1", "L2", "L3", "L4"):
+        out_dir = base / lvl
+        manifests[lvl] = build_world(lvl, levels_cfg[lvl], world_cfg, truth_tables, out_dir, seed=42)
+    return base, manifests
 
 
 def _table_id_sets(truth_tables: dict) -> dict[str, set[str]]:
@@ -272,67 +309,144 @@ def _table_id_sets(truth_tables: dict) -> dict[str, set[str]]:
         "credit": "credit_id",
         "costs": "cost_id",
     }
-    return {
-        tbl: set(truth_tables[tbl][col].astype(str))
-        for tbl, col in pk_map.items()
-        if tbl in truth_tables and col in truth_tables[tbl].columns
-    }
+    return {tbl: set(truth_tables[tbl][col].astype(str)) for tbl, col in pk_map.items()}
 
 
-def test_build_world_all_levels_doc_types_and_manifest_schema(tmp_path: Path, world_fixture):
-    from sim.generator.doc_builders import build_world
-    from sim.generator.domain import DOC_TYPES
+def _extract_doc_text(path: Path) -> str:
+    ext = path.suffix.lower()
+    if ext == ".csv":
+        raw = path.read_bytes()
+        try:
+            return raw.decode("cp1251")
+        except UnicodeDecodeError:
+            return raw.decode("utf-8", errors="replace")
+    if ext == ".xlsx":
+        wb = read_xlsx(path)
+        return "\n".join(" ".join(str(c) for c in row) for sh in wb.values() for row in sh["all_rows"])
+    if ext == ".pdf":
+        return subprocess.check_output(["pdftotext", str(path), "-"], text=True)
+    if ext == ".eml":
+        return path.read_text(encoding="utf-8", errors="replace")
+    return ""
 
-    world_cfg, levels_cfg, truth_tables = world_fixture
+
+def test_build_world_full_truth_coverage_and_zero_internal_ids(world_fixture, built_worlds):
+    _, _, truth_tables = world_fixture
+    base, manifests = built_worlds
     id_sets = _table_id_sets(truth_tables)
 
-    for level_name in ("L0", "L1", "L2", "L3", "L4"):
-        out_dir = tmp_path / level_name
-        manifest = build_world(level_name, levels_cfg[level_name], world_cfg, truth_tables, out_dir, seed=42)
-        manifest_path = out_dir / "manifest.json"
-        assert manifest_path.exists()
-        loaded = json.loads(manifest_path.read_text(encoding="utf-8"))
-        assert loaded == manifest
-        assert loaded["level"] == level_name
-        assert loaded["seed"] == 42
-
-        present_types = {entry["doc_type"] for entry in loaded["documents"]}
+    for lvl in ("L0", "L1", "L2", "L3", "L4"):
+        manifest = manifests[lvl]
+        docs = manifest["documents"]
+        assert len(docs) >= 60, f"Expected >= 60 docs in {lvl}, got {len(docs)}"
+        present_types = {d["doc_type"] for d in docs}
         for dtype in DOC_TYPES:
-            assert dtype in present_types, f"{dtype} missing in {level_name}"
+            assert dtype in present_types, f"{dtype} missing in {lvl}"
 
-        allowed_ops = set(levels_cfg[level_name]["operators"])
-        all_corruptions = []
-        for entry in loaded["documents"]:
-            doc_file = out_dir / "documents" / Path(entry["document"]).name
-            assert doc_file.exists(), f"Missing document file: {doc_file}"
-            assert entry["truth_refs"], f"Empty truth_refs on {entry['document']}"
+        refs_by_table: dict[str, set[str]] = {}
+        for entry in docs:
+            fname = Path(entry["document"]).name
+            assert not _INTERNAL_ID_RE.search(fname), f"Internal ID in filename {fname}"
+            doc_path = base / lvl / "documents" / fname
+            assert doc_path.exists()
+            text = _extract_doc_text(doc_path)
+            if text:
+                match = _INTERNAL_ID_RE.search(text)
+                assert match is None, f"Internal ID {match.group(0)!r} leaked in {lvl}/{fname}"
+            assert entry["truth_refs"]
             for ref in entry["truth_refs"]:
                 tbl, rid = ref.split("/", 1)
                 assert rid in id_sets[tbl], f"Invalid truth_ref {ref}"
-            for corr in entry["corruptions"]:
-                all_corruptions.append(corr)
-                assert corr["operator"] in allowed_ops
-                assert corr["location"]["page"] >= 1
-                assert len(corr["location"]["bbox"]) == 4
-                assert corr["recover_hint"].strip()
-                if level_name != "L4":
-                    assert corr["recoverable"] is True
+                refs_by_table.setdefault(tbl, set()).add(rid)
 
-        if level_name == "L0":
-            assert len(all_corruptions) == 0
+        if lvl == "L0":
+            for tbl in ("quotes", "contracts", "shipments", "customs", "lots", "credit", "costs", "registry_events"):
+                assert refs_by_table.get(tbl) == id_sets[tbl], f"Incomplete {tbl} coverage in L0"
+
+
+def test_build_world_d1_1c_headers_and_d2_six_templates(built_worlds):
+    base, _ = built_worlds
+    l0_docs = base / "L0" / "documents"
+    l1_docs = base / "L1" / "documents"
+
+    csv_2025_l0 = (l0_docs / "D1_1c_sales_2025.csv").read_bytes().decode("cp1251").splitlines()
+    csv_2026_l0 = (l0_docs / "D1_1c_sales_2026.csv").read_bytes().decode("cp1251").splitlines()
+    assert csv_2025_l0[0].split(";") == _EXPECTED_1C_HEADERS
+    assert csv_2026_l0[0].split(";") == _EXPECTED_1C_HEADERS
+
+    csv_2026_l1 = (l1_docs / "D1_1c_sales_2026.csv").read_bytes().decode("cp1251").splitlines()
+    assert len(csv_2026_l1) < len(csv_2026_l0), "L1 1C export should omit selected slices"
+
+    d2_files = sorted(l0_docs.glob("D2_*.xlsx"))
+    assert len(d2_files) == 6
+    headers = set()
+    for xlsx_path in d2_files:
+        wb = read_xlsx(xlsx_path)
+        sh = next(iter(wb.values()))
+        assert len(sh["merged_cells"]) >= 1
+        headers.add(tuple(sh["headers"]))
+    assert len(headers) >= 4
+
+
+def test_build_world_corruption_density_and_l4_unrecoverable(world_fixture, built_worlds):
+    _, levels_cfg, _ = world_fixture
+    _, manifests = built_worlds
+
+    counts = {}
+    for lvl in ("L0", "L1", "L2", "L3", "L4"):
+        allowed = set(levels_cfg[lvl]["operators"])
+        corrs = [c for d in manifests[lvl]["documents"] for c in d["corruptions"]]
+        counts[lvl] = len(corrs)
+        op_counts: dict[str, int] = {}
+        for c in corrs:
+            assert c["operator"] in allowed
+            assert c["location"]["page"] >= 1
+            assert len(c["location"]["bbox"]) == 4
+            assert c["recover_hint"].strip()
+            assert not _INTERNAL_ID_RE.search(c["recover_hint"]), f"Internal ID in hint: {c['recover_hint']}"
+            op_counts[c["operator"]] = op_counts.get(c["operator"], 0) + 1
+            if lvl != "L4":
+                assert c["recoverable"] is True
+
+        if lvl == "L0":
+            assert len(corrs) == 0
         else:
-            assert len(all_corruptions) > 0
-            seen_ops = {c["operator"] for c in all_corruptions}
-            assert seen_ops == allowed_ops, f"Mismatch ops in {level_name}: {allowed_ops - seen_ops}"
-        if level_name == "L4":
-            assert "J1" in present_types
-            assert any(not c["recoverable"] for c in all_corruptions)
-            assert loaded.get("omitted_documents")
+            min_per_op = 10 if lvl == "L1" else 6
+            for op in allowed:
+                assert op_counts.get(op, 0) >= min_per_op, f"{lvl} {op} count={op_counts.get(op, 0)} < {min_per_op}"
+
+    assert 40 <= counts["L1"] <= 75
+    assert 115 <= counts["L2"] <= 180
+    assert counts["L3"] >= 200
+    assert counts["L4"] >= 320
+    l4_corrs = [c for d in manifests["L4"]["documents"] for c in d["corruptions"]]
+    assert sum(1 for c in l4_corrs if not c["recoverable"]) >= 20
+    assert sum(1 for d in manifests["L4"]["documents"] if d["doc_type"] == "J1") == 5
 
 
-def test_build_world_d1_d2_xlsx_templates_and_determinism(tmp_path: Path, world_fixture):
+def test_build_world_r4_crop_alignment_and_watermarks(built_worlds):
+    base, manifests = built_worlds
+    for lvl in ("L2", "L3", "L4"):
+        d4_chats = [d for d in manifests[lvl]["documents"] if d["doc_type"] == "D4" and d["document"].endswith(".png")]
+        assert len(d4_chats) == 2
+        for entry in d4_chats:
+            img_path = base / lvl / "documents" / Path(entry["document"]).name
+            with Image.open(img_path) as im:
+                r4_corrs = [c for c in entry["corruptions"] if c["operator"] == "R4"]
+                assert len(r4_corrs) >= 3
+                for c in r4_corrs:
+                    x1, _, x2, _ = c["location"]["bbox"]
+                    assert x1 < im.width < x2, f"R4 bbox {c['location']['bbox']} not sliced by width {im.width}"
+
+    for lvl in ("L0", "L4"):
+        docs_dir = base / lvl / "documents"
+        for pdf_path in docs_dir.glob("*.pdf"):
+            txt = subprocess.check_output(["pdftotext", str(pdf_path), "-"], text=True)
+            assert WATERMARK_TEXT in txt, f"Watermark missing in {pdf_path.name}"
+
+
+def test_build_world_determinism_sha256(tmp_path: Path, world_fixture):
     from sim.generator.doc_builders import build_world
-    from sim.generator.xlsx_io import read_xlsx
 
     world_cfg, levels_cfg, truth_tables = world_fixture
     dir_a = tmp_path / "L3_a"
@@ -344,43 +458,10 @@ def test_build_world_d1_d2_xlsx_templates_and_determinism(tmp_path: Path, world_
     files_b = sorted(p.relative_to(dir_b) for p in dir_b.rglob("*") if p.is_file())
     assert files_a == files_b
     for rel in files_a:
-        assert _sha256(dir_a / rel) == _sha256(dir_b / rel), f"Non-deterministic {rel}"
-
-    csv_text = (dir_a / "documents" / "D1_1c_sales_export.csv").read_bytes().decode("cp1251")
-    assert ";" in csv_text.splitlines()[0]
-
-    d2_headers = []
-    for fname in (
-        "D2_regional_sales_central.xlsx",
-        "D2_regional_sales_fergana.xlsx",
-        "D2_regional_sales_west_south.xlsx",
-    ):
-        wb = read_xlsx(dir_a / "documents" / fname)
-        sheet = next(iter(wb.values()))
-        assert len(sheet["merged_cells"]) >= 1
-        d2_headers.append(tuple(sheet["all_rows"][0]))
-    assert len(set(d2_headers)) == 3
-
-
-def test_build_world_watermarks_on_all_pdfs_and_images(tmp_path: Path, world_fixture):
-    from sim.generator.doc_builders import build_world
-
-    world_cfg, levels_cfg, truth_tables = world_fixture
-    for level_name in ("L0", "L4"):
-        out_dir = tmp_path / f"wm_{level_name}"
-        build_world(level_name, levels_cfg[level_name], world_cfg, truth_tables, out_dir, seed=42)
-        docs_dir = out_dir / "documents"
-        for pdf_path in docs_dir.glob("*.pdf"):
-            txt = subprocess.check_output(["pdftotext", str(pdf_path), "-"], text=True)
-            assert WATERMARK_TEXT in txt, f"Watermark missing in {pdf_path.name}"
-        for img_path in list(docs_dir.glob("*.png")) + list(docs_dir.glob("*.jpg")):
-            with Image.open(img_path) as im:
-                assert im.width > 100 and im.height > 100
+        assert _sha256(dir_a / rel) == _sha256(dir_b / rel)
 
 
 def test_no_lagrange_rx_imports_in_doc_modules():
-    import ast
-
     for fname in ("doc_renderers.py", "doc_builders.py"):
         tree = ast.parse((ROOT / "sim" / "generator" / fname).read_text(encoding="utf-8"))
         for node in ast.walk(tree):

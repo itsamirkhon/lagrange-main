@@ -191,13 +191,26 @@ def apply_handwritten_correction(
     return out
 
 
-def apply_messenger_crop(img: Image.Image, rng: np.random.Generator) -> Image.Image:
-    """Clip right and/or bottom edges of a messenger screenshot (R4)."""
+def apply_messenger_crop(
+    img: Image.Image,
+    rng: np.random.Generator,
+    target_bbox: tuple[int, int, int, int] | None = None,
+) -> Image.Image:
+    """Clip right/bottom edges of a messenger screenshot, slicing through target_bbox if given (R4)."""
     w, h = img.size
-    crop_right = int(w * float(rng.uniform(0.05, 0.12)))
     crop_bottom = int(h * float(rng.uniform(0.03, 0.09)))
-    new_w = max(int(w * 0.78), w - crop_right)
     new_h = max(int(h * 0.80), h - crop_bottom)
+    if target_bbox is not None:
+        x1, _, x2, y2 = target_bbox
+        span = x2 - x1
+        low = max(4, span // 4)
+        high = max(low + 1, (span * 2) // 3)
+        cut = max(4, min(span // 2, int(rng.integers(low, high)))) if span >= 10 else max(1, span // 2)
+        new_w = max(1, min(w - 1, x1 + cut))
+        new_h = max(new_h, min(h, y2 + 24))
+    else:
+        crop_right = int(w * float(rng.uniform(0.05, 0.12)))
+        new_w = max(int(w * 0.78), w - crop_right)
     return img.crop((0, 0, new_w, new_h)).convert("RGB")
 
 

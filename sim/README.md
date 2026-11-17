@@ -64,8 +64,8 @@ sim/
     world.yaml              # Company, period (22 months), focus & background SKUs, calibration targets, 14 UZ regions, channels
     levels.yaml             # Chaos levels L0..L4, intensity ranges, allow_unrecoverable, active operators
   inputs/
-    fx_cbu.csv              # CBU Uzbekistan FX rates (USD, EUR, RUB -> UZS) for 2025-01-01..2026-10-31
-    registry_sku.json       # Educational Order #3735 reference price registry record for SKU_CARDIO_01
+    fx_cbu.csv              # 405 real CBU.uz archive FX rows (USD, EUR, RUB -> UZS) for 2025-01-01..2026-10-31
+    registry_sku.json       # Educational Order #3735 reference price registry record for Kardiozan (Rn, B, Bx=2%*Rn)
   truth/                    # HIDDEN from product: *.parquet + *.json truth tables + calibration_report.json
   worlds/
     L0/..L4/
@@ -84,6 +84,7 @@ sim/
     doc_renderers.py        # Deterministic PDF (invariant=1), PNG/JPG, neutral chat UI, cp1251 CSV, EML renderers
     doc_builders.py         # D1..D13 (+J1) multi-level document builder & manifest writer
   tools/
+    fetch_cbu_fx.py         # CBU.uz archive API fetcher (`python3 -m sim.tools.fetch_cbu_fx`)
     ub_quality_gate.py      # /ub-mode Crapper, Dryer, and AST Mutator runner
   ui/
     __main__.py             # Web UI CLI (`python3 -m sim.ui --host 127.0.0.1 --port 8080`)
@@ -102,8 +103,8 @@ sim/
 | **Reference Pricing Rules (Order #3735)** | **Real rules** | Uzbekistan Ministry of Health Order #3735 (para. 19–20): calculation base (`Rn + B + Bx`), wholesale markup cap (`+15%`), retail markup cap (`+20%`), VAT (`12%`). |
 | **Calibration Anchor Numbers** | **Real case targets** | `docs/SIMULATION.md` Section 3.3: `annual_sales ≈ 150,000 ±3%`, `ChChN = 150,000 UZS`, `ChUN = 125,000 UZS`, `wholesale_ex_vat = 111,607.14 UZS`, `calc_base = 97,049.69 UZS`, `net_margin ∈ [2%, 3%]`, `pre_reform_margin ∈ [25%, 30%]`. |
 | **Uzbekistan Geography** | **Real** | All 14 administrative regions of Uzbekistan (13 regions + Tashkent city) in Russian, Uzbek Latin, and Uzbek Cyrillic (`sim/config/world.yaml`). |
-| **FX Rates (`sim/inputs/fx_cbu.csv`)** | **Real-sourced schedule** | Central Bank of Uzbekistan (`https://cbu.uz/ru/arkhiv-kursov-valyut/`) series for `USD`, `EUR`, `RUB` → `UZS` across `2025-01-01`..`2026-10-31`. |
-| **Company, SKUs, Counterparties, Documents** | **Synthetic** | Fictional importer (`ООО «CardioImport Distribution»`), fictional INN (`000000000 (SYNTHETIC)`), fictional focus SKU (`Kardiozan 10 мг №30`, `SKU_CARDIO_01`), 6 background SKUs (`SKU_BG_01..06`), fictional suppliers/carriers/people/addresses. Every PDF and image carries `"УЧЕБНЫЙ ОБРАЗЕЦ / SYNTHETIC"`. |
+| **FX Rates (`sim/inputs/fx_cbu.csv`)** | **Real CBU.uz archive** | 405 official Central Bank of Uzbekistan archive rows fetched via `python3 -m sim.tools.fetch_cbu_fx` (`https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/<date>/`) for `USD`, `EUR`, `RUB` → `UZS` across `2025-01-01`..`2026-10-31`. |
+| **Company, SKUs, Counterparties, Documents** | **Synthetic (zero internal ID leakage)** | Fictional importer (`ООО «CardioImport Distribution»`), synthetic INN (`000000000 (SYNTHETIC)`), focus SKU (*Kardiozan 10 мг №30*, 1C code `00-000142`), 6 background SKUs (`00-000201..206`), ~72–83 documents per world using only human business numbers (zero internal `SKU_*`/`q_*`/`shp_*`/`lot_*` IDs in documents). Every PDF and image carries `"УЧЕБНЫЙ ОБРАЗЕЦ / SYNTHETIC"`. |
 
 ---
 
@@ -137,10 +138,10 @@ sim/
 ## 5. Domain Glossary
 
 - **Focus SKU (`SKU_CARDIO_01`)**: Primary prescription cardiology product (*Kardiozan 10 мг №30*, INN *Kardiozartan*) subject to Order #3735 price caps and margin calibration.
-- **Rn (Референтная цена)**: Registered reference CIP price in UZS (`93,500.00 UZS`).
-- **B (Таможенная пошлина и сборы)**: Customs duty and clearance charges per pack (`2,349.69 UZS`).
-- **Bx (Прочие расходы до склада)**: Inbound logistics/other allowable expenses (`1,200.00 UZS`).
-- **Расчётная база (`calc_base_ex_vat_uzs`)**: `Rn + B + Bx` per Order #3735 para. 19 (`97,049.69 UZS`).
+- **Rn (Референтная цена)**: Registered reference CIP price in UZS (`93,317.00 UZS`).
+- **B (Таможенная пошлина и сборы)**: Customs duty and clearance charges per pack (`1,866.35 UZS`, ≈2%).
+- **Bx (Прочие расходы до склада)**: Inbound logistics/other allowable expenses (`1,866.34 UZS` = `2%` of `Rn` per Order #3735 para. 19).
+- **Расчётная база (`calc_base_ex_vat_uzs`)**: `Rn + B + Bx` per Order #3735 para. 19 (`97,049.69 UZS`); actual per-shipment landed cost varies organically around this anchor (`std > 500` UZS/pack).
 - **ChUN (Чекланган улгуржи нарх)**: Maximum wholesale price **including 12% VAT** (`125,000.00 UZS`; ex-VAT ceiling `111,607.14 UZS` at `+15%` wholesale markup cap).
 - **ChChN (Чекланган чакана нарх)**: Maximum retail price **including 12% VAT** (`150,000.00 UZS` at `+20%` retail markup cap).
 - **Pre-reform period (`2025-01`..`2025-10`)**: Historical 10-month window prior to the price cap revision (`25–30%` net margin).

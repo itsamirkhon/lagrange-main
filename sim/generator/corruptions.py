@@ -41,8 +41,21 @@ _RU_MONTHS_SHORT: tuple[str, ...] = (
 )
 
 _LANG_MIX_REPLACEMENTS: tuple[tuple[str, str], ...] = (
-    ("Kardiozan", "Кардиозан"),
+    ("Kardiozan", "Қардиозан"),
     ("Kardiozan", "Kardiozann"),
+    ("Накладная", "Yuk xati"),
+    ("Накладная", "Юк хати"),
+    ("Счёт-фактура", "Hisobvaraq-faktura"),
+    ("Договор", "Shartnoma"),
+    ("упаковок", "qadoq"),
+    ("без НДС", "QQSsiz"),
+    ("с НДС", "ҚҚС билан"),
+    ("г. Ташкент", "Toshkent shahri"),
+    ("Ташкентская область", "Toshkent viloyati"),
+    ("Ферганская область", "Farg'ona viloyati"),
+    ("Самаркандская область", "Самарқанд вилояти"),
+    ("Андижанская область", "Andijon viloyati"),
+    ("Бухарская область", "Buxoro viloyati"),
     ("Toshkent", "Тошкент"),
     ("viloyati", "вилояти"),
     ("Farg'ona", "Фарғона"),
@@ -58,20 +71,39 @@ _OPERATOR_BLUEPRINTS: dict[str, dict[str, str]] = {
     "C2": {"doc_type": "D7", "table": "customs", "field": "cip_uzs", "hint": "Convert USD CIP value using CBU rate on declaration date in D5/D6"},
     "C3": {"doc_type": "D7", "table": "customs", "field": "landed_cost_ex_vat_uzs", "hint": "Recompute UZS landed cost using CBU FX rate on GTD date"},
     "V1": {"doc_type": "D4", "table": "quotes", "field": "unit_price", "hint": "Verify VAT status (12%) against D5 contract terms"},
-    "U1": {"doc_type": "D8", "table": "lots", "field": "initial_qty", "hint": "Convert blisters/boxes to packs using SKU pack_blisters=3, box_packs=10"},
-    "L1": {"doc_type": "D2", "table": "sales", "field": "region_name", "hint": "Match mixed Latin/Cyrillic region and SKU spelling to registry"},
+    "U1": {"doc_type": "D8", "table": "lots", "field": "initial_qty", "hint": "Convert blisters/boxes to packs using Kardiozan 10 мг №30 (3 blisters/pack, 10 packs/box)"},
+    "L1": {"doc_type": "D2", "table": "sales", "field": "region_name", "hint": "Match mixed Latin/Cyrillic region and Kardiozan 10 мг №30 spelling to registry"},
     "X1": {"doc_type": "D3", "table": "contracts", "field": "min_order_qty", "hint": "Signed D5 contract MOQ supersedes preliminary D3 supplier quote"},
     "X2": {"doc_type": "D5", "table": "contracts", "field": "signed_date", "hint": "Use latest dated D5 addendum v2 matching D6 invoice terms"},
-    "S1": {"doc_type": "D13", "table": "registry_events", "field": "chchn_with_vat_uzs", "hint": "Use post-revision Order #3735 price effective 2025-11 in D13 CSV"},
+    "S1": {"doc_type": "D13", "table": "registry_events", "field": "chchn_with_vat_uzs", "hint": "Use post-revision Order #3735 price from выписка реестра № RE-3735-2025-11 in D13 CSV"},
     "M1": {"doc_type": "D2", "table": "sales", "field": "qty_packs", "hint": "Recover missing regional slice from D1 1C export and D9 stock delta"},
-    "D1x": {"doc_type": "D8", "table": "shipments", "field": "shipment_id", "hint": "Deduplicate repeated waybill by matching lot_id and dispatch_date in D9"},
+    "D1x": {"doc_type": "D8", "table": "shipments", "field": "waybill_number", "hint": "Deduplicate repeated накладная склада by matching серия партии и дата отгрузки in D9"},
     "A1": {"doc_type": "D10", "table": "credit", "field": "monthly_interest_uzs", "hint": "Recompute column total from individual line items in D10"},
-    "R1": {"doc_type": "D8", "table": "shipments", "field": "qty_packs", "hint": "Verify scanned waybill quantities against D9 warehouse lot ledger"},
-    "R2": {"doc_type": "D8", "table": "lots", "field": "initial_qty", "hint": "Confirm stamped waybill lot quantity in D9 stock XLSX"},
+    "R1": {"doc_type": "D8", "table": "shipments", "field": "qty_packs", "hint": "Verify scanned накладная склада quantities against D9 warehouse lot ledger"},
+    "R2": {"doc_type": "D8", "table": "lots", "field": "initial_qty", "hint": "Confirm stamped waybill batch quantity in D9 stock XLSX"},
     "R3": {"doc_type": "D11", "table": "costs", "field": "amount_uzs", "hint": "Reconcile handwritten memo adjustment with D10 payments registry"},
     "R4": {"doc_type": "D4", "table": "quotes", "field": "unit_price", "hint": "Verify clipped chat quote against D4 carrier rates XLSX"},
-    "J1": {"doc_type": "J1", "table": "quotes", "field": "irrelevant_file", "hint": "Ignore unrelated promotional/blank file not referencing SKU_CARDIO_01"},
+    "J1": {"doc_type": "J1", "table": "quotes", "field": "irrelevant_file", "hint": "Ignore unrelated promotional/blank file not referencing Kardiozan 10 мг №30"},
 }
+
+_L4_UNRECOVERABLE_TEMPLATES: tuple[tuple[str, str, str, str, str], ...] = (
+    ("M1", "D1", "sales", "monthly_1c_sales_2026_05", "Missing 2026-05 1C sales archive; request original 1C export from client"),
+    ("M1", "D1", "sales", "monthly_1c_sales_2026_06", "Missing 2026-06 1C sales archive; request original 1C export from client"),
+    ("M1", "D1", "sales", "monthly_1c_sales_2026_07", "Missing 2026-07 1C sales archive; request original 1C export from client"),
+    ("M1", "D1", "sales", "monthly_1c_sales_2026_08", "Missing 2026-08 1C sales archive; request original 1C export from client"),
+    ("M1", "D2", "sales", "regional_sales_fergana_2026_08", "Missing 2026-08 Fergana regional report; request original workbook from client"),
+    ("M1", "D2", "sales", "regional_sales_samarkand_2026_09", "Missing 2026-09 Samarkand regional report; request original workbook from client"),
+    ("M1", "D2", "sales", "regional_sales_bukhara_2026_10", "Missing 2026-10 Bukhara regional report; request original workbook from client"),
+    ("M1", "D2", "sales", "regional_sales_tashkent_2026_07", "Missing 2026-07 Tashkent regional report; request original workbook from client"),
+    ("R1", "D8", "lots", "waybill_scan_batch_01_qty", "Scan severely blurred/occluded; request original paper накладная склада from client"),
+    ("R1", "D8", "lots", "waybill_scan_batch_02_qty", "Scan overexposed across Kardiozan 10 мг №30 line; request original paper waybill from client"),
+    ("R1", "D8", "shipments", "waybill_scan_batch_03_total", "Scan shadowed and illegible; request original signed waybill from client"),
+    ("R2", "D8", "lots", "waybill_stamp_occluded_price", "Opaque seal covers sole unit price copy; request original waybill from client"),
+    ("M1", "D11", "costs", "memo_page_2_marketing", "Second page of handwritten memo missing; request original document from client"),
+    ("M1", "D11", "costs", "memo_page_2_logistics", "Logistics adjustment memo torn at total line; request original document from client"),
+    ("M1", "D5", "contracts", "contract_annex_pricing_page", "Missing pricing annex page in scanned contract; request original signed annex from client"),
+    ("R4", "D4", "quotes", "chat_screenshot_clipped_tariff", "Messenger screenshot clipped carrier rate digits with no backup; request original quote from client"),
+)
 
 
 def corrupt_number(val: float | int, rng: np.random.Generator) -> str:
@@ -209,8 +241,10 @@ def corrupt_language_mix(text: str, rng: np.random.Generator) -> str:
     mutated = str(text)
     candidates = [pair for pair in _LANG_MIX_REPLACEMENTS if pair[0] in mutated]
     if candidates:
-        src, dst = candidates[int(rng.integers(0, len(candidates)))]
-        mutated = mutated.replace(src, dst, 1)
+        swaps = min(len(candidates), int(rng.integers(1, 3)))
+        for idx in rng.permutation(len(candidates))[:swaps]:
+            src, dst = candidates[int(idx)]
+            mutated = mutated.replace(src, dst, 1)
     if mutated == text:
         pos = int(rng.integers(0, max(1, len(mutated) - 1)))
         mutated = f"{mutated[:pos + 1]}{mutated[pos]}{mutated[pos + 1:]}"
@@ -297,7 +331,7 @@ def _build_operator_specs(
     rng: np.random.Generator,
 ) -> list[dict[str, Any]]:
     """Generate deterministic recoverable corruption specs for active operators."""
-    reps = max(1, int(round(intensity * 6)))
+    reps = max(1, int(round(intensity * 30)))
     specs: list[dict[str, Any]] = []
     for op_id in active_ops:
         if op_id not in OPERATORS_CATALOG:
@@ -320,6 +354,15 @@ def _build_operator_specs(
     return specs
 
 
+_JUNK_FILE_TEMPLATES: tuple[tuple[str, str, str], ...] = (
+    ("J1_junk_promo_flyer.pdf", "promo_flyer", "Irrelevant promotional flyer; ignore during ingest"),
+    ("J1_junk_unrelated_catalog.csv", "unrelated_sku_catalog", "Unrelated OTC catalog; ignore during ingest"),
+    ("J1_junk_blank_scan.jpg", "blank_scan", "Blank/noisy scanner sheet; ignore during ingest"),
+    ("J1_junk_office_receipt.pdf", "office_receipt", "Irrelevant stationery receipt; ignore during ingest"),
+    ("J1_junk_foreign_pricelist.csv", "foreign_pricelist", "Unrelated veterinary price list; ignore during ingest"),
+)
+
+
 def _add_l4_unrecoverable_and_junk(
     items: list[dict[str, Any]],
     refs: dict[str, list[str]],
@@ -327,49 +370,23 @@ def _add_l4_unrecoverable_and_junk(
     rng: np.random.Generator,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Append L4 unrecoverable omissions/degradations and J1 junk files."""
+    fallbacks = {"sales": "sales/sale_0001", "lots": "lots/lot_0001", "costs": "costs/cst_0001"}
+    for idx, (op_id, doc_type, table_name, field, hint) in enumerate(_L4_UNRECOVERABLE_TEMPLATES):
+        table_refs = refs.get(table_name) or [fallbacks.get(table_name, f"{table_name}/row_0001")]
+        items.append({
+            "operator": op_id,
+            "doc_type": doc_type,
+            "field": field,
+            "truth_ref": table_refs[idx % len(table_refs)],
+            "recoverable": False,
+            "recover_hint": hint,
+            "variant_seed": int(rng.integers(0, 1_000_000)),
+        })
+
     sales_ref = (refs.get("sales") or ["sales/sale_0001"])[-1]
-    lot_ref = (refs.get("lots") or ["lots/lot_0001"])[0]
-    cost_ref = (refs.get("costs") or ["costs/cst_0001"])[0]
-
-    unrecoverable_specs = [
-        {
-            "operator": "M1",
-            "doc_type": "D2",
-            "field": "monthly_sales_2026_08",
-            "truth_ref": sales_ref,
-            "recoverable": False,
-            "recover_hint": "Missing 2026-08 sales export; request original regional report from client",
-            "variant_seed": int(rng.integers(0, 1_000_000)),
-        },
-        {
-            "operator": "R1",
-            "doc_type": "D8",
-            "field": "qty_packs",
-            "truth_ref": lot_ref,
-            "recoverable": False,
-            "recover_hint": "Scan severely blurred/occluded; request original paper waybill from client warehouse",
-            "variant_seed": int(rng.integers(0, 1_000_000)),
-        },
-        {
-            "operator": "M1",
-            "doc_type": "D11",
-            "field": "memo_page_2",
-            "truth_ref": cost_ref,
-            "recoverable": False,
-            "recover_hint": "Second page of handwritten memo missing; request original document from client",
-            "variant_seed": int(rng.integers(0, 1_000_000)),
-        },
-    ]
-    items.extend(unrecoverable_specs)
-
     junk_files: list[dict[str, Any]] = []
     if "J1" in active_ops:
-        junk_specs = [
-            ("J1_junk_promo_flyer.pdf", "promo_flyer", "Irrelevant promotional flyer; ignore during ingest"),
-            ("J1_junk_unrelated_catalog.csv", "unrelated_sku_catalog", "Unrelated OTC catalog; ignore during ingest"),
-            ("J1_junk_blank_scan.jpg", "blank_scan", "Blank/noisy scanner sheet; ignore during ingest"),
-        ]
-        for filename, kind, hint in junk_specs:
+        for filename, kind, hint in _JUNK_FILE_TEMPLATES:
             junk_files.append({"filename": filename, "kind": kind, "operator": "J1"})
             items.append({
                 "operator": "J1",
@@ -382,7 +399,9 @@ def _add_l4_unrecoverable_and_junk(
             })
 
     omitted_docs = [
+        {"doc_type": "D1", "scope": "2026-05..2026-08_1c_export", "reason": "Missing 1C monthly archive", "recoverable": False},
         {"doc_type": "D2", "scope": "2026-08_fergana", "reason": "Missing monthly regional workbook", "recoverable": False},
+        {"doc_type": "D11", "scope": "memo_page_2", "reason": "Missing second page of memo", "recoverable": False},
     ]
     return omitted_docs, junk_files
 

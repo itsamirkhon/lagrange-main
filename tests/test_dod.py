@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import ast
+import concurrent.futures
+import csv
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
+from collections import Counter
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -22,9 +26,10 @@ if str(ROOT) not in sys.path:
 
 from sim.generator.calibration import CalibrationError, validate_calibration
 from sim.generator.cli import main as cli_main
-from sim.generator.config_loader import load_world_config
+from sim.generator.config_loader import load_levels_config, load_world_config
 from sim.generator.domain import DOC_TYPES, WATERMARK_TEXT
 from sim.generator.evaluate import evaluate_plan_on_truth, get_baseline_plan
+from sim.generator.xlsx_io import read_xlsx
 from sim.tools.ub_quality_gate import run_dryer
 
 _PK_MAP: dict[str, str] = {
@@ -67,37 +72,27 @@ def generated_sim_dir(tmp_path_factory: pytest.TempPathFactory) -> Path:
     return sim_copy
 
 
-def test_dod_1_and_2_cli_generation_and_idempotent_sha256(tmp_path: Path) -> None:
-    sim_copy = tmp_path / "sim"
-    _copy_sim_inputs(sim_copy)
-
-    proc1 = subprocess.run(
-        [sys.executable, "-m", "sim.generator", "--seed", "42", "--sim-dir", str(sim_copy)],
-        cwd=str(ROOT),
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    assert "seed=42" in proc1.stdout
-    assert (sim_copy / "truth" / "calibration_report.json").exists()
+def test_dod_1_and_2_cli_generation_and_idempotent_sha256(generated_sim_dir: Path) -> None:
+    assert (generated_sim_dir / "truth" / "calibration_report.json").exists()
     for lvl in ("L0", "L1", "L2", "L3", "L4"):
-        assert (sim_copy / "worlds" / lvl / "manifest.json").exists()
+        assert (generated_sim_dir / "worlds" / lvl / "manifest.json").exists()
 
     hashes_1 = {
-        "truth": _hash_tree(sim_copy / "truth"),
-        "worlds": _hash_tree(sim_copy / "worlds"),
+        "truth": _hash_tree(generated_sim_dir / "truth"),
+        "worlds": _hash_tree(generated_sim_dir / "worlds"),
     }
 
-    subprocess.run(
-        [sys.executable, "-m", "sim.generator", "--seed", "42", "--sim-dir", str(sim_copy)],
+    proc = subprocess.run(
+        [sys.executable, "-m", "sim.generator", "--seed", "42", "--sim-dir", str(generated_sim_dir)],
         cwd=str(ROOT),
         capture_output=True,
         text=True,
         check=True,
     )
+    assert "seed=42" in proc.stdout
     hashes_2 = {
-        "truth": _hash_tree(sim_copy / "truth"),
-        "worlds": _hash_tree(sim_copy / "worlds"),
+        "truth": _hash_tree(generated_sim_dir / "truth"),
+        "worlds": _hash_tree(generated_sim_dir / "worlds"),
     }
     assert hashes_1 == hashes_2
 
@@ -108,10 +103,13 @@ def test_dod_3_calibration_report_and_validation_failures(generated_sim_dir: Pat
 
     validate_calibration(report, world_cfg)
     assert 145_500 <= report["annual_sales_packs"] <= 154_500
+    assert report["bx_uzs"] == pytest.approx(round(0.02 * report["rn_uzs"], 2), abs=0.05)
     assert report["chchn_with_vat_uzs"] == pytest.approx(150_000.0, abs=0.01)
     assert report["chun_with_vat_uzs"] == pytest.approx(125_000.0, abs=0.01)
     assert report["wholesale_ex_vat_uzs"] == pytest.approx(111_607.14, abs=1.0)
     assert report["calc_base_ex_vat_uzs"] == pytest.approx(97_049.69, abs=10.0)
+    assert report["landed_unit_cost_std_uzs"] > 500.0
+    assert abs(report["mean_landed_unit_cost_uzs"] - report["calc_base_ex_vat_uzs"]) > 100.0
     assert 0.02 <= report["net_margin_ex_vat"] <= 0.03
     assert 0.25 <= report["pre_reform_net_margin_ex_vat"] <= 0.30
 
@@ -268,3 +266,91 @@ def test_dod_10_readme_and_dryer_gate() -> None:
         assert required in content, f"Missing {required!r} in sim/README.md"
 
     assert run_dryer(threshold=0.8) == []
+
+
+_INTERNAL_ID_RE = re.compile(
+    r"\b(SKU_CARDIO_01|SKU_BG_0\d|sup_0\d|car_0\d|rte_0\d|REG_[A-Z_]+|"
+    r"q_\d{4}|cnt_\d{4}|shp_\d{4}|lot_\d{4}|cus_\d{4}|sal_\d{5}|cst_\d{4}|crd_\d{4}|reg_\d{4})\b"
+)
+
+
+def _extract_doc_text(doc_path: Path) -> str:
+    ext = doc_path.suffix.lower()
+    if ext == ".csv":
+        raw = doc_path.read_bytes()
+        try:
+            return raw.decode("utf-8-sig")
+        except UnicodeDecodeError:
+            return raw.decode("cp1251", errors="replace")
+    if ext == ".eml":
+        return doc_path.read_text(encoding="utf-8", errors="replace")
+    if ext == ".xlsx":
+        wb = read_xlsx(doc_path)
+        parts: list[str] = []
+        for sheet in wb.values():
+            for row in sheet.get("all_rows", []):
+                parts.append(" ".join(str(cell) for cell in row if cell is not None))
+        return "\n".join(parts)
+    if ext == ".pdf":
+        return subprocess.check_output(["pdftotext", str(doc_path), "-"], text=True)
+    return ""
+
+
+def test_dod_11_real_cbu_fx_zero_id_leakage_and_density(generated_sim_dir: Path) -> None:
+    fx_path = generated_sim_dir / "inputs" / "fx_cbu.csv"
+    with fx_path.open("r", encoding="utf-8", newline="") as handle:
+        fx_rows = list(csv.DictReader(handle))
+    assert len(fx_rows) >= 405
+    usd_by_date = {r["date"]: (float(r["rate_uzs"]), r["source"]) for r in fx_rows if r["currency"] == "USD"}
+    expected_usd = {
+        "2025-01-01": 12920.48,
+        "2025-01-23": 12990.0,
+        "2025-01-31": 12957.01,
+        "2025-12-30": 12025.33,
+    }
+    for d_str, exp_rate in expected_usd.items():
+        assert d_str in usd_by_date
+        rate, src = usd_by_date[d_str]
+        assert rate == pytest.approx(exp_rate, abs=0.01)
+        assert "cbu.uz" in src
+
+    levels_cfg = load_levels_config(generated_sim_dir / "config" / "levels.yaml")
+    doc_paths: list[Path] = []
+    for level in ("L0", "L1", "L2", "L3", "L4"):
+        world_dir = generated_sim_dir / "worlds" / level
+        docs_dir = world_dir / "documents"
+        manifest = json.loads((world_dir / "manifest.json").read_text(encoding="utf-8"))
+        docs = manifest["documents"]
+        corrs = [c for d in docs for c in d["corruptions"]]
+        op_counts = Counter(c["operator"] for c in corrs)
+
+        if level == "L0":
+            assert len(docs) >= 70
+            assert len(corrs) == 0
+        elif level == "L1":
+            assert len(corrs) >= 40
+        elif level == "L2":
+            assert len(corrs) >= 100
+        elif level == "L3":
+            assert len(corrs) >= 200
+            for op in levels_cfg["L3"]["operators"]:
+                assert op_counts[op] >= 6, f"L3 operator {op} count={op_counts[op]}"
+        else:
+            assert len(corrs) >= 300
+            for op in levels_cfg["L4"]["operators"]:
+                assert op_counts[op] >= 6, f"L4 operator {op} count={op_counts[op]}"
+            assert sum(1 for c in corrs if not c["recoverable"]) >= 15
+
+        d1_header = (docs_dir / "D1_1c_sales_2025.csv").read_bytes().decode("cp1251").splitlines()[0]
+        for col in ("Период", "Номенклатура", "Количество", "Сумма с НДС"):
+            assert col in d1_header
+
+        for doc_file in sorted(docs_dir.iterdir()):
+            assert not _INTERNAL_ID_RE.search(doc_file.name), f"Internal ID in filename: {doc_file.name}"
+            if doc_file.suffix.lower() in {".csv", ".xlsx", ".eml", ".pdf"}:
+                doc_paths.append(doc_file)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+        for path, text in zip(doc_paths, pool.map(_extract_doc_text, doc_paths)):
+            match = _INTERNAL_ID_RE.search(text)
+            assert match is None, f"Internal ID {match.group(0)!r} leaked in {path}"

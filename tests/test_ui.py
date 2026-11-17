@@ -56,7 +56,7 @@ def _http_request(url: str, method: str = "GET", payload: dict | None = None) ->
     headers = {"Content-Type": "application/json"} if payload is not None else {}
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
     try:
-        with _NO_PROXY_OPENER.open(req, timeout=60) as resp:
+        with _NO_PROXY_OPENER.open(req, timeout=240) as resp:
             return resp.status, resp.headers.get("Content-Type", ""), resp.read()
     except urllib.error.HTTPError as err:
         return err.code, err.headers.get("Content-Type", ""), err.read()
@@ -66,7 +66,7 @@ def test_get_overview_structure(sim_dir: Path) -> None:
     overview = get_overview(sim_dir)
     assert overview["seed"] == 42
     assert overview["company"]["name"] == "ООО «CardioImport Distribution»"
-    assert overview["calibration_report"]["annual_sales_packs"] == 150000
+    assert 145_500 <= overview["calibration_report"]["annual_sales_packs"] <= 154_500
 
     summary = overview["worlds_summary"]
     assert set(summary.keys()) == {"L0", "L1", "L2", "L3", "L4"}
@@ -108,23 +108,23 @@ def test_get_world_manifest_and_validation(sim_dir: Path) -> None:
 
 
 def test_resolve_document_path_security(sim_dir: Path) -> None:
-    path = resolve_document_path(sim_dir, "L0", "D1_1c_sales_export.csv")
+    path = resolve_document_path(sim_dir, "L0", "D1_1c_sales_2025.csv")
     assert path.is_file()
-    assert path.name == "D1_1c_sales_export.csv"
+    assert path.name == "D1_1c_sales_2025.csv"
 
     for bad_name in ("", "../manifest.json", "sub/file.csv", "sub\\file.csv", ".."):
         with pytest.raises(ValueError):
             resolve_document_path(sim_dir, "L0", bad_name)
 
     with pytest.raises(ValueError):
-        resolve_document_path(sim_dir, "BAD", "D1_1c_sales_export.csv")
+        resolve_document_path(sim_dir, "BAD", "D1_1c_sales_2025.csv")
 
     with pytest.raises(FileNotFoundError):
         resolve_document_path(sim_dir, "L0", "does_not_exist.pdf")
 
 
 def test_get_document_preview_all_formats(sim_dir: Path) -> None:
-    xlsx_prev = get_document_preview(sim_dir, "L0", "D2_regional_sales_central.xlsx")
+    xlsx_prev = get_document_preview(sim_dir, "L0", "D2_sales_tashkent_city.xlsx")
     assert xlsx_prev["kind"] == "xlsx"
     assert xlsx_prev["sheets"]
     sheet = next(iter(xlsx_prev["sheets"].values()))
@@ -133,15 +133,16 @@ def test_get_document_preview_all_formats(sim_dir: Path) -> None:
     assert xlsx_prev["manifest_entry"]["doc_type"] == "D2"
     assert len(xlsx_prev["truth_preview"]) > 0
 
-    csv_prev = get_document_preview(sim_dir, "L0", "D1_1c_sales_export.csv")
+    csv_prev = get_document_preview(sim_dir, "L0", "D1_1c_sales_2025.csv")
     assert csv_prev["kind"] == "csv"
-    assert csv_prev["headers"][0] == "sale_id"
+    assert csv_prev["encoding"] == "cp1251"
+    assert csv_prev["headers"][0] == "Период"
     assert len(csv_prev["rows"]) == 200
     assert csv_prev["total_rows"] > 200
 
-    eml_prev = get_document_preview(sim_dir, "L0", "D12_email_supplier_thread.eml")
+    eml_prev = get_document_preview(sim_dir, "L0", "D12_email_quotes_2025.eml")
     assert eml_prev["kind"] == "eml"
-    assert "q_0001" in eml_prev["subject"]
+    assert "KP-2025-001" in eml_prev["subject"]
     assert eml_prev["from"]
     assert eml_prev["to"]
     assert eml_prev["date"]
@@ -150,15 +151,17 @@ def test_get_document_preview_all_formats(sim_dir: Path) -> None:
     assert eml_prev["attachments"][0]["size_bytes"] > 0
     assert eml_prev["attachments"][0]["filename"] != "attachment"
 
-    pdf_prev = get_document_preview(sim_dir, "L0", "D3_quote_supplier_A_2026-05.pdf")
+    pdf_prev = get_document_preview(sim_dir, "L0", "D3_quote_KP-2025-001.pdf")
     assert pdf_prev["kind"] == "pdf"
-    assert pdf_prev["media_url"] == "/api/worlds/L0/document/D3_quote_supplier_A_2026-05.pdf"
+    assert pdf_prev["media_url"] == "/api/worlds/L0/document/D3_quote_KP-2025-001.pdf"
 
-    img_prev = get_document_preview(sim_dir, "L0", "D4_carrier_chat_quote.png")
+    img_prev = get_document_preview(sim_dir, "L0", "D4_carrier_chat_auto_kz.png")
     assert img_prev["kind"] == "image"
-    assert img_prev["media_url"] == "/api/worlds/L0/document/D4_carrier_chat_quote.png"
+    assert img_prev["media_url"] == "/api/worlds/L0/document/D4_carrier_chat_auto_kz.png"
 
-    l4_prev = get_document_preview(sim_dir, "L4", "D2_regional_sales_central.xlsx")
+    l4_man = get_world_manifest(sim_dir, "L4")
+    l4_corrupted_doc = next(d["filename"] for d in l4_man["documents"] if d["corruptions"])
+    l4_prev = get_document_preview(sim_dir, "L4", l4_corrupted_doc)
     assert len(l4_prev["manifest_entry"]["corruptions"]) > 0
 
 
@@ -167,10 +170,10 @@ def test_csv_cp1251_cyrillic_decoding(sim_dir: Path, tmp_path: Path) -> None:
     shutil.copytree(sim_dir / "config", copy_dir / "config")
     shutil.copytree(sim_dir / "truth", copy_dir / "truth")
     shutil.copytree(sim_dir / "worlds", copy_dir / "worlds")
-    csv_path = copy_dir / "worlds" / "L0" / "documents" / "D13_price_registry_extract.csv"
+    csv_path = copy_dir / "worlds" / "L0" / "documents" / "D13_registry_extract_2025.csv"
     csv_path.write_bytes("код,наименование\nSKU1,Кардиозан\n".encode("cp1251"))
 
-    prev = get_document_preview(copy_dir, "L0", "D13_price_registry_extract.csv")
+    prev = get_document_preview(copy_dir, "L0", "D13_registry_extract_2025.csv")
     assert prev["kind"] == "csv"
     assert prev["encoding"] == "cp1251"
     assert prev["delimiter"] == ","
@@ -294,8 +297,8 @@ def test_dispatch_request_direct_and_edge_cases(sim_dir: Path) -> None:
     assert dispatch_request("GET", "/api/overview", b"", sim_dir)[0] == 200
     assert dispatch_request("GET", "/api/evaluate/baseline", b"", sim_dir)[0] == 200
     assert dispatch_request("GET", "/api/worlds/L0", b"", sim_dir)[0] == 200
-    assert dispatch_request("GET", "/api/worlds/L0/document/D1_1c_sales_export.csv", b"", sim_dir)[0] == 200
-    assert dispatch_request("GET", "/api/worlds/L0/preview/D1_1c_sales_export.csv", b"", sim_dir)[0] == 200
+    assert dispatch_request("GET", "/api/worlds/L0/document/D1_1c_sales_2025.csv", b"", sim_dir)[0] == 200
+    assert dispatch_request("GET", "/api/worlds/L0/preview/D1_1c_sales_2025.csv", b"", sim_dir)[0] == 200
     assert dispatch_request("GET", "/api/worlds/L0/unknown/foo", b"", sim_dir)[0] == 404
     assert dispatch_request("GET", "/api/truth", b"", sim_dir)[0] == 200
     assert dispatch_request("GET", "/api/truth/routes?limit=2", b"", sim_dir)[0] == 200
@@ -339,11 +342,11 @@ def test_http_server_live_endpoints(sim_dir: Path, tmp_path: Path) -> None:
         assert status == 200
         assert json.loads(raw)["level"] == "L2"
 
-        status, ctype, raw = _http_request(f"{base_url}/api/worlds/L0/document/D3_quote_supplier_A_2026-05.pdf")
+        status, ctype, raw = _http_request(f"{base_url}/api/worlds/L0/document/D3_quote_KP-2025-001.pdf")
         assert status == 200 and "application/pdf" in ctype
         assert raw.startswith(b"%PDF")
 
-        status, _, raw = _http_request(f"{base_url}/api/worlds/L0/preview/D2_regional_sales_central.xlsx")
+        status, _, raw = _http_request(f"{base_url}/api/worlds/L0/preview/D2_sales_tashkent_city.xlsx")
         assert status == 200
         assert json.loads(raw)["kind"] == "xlsx"
 

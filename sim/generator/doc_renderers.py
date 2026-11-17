@@ -355,33 +355,180 @@ def _draw_chat_header(draw: ImageDraw.ImageDraw, width: int, title: str, subtitl
     return 110
 
 
-def _draw_chat_bubble(draw: ImageDraw.ImageDraw, msg: dict[str, Any], y: int, width: int) -> int:
-    """Draw a single chat bubble (left or right aligned) and return next vertical y."""
+def _layout_chat_bubble(
+    draw: ImageDraw.ImageDraw,
+    msg: dict[str, Any],
+    y: int,
+    width: int,
+) -> dict[str, Any]:
+    """Compute pixel layout for one chat bubble so rendering and bbox lookup stay identical."""
     side = str(msg.get("side", "left"))
-    sender = str(msg.get("sender", ""))
     text = str(msg.get("text", ""))
-    ts = str(msg.get("time", ""))
-
     body_font = load_pil_font("regular", 19)
-    meta_font = load_pil_font("bold", 15)
-    ts_font = load_pil_font("regular", 13)
-    max_bubble_w = int(width * 0.66)
+    max_bubble_w = int(width * (0.88 if msg.get("wide") else 0.66))
     wrapped = _wrap_pil_text(draw, text, body_font, max_bubble_w - 36)
-
     bubble_h = 34 + len(wrapped) * 26 + 22
     x1 = 28 if side == "left" else width - max_bubble_w - 28
-    x2 = x1 + max_bubble_w
-    fill = (255, 255, 255) if side == "left" else (220, 238, 251)
-    border = (205, 214, 224) if side == "left" else (175, 206, 232)
+    return {
+        "side": side,
+        "sender": str(msg.get("sender", "")),
+        "ts": str(msg.get("time", "")),
+        "body_font": body_font,
+        "wrapped": wrapped,
+        "x1": x1,
+        "x2": x1 + max_bubble_w,
+        "y1": y,
+        "y2": y + bubble_h,
+        "text_x": x1 + 16,
+        "text_y": y + 34,
+    }
 
-    draw.rounded_rectangle([x1, y, x2, y + bubble_h], radius=14, fill=fill, outline=border, width=2)
-    draw.text((x1 + 16, y + 10), sender, font=meta_font, fill=(36, 76, 114))
-    cur_y = y + 34
-    for line in wrapped:
-        draw.text((x1 + 16, cur_y), line, font=body_font, fill=(24, 30, 38))
+
+def _draw_chat_bubble(draw: ImageDraw.ImageDraw, msg: dict[str, Any], y: int, width: int) -> int:
+    """Draw a single chat bubble (left or right aligned) and return next vertical y."""
+    ly = _layout_chat_bubble(draw, msg, y, width)
+    is_left = ly["side"] == "left"
+    fill = (255, 255, 255) if is_left else (220, 238, 251)
+    border = (205, 214, 224) if is_left else (175, 206, 232)
+
+    draw.rounded_rectangle([ly["x1"], ly["y1"], ly["x2"], ly["y2"]], radius=14, fill=fill, outline=border, width=2)
+    draw.text((ly["text_x"], ly["y1"] + 10), ly["sender"], font=load_pil_font("bold", 15), fill=(36, 76, 114))
+    cur_y = ly["text_y"]
+    for line in ly["wrapped"]:
+        draw.text((ly["text_x"], cur_y), line, font=ly["body_font"], fill=(24, 30, 38))
         cur_y += 26
-    draw.text((x2 - 64, y + bubble_h - 22), ts, font=ts_font, fill=(110, 122, 136))
-    return y + bubble_h + 18
+    draw.text((ly["x2"] - 64, ly["y2"] - 22), ly["ts"], font=load_pil_font("regular", 13), fill=(110, 122, 136))
+    return ly["y2"] + 18
+
+
+def compute_chat_token_bbox(
+    messages: list[dict[str, Any]],
+    msg_index: int,
+    token: str,
+    width: int = 960,
+) -> tuple[int, int, int, int]:
+    """Compute exact pixel bounding box (x1, y1, x2, y2) of token inside message msg_index."""
+    img = Image.new("RGB", (width, 1600), (236, 239, 244))
+    draw = ImageDraw.Draw(img)
+    y = 110
+    for idx, msg in enumerate(messages):
+        ly = _layout_chat_bubble(draw, msg, y, width)
+        if idx == msg_index:
+            cur_y = ly["text_y"]
+            for line in ly["wrapped"]:
+                pos = line.find(token)
+                if pos >= 0:
+                    dx1 = int(draw.textlength(line[:pos], font=ly["body_font"]))
+                    dx2 = int(draw.textlength(line[: pos + len(token)], font=ly["body_font"]))
+                    return (ly["text_x"] + dx1, cur_y, ly["text_x"] + dx2, cur_y + 24)
+                cur_y += 26
+            return (ly["x2"] - 140, ly["text_y"], ly["x2"] - 16, ly["text_y"] + 24)
+        y = ly["y2"] + 18
+    raise IndexError(f"msg_index {msg_index} out of range for {len(messages)} messages")
+
+
+def _resolve_table_img_widths(headers: list[str], col_widths: list[int] | None, table_w: int) -> list[int]:
+    if col_widths and len(col_widths) == len(headers):
+        total = float(sum(col_widths))
+        return [int(table_w * (w / total)) for w in col_widths]
+    col_w = table_w // max(1, len(headers))
+    return [col_w] * max(1, len(headers))
+
+
+def compute_table_image_bboxes(
+    headers: list[str],
+    rows: list[list[Any]],
+    meta_count: int,
+    width: int = 1200,
+    col_widths: list[int] | None = None,
+) -> dict[str, tuple[int, int, int, int]]:
+    """Compute exact pixel bounding boxes for tabular delivery-note cells and total row."""
+    table_x = 56
+    table_w = width - 112
+    widths = _resolve_table_img_widths(headers, col_widths, table_w)
+    table_top = 152 + meta_count * 34 + 16
+    row_h = 52
+    bboxes: dict[str, tuple[int, int, int, int]] = {}
+    for r_idx, _ in enumerate(rows):
+        y1 = table_top + 48 + r_idx * row_h
+        y2 = y1 + row_h
+        cur_x = table_x
+        for c_idx, cw in enumerate(widths):
+            bboxes[f"row_{r_idx}_col_{c_idx}"] = (cur_x, y1, cur_x + cw, y2)
+            cur_x += cw
+    qty_col = min(5, max(0, len(widths) - 3))
+    if rows:
+        bboxes["row_0_qty"] = bboxes[f"row_0_col_{qty_col}"]
+    total_y = table_top + 48 + len(rows) * row_h + 24
+    bboxes["total"] = (table_x, total_y, table_x + table_w, total_y + 44)
+    return bboxes
+
+
+def _draw_table_img_row(
+    draw: ImageDraw.ImageDraw,
+    cells: list[Any],
+    x: int,
+    y: int,
+    widths: list[int],
+    row_h: int,
+    is_header: bool,
+    shaded: bool,
+) -> None:
+    """Draw one bordered row onto a tabular PIL document image."""
+    bg = (224, 234, 246) if is_header else ((247, 249, 252) if shaded else (255, 255, 255))
+    font = load_pil_font("bold" if is_header else "regular", 16 if is_header else 15)
+    cur_x = x
+    for val, cw in zip(cells, widths):
+        draw.rectangle([cur_x, y, cur_x + cw, y + row_h], fill=bg, outline=(165, 175, 190), width=1)
+        draw.text((cur_x + 8, y + (14 if is_header else 16)), str(val)[:28], font=font, fill=(20, 30, 46))
+        cur_x += cw
+
+
+def render_table_document_image(
+    path: Path | str,
+    title: str,
+    meta_lines: list[str],
+    headers: list[str],
+    rows: list[list[Any]],
+    footer_lines: list[str] | None = None,
+    col_widths: list[int] | None = None,
+    width: int = 1200,
+    height: int = 1600,
+    watermark: str = WATERMARK_TEXT,
+    postprocess_fn: Callable[[Image.Image], Image.Image] | None = None,
+) -> dict[str, tuple[int, int, int, int]]:
+    """Render a full tabular warehouse waybill/note image with deterministic cell bboxes."""
+    img = Image.new("RGB", (width, height), (252, 251, 247))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle([36, 36, width - 36, height - 42], outline=(185, 195, 208), width=2)
+    draw.rectangle([36, 36, width - 36, 126], fill=(232, 239, 248))
+    draw.text((58, 64), str(title), font=load_pil_font("bold", 26), fill=(22, 48, 86))
+
+    y = 152
+    meta_font = load_pil_font("regular", 19)
+    for mline in meta_lines:
+        draw.text((58, y), str(mline), font=meta_font, fill=(32, 42, 56))
+        y += 34
+
+    table_x = 56
+    widths = _resolve_table_img_widths(headers, col_widths, width - 112)
+    table_top = y + 16
+    _draw_table_img_row(draw, headers, table_x, table_top, widths, 48, is_header=True, shaded=False)
+    for r_idx, row in enumerate(rows):
+        _draw_table_img_row(draw, row, table_x, table_top + 48 + r_idx * 52, widths, 52, is_header=False, shaded=(r_idx % 2 == 1))
+
+    foot_y = table_top + 48 + len(rows) * 52 + 28
+    foot_font = load_pil_font("bold", 20)
+    for f_idx, fline in enumerate(footer_lines or []):
+        font = foot_font if f_idx == 0 else load_pil_font("regular", 18)
+        draw.text((58, foot_y), str(fline), font=font, fill=(20, 32, 52))
+        foot_y += 42
+
+    if postprocess_fn is not None:
+        img = postprocess_fn(img)
+    img = ensure_watermark(img, text=watermark)
+    _save_image_deterministic(img, Path(path))
+    return compute_table_image_bboxes(headers, rows, len(meta_lines), width=width, col_widths=col_widths)
 
 
 def render_chat_screenshot(

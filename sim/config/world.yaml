@@ -20,6 +20,9 @@ focus_sku:
   trade_name: "Kardiozan 10 мг №30"
   inn_name: "Kardiozartan"
   dosage_form: "таблетки, покрытые плёночной оболочкой, 10 мг, №30 (3 блистера × 10 таб.)"
+  nomenclature_code: "00-000142"
+  ean13: "4780099120014"
+  reg_cert_no: "DV/X 04812/01/25"
   pack_blisters: 3
   blister_tabs: 10
   box_packs: 10
@@ -30,36 +33,54 @@ background_skus:
   - sku_id: "SKU_BG_01"
     trade_name: "Angiokor 5 мг №30"
     inn_name: "Angiodipin"
+    nomenclature_code: "00-000201"
+    ean13: "4780099120015"
+    reg_cert_no: "DV/X 04813/01/25"
     base_cip_usd: 4.10
     retail_uzs: 88000.0
     shelf_life_months: 24
   - sku_id: "SKU_BG_02"
     trade_name: "Tensormin 50 мг №28"
     inn_name: "Tensorolol"
+    nomenclature_code: "00-000202"
+    ean13: "4780099120016"
+    reg_cert_no: "DV/X 04814/01/25"
     base_cip_usd: 5.20
     retail_uzs: 112000.0
     shelf_life_months: 36
   - sku_id: "SKU_BG_03"
     trade_name: "Lipidostab 20 мг №30"
     inn_name: "Lipidostatin"
+    nomenclature_code: "00-000203"
+    ean13: "4780099120017"
+    reg_cert_no: "DV/X 04815/01/25"
     base_cip_usd: 6.40
     retail_uzs: 138000.0
     shelf_life_months: 24
   - sku_id: "SKU_BG_04"
     trade_name: "Vazopril 10 мг №20"
     inn_name: "Vazoprilat"
+    nomenclature_code: "00-000204"
+    ean13: "4780099120018"
+    reg_cert_no: "DV/X 04816/01/25"
     base_cip_usd: 3.50
     retail_uzs: 74000.0
     shelf_life_months: 24
   - sku_id: "SKU_BG_05"
     trade_name: "Ritmokard 200 мг №30"
     inn_name: "Ritmoamiodar"
+    nomenclature_code: "00-000205"
+    ean13: "4780099120019"
+    reg_cert_no: "DV/X 04817/01/25"
     base_cip_usd: 7.80
     retail_uzs: 165000.0
     shelf_life_months: 36
   - sku_id: "SKU_BG_06"
     trade_name: "Trombolek 75 мг №30"
     inn_name: "Trombogrel"
+    nomenclature_code: "00-000206"
+    ean13: "4780099120020"
+    reg_cert_no: "DV/X 04818/01/25"
     base_cip_usd: 4.90
     retail_uzs: 104000.0
     shelf_life_months: 24
@@ -74,9 +95,10 @@ calibration_targets:
   retail_markup_limit: 0.20
   wholesale_ex_vat_uzs: 111607.14
   calc_base_ex_vat_uzs: 97049.69
-  rn_uzs: 93500.0
-  b_uzs: 2349.69
-  bx_uzs: 1200.0
+  rn_uzs: 93317.0
+  bx_share: 0.02
+  b_uzs: 1866.35
+  bx_uzs: 1866.34
   net_margin_ex_vat_min: 0.02
   net_margin_ex_vat_max: 0.03
   net_margin_ex_vat_target: 0.025

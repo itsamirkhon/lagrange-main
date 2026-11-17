@@ -71,6 +71,7 @@ def _load_truth_context(truth_path: Path) -> dict[str, pd.DataFrame]:
     names = (
         "shipments",
         "lots",
+        "customs",
         "routes",
         "suppliers",
         "fx",
@@ -144,6 +145,47 @@ def _fx_for_month(fx_df: pd.DataFrame, month_str: str) -> float:
     return float(row["rate_uzs"])
 
 
+def _initial_fifo_queue(ctx: dict[str, pd.DataFrame]) -> list[list[float]]:
+    start_m = _WINDOW_MONTHS[0]
+    lots = ctx["lots"]
+    pre_lots = lots[(lots["sku_id"] == _FOCUS_SKU) & (lots["arrival_date"].str.slice(0, 7) < start_m)]
+    sold_pre = (
+        ctx["sales"][(ctx["sales"]["sku_id"] == _FOCUS_SKU) & (ctx["sales"]["month"] < start_m)]
+        .groupby("lot_id")["qty_packs"]
+        .sum()
+        .to_dict()
+    )
+    wo_pre = (
+        ctx["writeoffs"][(ctx["writeoffs"]["sku_id"] == _FOCUS_SKU) & (ctx["writeoffs"]["month"] < start_m)]
+        .groupby("lot_id")["qty_packs"]
+        .sum()
+        .to_dict()
+    )
+    queue: list[list[float]] = []
+    for _, lot in pre_lots.sort_values("arrival_date").iterrows():
+        lid = str(lot["lot_id"])
+        rem = int(lot["initial_qty"]) - int(sold_pre.get(lid, 0)) - int(wo_pre.get(lid, 0))
+        if rem > 0:
+            queue.append([float(rem), float(lot["unit_cost_uzs"])])
+    return queue
+
+
+def _consume_fifo(queue: list[list[float]], qty_needed: int) -> tuple[int, float]:
+    rem = qty_needed
+    sold = 0
+    cost_sum = 0.0
+    while rem > 0 and queue:
+        lot = queue[0]
+        take = min(rem, int(lot[0]))
+        lot[0] -= take
+        rem -= take
+        sold += take
+        cost_sum += round(take * lot[1], 2)
+        if lot[0] <= 0:
+            queue.pop(0)
+    return sold, cost_sum
+
+
 def _build_sim_params(
     plan: dict[str, Any],
     base_plan: dict[str, Any],
@@ -162,11 +204,21 @@ def _build_sim_params(
     wo_focus = ctx["writeoffs"][
         (ctx["writeoffs"]["sku_id"] == _FOCUS_SKU) & (ctx["writeoffs"]["month"].isin(_WINDOW_MONTHS))
     ]
+
+    focus_ship_ids = set(ctx["lots"].loc[ctx["lots"]["sku_id"] == _FOCUS_SKU, "shipment_id"])
+    cust_map = ctx["customs"].set_index("shipment_id")["landed_unit_cost_uzs"].to_dict()
+    focus_ships = ctx["shipments"][
+        (ctx["shipments"]["shipment_id"].isin(focus_ship_ids)) & (ctx["shipments"]["month"].isin(_WINDOW_MONTHS))
+    ]
+    ship_unit_cost_by_m = {
+        str(r["month"]): float(cust_map[r["shipment_id"]]) for _, r in focus_ships.iterrows()
+    }
+
     return {
         "routes_map": ctx["routes"].set_index("route_id"),
         "suppliers_map": ctx["suppliers"].set_index("supplier_id"),
         "fx_df": ctx["fx"],
-        "base_unit_cost": float(reg_latest["calc_base_ex_vat_uzs"]),
+        "ship_unit_cost_by_m": ship_unit_cost_by_m,
         "eff_price": min(plan_price, max_price),
         "cap_breach": max(0.0, plan_price - max_price),
         "inv_focus": inv_focus,
@@ -183,29 +235,41 @@ def _build_sim_params(
     }
 
 
-def _step_month(m_str: str, opening: int, params: dict[str, Any]) -> dict[str, Any]:
+def _step_month(
+    m_str: str,
+    fifo_queue: list[list[float]],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    opening = sum(int(q[0]) for q in fifo_queue)
     demand = params["demand_by_m"][m_str]
     b_ord = params["base_orders"][m_str]
     p_ord = params["plan_orders"].get(m_str, b_ord)
     sup_cap = int(params["suppliers_map"].loc[p_ord.get("supplier_id", b_ord["supplier_id"]), "monthly_capacity"])
     received = min(max(0, int(p_ord.get("qty_packs", 0))), sup_cap)
 
-    available = opening + received
-    sold = min(available, demand)
-    rem = available - sold
-    base_close = int(params["inv_focus"].loc[m_str, "closing_stock"])
-    excess = max(0, rem - int(demand * 1.5))
-    month_wo = min(rem, int(params["wo_by_m"].get(m_str, 0)) + int(round(excess * 0.25)))
-    closing = rem - month_wo
-
     fx_usd = _fx_for_month(params["fx_df"], m_str)
     p_route = params["routes_map"].loc[p_ord.get("route_id", b_ord["route_id"])]
     b_route = params["routes_map"].loc[b_ord["route_id"]]
-    freight_delta = _route_freight_uzs(p_route, received, fx_usd) - _route_freight_uzs(b_route, int(b_ord["qty_packs"]), fx_usd)
+    freight_delta = _route_freight_uzs(p_route, received, fx_usd) - _route_freight_uzs(b_route, received, fx_usd)
+    unit_cost = params["ship_unit_cost_by_m"][m_str] + (max(0.0, freight_delta) / received if received > 0 else 0.0)
+
+    base_wo = int(params["wo_by_m"].get(m_str, 0)) if received >= int(params["wo_by_m"].get(m_str, 0)) else 0
+    sellable_received = received - base_wo
+    if sellable_received > 0:
+        fifo_queue.append([float(sellable_received), unit_cost])
+
+    sold, cogs = _consume_fifo(fifo_queue, demand)
+    rem_sellable = sum(int(q[0]) for q in fifo_queue)
+    excess = max(0, rem_sellable - int(demand * 1.5))
+    extra_wo_target = min(rem_sellable, int(round(excess * 0.25)))
+    extra_wo, extra_wo_cost = _consume_fifo(fifo_queue, extra_wo_target)
+
+    month_wo = base_wo + extra_wo
+    wo_cost = round(base_wo * unit_cost + extra_wo_cost, 2)
+    closing = sum(int(q[0]) for q in fifo_queue)
 
     avg_stock = (opening + closing) / 2.0
-    base_avg = (float(params["inv_focus"].loc[m_str, "opening_stock"]) + base_close) / 2.0
-    unit_cost = params["base_unit_cost"]
+    base_avg = (float(params["inv_focus"].loc[m_str, "opening_stock"]) + float(params["inv_focus"].loc[m_str, "closing_stock"])) / 2.0
     cap_breach = params["cap_breach"]
     penalty = (sold * cap_breach * 1.5 + 2_000_000.0) if cap_breach > 0 else 0.0
 
@@ -215,14 +279,13 @@ def _step_month(m_str: str, opening: int, params: dict[str, Any]) -> dict[str, A
         + avg_stock * (params["wh_map"][m_str] / max(1.0, base_avg))
         + params["fin_map"][m_str]
         + max(0.0, avg_stock - base_avg) * unit_cost * (0.22 / 12.0)
-        + month_wo * unit_cost
+        + wo_cost
         + params["gen_map"][m_str]
         + penalty
     )
     return {
-        "closing": closing,
         "rev": sold * params["eff_price"],
-        "cogs": sold * unit_cost + max(0.0, freight_delta),
+        "cogs": cogs,
         "op_cost": op_cost,
         "sold": sold,
         "stockout": demand - sold,
@@ -237,19 +300,18 @@ def _simulate_plan_metrics(
 ) -> dict[str, Any]:
     """Run deterministic 12-month economic simulation of a plan on truth economics."""
     params = _build_sim_params(plan, base_plan, ctx)
-    opening = int(params["inv_focus"].loc[_WINDOW_MONTHS[0], "opening_stock"])
+    fifo_queue = _initial_fifo_queue(ctx)
     tot_rev = tot_cogs = tot_op = 0.0
     tot_sold = tot_stockout = tot_wo = 0
 
     for m_str in _WINDOW_MONTHS:
-        step = _step_month(m_str, opening, params)
+        step = _step_month(m_str, fifo_queue, params)
         tot_rev += step["rev"]
         tot_cogs += step["cogs"]
         tot_op += step["op_cost"]
         tot_sold += step["sold"]
         tot_stockout += step["stockout"]
         tot_wo += step["wo"]
-        opening = step["closing"]
 
     net_profit = round(tot_rev - tot_cogs - tot_op, 2)
     margin = (net_profit / tot_rev) if tot_rev > 0 else 0.0

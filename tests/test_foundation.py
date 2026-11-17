@@ -54,7 +54,14 @@ def test_world_yaml_valid_and_complete() -> None:
     assert cfg["period"]["calibration_window_months"] == 12
     assert cfg["focus_sku"]["sku_id"] == "SKU_CARDIO_01"
     assert cfg["focus_sku"]["trade_name"] == "Kardiozan 10 мг №30"
+    assert cfg["focus_sku"]["nomenclature_code"] == "00-000142"
+    assert cfg["focus_sku"]["ean13"] == "4780099120014"
+    assert cfg["focus_sku"]["reg_cert_no"] == "DV/X 04812/01/25"
     assert len(cfg["background_skus"]) == 6
+    for idx, bg in enumerate(cfg["background_skus"], start=1):
+        assert bg["nomenclature_code"] == f"00-00020{idx}"
+        assert bg["ean13"] == f"47800991200{14 + idx}"
+        assert bg["reg_cert_no"] == f"DV/X {4812 + idx:05d}/01/25"
 
     targets = cfg["calibration_targets"]
     assert targets["annual_sales_packs_target"] == 150000
@@ -62,6 +69,11 @@ def test_world_yaml_valid_and_complete() -> None:
     assert targets["chun_with_vat_uzs"] == 125000.0
     assert targets["wholesale_ex_vat_uzs"] == 111607.14
     assert targets["calc_base_ex_vat_uzs"] == 97049.69
+    assert targets["rn_uzs"] == 93317.0
+    assert targets["bx_share"] == 0.02
+    assert targets["bx_uzs"] == 1866.34
+    assert targets["b_uzs"] == 1866.35
+    assert pytest.approx(targets["bx_uzs"], abs=0.05) == 0.02 * targets["rn_uzs"]
     assert pytest.approx(targets["rn_uzs"] + targets["b_uzs"] + targets["bx_uzs"], abs=1e-4) == 97049.69
 
     assert len(cfg["regions"]) == 14
@@ -98,6 +110,14 @@ def test_world_yaml_validation_errors(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="channels"):
         load_world_config(p3)
 
+    # Bad bx_share / bx_uzs formula (Order #3735 para. 19: Bx = 2% of Rn)
+    bad4 = yaml.safe_load((CONFIG_DIR / "world.yaml").read_text(encoding="utf-8"))
+    bad4["calibration_targets"]["bx_uzs"] = 1200.0
+    p4 = tmp_path / "bad_bx.yaml"
+    p4.write_text(yaml.safe_dump(bad4), encoding="utf-8")
+    with pytest.raises(ValueError, match="bx_uzs"):
+        load_world_config(p4)
+
 
 def test_levels_yaml_valid_and_errors(tmp_path: Path) -> None:
     from sim.generator.config_loader import load_levels_config
@@ -132,23 +152,41 @@ def test_fx_cbu_csv_valid_and_errors(tmp_path: Path) -> None:
     from sim.generator.config_loader import load_fx_table
 
     df = load_fx_table(INPUTS_DIR / "fx_cbu.csv")
+    assert len(df) == 405
     assert set(df.columns) >= {"date", "currency", "rate_uzs", "source"}
     assert set(df["currency"].unique()) == {"USD", "EUR", "RUB"}
-    assert df["date"].min() <= "2025-01-05"
-    assert df["date"].max() >= "2026-10-25"
-    assert (df["source"] == "https://cbu.uz/ru/arkhiv-kursov-valyut/").all()
+    assert df["date"].min() == "2025-01-01"
+    assert df["date"].max() == "2026-10-31"
+    expected_prefix = "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/"
+    assert (df["source"] == expected_prefix + df["date"] + "/").all()
 
-    usd = df[df["currency"] == "USD"]["rate_uzs"]
+    usd_by_date = df[df["currency"] == "USD"].set_index("date")["rate_uzs"]
+    assert usd_by_date["2025-01-01"] == pytest.approx(12920.48)
+    assert usd_by_date["2025-01-23"] == pytest.approx(12990.0)
+    assert usd_by_date["2025-01-31"] == pytest.approx(12957.01)
+    assert usd_by_date["2025-12-30"] == pytest.approx(12025.33)
+
     eur = df[df["currency"] == "EUR"]["rate_uzs"]
     rub = df[df["currency"] == "RUB"]["rate_uzs"]
-    assert usd.min() >= 12500 and usd.max() <= 13300
-    assert eur.min() >= 13500 and eur.max() <= 14500
-    assert rub.min() >= 115 and rub.max() <= 155
+    assert usd_by_date.min() >= 11500 and usd_by_date.max() <= 13500
+    assert eur.min() >= 13000 and eur.max() <= 15500
+    assert rub.min() >= 115 and rub.max() <= 180
 
     bad_csv = tmp_path / "bad_fx.csv"
     bad_csv.write_text("date,currency,rate_uzs,source\n2025-01-01,USD,-10,https://cbu.uz/\n", encoding="utf-8")
     with pytest.raises(ValueError):
         load_fx_table(bad_csv)
+
+    bad_date = tmp_path / "bad_fx_date.csv"
+    bad_date.write_text(
+        "date,currency,rate_uzs,source\n"
+        "not-a-date,USD,12900,https://cbu.uz/\n"
+        "2025-01-01,EUR,13500,https://cbu.uz/\n"
+        "2025-01-01,RUB,130,https://cbu.uz/\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="date"):
+        load_fx_table(bad_date)
 
 
 def test_registry_sku_json_valid_and_errors(tmp_path: Path) -> None:
@@ -156,9 +194,10 @@ def test_registry_sku_json_valid_and_errors(tmp_path: Path) -> None:
 
     rec = load_registry_sku(INPUTS_DIR / "registry_sku.json")
     assert rec["sku_id"] == "SKU_CARDIO_01"
-    assert rec["rn_uzs"] == 93500.0
-    assert rec["b_uzs"] == 2349.69
-    assert rec["bx_uzs"] == 1200.0
+    assert rec["rn_uzs"] == 93317.0
+    assert rec["bx_share"] == 0.02
+    assert rec["bx_uzs"] == 1866.34
+    assert rec["b_uzs"] == 1866.35
     assert rec["calc_base_ex_vat_uzs"] == 97049.69
     assert rec["wholesale_ex_vat_uzs"] == 111607.14
     assert rec["chun_with_vat_uzs"] == 125000.0
@@ -171,6 +210,14 @@ def test_registry_sku_json_valid_and_errors(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="calc_base"):
         load_registry_sku(bad_path)
 
+    bad_bx = dict(rec)
+    bad_bx["bx_uzs"] = 1200.0
+    bad_bx["b_uzs"] = 2532.69
+    bad_bx_path = tmp_path / "bad_reg_bx.json"
+    bad_bx_path.write_text(json.dumps(bad_bx), encoding="utf-8")
+    with pytest.raises(ValueError, match="bx_uzs"):
+        load_registry_sku(bad_bx_path)
+
 
 def test_domain_dataclasses_and_seeded_generators() -> None:
     from sim.generator.domain import (
@@ -182,6 +229,7 @@ def test_domain_dataclasses_and_seeded_generators() -> None:
         SheetSpec,
         generate_address,
         generate_carrier_name,
+        generate_counterparty_name,
         generate_person_name,
         generate_supplier_name,
         generate_synthetic_inn,
@@ -231,6 +279,16 @@ def test_domain_dataclasses_and_seeded_generators() -> None:
     ]
     assert seq1 == seq2
     assert "SYNTHETIC" in seq1[4]
+
+    cp_rng1 = np.random.default_rng(7)
+    cp_rng2 = np.random.default_rng(7)
+    for ch in ("distributors", "pharmacy_chains", "hospital_tenders"):
+        n1 = generate_counterparty_name(cp_rng1, ch, "Самаркандская область")
+        n2 = generate_counterparty_name(cp_rng2, ch, "Самаркандская область")
+        assert n1 == n2
+        assert "(SYNTHETIC)" in n1
+    with pytest.raises(ValueError, match="channel"):
+        generate_counterparty_name(cp_rng1, "unknown_channel", "г. Ташкент")
 
 
 def test_xlsx_io_roundtrip_styles_merges_and_determinism(tmp_path: Path) -> None:
