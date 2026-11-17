@@ -36,7 +36,7 @@ def _route(draw, rid: str, supplier_ids: list[str], currencies: list[str], emerg
         capacity_packs=lot * draw(st.integers(1, 100)), max_shipments=draw(st.integers(0, 6)),
         fixed_per_shipment_uzs=draw(_money(0.0, 1e6)), fixed_activation_uzs=draw(_money(0.0, 1e6)),
         lead_time_days=draw(st.integers(0, 90)), supplier_terms_days=draw(st.integers(0, 60)),
-        is_eligible=draw(st.sampled_from([True, True, True, False])), emergency=emergency,
+        is_eligible=draw(st.sampled_from([True] * 7 + [False])), emergency=emergency,
         emergency_premium_uzs=draw(_money(0.0, 5000.0)) if emergency else 0.0,
         emergency_cap_packs=lot * draw(st.integers(0, 20)) if emergency else 0,
     )
@@ -84,7 +84,7 @@ def _scenario(draw, graph: CalculationGraph, sid: str) -> Scenario:
         id=sid, name=sid, kind="sample", weight=draw(_money(0.1, 3.0)), fx=fx, ref_fx_start=start, ref_fx_path=path,
         cut_month=cut_month, cut_depth=draw(_money(0.10, 0.37)) if cut_month else 0.0,
         freight_mult={m: draw(_money(0.8, 3.0)) for m in MODES if draw(st.booleans())},
-        route_available={r.id: False for r in graph.routes if draw(st.sampled_from([True, True, True, False]))},
+        route_available={r.id: False for r in graph.routes if draw(st.integers(0, 7)) == 0},
         demand=draw(_money(0.0, 60_000.0)),
     )
 
@@ -97,7 +97,8 @@ def scenarios_for(draw, graph: CalculationGraph) -> list[Scenario]:
 
 @st.composite
 def _line(draw, route: Route) -> PlanLine | None:
-    shipments = draw(st.integers(0, min(route.max_shipments, 6)))
+    shipments = draw(st.integers(1, 6)) if draw(st.integers(0, 9)) else 0
+    shipments = min(shipments, route.max_shipments)
     lo = -(-route.min_batch * shipments // route.lot_size)
     hi = min(route.max_batch * shipments, route.capacity_packs) // route.lot_size
     if shipments == 0 or lo > hi:

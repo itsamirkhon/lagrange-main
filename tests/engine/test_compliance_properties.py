@@ -51,7 +51,7 @@ def worlds(draw, scale: float):
     outcomes = []
     for s in scenarios:
         em = draw(emergency_buys(graph, s))
-        sbr = sold_split(graph, plan, s, em, draw(st.floats(0.0, 1.0)))
+        sbr = sold_split(graph, plan, s, em, draw(st.one_of(st.just(1.0), st.floats(0.0, 1.0))))
         sold = sum(sbr.values())
         # demand is exactly sold + shortfall: align the scenario-independent demand via a copy
         s2 = s.model_copy(update={"demand": sold + draw(st.floats(0.0, 1000.0))})
