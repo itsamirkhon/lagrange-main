@@ -1,0 +1,3906 @@
+{
+  "level": "L3",
+  "documents": 78,
+  "questions": 43,
+  "issues": 91,
+  "errors": 0,
+  "elapsed_seconds": 77.517,
+  "by_document_type": {
+    "D1": {
+      "documents": 2,
+      "classification": {
+        "correct": 0,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D2": {
+      "documents": 6,
+      "classification": {
+        "correct": 1,
+        "total": 6,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D3": {
+      "documents": 8,
+      "classification": {
+        "correct": 8,
+        "total": 8,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D4": {
+      "documents": 6,
+      "classification": {
+        "correct": 0,
+        "total": 6,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D5": {
+      "documents": 9,
+      "classification": {
+        "correct": 9,
+        "total": 9,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D6": {
+      "documents": 11,
+      "classification": {
+        "correct": 11,
+        "total": 11,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D7": {
+      "documents": 4,
+      "classification": {
+        "correct": 0,
+        "total": 4,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D8": {
+      "documents": 13,
+      "classification": {
+        "correct": 0,
+        "total": 13,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D9": {
+      "documents": 3,
+      "classification": {
+        "correct": 0,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D10": {
+      "documents": 2,
+      "classification": {
+        "correct": 0,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D11": {
+      "documents": 4,
+      "classification": {
+        "correct": 0,
+        "total": 4,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D12": {
+      "documents": 6,
+      "classification": {
+        "correct": 4,
+        "total": 6,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D13": {
+      "documents": 4,
+      "classification": {
+        "correct": 0,
+        "total": 4,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    }
+  },
+  "unavailable": {
+    "field_accuracy": "Truth fields are not aligned with extracted instance fields.",
+    "evidence_accuracy": "Source-to-value verification has not been evaluated.",
+    "honesty": "Unrecoverable corruption outcomes have not been aligned to output fields.",
+    "link_accuracy": "Predicted links have not been aligned to truth relations.",
+    "accuracy_after_review": "No simulated reviewer has been implemented.",
+    "pnl_and_margin": "No independently verified P&L evaluation has been implemented.",
+    "cost": "API does not report per-document model costs."
+  },
+  "results": [
+    {
+      "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+      "doc_type": "D1",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+      "doc_type": "D1",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+      "doc_type": "D2",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+      "doc_type": "D2",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+      "doc_type": "D2",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+      "doc_type": "D2",
+      "prediction": "D2",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "regional_report"
+    },
+    {
+      "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+      "doc_type": "D2",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+      "doc_type": "D2",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2026-005.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D3_quote_KP-2026-015.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D4_carrier_quote_auto_rail.pdf",
+      "doc_type": "D4",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D4_carrier_quote_turkmen_air.pdf",
+      "doc_type": "D4",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L3/documents/D4_carrier_rates_2025.xlsx",
+      "doc_type": "D4",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D4_carrier_rates_2026.xlsx",
+      "doc_type": "D4",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D4_carrier_chat_auto_kz.png",
+      "doc_type": "D4",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D4_carrier_chat_air_tas.png",
+      "doc_type": "D4",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-01.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-02.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-03.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-04.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-CAR-2025-01_02.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-CAR-2025-03_04.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-01_v2.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-02_v2.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-03_v2.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_01.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_02.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_03.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_04.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_05.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_06.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_07.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_08.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_09.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_10.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D6_invoices_bundle_11.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L3/documents/D7_customs_summary_2025.xlsx",
+      "doc_type": "D7",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D7_customs_summary_2025.pdf",
+      "doc_type": "D7",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D7_customs_summary_2026.xlsx",
+      "doc_type": "D7",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D7_customs_summary_2026.pdf",
+      "doc_type": "D7",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_01.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_01_dup.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_02.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_02_dup.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_03.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_03_dup.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_04.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_05.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_06.pdf",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_photo_01.jpg",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_photo_02.jpg",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_photo_03.jpg",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D8_waybill_photo_04.jpg",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D9_warehouse_stock_2025_H1.xlsx",
+      "doc_type": "D9",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D9_warehouse_stock_2025_H2.xlsx",
+      "doc_type": "D9",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D9_warehouse_stock_2026.xlsx",
+      "doc_type": "D9",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D10_payments_credit_2025.xlsx",
+      "doc_type": "D10",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D10_payments_credit_2026.xlsx",
+      "doc_type": "D10",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D11_memo_marketing_2025.jpg",
+      "doc_type": "D11",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D11_memo_logistics_2025.jpg",
+      "doc_type": "D11",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D11_memo_writeoffs_2026.jpg",
+      "doc_type": "D11",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D11_memo_finance_2026.jpg",
+      "doc_type": "D11",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D12_email_quotes_2025.eml",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L3/documents/D12_email_contracts_2025.eml",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L3/documents/D12_email_customs_2026.eml",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L3/documents/D12_email_supplier_2026.eml",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L3/documents/D12_email_printout_contracts.pdf",
+      "doc_type": "D12",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D12_email_printout_customs.pdf",
+      "doc_type": "D12",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D13_registry_extract_2025.csv",
+      "doc_type": "D13",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D13_registry_extract_2025.pdf",
+      "doc_type": "D13",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D13_registry_extract_2026.csv",
+      "doc_type": "D13",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L3/documents/D13_registry_extract_2026.pdf",
+      "doc_type": "D13",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    }
+  ],
+  "issue_details": [
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "Документ реализации",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 2,
+        "header": "Контрагент",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "Код 1С",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 8,
+        "header": "Ед. изм.",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 11,
+        "header": "Сумма без НДС",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 12,
+        "header": "НДС 12%",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "e4ea7231535ea775a26892cfca3eb6920d3e1b6b854f8f4c0484fe7c75a422b9"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 13,
+        "header": "Сумма с НДС",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "Документ реализации",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 2,
+        "header": "Контрагент",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "Код 1С",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 8,
+        "header": "Ед. изм.",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 11,
+        "header": "Сумма без НДС",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 12,
+        "header": "НДС 12%",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "6f99a9026f9dbead0b58ce7b729fb6a2b0fedcb12800f1c6a5b2c4263eed27b0"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 13,
+        "header": "Сумма с НДС",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "7bac147e0dc2146f64daebd9b8de59804f203c4e0086a258e785b01e18a33e06"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "7bac147e0dc2146f64daebd9b8de59804f203c4e0086a258e785b01e18a33e06"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 2,
+        "header": "Контрагент",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "e86a0c85784ba576819c5e828d1e0dce871b592c47455582cae4e36db2e74fda"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "5be8e903f126f4bd9642b21e24337eeb8dd4c83b189d0a18e551a4806fb502e5"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "5d632e83e175d3126d49fe61c46c440d78d4992107dede907061c40d7c32d8de"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "5d632e83e175d3126d49fe61c46c440d78d4992107dede907061c40d7c32d8de"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "Область",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "5d632e83e175d3126d49fe61c46c440d78d4992107dede907061c40d7c32d8de"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 2,
+        "header": "Покупатель",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "5d632e83e175d3126d49fe61c46c440d78d4992107dede907061c40d7c32d8de"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 7,
+        "header": "Сумма без НДС",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "7b258542d9b6af119b0a097e59f8926738d63ede4d7291c58238557b19f4aa48"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "e9a89fd8f9d28be6e6b4ebc931cd80fcad5656150965a4fbb55a011ded13d645"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "6c7eb36446d0a93615eecc3960392c219c33744081a5c31ee1800381f3e7bc41"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "f418086de30f938f4a7571ff375000c63eab4ca8b5b260c9b997729989262d81"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "f418086de30f938f4a7571ff375000c63eab4ca8b5b260c9b997729989262d81"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "04e3219b8f033e9a95df646f7b1c2297c9c313d83c2cda8689b1a8ce02ce9395"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "04e3219b8f033e9a95df646f7b1c2297c9c313d83c2cda8689b1a8ce02ce9395"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "2e1d09855596f41444e52b17219f15f3ca294ab3d2be4acb6c847a80c2145c71"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "28a42b128288ccb0b75f345e19478e6f9553f2b520a1aa35062fb184161db90f"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "d346d8487ca8c328c1f2b5a9b0864cffb6d15be7e3b41f128b0bc3a242a3baf6"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "bf652435589185eae9ecacbf60e2f21568d15a50b7c8ef35f8a0253822aefa4f"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "9cbd8fc54043a9f22b10fe1ac5adfa4f469527c1301e6a9da6702f64fe2af655"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "37ee55155659408fbb7ba3e0b4186bd38ea1f4734702b467e90711b02863fb79"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "61c2d1811942c1e79ddc46b4b301701c8fe5d3cf861cc99cad1ff7dabe0747eb"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "d18577d7d3c0be6d0f5fb30ed3da9df3616c8e74f9d9a5daa45499e3c2b6804f"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "f43e2d7ffacef957c121f71915123c13845db45b6096ce8df326472e03b1139e"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "8d33ef2b73d98f24bf3e420a2cc863777257c7abb257d14df5268160d0141602"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "b3d320b728cae253c7ce97340d2c0afb2a73b04152313d7cbca490db09ef0aa7"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "c5fcef3d43c16ca175b7dbe36e4f09f30db05e5db13bc5b316cae5d39e028a2a"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "5ce15dd4186231432688529be566ead01266041f9f2ab9b8d966cc15c18019e3"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "36159c2150c258daeb4afe743cd4fed15b9532e42ef90648a00123762be8eb85"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "36159c2150c258daeb4afe743cd4fed15b9532e42ef90648a00123762be8eb85"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "13539943435ebad04d5081e921c2c2898e5cc24e49260190590ee6674c8f5472"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "13539943435ebad04d5081e921c2c2898e5cc24e49260190590ee6674c8f5472"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "a7b0f6f5fb9c8bb4eb220d2e6f5b8167b6724746994103e3b6f03688d28a7670"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "a7b0f6f5fb9c8bb4eb220d2e6f5b8167b6724746994103e3b6f03688d28a7670"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "280c92a65a35e406b05871743cecdfab07e2f20cc048f4c592d2c09bc8bd6595"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "280c92a65a35e406b05871743cecdfab07e2f20cc048f4c592d2c09bc8bd6595"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "f9ded721e5a559f962f62a9d1b80e42635e718bfb4e8dac65c53ae922ea3e0ec"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9ded721e5a559f962f62a9d1b80e42635e718bfb4e8dac65c53ae922ea3e0ec"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "Акт",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9ded721e5a559f962f62a9d1b80e42635e718bfb4e8dac65c53ae922ea3e0ec"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "Дата",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9ded721e5a559f962f62a9d1b80e42635e718bfb4e8dac65c53ae922ea3e0ec"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 5,
+        "header": "Сумма UZS",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9ded721e5a559f962f62a9d1b80e42635e718bfb4e8dac65c53ae922ea3e0ec"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "Причина",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "f9b86857f34645434e2b9589a6e81c48bacb81ac468ac17019bd277fe72b28a5"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9b86857f34645434e2b9589a6e81c48bacb81ac468ac17019bd277fe72b28a5"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "Акт",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9b86857f34645434e2b9589a6e81c48bacb81ac468ac17019bd277fe72b28a5"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "Дата",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9b86857f34645434e2b9589a6e81c48bacb81ac468ac17019bd277fe72b28a5"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 5,
+        "header": "Сумма UZS",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "f9b86857f34645434e2b9589a6e81c48bacb81ac468ac17019bd277fe72b28a5"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "Причина",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "aac262f99300ebdc05d06f498fd6a9c3315688010c671d562643cf1a2d0d2f1f"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "aac262f99300ebdc05d06f498fd6a9c3315688010c671d562643cf1a2d0d2f1f"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "Акт",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "aac262f99300ebdc05d06f498fd6a9c3315688010c671d562643cf1a2d0d2f1f"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "Дата",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "aac262f99300ebdc05d06f498fd6a9c3315688010c671d562643cf1a2d0d2f1f"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 5,
+        "header": "Сумма UZS",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "aac262f99300ebdc05d06f498fd6a9c3315688010c671d562643cf1a2d0d2f1f"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "Причина",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "arithmetic",
+      "severity": "warning",
+      "affected": [
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-01",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-02",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-03",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-04",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-05",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-06",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-07",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-08",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-09",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-10",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-11",
+        "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6:2025-12"
+      ],
+      "evidence": [
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "241817381.48"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "37369828.69"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "40399020.7"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "36288841.94"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "30991572.09"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "27144785.39"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "24136835.29"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "20413907.2"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "17017318.3"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "13449957.65"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "7745901.38"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "4104164.67"
+        },
+        {
+          "document_id": "33754dfa00e49f4665831a6f7bbbaec56d76060ed82fc063be60e2211c6c08d6",
+          "page": 1,
+          "quote": "3782846.57"
+        }
+      ],
+      "detail": "Observed 241817381.48; calculated 262844979.87",
+      "resolution": "unresolved",
+      "field": "total_interest_uzs"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "arithmetic",
+      "severity": "warning",
+      "affected": [
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-01",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-02",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-03",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-04",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-05",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-06",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-07",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-08",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-09",
+        "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876:2026-10"
+      ],
+      "evidence": [
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "10201766.36"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "2918410.49"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "2694933.01"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "3309545.65"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "1864151.15"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "133136.82"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "0.0"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "0.0"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "84349.68"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "84349.68"
+        },
+        {
+          "document_id": "bd26949adce52c3cd5f3ea9bfcf61f6aeb8a141cbf42b91a520129312d756876",
+          "page": 1,
+          "quote": "0.0"
+        }
+      ],
+      "detail": "Observed 10201766.36; calculated 11088876.48",
+      "resolution": "unresolved",
+      "field": "total_interest_uzs"
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "8dd12f137244b9026990986fc4d6004c0a67175effd5bbcdfcaa396edfcfd3da"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "8dd12f137244b9026990986fc4d6004c0a67175effd5bbcdfcaa396edfcfd3da"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "9fb743ca8e59ad26bf78ca6ad0f8fc7dd4ddc3d3237dddd762d9c03bebd7b087"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "9fb743ca8e59ad26bf78ca6ad0f8fc7dd4ddc3d3237dddd762d9c03bebd7b087"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "afc35d8048c71ca45dd5a7077e3d3a3ef2a69a955ffced01c517b3705a4af9a0"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "afc35d8048c71ca45dd5a7077e3d3a3ef2a69a955ffced01c517b3705a4af9a0"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "b0b29619fcb83745a27cbca6bab9861b521698a312553b92c9dd4c6220ae721c"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "b0b29619fcb83745a27cbca6bab9861b521698a312553b92c9dd4c6220ae721c"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "41056eac7a6caa42cb9959406b614643bcc50b738469df3811b8a12faf2e951a"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "2bca58c74a5d46a5574f059417490268e1455c556bd6b3511d20d0ec3381e528"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "a0baca82443fba2049f6e9a780dc151ae19b15e01068bf03b34b970151db3a04"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "54d9ba472b0622b7465b19f521cdae2010254c5c8688f8cde2f2624ec1950cca"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "e09d5fa7dbd8341c50ad477388ec0b08b1b87af752014234c07e48d4a18f3716"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "01faa8c28c346637c002e77d8c88bc1497726eb9a3a4ac1916000c48fd0b7878"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "contradiction",
+      "severity": "warning",
+      "field": "unit_price",
+      "affected": [
+        "0fda7d0549781eecd4e5002f6dd78ee1adf741adb78ac661f2b53345b68656ea",
+        "01338a7c74c9d9977b28fbb6beb1236f0ae3c85ffddca872bb0c58e1f3b94a81"
+      ],
+      "evidence": [
+        {
+          "document_id": "0fda7d0549781eecd4e5002f6dd78ee1adf741adb78ac661f2b53345b68656ea",
+          "page": 1,
+          "quote": "Цена:\n7.48 USD"
+        },
+        {
+          "document_id": "01338a7c74c9d9977b28fbb6beb1236f0ae3c85ffddca872bb0c58e1f3b94a81",
+          "page": 1,
+          "quote": "Цена:\n8.00 USD"
+        }
+      ],
+      "detail": "Conflicting unit_price for the same contract number and CIP currency; verify versions and effective dates.",
+      "resolution": "unresolved"
+    },
+    {
+      "issue_type": "contradiction",
+      "severity": "warning",
+      "field": "unit_price",
+      "affected": [
+        "fc3a5a87c851d3617f6bc074df9ac08211441e5618baa8bf83bea3ee5e3ad296",
+        "bdb48574f8a4143423c10f0bec04990f83c695e436d62fee3ac7bffbecb49ac7"
+      ],
+      "evidence": [
+        {
+          "document_id": "fc3a5a87c851d3617f6bc074df9ac08211441e5618baa8bf83bea3ee5e3ad296",
+          "page": 1,
+          "quote": "Цена:\n7.42 USD"
+        },
+        {
+          "document_id": "bdb48574f8a4143423c10f0bec04990f83c695e436d62fee3ac7bffbecb49ac7",
+          "page": 1,
+          "quote": "Цена:\n7.94 USD"
+        }
+      ],
+      "detail": "Conflicting unit_price for the same contract number and CIP currency; verify versions and effective dates.",
+      "resolution": "unresolved"
+    },
+    {
+      "issue_type": "contradiction",
+      "severity": "warning",
+      "field": "unit_price",
+      "affected": [
+        "3c604e52f5286f3967c50215b4c4650ec02bdbc652de00150b3a3fb6a9875ad6",
+        "0e67065e8037ab4b066770c9b69f0137e36a5b5ee9be5331f045457cf82386c9"
+      ],
+      "evidence": [
+        {
+          "document_id": "3c604e52f5286f3967c50215b4c4650ec02bdbc652de00150b3a3fb6a9875ad6",
+          "page": 1,
+          "quote": "Цена:\n6.65 EUR"
+        },
+        {
+          "document_id": "0e67065e8037ab4b066770c9b69f0137e36a5b5ee9be5331f045457cf82386c9",
+          "page": 1,
+          "quote": "Цена:\n7.12 EUR"
+        }
+      ],
+      "detail": "Conflicting unit_price for the same contract number and CIP currency; verify versions and effective dates.",
+      "resolution": "unresolved"
+    },
+    {
+      "issue_type": "duplicate",
+      "severity": "warning",
+      "field": "lot_code",
+      "affected": [
+        "9cbd8fc54043a9f22b10fe1ac5adfa4f469527c1301e6a9da6702f64fe2af655",
+        "37ee55155659408fbb7ba3e0b4186bd38ea1f4734702b467e90711b02863fb79"
+      ],
+      "evidence": [
+        {
+          "document_id": "9cbd8fc54043a9f22b10fe1ac5adfa4f469527c1301e6a9da6702f64fe2af655",
+          "page": 1,
+          "quote": "Дата: 2025-01-20 | Инвойс: INV-2025-001"
+        },
+        {
+          "document_id": "9cbd8fc54043a9f22b10fe1ac5adfa4f469527c1301e6a9da6702f64fe2af655",
+          "page": 1,
+          "quote": "Позиции\nСерия\nПрепарат\nКоличество\nСрок годн.\nKZ-202501-01\nKardiozan 10 мг №30\n49500.0 (блистер)\n2026-10-22\nBG-202501-02\nAngiokor 5 мг №30\n14300 упак.\n2026-10-13"
+        },
+        {
+          "document_id": "37ee55155659408fbb7ba3e0b4186bd38ea1f4734702b467e90711b02863fb79",
+          "page": 1,
+          "quote": "Дата: 2025-01-20 | Инвойс: INV-2025-001"
+        },
+        {
+          "document_id": "37ee55155659408fbb7ba3e0b4186bd38ea1f4734702b467e90711b02863fb79",
+          "page": 1,
+          "quote": "Позиции\nСерия\nПрепарат\nКоличество\nСрок годн.\nKZ-202501-01\nKardiozan 10 мг №30\n49500.0 (блистер)\n2026-10-22\nBG-202501-02\nAngiokor 5 мг №30\n14300 упак.\n2026-10-13"
+        }
+      ],
+      "detail": "Possible duplicate warehouse receipt: external lot code, receipt date, expiry and quantity match.",
+      "resolution": "unresolved"
+    },
+    {
+      "issue_type": "duplicate",
+      "severity": "warning",
+      "field": "lot_code",
+      "affected": [
+        "61c2d1811942c1e79ddc46b4b301701c8fe5d3cf861cc99cad1ff7dabe0747eb",
+        "d18577d7d3c0be6d0f5fb30ed3da9df3616c8e74f9d9a5daa45499e3c2b6804f"
+      ],
+      "evidence": [
+        {
+          "document_id": "61c2d1811942c1e79ddc46b4b301701c8fe5d3cf861cc99cad1ff7dabe0747eb",
+          "page": 1,
+          "quote": "Дата: 2025-02-21 | Инвойс: INV-2025-003"
+        },
+        {
+          "document_id": "61c2d1811942c1e79ddc46b4b301701c8fe5d3cf861cc99cad1ff7dabe0747eb",
+          "page": 1,
+          "quote": "Позиции\nСерия\nПрепарат\nКоличество\nСрок годн.\nKZ-202502-04\nKardiozan 10 мг №30\n11100 упак.\n2026-11-29\nBG-202501-03\nTensormin 50 мг №28\n5400 упак.\n2027-10-08"
+        },
+        {
+          "document_id": "d18577d7d3c0be6d0f5fb30ed3da9df3616c8e74f9d9a5daa45499e3c2b6804f",
+          "page": 1,
+          "quote": "Дата: 2025-02-21 | Инвойс: INV-2025-003"
+        },
+        {
+          "document_id": "d18577d7d3c0be6d0f5fb30ed3da9df3616c8e74f9d9a5daa45499e3c2b6804f",
+          "page": 1,
+          "quote": "Позиции\nСерия\nПрепарат\nКоличество\nСрок годн.\nKZ-202502-04\nKardiozan 10 мг №30\n11100 упак.\n2026-11-29\nBG-202501-03\nTensormin 50 мг №28\n5400 упак.\n2027-10-08"
+        }
+      ],
+      "detail": "Possible duplicate warehouse receipt: external lot code, receipt date, expiry and quantity match.",
+      "resolution": "unresolved"
+    },
+    {
+      "issue_type": "duplicate",
+      "severity": "warning",
+      "field": "lot_code",
+      "affected": [
+        "f43e2d7ffacef957c121f71915123c13845db45b6096ce8df326472e03b1139e",
+        "8d33ef2b73d98f24bf3e420a2cc863777257c7abb257d14df5268160d0141602"
+      ],
+      "evidence": [
+        {
+          "document_id": "f43e2d7ffacef957c121f71915123c13845db45b6096ce8df326472e03b1139e",
+          "page": 1,
+          "quote": "Дата: 2025-02-21 | Инвойс: INV-2025-003"
+        },
+        {
+          "document_id": "f43e2d7ffacef957c121f71915123c13845db45b6096ce8df326472e03b1139e",
+          "page": 1,
+          "quote": "Позиции\nСерия\nПрепарат\nКоличество\nСрок годн.\nKZ-202502-05\nKardiozan 10 мг №30\n400 упак.\n2025-04-18\nBG-202502-06\nTensormin 50 мг №28\n7920 упак.\n2027-12-04"
+        },
+        {
+          "document_id": "8d33ef2b73d98f24bf3e420a2cc863777257c7abb257d14df5268160d0141602",
+          "page": 1,
+          "quote": "Дата: 2025-02-21 | Инвойс: INV-2025-003"
+        },
+        {
+          "document_id": "8d33ef2b73d98f24bf3e420a2cc863777257c7abb257d14df5268160d0141602",
+          "page": 1,
+          "quote": "Позиции\nСерия\nПрепарат\nКоличество\nСрок годн.\nKZ-202502-05\nKardiozan 10 мг №30\n400 упак.\n2025-04-18\nBG-202502-06\nTensormin 50 мг №28\n7920 упак.\n2027-12-04"
+        }
+      ],
+      "detail": "Possible duplicate warehouse receipt: external lot code, receipt date, expiry and quantity match.",
+      "resolution": "unresolved"
+    }
+  ],
+  "issue_types": {
+    "arithmetic": 2,
+    "classification_required": 43,
+    "contradiction": 3,
+    "duplicate": 3,
+    "parse_warning": 10,
+    "unmapped_column": 30
+  },
+  "corruption_detection": {
+    "total": 253,
+    "detected": 8,
+    "by_operator": {
+      "M1": {
+        "total": 12,
+        "detected": 0,
+        "matchable": true
+      },
+      "N1": {
+        "total": 33,
+        "detected": 0,
+        "matchable": false
+      },
+      "N2": {
+        "total": 43,
+        "detected": 0,
+        "matchable": false
+      },
+      "L1": {
+        "total": 26,
+        "detected": 0,
+        "matchable": false
+      },
+      "A1": {
+        "total": 10,
+        "detected": 2,
+        "matchable": true
+      },
+      "C1": {
+        "total": 22,
+        "detected": 0,
+        "matchable": true
+      },
+      "X1": {
+        "total": 16,
+        "detected": 0,
+        "matchable": true
+      },
+      "S1": {
+        "total": 10,
+        "detected": 0,
+        "matchable": true
+      },
+      "V1": {
+        "total": 8,
+        "detected": 0,
+        "matchable": true
+      },
+      "R4": {
+        "total": 6,
+        "detected": 0,
+        "matchable": false
+      },
+      "X2": {
+        "total": 10,
+        "detected": 3,
+        "matchable": true
+      },
+      "U1": {
+        "total": 7,
+        "detected": 0,
+        "matchable": true
+      },
+      "C2": {
+        "total": 8,
+        "detected": 0,
+        "matchable": false
+      },
+      "C3": {
+        "total": 8,
+        "detected": 0,
+        "matchable": true
+      },
+      "D1x": {
+        "total": 6,
+        "detected": 3,
+        "matchable": true
+      },
+      "R1": {
+        "total": 8,
+        "detected": 0,
+        "matchable": false
+      },
+      "R2": {
+        "total": 10,
+        "detected": 0,
+        "matchable": false
+      },
+      "R3": {
+        "total": 10,
+        "detected": 0,
+        "matchable": false
+      }
+    },
+    "matches": [
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "M1",
+        "field": "sales_slice_2025-04",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "M1",
+        "field": "sales_slice_2025-07",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "M1",
+        "field": "sales_slice_2025-10",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2025.csv",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "M1",
+        "field": "sales_slice_2026-02",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "M1",
+        "field": "sales_slice_2026-06",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "M1",
+        "field": "sales_slice_2026-08",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D1_1c_sales_2026.csv",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-04",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_city.xlsx",
+        "operator": "A1",
+        "field": "total_revenue_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-04",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_tashkent_region_syrdarya.xlsx",
+        "operator": "A1",
+        "field": "total_revenue_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-04",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_fergana_valley.xlsx",
+        "operator": "A1",
+        "field": "total_revenue_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-04",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_samarkand_navoi.xlsx",
+        "operator": "A1",
+        "field": "total_revenue_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-04",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_bukhara_kashkadarya_surkhan.xlsx",
+        "operator": "A1",
+        "field": "total_revenue_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-04",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "N2",
+        "field": "period",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D2_sales_khorezm_karakalpakstan.xlsx",
+        "operator": "A1",
+        "field": "total_revenue_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+        "operator": "S1",
+        "field": "quote_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-001.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+        "operator": "S1",
+        "field": "quote_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-003.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-005.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-005.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-005.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-005.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-005.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-005.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+        "operator": "S1",
+        "field": "quote_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-007.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+        "operator": "S1",
+        "field": "quote_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-009.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+        "operator": "S1",
+        "field": "quote_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2025-011.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+        "operator": "S1",
+        "field": "quote_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-013.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-015.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-015.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-015.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-015.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-015.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D3_quote_KP-2026-015.pdf",
+        "operator": "N2",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_auto_rail.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_auto_rail.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_auto_rail.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_auto_rail.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_turkmen_air.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_turkmen_air.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_turkmen_air.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_quote_turkmen_air.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_chat_auto_kz.png",
+        "operator": "R4",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_chat_auto_kz.png",
+        "operator": "R4",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_chat_auto_kz.png",
+        "operator": "R4",
+        "field": "lead_time_days",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_chat_air_tas.png",
+        "operator": "R4",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_chat_air_tas.png",
+        "operator": "R4",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D4_carrier_chat_air_tas.png",
+        "operator": "R4",
+        "field": "lead_time_days",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-01.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-02.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-03.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-04.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-CAR-2025-01_02.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-CAR-2025-03_04.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-01_v2.pdf",
+        "operator": "X2",
+        "field": "unit_price",
+        "detected": true,
+        "issue_index": 85
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-01_v2.pdf",
+        "operator": "X2",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-01_v2.pdf",
+        "operator": "X2",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-01_v2.pdf",
+        "operator": "X2",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-02_v2.pdf",
+        "operator": "X2",
+        "field": "unit_price",
+        "detected": true,
+        "issue_index": 86
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-02_v2.pdf",
+        "operator": "X2",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-02_v2.pdf",
+        "operator": "X2",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-02_v2.pdf",
+        "operator": "X2",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-03_v2.pdf",
+        "operator": "X2",
+        "field": "unit_price",
+        "detected": true,
+        "issue_index": 87
+      },
+      {
+        "document": "worlds/L3/documents/D5_contract_CNT-SUP-2025-03_v2.pdf",
+        "operator": "X2",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_01.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_01.pdf",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_02.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_03.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_03.pdf",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_04.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_05.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_06.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_06.pdf",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_07.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_08.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_09.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_10.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D6_invoices_bundle_11.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.xlsx",
+        "operator": "C2",
+        "field": "cip_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.xlsx",
+        "operator": "C2",
+        "field": "cip_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.xlsx",
+        "operator": "C2",
+        "field": "cip_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.pdf",
+        "operator": "N2",
+        "field": "clearance_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.pdf",
+        "operator": "N2",
+        "field": "clearance_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2025.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.xlsx",
+        "operator": "C2",
+        "field": "cip_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.xlsx",
+        "operator": "C2",
+        "field": "cip_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.xlsx",
+        "operator": "C2",
+        "field": "cip_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.pdf",
+        "operator": "N2",
+        "field": "clearance_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.pdf",
+        "operator": "N2",
+        "field": "clearance_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D7_customs_summary_2026.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_01.pdf",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_01_dup.pdf",
+        "operator": "D1x",
+        "field": "waybill_number",
+        "detected": true,
+        "issue_index": 88
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_01_dup.pdf",
+        "operator": "D1x",
+        "field": "lot_code",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_02_dup.pdf",
+        "operator": "D1x",
+        "field": "waybill_number",
+        "detected": true,
+        "issue_index": 89
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_02_dup.pdf",
+        "operator": "D1x",
+        "field": "lot_code",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_03_dup.pdf",
+        "operator": "D1x",
+        "field": "waybill_number",
+        "detected": true,
+        "issue_index": 90
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_03_dup.pdf",
+        "operator": "D1x",
+        "field": "lot_code",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_04.pdf",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_01.jpg",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_01.jpg",
+        "operator": "R1",
+        "field": "qty_packs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_01.jpg",
+        "operator": "R2",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_01.jpg",
+        "operator": "R2",
+        "field": "grand_total_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_01.jpg",
+        "operator": "R3",
+        "field": "handwritten_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_02.jpg",
+        "operator": "A1",
+        "field": "grand_total_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_02.jpg",
+        "operator": "R1",
+        "field": "qty_packs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_02.jpg",
+        "operator": "R2",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_02.jpg",
+        "operator": "R2",
+        "field": "grand_total_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_03.jpg",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_03.jpg",
+        "operator": "R1",
+        "field": "qty_packs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_03.jpg",
+        "operator": "R2",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_03.jpg",
+        "operator": "R2",
+        "field": "grand_total_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_03.jpg",
+        "operator": "R3",
+        "field": "handwritten_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_04.jpg",
+        "operator": "A1",
+        "field": "grand_total_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_04.jpg",
+        "operator": "R1",
+        "field": "qty_packs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_04.jpg",
+        "operator": "R2",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D8_waybill_photo_04.jpg",
+        "operator": "R2",
+        "field": "grand_total_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D9_warehouse_stock_2025_H1.xlsx",
+        "operator": "N1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D9_warehouse_stock_2025_H2.xlsx",
+        "operator": "N1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D9_warehouse_stock_2026.xlsx",
+        "operator": "N1",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2025.xlsx",
+        "operator": "A1",
+        "field": "total_interest_uzs",
+        "detected": true,
+        "issue_index": 68
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2025.xlsx",
+        "operator": "N1",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2025.xlsx",
+        "operator": "C2",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2025.xlsx",
+        "operator": "N1",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2026.xlsx",
+        "operator": "A1",
+        "field": "total_interest_uzs",
+        "detected": true,
+        "issue_index": 70
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2026.xlsx",
+        "operator": "N1",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2026.xlsx",
+        "operator": "C2",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D10_payments_credit_2026.xlsx",
+        "operator": "N1",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_marketing_2025.jpg",
+        "operator": "R1",
+        "field": "memo_scan_quality",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_marketing_2025.jpg",
+        "operator": "R2",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_marketing_2025.jpg",
+        "operator": "R3",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_marketing_2025.jpg",
+        "operator": "R3",
+        "field": "approved_budget_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_logistics_2025.jpg",
+        "operator": "R1",
+        "field": "memo_scan_quality",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_logistics_2025.jpg",
+        "operator": "R2",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_logistics_2025.jpg",
+        "operator": "R3",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_logistics_2025.jpg",
+        "operator": "R3",
+        "field": "approved_budget_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_writeoffs_2026.jpg",
+        "operator": "R1",
+        "field": "memo_scan_quality",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_writeoffs_2026.jpg",
+        "operator": "R3",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_writeoffs_2026.jpg",
+        "operator": "R3",
+        "field": "approved_budget_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_finance_2026.jpg",
+        "operator": "R1",
+        "field": "memo_scan_quality",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_finance_2026.jpg",
+        "operator": "R3",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D11_memo_finance_2026.jpg",
+        "operator": "R3",
+        "field": "approved_budget_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D13_registry_extract_2026.pdf",
+        "operator": "S1",
+        "field": "chchn_with_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D13_registry_extract_2026.pdf",
+        "operator": "S1",
+        "field": "chun_with_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D13_registry_extract_2026.pdf",
+        "operator": "S1",
+        "field": "wholesale_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L3/documents/D13_registry_extract_2026.pdf",
+        "operator": "S1",
+        "field": "calc_base_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      }
+    ],
+    "unmatched_issues": 0,
+    "excluded_technical_issues": 83,
+    "method": "Conservative one-to-one matching by issue type, document hash and field or period (document-level for duplicates); unmatched does not prove a false positive."
+  }
+}

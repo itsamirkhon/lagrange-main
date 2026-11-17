@@ -1,0 +1,611 @@
+{
+  "level": "L0",
+  "documents": 24,
+  "questions": 27,
+  "issues": 19,
+  "errors": 0,
+  "elapsed_seconds": 5.689,
+  "by_document_type": {
+    "D1": {
+      "documents": 1,
+      "classification": {
+        "correct": 1,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D2": {
+      "documents": 3,
+      "classification": {
+        "correct": 3,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D3": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D4": {
+      "documents": 3,
+      "classification": {
+        "correct": 2,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D5": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D6": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D7": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D8": {
+      "documents": 2,
+      "classification": {
+        "correct": 1,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D9": {
+      "documents": 1,
+      "classification": {
+        "correct": 1,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D10": {
+      "documents": 1,
+      "classification": {
+        "correct": 0,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D11": {
+      "documents": 1,
+      "classification": {
+        "correct": 0,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D12": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D13": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    }
+  },
+  "unavailable": {
+    "field_accuracy": "Truth fields are not aligned with extracted instance fields.",
+    "evidence_accuracy": "Source-to-value verification has not been evaluated.",
+    "honesty": "Unrecoverable corruption outcomes have not been aligned to output fields.",
+    "link_accuracy": "Predicted links have not been aligned to truth relations.",
+    "accuracy_after_review": "No simulated reviewer has been implemented.",
+    "pnl_and_margin": "No independently verified P&L evaluation has been implemented.",
+    "cost": "API does not report per-document model costs."
+  },
+  "results": [
+    {
+      "document": "worlds/L0/documents/D1_1c_sales_export.csv",
+      "doc_type": "D1",
+      "prediction": "D1",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "sales_export"
+    },
+    {
+      "document": "worlds/L0/documents/D2_regional_sales_central.xlsx",
+      "doc_type": "D2",
+      "prediction": "D2",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "regional_report"
+    },
+    {
+      "document": "worlds/L0/documents/D2_regional_sales_fergana.xlsx",
+      "doc_type": "D2",
+      "prediction": "D2",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "regional_report"
+    },
+    {
+      "document": "worlds/L0/documents/D2_regional_sales_west_south.xlsx",
+      "doc_type": "D2",
+      "prediction": "D2",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "regional_report"
+    },
+    {
+      "document": "worlds/L0/documents/D3_quote_supplier_A_2026-05.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L0/documents/D3_quote_supplier_B_2026-08.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L0/documents/D4_carrier_quote_auto.pdf",
+      "doc_type": "D4",
+      "prediction": "D4",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "carrier_quote"
+    },
+    {
+      "document": "worlds/L0/documents/D4_carrier_rates.xlsx",
+      "doc_type": "D4",
+      "prediction": "D4",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "carrier_quote"
+    },
+    {
+      "document": "worlds/L0/documents/D4_carrier_chat_quote.png",
+      "doc_type": "D4",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L0/documents/D5_contract_supplier_A.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L0/documents/D5_contract_supplier_B.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L0/documents/D6_invoice_packing_shp_0035.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L0/documents/D6_invoice_packing_shp_0040.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L0/documents/D7_customs_summary.xlsx",
+      "doc_type": "D7",
+      "prediction": "D7",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "customs"
+    },
+    {
+      "document": "worlds/L0/documents/D7_customs_summary.pdf",
+      "doc_type": "D7",
+      "prediction": "D7",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "customs"
+    },
+    {
+      "document": "worlds/L0/documents/D8_warehouse_waybill_0101.pdf",
+      "doc_type": "D8",
+      "prediction": "D8",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "waybill"
+    },
+    {
+      "document": "worlds/L0/documents/D8_warehouse_waybill_0102_photo.jpg",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L0/documents/D9_warehouse_stock_lots.xlsx",
+      "doc_type": "D9",
+      "prediction": "D9",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "stock"
+    },
+    {
+      "document": "worlds/L0/documents/D10_payments_and_credit.xlsx",
+      "doc_type": "D10",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L0/documents/D11_internal_memo_handwritten.jpg",
+      "doc_type": "D11",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L0/documents/D12_email_supplier_thread.eml",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L0/documents/D12_email_printout.pdf",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L0/documents/D13_price_registry_extract.csv",
+      "doc_type": "D13",
+      "prediction": "D13",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "registry_extract"
+    },
+    {
+      "document": "worlds/L0/documents/D13_price_registry_extract.pdf",
+      "doc_type": "D13",
+      "prediction": "D13",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "registry_extract"
+    }
+  ],
+  "issue_details": [
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "bde74451603888287a4884d23e71d272cefdc8e26250401ef576a46e31fc68f2"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "sale_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "bde74451603888287a4884d23e71d272cefdc8e26250401ef576a46e31fc68f2"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 5,
+        "header": "lot_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "3e8c3c64c36c7b8cb6ac2d445ce0ccc4ad49713cdb94268077332f0679648276"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "3e8c3c64c36c7b8cb6ac2d445ce0ccc4ad49713cdb94268077332f0679648276"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "d0e93242ef844c90b7a31c0d41ca98865330fb3441e7d0c6aa5deec5cabb1bb3"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "customs_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "d0e93242ef844c90b7a31c0d41ca98865330fb3441e7d0c6aa5deec5cabb1bb3"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "shipment_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "d0e93242ef844c90b7a31c0d41ca98865330fb3441e7d0c6aa5deec5cabb1bb3"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 3,
+        "header": "customs_post",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "d0e93242ef844c90b7a31c0d41ca98865330fb3441e7d0c6aa5deec5cabb1bb3"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 5,
+        "header": "cip_uzs",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "d0e93242ef844c90b7a31c0d41ca98865330fb3441e7d0c6aa5deec5cabb1bb3"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "landed_cost_ex_vat_uzs",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "e5ccc66cb6d0499c64ec374e05f38a351afa9603e0af193de85ac35f7b282a6f"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "e5ccc66cb6d0499c64ec374e05f38a351afa9603e0af193de85ac35f7b282a6f"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "lot_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 2,
+        "header": "sku_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 3,
+        "header": "arrival_date",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "sold_qty",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 7,
+        "header": "writeoff_qty",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "e319287a4061314aa1af265802c4009e2f5cef3afc0fda5950cf3165c7066fe1"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "0666475aafee4eb67a3aaa8595e0f670830179e85c45c10a54dd5506d9c7c004"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "0666475aafee4eb67a3aaa8595e0f670830179e85c45c10a54dd5506d9c7c004"
+      ],
+      "evidence": []
+    }
+  ],
+  "issue_types": {
+    "classification_required": 4,
+    "parse_warning": 3,
+    "unmapped_column": 12
+  },
+  "corruption_detection": {
+    "total": 0,
+    "detected": 0,
+    "by_operator": {},
+    "matches": [],
+    "unmatched_issues": 0,
+    "excluded_technical_issues": 19,
+    "method": "Conservative one-to-one matching by issue type, document hash and field or period (document-level for duplicates); unmatched does not prove a false positive."
+  }
+}

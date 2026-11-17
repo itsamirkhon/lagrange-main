@@ -1,0 +1,1338 @@
+{
+  "level": "L4",
+  "documents": 29,
+  "questions": 27,
+  "issues": 29,
+  "errors": 0,
+  "elapsed_seconds": 6.288,
+  "by_document_type": {
+    "D1": {
+      "documents": 1,
+      "classification": {
+        "correct": 1,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D2": {
+      "documents": 3,
+      "classification": {
+        "correct": 3,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D3": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D4": {
+      "documents": 3,
+      "classification": {
+        "correct": 2,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D5": {
+      "documents": 3,
+      "classification": {
+        "correct": 3,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D6": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D7": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D8": {
+      "documents": 3,
+      "classification": {
+        "correct": 2,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D9": {
+      "documents": 1,
+      "classification": {
+        "correct": 1,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D10": {
+      "documents": 1,
+      "classification": {
+        "correct": 0,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D11": {
+      "documents": 1,
+      "classification": {
+        "correct": 0,
+        "total": 1,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D12": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "D13": {
+      "documents": 2,
+      "classification": {
+        "correct": 2,
+        "total": 2,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    },
+    "J1": {
+      "documents": 3,
+      "classification": {
+        "correct": 0,
+        "total": 3,
+        "unmapped_predictions": 0
+      },
+      "questions": null,
+      "issues": null,
+      "errors": 0
+    }
+  },
+  "unavailable": {
+    "field_accuracy": "Truth fields are not aligned with extracted instance fields.",
+    "evidence_accuracy": "Source-to-value verification has not been evaluated.",
+    "honesty": "Unrecoverable corruption outcomes have not been aligned to output fields.",
+    "link_accuracy": "Predicted links have not been aligned to truth relations.",
+    "accuracy_after_review": "No simulated reviewer has been implemented.",
+    "pnl_and_margin": "No independently verified P&L evaluation has been implemented.",
+    "cost": "API does not report per-document model costs."
+  },
+  "results": [
+    {
+      "document": "worlds/L4/documents/D1_1c_sales_export.csv",
+      "doc_type": "D1",
+      "prediction": "D1",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "sales_export"
+    },
+    {
+      "document": "worlds/L4/documents/D2_regional_sales_central.xlsx",
+      "doc_type": "D2",
+      "prediction": "D2",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "regional_report"
+    },
+    {
+      "document": "worlds/L4/documents/D2_regional_sales_fergana.xlsx",
+      "doc_type": "D2",
+      "prediction": "D2",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "regional_report"
+    },
+    {
+      "document": "worlds/L4/documents/D2_regional_sales_west_south.xlsx",
+      "doc_type": "D2",
+      "prediction": "D2",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "regional_report"
+    },
+    {
+      "document": "worlds/L4/documents/D3_quote_supplier_A_2026-05.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L4/documents/D3_quote_supplier_B_2026-08.pdf",
+      "doc_type": "D3",
+      "prediction": "D3",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "supplier_quote"
+    },
+    {
+      "document": "worlds/L4/documents/D4_carrier_quote_auto.pdf",
+      "doc_type": "D4",
+      "prediction": "D4",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "carrier_quote"
+    },
+    {
+      "document": "worlds/L4/documents/D4_carrier_rates.xlsx",
+      "doc_type": "D4",
+      "prediction": "D4",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "carrier_quote"
+    },
+    {
+      "document": "worlds/L4/documents/D4_carrier_chat_quote.png",
+      "doc_type": "D4",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L4/documents/D5_contract_supplier_A.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L4/documents/D5_contract_supplier_B.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L4/documents/D5_contract_supplier_A_v2.pdf",
+      "doc_type": "D5",
+      "prediction": "D5",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "contract"
+    },
+    {
+      "document": "worlds/L4/documents/D6_invoice_packing_shp_0035.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L4/documents/D6_invoice_packing_shp_0040.pdf",
+      "doc_type": "D6",
+      "prediction": "D6",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "invoice"
+    },
+    {
+      "document": "worlds/L4/documents/D7_customs_summary.xlsx",
+      "doc_type": "D7",
+      "prediction": "D7",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "customs"
+    },
+    {
+      "document": "worlds/L4/documents/D7_customs_summary.pdf",
+      "doc_type": "D7",
+      "prediction": "D7",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "customs"
+    },
+    {
+      "document": "worlds/L4/documents/D8_warehouse_waybill_0101.pdf",
+      "doc_type": "D8",
+      "prediction": "D8",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "waybill"
+    },
+    {
+      "document": "worlds/L4/documents/D8_warehouse_waybill_0101_dup.pdf",
+      "doc_type": "D8",
+      "prediction": "D8",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "waybill"
+    },
+    {
+      "document": "worlds/L4/documents/D8_warehouse_waybill_0102_photo.jpg",
+      "doc_type": "D8",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L4/documents/D9_warehouse_stock_lots.xlsx",
+      "doc_type": "D9",
+      "prediction": "D9",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "stock"
+    },
+    {
+      "document": "worlds/L4/documents/D10_payments_and_credit.xlsx",
+      "doc_type": "D10",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L4/documents/D11_internal_memo_handwritten.jpg",
+      "doc_type": "D11",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L4/documents/D12_email_supplier_thread.eml",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L4/documents/D12_email_printout.pdf",
+      "doc_type": "D12",
+      "prediction": "D12",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "email"
+    },
+    {
+      "document": "worlds/L4/documents/D13_price_registry_extract.csv",
+      "doc_type": "D13",
+      "prediction": "D13",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "registry_extract"
+    },
+    {
+      "document": "worlds/L4/documents/D13_price_registry_extract.pdf",
+      "doc_type": "D13",
+      "prediction": "D13",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "registry_extract"
+    },
+    {
+      "document": "worlds/L4/documents/J1_junk_promo_flyer.pdf",
+      "doc_type": "J1",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L4/documents/J1_junk_unrelated_catalog.csv",
+      "doc_type": "J1",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    },
+    {
+      "document": "worlds/L4/documents/J1_junk_blank_scan.jpg",
+      "doc_type": "J1",
+      "prediction": "unknown",
+      "questions": null,
+      "issues": null,
+      "elapsed_seconds": 0,
+      "raw_prediction": "unknown"
+    }
+  ],
+  "issue_details": [
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "bde74451603888287a4884d23e71d272cefdc8e26250401ef576a46e31fc68f2"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "sale_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "bde74451603888287a4884d23e71d272cefdc8e26250401ef576a46e31fc68f2"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 5,
+        "header": "lot_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "32a68df77f1ec90852ea5a8b03f5a2b254791fd4485eba4fcd4ba103bfb62c6b"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "32a68df77f1ec90852ea5a8b03f5a2b254791fd4485eba4fcd4ba103bfb62c6b"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "ddf8b5b9ca1416f219030d1da9cdb06e10a12a315940d44a1db5fcdce3b912dc"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "customs_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "ddf8b5b9ca1416f219030d1da9cdb06e10a12a315940d44a1db5fcdce3b912dc"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 1,
+        "header": "shipment_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "ddf8b5b9ca1416f219030d1da9cdb06e10a12a315940d44a1db5fcdce3b912dc"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 3,
+        "header": "customs_post",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "ddf8b5b9ca1416f219030d1da9cdb06e10a12a315940d44a1db5fcdce3b912dc"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 5,
+        "header": "cip_uzs",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "ddf8b5b9ca1416f219030d1da9cdb06e10a12a315940d44a1db5fcdce3b912dc"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "landed_cost_ex_vat_uzs",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "91f76ae5e464831da74c1fac81f51f99a0993b6b90f4ec336965e4c4fed29127"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "91f76ae5e464831da74c1fac81f51f99a0993b6b90f4ec336965e4c4fed29127"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 0,
+        "header": "lot_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 2,
+        "header": "sku_id",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 3,
+        "header": "arrival_date",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 6,
+        "header": "sold_qty",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "unmapped_column",
+      "severity": "info",
+      "affected": [
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [],
+      "detail": {
+        "index": 7,
+        "header": "writeoff_qty",
+        "reason": "unknown"
+      }
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "arithmetic",
+      "severity": "warning",
+      "affected": [
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-01..2026-10",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-01",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-02",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-03",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-04",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-05",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-06",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-07",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-08",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-09",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-10",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-11",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2025-12",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-01",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-02",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-03",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-04",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-05",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-06",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-07",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-08",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-09",
+        "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e:2026-10"
+      ],
+      "evidence": [
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "227775622.09"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "36794759.14"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "38946256.66"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "34335679.91"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "27984695.55"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "23019079.34"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "19732137.69"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "15721115.55"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "12049663.93"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "8664551.49"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "3480860.43"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "324679.6"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "442551.66"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "276300.88"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "641846.52"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "1536310.45"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "894463.93"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "0.0"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "156335.28"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "156335.28"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "759020.21"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "1858978.59"
+        },
+        {
+          "document_id": "0d2489fcdee6bcab1e86085efd7d10f58e1759b46a9628f2c67abcfad0fbc29e",
+          "page": 1,
+          "quote": "1397664.03"
+        }
+      ],
+      "detail": "Observed 227775622.09; calculated 229173286.12",
+      "resolution": "unresolved",
+      "field": "total_interest_uzs"
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "364867b6c6ca29273e3057e5ba598401e826cf8d617d9eb0af2c1ac437fc95c1"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "364867b6c6ca29273e3057e5ba598401e826cf8d617d9eb0af2c1ac437fc95c1"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "574e6e7dfe5ff777fe4b922e08fba6fbb6fdef1f2a56f6571a5e8dc3383be7f9"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "4d285c9b6486021d12c9197fda566824682fe6025f178472f29b23f750d76053"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "parse_warning",
+      "severity": "high",
+      "affected": [
+        "fa6a57d0a9da2a1a620e1d36d151e72fdec2a8af40c5d79e713393b9a1f83272"
+      ],
+      "evidence": [],
+      "detail": "OCR languages rus, uzb, uzb_cyrl and eng unavailable"
+    },
+    {
+      "issue_type": "classification_required",
+      "severity": "medium",
+      "affected": [
+        "fa6a57d0a9da2a1a620e1d36d151e72fdec2a8af40c5d79e713393b9a1f83272"
+      ],
+      "evidence": []
+    },
+    {
+      "issue_type": "vat_ambiguous",
+      "severity": "warning",
+      "affected": [
+        "2776316392009dc1efa9a6c0c7028799531dcdb7d8e4cd5e25cdddbf14004ddb"
+      ],
+      "evidence": [
+        {
+          "document_id": "2776316392009dc1efa9a6c0c7028799531dcdb7d8e4cd5e25cdddbf14004ddb",
+          "page": 1,
+          "quote": "НДС не указан",
+          "text_span": "НДС не указан"
+        }
+      ],
+      "detail": "Статус НДС явно не указан; необходимо подтверждение.",
+      "resolution": "unresolved",
+      "field": "vat_status"
+    },
+    {
+      "issue_type": "unit_ambiguous",
+      "severity": "warning",
+      "affected": [
+        "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [
+        {
+          "document_id": "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+          "page": 1,
+          "quote": "Партия:\nlot_0001 (KZ-202501-01)",
+          "text_span": "Партия:\nlot_0001 (KZ-202501-01)"
+        },
+        {
+          "document_id": "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+          "page": 1,
+          "quote": "Количество:\n1650.0 (коробка)",
+          "text_span": "Количество:\n1650.0 (коробка)"
+        },
+        {
+          "document_id": "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635",
+          "page": 1,
+          "quote": "lot_0001\tKZ-202501-01\tSKU_CARDIO_01\t2025-01-20\t2026-10-22\t16500\t16500\t0\t0",
+          "text_span": "lot_0001\tKZ-202501-01\tSKU_CARDIO_01\t2025-01-20\t2026-10-22\t16500\t16500\t0\t0"
+        }
+      ],
+      "detail": "Количество одной партии различается в 10 раз; проверьте единицы и коэффициент упаковки.",
+      "resolution": "unresolved",
+      "field": "initial_qty"
+    },
+    {
+      "issue_type": "unit_ambiguous",
+      "severity": "warning",
+      "affected": [
+        "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7",
+        "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635"
+      ],
+      "evidence": [
+        {
+          "document_id": "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7",
+          "page": 1,
+          "quote": "Партия:\nlot_0001 (KZ-202501-01)",
+          "text_span": "Партия:\nlot_0001 (KZ-202501-01)"
+        },
+        {
+          "document_id": "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7",
+          "page": 1,
+          "quote": "Количество:\n1650.0 (коробка)",
+          "text_span": "Количество:\n1650.0 (коробка)"
+        },
+        {
+          "document_id": "49b074abb8a4e594a020772d69e389c53245625d2bf0c7689d7343658b5d4635",
+          "page": 1,
+          "quote": "lot_0001\tKZ-202501-01\tSKU_CARDIO_01\t2025-01-20\t2026-10-22\t16500\t16500\t0\t0",
+          "text_span": "lot_0001\tKZ-202501-01\tSKU_CARDIO_01\t2025-01-20\t2026-10-22\t16500\t16500\t0\t0"
+        }
+      ],
+      "detail": "Количество одной партии различается в 10 раз; проверьте единицы и коэффициент упаковки.",
+      "resolution": "unresolved",
+      "field": "initial_qty"
+    },
+    {
+      "issue_type": "contradiction",
+      "severity": "warning",
+      "field": "unit_price",
+      "affected": [
+        "bb301242cddd0d74b2e76cc203f9ba563365e4c949665f790cf23c1a2b207454",
+        "667ab032552cee5524d06c6bfc67dfdf8ef5d7a5ac300a4944ed44c2e6f636bd"
+      ],
+      "evidence": [
+        {
+          "document_id": "bb301242cddd0d74b2e76cc203f9ba563365e4c949665f790cf23c1a2b207454",
+          "page": 1,
+          "quote": "Цена CIP:\n7.10 USD"
+        },
+        {
+          "document_id": "667ab032552cee5524d06c6bfc67dfdf8ef5d7a5ac300a4944ed44c2e6f636bd",
+          "page": 1,
+          "quote": "Цена CIP:\n7.60 USD"
+        }
+      ],
+      "detail": "Conflicting unit_price for the same contract number and CIP currency; verify versions and effective dates.",
+      "resolution": "unresolved"
+    },
+    {
+      "issue_type": "duplicate",
+      "severity": "warning",
+      "field": "lot_code",
+      "affected": [
+        "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+        "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7"
+      ],
+      "evidence": [
+        {
+          "document_id": "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+          "page": 1,
+          "quote": "Дата приёмки: 2025-01-20"
+        },
+        {
+          "document_id": "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+          "page": 1,
+          "quote": "Партия:\nlot_0001 (KZ-202501-01)"
+        },
+        {
+          "document_id": "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+          "page": 1,
+          "quote": "Срок годности:\n2026-10-22"
+        },
+        {
+          "document_id": "3ebfa0403aaa5e1dbcf767cff68dbe99966743b76e5603a2b23c25f550abaa1f",
+          "page": 1,
+          "quote": "Количество:\n1650.0 (коробка)"
+        },
+        {
+          "document_id": "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7",
+          "page": 1,
+          "quote": "Дата приёмки: 2025-01-20"
+        },
+        {
+          "document_id": "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7",
+          "page": 1,
+          "quote": "Партия:\nlot_0001 (KZ-202501-01)"
+        },
+        {
+          "document_id": "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7",
+          "page": 1,
+          "quote": "Срок годности:\n2026-10-22"
+        },
+        {
+          "document_id": "154efcfc372015f0fca54b71e92356f3f6c8ab9c640d4867b5f4eba3ca95cef7",
+          "page": 1,
+          "quote": "Количество:\n1650.0 (коробка)"
+        }
+      ],
+      "detail": "Possible duplicate warehouse receipt: external lot code, receipt date, expiry and quantity match.",
+      "resolution": "unresolved"
+    }
+  ],
+  "issue_types": {
+    "arithmetic": 1,
+    "classification_required": 7,
+    "contradiction": 1,
+    "duplicate": 1,
+    "parse_warning": 4,
+    "unit_ambiguous": 2,
+    "unmapped_column": 12,
+    "vat_ambiguous": 1
+  },
+  "corruption_detection": {
+    "total": 33,
+    "detected": 5,
+    "by_operator": {
+      "M1": {
+        "total": 5,
+        "detected": 0,
+        "matchable": true
+      },
+      "N1": {
+        "total": 3,
+        "detected": 0,
+        "matchable": false
+      },
+      "L1": {
+        "total": 4,
+        "detected": 0,
+        "matchable": false
+      },
+      "X1": {
+        "total": 1,
+        "detected": 0,
+        "matchable": true
+      },
+      "C1": {
+        "total": 1,
+        "detected": 0,
+        "matchable": false
+      },
+      "S1": {
+        "total": 2,
+        "detected": 0,
+        "matchable": false
+      },
+      "V1": {
+        "total": 1,
+        "detected": 1,
+        "matchable": true
+      },
+      "R4": {
+        "total": 1,
+        "detected": 0,
+        "matchable": false
+      },
+      "X2": {
+        "total": 1,
+        "detected": 1,
+        "matchable": true
+      },
+      "N2": {
+        "total": 3,
+        "detected": 0,
+        "matchable": false
+      },
+      "C2": {
+        "total": 1,
+        "detected": 0,
+        "matchable": false
+      },
+      "C3": {
+        "total": 1,
+        "detected": 0,
+        "matchable": false
+      },
+      "U1": {
+        "total": 1,
+        "detected": 1,
+        "matchable": true
+      },
+      "D1x": {
+        "total": 1,
+        "detected": 1,
+        "matchable": true
+      },
+      "R1": {
+        "total": 1,
+        "detected": 0,
+        "matchable": false
+      },
+      "R2": {
+        "total": 1,
+        "detected": 0,
+        "matchable": false
+      },
+      "A1": {
+        "total": 1,
+        "detected": 1,
+        "matchable": true
+      },
+      "R3": {
+        "total": 1,
+        "detected": 0,
+        "matchable": false
+      },
+      "J1": {
+        "total": 3,
+        "detected": 0,
+        "matchable": false
+      }
+    },
+    "matches": [
+      {
+        "document": "worlds/L4/documents/D1_1c_sales_export.csv",
+        "operator": "M1",
+        "field": "monthly_sales_2026_08_fergana",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_central.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-05",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_central.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_central.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_fergana.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-08",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_fergana.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_fergana.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_west_south.xlsx",
+        "operator": "M1",
+        "field": "monthly_sales_2026-05",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_west_south.xlsx",
+        "operator": "N1",
+        "field": "revenue_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D2_regional_sales_west_south.xlsx",
+        "operator": "L1",
+        "field": "region_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D3_quote_supplier_A_2026-05.pdf",
+        "operator": "X1",
+        "field": "min_order_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D3_quote_supplier_B_2026-08.pdf",
+        "operator": "C1",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D3_quote_supplier_B_2026-08.pdf",
+        "operator": "S1",
+        "field": "valid_until",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D3_quote_supplier_B_2026-08.pdf",
+        "operator": "L1",
+        "field": "trade_name",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D4_carrier_quote_auto.pdf",
+        "operator": "V1",
+        "field": "vat_status",
+        "detected": true,
+        "issue_index": 24
+      },
+      {
+        "document": "worlds/L4/documents/D4_carrier_chat_quote.png",
+        "operator": "R4",
+        "field": "unit_price",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D5_contract_supplier_A_v2.pdf",
+        "operator": "X2",
+        "field": "unit_price",
+        "detected": true,
+        "issue_index": 27
+      },
+      {
+        "document": "worlds/L4/documents/D6_invoice_packing_shp_0035.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D6_invoice_packing_shp_0040.pdf",
+        "operator": "N2",
+        "field": "dispatch_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D7_customs_summary.xlsx",
+        "operator": "C2",
+        "field": "cip_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D7_customs_summary.pdf",
+        "operator": "C3",
+        "field": "landed_cost_ex_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D7_customs_summary.pdf",
+        "operator": "N2",
+        "field": "clearance_date",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D8_warehouse_waybill_0101.pdf",
+        "operator": "U1",
+        "field": "initial_qty",
+        "detected": true,
+        "issue_index": 25
+      },
+      {
+        "document": "worlds/L4/documents/D8_warehouse_waybill_0101_dup.pdf",
+        "operator": "D1x",
+        "field": "shipment_id",
+        "detected": true,
+        "issue_index": 28
+      },
+      {
+        "document": "worlds/L4/documents/D8_warehouse_waybill_0102_photo.jpg",
+        "operator": "R1",
+        "field": "qty_packs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D8_warehouse_waybill_0102_photo.jpg",
+        "operator": "R2",
+        "field": "initial_qty",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D10_payments_and_credit.xlsx",
+        "operator": "A1",
+        "field": "total_interest_uzs",
+        "detected": true,
+        "issue_index": 17
+      },
+      {
+        "document": "worlds/L4/documents/D11_internal_memo_handwritten.jpg",
+        "operator": "R3",
+        "field": "amount_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D11_internal_memo_handwritten.jpg",
+        "operator": "M1",
+        "field": "memo_page_2",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/D13_price_registry_extract.pdf",
+        "operator": "S1",
+        "field": "chchn_with_vat_uzs",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/J1_junk_promo_flyer.pdf",
+        "operator": "J1",
+        "field": "irrelevant_file",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/J1_junk_unrelated_catalog.csv",
+        "operator": "J1",
+        "field": "irrelevant_file",
+        "detected": false,
+        "issue_index": null
+      },
+      {
+        "document": "worlds/L4/documents/J1_junk_blank_scan.jpg",
+        "operator": "J1",
+        "field": "irrelevant_file",
+        "detected": false,
+        "issue_index": null
+      }
+    ],
+    "unmatched_issues": 1,
+    "excluded_technical_issues": 23,
+    "method": "Conservative one-to-one matching by issue type, document hash and field or period (document-level for duplicates); unmatched does not prove a false positive."
+  }
+}

@@ -1,0 +1,6 @@
+level	documents	correct	total	unmapped	questions	technical_warnings	quality_findings	corruptions_detected	corruptions_total	errors	elapsed_seconds
+L0	24	20	24	0	27	19	0	0	0	0	5.689
+L1	24	20	24	0	27	19	0	0	9	0	4.821
+L2	25	21	25	0	27	19	1	1	19	0	4.648
+L3	26	22	26	0	27	19	6	5	28	0	4.46
+L4	29	22	29	0	27	23	6	5	33	0	6.288
