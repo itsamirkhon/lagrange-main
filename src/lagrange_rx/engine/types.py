@@ -67,6 +67,7 @@ class ScenarioOutcome(_M):
     sold: float  # packs sold
     shortfall: float  # packs of unmet demand
     emergency: dict[str, float] = {}  # emergency packs bought, by emergency route id
+    sold_by_route: dict[str, float] = {}  # packs sold, by route id (plan routes and emergency routes); sums to `sold`
     price_uzs: float  # single common wholesale price per pack excl. VAT (0 if nothing sold)
     revenue_uzs: float
     profit_uzs: float
