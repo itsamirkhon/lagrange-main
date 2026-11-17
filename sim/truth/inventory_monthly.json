@@ -11,22 +11,22 @@
   },
   {
     "available_stock": 14300,
-    "closing_stock": 9792,
+    "closing_stock": 9794,
     "month": "2025-01",
     "opening_stock": 0,
     "received_qty": 14300,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 4508,
+    "sold_qty": 4506,
     "writeoff_qty": 0
   },
   {
     "available_stock": 5400,
-    "closing_stock": 1657,
+    "closing_stock": 1925,
     "month": "2025-01",
     "opening_stock": 0,
     "received_qty": 5400,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3743,
+    "sold_qty": 3475,
     "writeoff_qty": 0
   },
   {
@@ -80,23 +80,23 @@
     "writeoff_qty": 400
   },
   {
-    "available_stock": 9792,
-    "closing_stock": 5845,
+    "available_stock": 9794,
+    "closing_stock": 5527,
     "month": "2025-02",
-    "opening_stock": 9792,
+    "opening_stock": 9794,
     "received_qty": 0,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 3947,
+    "sold_qty": 4267,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 9577,
-    "closing_stock": 6028,
+    "available_stock": 9845,
+    "closing_stock": 6094,
     "month": "2025-02",
-    "opening_stock": 1657,
+    "opening_stock": 1925,
     "received_qty": 7920,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3549,
+    "sold_qty": 3751,
     "writeoff_qty": 0
   },
   {
@@ -150,23 +150,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 5845,
-    "closing_stock": 1842,
+    "available_stock": 5527,
+    "closing_stock": 1218,
     "month": "2025-03",
-    "opening_stock": 5845,
+    "opening_stock": 5527,
     "received_qty": 0,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 4003,
+    "sold_qty": 4309,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 6028,
-    "closing_stock": 2224,
+    "available_stock": 6094,
+    "closing_stock": 2284,
     "month": "2025-03",
-    "opening_stock": 6028,
+    "opening_stock": 6094,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3804,
+    "sold_qty": 3810,
     "writeoff_qty": 0
   },
   {
@@ -220,43 +220,43 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 1842,
+    "available_stock": 1218,
     "closing_stock": 400,
     "month": "2025-04",
-    "opening_stock": 1842,
+    "opening_stock": 1218,
     "received_qty": 0,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 1442,
+    "sold_qty": 818,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2224,
+    "available_stock": 2284,
     "closing_stock": 400,
     "month": "2025-04",
-    "opening_stock": 2224,
+    "opening_stock": 2284,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 1824,
+    "sold_qty": 1884,
     "writeoff_qty": 0
   },
   {
     "available_stock": 3822,
-    "closing_stock": 558,
+    "closing_stock": 763,
     "month": "2025-04",
     "opening_stock": 3822,
     "received_qty": 0,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 3264,
+    "sold_qty": 3059,
     "writeoff_qty": 0
   },
   {
     "available_stock": 10560,
-    "closing_stock": 5483,
+    "closing_stock": 6056,
     "month": "2025-04",
     "opening_stock": 0,
     "received_qty": 10560,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 5077,
+    "sold_qty": 4504,
     "writeoff_qty": 0
   },
   {
@@ -310,33 +310,33 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 558,
+    "available_stock": 763,
     "closing_stock": 400,
     "month": "2025-05",
-    "opening_stock": 558,
+    "opening_stock": 763,
     "received_qty": 0,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 158,
+    "sold_qty": 363,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 5483,
-    "closing_stock": 551,
+    "available_stock": 6056,
+    "closing_stock": 1408,
     "month": "2025-05",
-    "opening_stock": 5483,
+    "opening_stock": 6056,
     "received_qty": 0,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 4932,
+    "sold_qty": 4648,
     "writeoff_qty": 0
   },
   {
     "available_stock": 5280,
-    "closing_stock": 2990,
+    "closing_stock": 2811,
     "month": "2025-05",
     "opening_stock": 0,
     "received_qty": 5280,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 2290,
+    "sold_qty": 2469,
     "writeoff_qty": 0
   },
   {
@@ -390,33 +390,33 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 551,
+    "available_stock": 1408,
     "closing_stock": 400,
     "month": "2025-06",
-    "opening_stock": 551,
+    "opening_stock": 1408,
     "received_qty": 0,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 151,
+    "sold_qty": 1008,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2990,
-    "closing_stock": 625,
+    "available_stock": 2811,
+    "closing_stock": 536,
     "month": "2025-06",
-    "opening_stock": 2990,
+    "opening_stock": 2811,
     "received_qty": 0,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 2365,
+    "sold_qty": 2275,
     "writeoff_qty": 0
   },
   {
     "available_stock": 8580,
-    "closing_stock": 4427,
+    "closing_stock": 4839,
     "month": "2025-06",
     "opening_stock": 0,
     "received_qty": 8580,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 4153,
+    "sold_qty": 3741,
     "writeoff_qty": 0
   },
   {
@@ -431,22 +431,22 @@
   },
   {
     "available_stock": 6700,
-    "closing_stock": 2517,
+    "closing_stock": 2670,
     "month": "2025-07",
     "opening_stock": 400,
     "received_qty": 6300,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 4183,
+    "sold_qty": 4030,
     "writeoff_qty": 0
   },
   {
     "available_stock": 5800,
-    "closing_stock": 2365,
+    "closing_stock": 2199,
     "month": "2025-07",
     "opening_stock": 400,
     "received_qty": 5400,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3435,
+    "sold_qty": 3601,
     "writeoff_qty": 0
   },
   {
@@ -470,23 +470,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 625,
+    "available_stock": 536,
     "closing_stock": 400,
     "month": "2025-07",
-    "opening_stock": 625,
+    "opening_stock": 536,
     "received_qty": 0,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 225,
+    "sold_qty": 136,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 4427,
-    "closing_stock": 818,
+    "available_stock": 4839,
+    "closing_stock": 1022,
     "month": "2025-07",
-    "opening_stock": 4427,
+    "opening_stock": 4839,
     "received_qty": 0,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 3609,
+    "sold_qty": 3817,
     "writeoff_qty": 0
   },
   {
@@ -500,23 +500,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2517,
+    "available_stock": 2670,
     "closing_stock": 400,
     "month": "2025-08",
-    "opening_stock": 2517,
+    "opening_stock": 2670,
     "received_qty": 0,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 2117,
+    "sold_qty": 2270,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 10285,
-    "closing_stock": 6600,
+    "available_stock": 10119,
+    "closing_stock": 6656,
     "month": "2025-08",
-    "opening_stock": 2365,
+    "opening_stock": 2199,
     "received_qty": 7920,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3685,
+    "sold_qty": 3463,
     "writeoff_qty": 0
   },
   {
@@ -550,13 +550,13 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 818,
+    "available_stock": 1022,
     "closing_stock": 400,
     "month": "2025-08",
-    "opening_stock": 818,
+    "opening_stock": 1022,
     "received_qty": 0,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 418,
+    "sold_qty": 622,
     "writeoff_qty": 0
   },
   {
@@ -580,23 +580,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 6600,
-    "closing_stock": 2755,
+    "available_stock": 6656,
+    "closing_stock": 2829,
     "month": "2025-09",
-    "opening_stock": 6600,
+    "opening_stock": 6656,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3845,
+    "sold_qty": 3827,
     "writeoff_qty": 0
   },
   {
     "available_stock": 7220,
-    "closing_stock": 4255,
+    "closing_stock": 4050,
     "month": "2025-09",
     "opening_stock": 400,
     "received_qty": 6820,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 2965,
+    "sold_qty": 3170,
     "writeoff_qty": 0
   },
   {
@@ -650,33 +650,33 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2755,
+    "available_stock": 2829,
     "closing_stock": 400,
     "month": "2025-10",
-    "opening_stock": 2755,
+    "opening_stock": 2829,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 2355,
+    "sold_qty": 2429,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 4255,
-    "closing_stock": 1324,
+    "available_stock": 4050,
+    "closing_stock": 826,
     "month": "2025-10",
-    "opening_stock": 4255,
+    "opening_stock": 4050,
     "received_qty": 0,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 2931,
+    "sold_qty": 3224,
     "writeoff_qty": 0
   },
   {
     "available_stock": 10960,
-    "closing_stock": 6128,
+    "closing_stock": 6046,
     "month": "2025-10",
     "opening_stock": 400,
     "received_qty": 10560,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 4832,
+    "sold_qty": 4914,
     "writeoff_qty": 0
   },
   {
@@ -701,12 +701,12 @@
   },
   {
     "available_stock": 19300,
-    "closing_stock": 6500,
+    "closing_stock": 6560,
     "month": "2025-11",
     "opening_stock": 6300,
     "received_qty": 13000,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 12800,
+    "sold_qty": 12740,
     "writeoff_qty": 0
   },
   {
@@ -730,33 +730,33 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 1324,
+    "available_stock": 826,
     "closing_stock": 400,
     "month": "2025-11",
-    "opening_stock": 1324,
+    "opening_stock": 826,
     "received_qty": 0,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 924,
+    "sold_qty": 426,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 6128,
-    "closing_stock": 1537,
+    "available_stock": 6046,
+    "closing_stock": 1601,
     "month": "2025-11",
-    "opening_stock": 6128,
+    "opening_stock": 6046,
     "received_qty": 0,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 4591,
+    "sold_qty": 4445,
     "writeoff_qty": 0
   },
   {
     "available_stock": 5680,
-    "closing_stock": 3242,
+    "closing_stock": 3117,
     "month": "2025-11",
     "opening_stock": 400,
     "received_qty": 5280,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 2438,
+    "sold_qty": 2563,
     "writeoff_qty": 0
   },
   {
@@ -770,13 +770,13 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 20000,
-    "closing_stock": 6600,
+    "available_stock": 20060,
+    "closing_stock": 6740,
     "month": "2025-12",
-    "opening_stock": 6500,
+    "opening_stock": 6560,
     "received_qty": 13500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 13400,
+    "sold_qty": 13320,
     "writeoff_qty": 0
   },
   {
@@ -810,63 +810,63 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 1537,
+    "available_stock": 1601,
     "closing_stock": 400,
     "month": "2025-12",
-    "opening_stock": 1537,
+    "opening_stock": 1601,
     "received_qty": 0,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 1137,
+    "sold_qty": 1201,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 3242,
-    "closing_stock": 958,
+    "available_stock": 3117,
+    "closing_stock": 747,
     "month": "2025-12",
-    "opening_stock": 3242,
+    "opening_stock": 3117,
     "received_qty": 0,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 2284,
+    "sold_qty": 2370,
     "writeoff_qty": 0
   },
   {
     "available_stock": 8980,
-    "closing_stock": 5261,
+    "closing_stock": 4896,
     "month": "2025-12",
     "opening_stock": 400,
     "received_qty": 8580,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 3719,
+    "sold_qty": 4084,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 20100,
-    "closing_stock": 6500,
+    "available_stock": 20240,
+    "closing_stock": 6730,
     "month": "2026-01",
-    "opening_stock": 6600,
+    "opening_stock": 6740,
     "received_qty": 13500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 13600,
+    "sold_qty": 13510,
     "writeoff_qty": 0
   },
   {
     "available_stock": 6700,
-    "closing_stock": 2665,
+    "closing_stock": 2816,
     "month": "2026-01",
     "opening_stock": 400,
     "received_qty": 6300,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 4035,
+    "sold_qty": 3884,
     "writeoff_qty": 0
   },
   {
     "available_stock": 5800,
-    "closing_stock": 1934,
+    "closing_stock": 2164,
     "month": "2026-01",
     "opening_stock": 400,
     "received_qty": 5400,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3866,
+    "sold_qty": 3636,
     "writeoff_qty": 0
   },
   {
@@ -890,53 +890,53 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 958,
+    "available_stock": 747,
     "closing_stock": 400,
     "month": "2026-01",
-    "opening_stock": 958,
+    "opening_stock": 747,
     "received_qty": 0,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 558,
+    "sold_qty": 347,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 5261,
-    "closing_stock": 1075,
+    "available_stock": 4896,
+    "closing_stock": 1072,
     "month": "2026-01",
-    "opening_stock": 5261,
+    "opening_stock": 4896,
     "received_qty": 0,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 4186,
+    "sold_qty": 3824,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 19500,
-    "closing_stock": 6600,
+    "available_stock": 19730,
+    "closing_stock": 6890,
     "month": "2026-02",
-    "opening_stock": 6500,
+    "opening_stock": 6730,
     "received_qty": 13000,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 12900,
+    "sold_qty": 12840,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2665,
+    "available_stock": 2816,
     "closing_stock": 400,
     "month": "2026-02",
-    "opening_stock": 2665,
+    "opening_stock": 2816,
     "received_qty": 0,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 2265,
+    "sold_qty": 2416,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 9854,
-    "closing_stock": 6283,
+    "available_stock": 10084,
+    "closing_stock": 6761,
     "month": "2026-02",
-    "opening_stock": 1934,
+    "opening_stock": 2164,
     "received_qty": 7920,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3571,
+    "sold_qty": 3323,
     "writeoff_qty": 0
   },
   {
@@ -970,23 +970,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 1075,
+    "available_stock": 1072,
     "closing_stock": 400,
     "month": "2026-02",
-    "opening_stock": 1075,
+    "opening_stock": 1072,
     "received_qty": 0,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 675,
+    "sold_qty": 672,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 19100,
-    "closing_stock": 6500,
+    "available_stock": 19390,
+    "closing_stock": 6870,
     "month": "2026-03",
-    "opening_stock": 6600,
+    "opening_stock": 6890,
     "received_qty": 12500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 12600,
+    "sold_qty": 12520,
     "writeoff_qty": 0
   },
   {
@@ -1000,23 +1000,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 6283,
-    "closing_stock": 2956,
+    "available_stock": 6761,
+    "closing_stock": 3354,
     "month": "2026-03",
-    "opening_stock": 6283,
+    "opening_stock": 6761,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3327,
+    "sold_qty": 3407,
     "writeoff_qty": 0
   },
   {
     "available_stock": 7220,
-    "closing_stock": 4064,
+    "closing_stock": 4209,
     "month": "2026-03",
     "opening_stock": 400,
     "received_qty": 6820,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 3156,
+    "sold_qty": 3011,
     "writeoff_qty": 0
   },
   {
@@ -1050,13 +1050,13 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 18500,
-    "closing_stock": 6000,
+    "available_stock": 18870,
+    "closing_stock": 6430,
     "month": "2026-04",
-    "opening_stock": 6500,
+    "opening_stock": 6870,
     "received_qty": 12000,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 12100,
+    "sold_qty": 12040,
     "writeoff_qty": 400
   },
   {
@@ -1070,33 +1070,33 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2956,
+    "available_stock": 3354,
     "closing_stock": 400,
     "month": "2026-04",
-    "opening_stock": 2956,
+    "opening_stock": 3354,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 2556,
+    "sold_qty": 2954,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 4064,
-    "closing_stock": 1080,
+    "available_stock": 4209,
+    "closing_stock": 1070,
     "month": "2026-04",
-    "opening_stock": 4064,
+    "opening_stock": 4209,
     "received_qty": 0,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 2984,
+    "sold_qty": 3139,
     "writeoff_qty": 0
   },
   {
     "available_stock": 10960,
-    "closing_stock": 6335,
+    "closing_stock": 5926,
     "month": "2026-04",
     "opening_stock": 400,
     "received_qty": 10560,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 4625,
+    "sold_qty": 5034,
     "writeoff_qty": 0
   },
   {
@@ -1120,13 +1120,13 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 17500,
-    "closing_stock": 5900,
+    "available_stock": 17930,
+    "closing_stock": 6400,
     "month": "2026-05",
-    "opening_stock": 6000,
+    "opening_stock": 6430,
     "received_qty": 11500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 11600,
+    "sold_qty": 11530,
     "writeoff_qty": 0
   },
   {
@@ -1150,33 +1150,33 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 1080,
+    "available_stock": 1070,
     "closing_stock": 400,
     "month": "2026-05",
-    "opening_stock": 1080,
+    "opening_stock": 1070,
     "received_qty": 0,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 680,
+    "sold_qty": 670,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 6335,
-    "closing_stock": 1526,
+    "available_stock": 5926,
+    "closing_stock": 1147,
     "month": "2026-05",
-    "opening_stock": 6335,
+    "opening_stock": 5926,
     "received_qty": 0,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 4809,
+    "sold_qty": 4779,
     "writeoff_qty": 0
   },
   {
     "available_stock": 5680,
-    "closing_stock": 3277,
+    "closing_stock": 3098,
     "month": "2026-05",
     "opening_stock": 400,
     "received_qty": 5280,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 2403,
+    "sold_qty": 2582,
     "writeoff_qty": 0
   },
   {
@@ -1190,13 +1190,13 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 17400,
-    "closing_stock": 6200,
+    "available_stock": 17900,
+    "closing_stock": 6760,
     "month": "2026-06",
-    "opening_stock": 5900,
+    "opening_stock": 6400,
     "received_qty": 11500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 11200,
+    "sold_qty": 11140,
     "writeoff_qty": 0
   },
   {
@@ -1230,63 +1230,63 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 1526,
+    "available_stock": 1147,
     "closing_stock": 400,
     "month": "2026-06",
-    "opening_stock": 1526,
+    "opening_stock": 1147,
     "received_qty": 0,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 1126,
+    "sold_qty": 747,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 3277,
-    "closing_stock": 983,
+    "available_stock": 3098,
+    "closing_stock": 794,
     "month": "2026-06",
-    "opening_stock": 3277,
+    "opening_stock": 3098,
     "received_qty": 0,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 2294,
+    "sold_qty": 2304,
     "writeoff_qty": 0
   },
   {
     "available_stock": 8980,
-    "closing_stock": 5034,
+    "closing_stock": 5162,
     "month": "2026-06",
     "opening_stock": 400,
     "received_qty": 8580,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 3946,
+    "sold_qty": 3818,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 17700,
-    "closing_stock": 6200,
+    "available_stock": 18260,
+    "closing_stock": 6830,
     "month": "2026-07",
-    "opening_stock": 6200,
+    "opening_stock": 6760,
     "received_qty": 11500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 11500,
+    "sold_qty": 11430,
     "writeoff_qty": 0
   },
   {
     "available_stock": 6700,
-    "closing_stock": 2636,
+    "closing_stock": 2424,
     "month": "2026-07",
     "opening_stock": 400,
     "received_qty": 6300,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 4064,
+    "sold_qty": 4276,
     "writeoff_qty": 0
   },
   {
     "available_stock": 5800,
-    "closing_stock": 2055,
+    "closing_stock": 2340,
     "month": "2026-07",
     "opening_stock": 400,
     "received_qty": 5400,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3745,
+    "sold_qty": 3460,
     "writeoff_qty": 0
   },
   {
@@ -1310,53 +1310,53 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 983,
+    "available_stock": 794,
     "closing_stock": 400,
     "month": "2026-07",
-    "opening_stock": 983,
+    "opening_stock": 794,
     "received_qty": 0,
     "sku_id": "SKU_BG_05",
-    "sold_qty": 583,
+    "sold_qty": 394,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 5034,
-    "closing_stock": 1208,
+    "available_stock": 5162,
+    "closing_stock": 1279,
     "month": "2026-07",
-    "opening_stock": 5034,
+    "opening_stock": 5162,
     "received_qty": 0,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 3826,
+    "sold_qty": 3883,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 18700,
-    "closing_stock": 6500,
+    "available_stock": 19330,
+    "closing_stock": 7190,
     "month": "2026-08",
-    "opening_stock": 6200,
+    "opening_stock": 6830,
     "received_qty": 12500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 12200,
+    "sold_qty": 12140,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2636,
+    "available_stock": 2424,
     "closing_stock": 400,
     "month": "2026-08",
-    "opening_stock": 2636,
+    "opening_stock": 2424,
     "received_qty": 0,
     "sku_id": "SKU_BG_01",
-    "sold_qty": 2236,
+    "sold_qty": 2024,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 9975,
-    "closing_stock": 6502,
+    "available_stock": 10260,
+    "closing_stock": 6503,
     "month": "2026-08",
-    "opening_stock": 2055,
+    "opening_stock": 2340,
     "received_qty": 7920,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3473,
+    "sold_qty": 3757,
     "writeoff_qty": 0
   },
   {
@@ -1390,23 +1390,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 1208,
+    "available_stock": 1279,
     "closing_stock": 400,
     "month": "2026-08",
-    "opening_stock": 1208,
+    "opening_stock": 1279,
     "received_qty": 0,
     "sku_id": "SKU_BG_06",
-    "sold_qty": 808,
+    "sold_qty": 879,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 19500,
-    "closing_stock": 6700,
+    "available_stock": 20190,
+    "closing_stock": 7420,
     "month": "2026-09",
-    "opening_stock": 6500,
+    "opening_stock": 7190,
     "received_qty": 13000,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 12800,
+    "sold_qty": 12770,
     "writeoff_qty": 0
   },
   {
@@ -1420,23 +1420,23 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 6502,
-    "closing_stock": 2942,
+    "available_stock": 6503,
+    "closing_stock": 3149,
     "month": "2026-09",
-    "opening_stock": 6502,
+    "opening_stock": 6503,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 3560,
+    "sold_qty": 3354,
     "writeoff_qty": 0
   },
   {
     "available_stock": 7220,
-    "closing_stock": 4088,
+    "closing_stock": 4017,
     "month": "2026-09",
     "opening_stock": 400,
     "received_qty": 6820,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 3132,
+    "sold_qty": 3203,
     "writeoff_qty": 0
   },
   {
@@ -1470,13 +1470,13 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 20200,
-    "closing_stock": 6900,
+    "available_stock": 20920,
+    "closing_stock": 7650,
     "month": "2026-10",
-    "opening_stock": 6700,
+    "opening_stock": 7420,
     "received_qty": 13500,
     "sku_id": "SKU_CARDIO_01",
-    "sold_qty": 13300,
+    "sold_qty": 13270,
     "writeoff_qty": 0
   },
   {
@@ -1490,33 +1490,33 @@
     "writeoff_qty": 0
   },
   {
-    "available_stock": 2942,
+    "available_stock": 3149,
     "closing_stock": 400,
     "month": "2026-10",
-    "opening_stock": 2942,
+    "opening_stock": 3149,
     "received_qty": 0,
     "sku_id": "SKU_BG_02",
-    "sold_qty": 2542,
+    "sold_qty": 2749,
     "writeoff_qty": 0
   },
   {
-    "available_stock": 4088,
-    "closing_stock": 1214,
+    "available_stock": 4017,
+    "closing_stock": 1160,
     "month": "2026-10",
-    "opening_stock": 4088,
+    "opening_stock": 4017,
     "received_qty": 0,
     "sku_id": "SKU_BG_03",
-    "sold_qty": 2874,
+    "sold_qty": 2857,
     "writeoff_qty": 0
   },
   {
     "available_stock": 10960,
-    "closing_stock": 6014,
+    "closing_stock": 6030,
     "month": "2026-10",
     "opening_stock": 400,
     "received_qty": 10560,
     "sku_id": "SKU_BG_04",
-    "sold_qty": 4946,
+    "sold_qty": 4930,
     "writeoff_qty": 0
   },
   {

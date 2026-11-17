@@ -1,4 +1,0 @@
-event_id;sku_id;effective_from;event_type;rn_uzs;b_uzs;bx_uzs;calc_base_ex_vat_uzs;wholesale_ex_vat_uzs;chun_with_vat_uzs;chchn_with_vat_uzs
-reg_0001;SKU_CARDIO_01;2025-01-01;initial_registration;127000.0;3500.0;1673.91;132173.91;152000.0;170240.0;204288.0
-reg_0002;SKU_CARDIO_01;2025-07-01;para_20_indexation;132000.0;3650.0;1741.3;137391.3;158000.0;176960.0;212352.0
-reg_0003;SKU_CARDIO_01;2025-11-01;downward_price_revision;93500.0;2349.69;1200.0;97049.69;111607.14;125000.0;150000.0

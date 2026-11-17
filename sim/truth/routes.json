@@ -7,6 +7,7 @@
     "freight_per_shipment_usd": 1800.0,
     "incoterms": "CIP Ташкент",
     "mode": "Auto via Kazakhstan",
+    "route_code": "KZ-AUTO-01",
     "route_id": "rte_01",
     "transit_days": 18
   },
@@ -18,6 +19,7 @@
     "freight_per_shipment_usd": 1650.0,
     "incoterms": "CIP Ташкент",
     "mode": "Auto via Turkmenistan",
+    "route_code": "TM-AUTO-02",
     "route_id": "rte_02",
     "transit_days": 16
   },
@@ -29,6 +31,7 @@
     "freight_per_shipment_usd": 2200.0,
     "incoterms": "DAP Чукурсай",
     "mode": "Rail",
+    "route_code": "CHUK-RAIL-03",
     "route_id": "rte_03",
     "transit_days": 22
   },
@@ -40,6 +43,7 @@
     "freight_per_shipment_usd": 4800.0,
     "incoterms": "CIP Аэропорт Ташкент",
     "mode": "Air",
+    "route_code": "TAS-AIR-04",
     "route_id": "rte_04",
     "transit_days": 5
   }

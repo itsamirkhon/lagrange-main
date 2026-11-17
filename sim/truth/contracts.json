@@ -13,7 +13,7 @@
     "payment_terms": "60 дней отсрочка",
     "signed_date": "2025-01-05",
     "status": "expired",
-    "unit_price": 7.25,
+    "unit_price": 7.48,
     "valid_until": "2025-12-31"
   },
   {
@@ -30,7 +30,7 @@
     "payment_terms": "60 дней отсрочка",
     "signed_date": "2025-10-20",
     "status": "active",
-    "unit_price": 7.1,
+    "unit_price": 7.22,
     "valid_until": "2026-12-31"
   },
   {
@@ -47,7 +47,7 @@
     "payment_terms": "30% предоплата / 70% по прибытии",
     "signed_date": "2025-01-10",
     "status": "active",
-    "unit_price": 7.35,
+    "unit_price": 7.42,
     "valid_until": "2026-12-31"
   },
   {
@@ -64,7 +64,7 @@
     "payment_terms": "30% предоплата / 70% по прибытии",
     "signed_date": "2026-06-15",
     "status": "active",
-    "unit_price": 7.18,
+    "unit_price": 7.15,
     "valid_until": "2027-06-30"
   },
   {

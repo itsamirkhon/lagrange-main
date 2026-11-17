@@ -6,6 +6,7 @@
     "delay_days": 0,
     "dispatch_date": "2025-01-02",
     "freight_usd": 3780.0,
+    "invoice_number": "INV-2025-001",
     "month": "2025-01",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -16,12 +17,13 @@
     "transit_days": 18
   },
   {
-    "arrival_date": "2025-01-26",
+    "arrival_date": "2025-01-27",
     "carrier_id": "car_03",
     "contract_id": "cnt_0005",
-    "delay_days": 1,
+    "delay_days": 2,
     "dispatch_date": "2025-01-03",
     "freight_usd": 3973.0,
+    "invoice_number": "INV-2025-002",
     "month": "2025-01",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -29,15 +31,16 @@
     "sku_group": "background",
     "supplier_id": "sup_03",
     "total_packs": 19700,
-    "transit_days": 23
+    "transit_days": 24
   },
   {
-    "arrival_date": "2025-02-20",
+    "arrival_date": "2025-02-21",
     "carrier_id": "car_01",
     "contract_id": "cnt_0001",
-    "delay_days": 0,
+    "delay_days": 1,
     "dispatch_date": "2025-02-02",
     "freight_usd": 3180.0,
+    "invoice_number": "INV-2025-003",
     "month": "2025-02",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -45,15 +48,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 11500,
-    "transit_days": 18
+    "transit_days": 19
   },
   {
-    "arrival_date": "2025-02-25",
+    "arrival_date": "2025-02-26",
     "carrier_id": "car_03",
     "contract_id": "cnt_0006",
-    "delay_days": 0,
+    "delay_days": 1,
     "dispatch_date": "2025-02-03",
     "freight_usd": 2912.8,
+    "invoice_number": "INV-2025-004",
     "month": "2025-02",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -61,15 +65,16 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 7920,
-    "transit_days": 22
+    "transit_days": 23
   },
   {
-    "arrival_date": "2025-03-20",
+    "arrival_date": "2025-03-18",
     "carrier_id": "car_02",
-    "contract_id": "cnt_0001",
-    "delay_days": 2,
+    "contract_id": "cnt_0003",
+    "delay_days": 0,
     "dispatch_date": "2025-03-02",
     "freight_usd": 3330.0,
+    "invoice_number": "INV-2025-005",
     "month": "2025-03",
     "planned_transit_days": 16,
     "route_id": "rte_02",
@@ -77,7 +82,7 @@
     "sku_group": "focus",
     "supplier_id": "sup_02",
     "total_packs": 12000,
-    "transit_days": 18
+    "transit_days": 16
   },
   {
     "arrival_date": "2025-03-26",
@@ -86,6 +91,7 @@
     "delay_days": 1,
     "dispatch_date": "2025-03-03",
     "freight_usd": 2813.8,
+    "invoice_number": "INV-2025-006",
     "month": "2025-03",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -102,6 +108,7 @@
     "delay_days": 2,
     "dispatch_date": "2025-04-02",
     "freight_usd": 3180.0,
+    "invoice_number": "INV-2025-007",
     "month": "2025-04",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -112,12 +119,13 @@
     "transit_days": 20
   },
   {
-    "arrival_date": "2025-04-23",
+    "arrival_date": "2025-04-21",
     "carrier_id": "car_01",
     "contract_id": "cnt_0006",
-    "delay_days": 2,
+    "delay_days": 0,
     "dispatch_date": "2025-04-03",
     "freight_usd": 3067.2,
+    "invoice_number": "INV-2025-008",
     "month": "2025-04",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -125,15 +133,16 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 10560,
-    "transit_days": 20
+    "transit_days": 18
   },
   {
-    "arrival_date": "2025-05-21",
+    "arrival_date": "2025-05-20",
     "carrier_id": "car_01",
     "contract_id": "cnt_0001",
-    "delay_days": 1,
+    "delay_days": 0,
     "dispatch_date": "2025-05-02",
     "freight_usd": 3180.0,
+    "invoice_number": "INV-2025-009",
     "month": "2025-05",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -141,15 +150,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 11500,
-    "transit_days": 19
+    "transit_days": 18
   },
   {
-    "arrival_date": "2025-05-26",
+    "arrival_date": "2025-05-27",
     "carrier_id": "car_03",
     "contract_id": "cnt_0005",
-    "delay_days": 1,
+    "delay_days": 2,
     "dispatch_date": "2025-05-03",
     "freight_usd": 2675.2,
+    "invoice_number": "INV-2025-010",
     "month": "2025-05",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -157,15 +167,16 @@
     "sku_group": "background",
     "supplier_id": "sup_03",
     "total_packs": 5280,
-    "transit_days": 23
+    "transit_days": 24
   },
   {
     "arrival_date": "2025-06-18",
     "carrier_id": "car_02",
-    "contract_id": "cnt_0001",
+    "contract_id": "cnt_0003",
     "delay_days": 0,
     "dispatch_date": "2025-06-02",
     "freight_usd": 3190.0,
+    "invoice_number": "INV-2025-011",
     "month": "2025-06",
     "planned_transit_days": 16,
     "route_id": "rte_02",
@@ -176,12 +187,13 @@
     "transit_days": 16
   },
   {
-    "arrival_date": "2025-06-25",
+    "arrival_date": "2025-06-26",
     "carrier_id": "car_03",
     "contract_id": "cnt_0006",
-    "delay_days": 0,
+    "delay_days": 1,
     "dispatch_date": "2025-06-03",
     "freight_usd": 2972.2,
+    "invoice_number": "INV-2025-012",
     "month": "2025-06",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -189,15 +201,16 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 8580,
-    "transit_days": 22
+    "transit_days": 23
   },
   {
-    "arrival_date": "2025-07-22",
+    "arrival_date": "2025-07-21",
     "carrier_id": "car_01",
     "contract_id": "cnt_0001",
-    "delay_days": 2,
+    "delay_days": 1,
     "dispatch_date": "2025-07-02",
     "freight_usd": 3060.0,
+    "invoice_number": "INV-2025-013",
     "month": "2025-07",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -205,15 +218,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 10500,
-    "transit_days": 20
+    "transit_days": 19
   },
   {
-    "arrival_date": "2025-07-26",
+    "arrival_date": "2025-07-27",
     "carrier_id": "car_03",
     "contract_id": "cnt_0005",
-    "delay_days": 1,
+    "delay_days": 2,
     "dispatch_date": "2025-07-03",
     "freight_usd": 3253.0,
+    "invoice_number": "INV-2025-014",
     "month": "2025-07",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -221,15 +235,16 @@
     "sku_group": "background",
     "supplier_id": "sup_03",
     "total_packs": 11700,
-    "transit_days": 23
+    "transit_days": 24
   },
   {
-    "arrival_date": "2025-08-21",
+    "arrival_date": "2025-08-20",
     "carrier_id": "car_01",
     "contract_id": "cnt_0001",
-    "delay_days": 1,
+    "delay_days": 0,
     "dispatch_date": "2025-08-02",
     "freight_usd": 3120.0,
+    "invoice_number": "INV-2025-015",
     "month": "2025-08",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -237,15 +252,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 11000,
-    "transit_days": 19
+    "transit_days": 18
   },
   {
-    "arrival_date": "2025-08-23",
+    "arrival_date": "2025-08-22",
     "carrier_id": "car_01",
     "contract_id": "cnt_0006",
-    "delay_days": 2,
+    "delay_days": 1,
     "dispatch_date": "2025-08-03",
     "freight_usd": 2750.4,
+    "invoice_number": "INV-2025-016",
     "month": "2025-08",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -253,15 +269,16 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 7920,
-    "transit_days": 20
+    "transit_days": 19
   },
   {
-    "arrival_date": "2025-09-19",
+    "arrival_date": "2025-09-18",
     "carrier_id": "car_02",
-    "contract_id": "cnt_0001",
-    "delay_days": 1,
+    "contract_id": "cnt_0003",
+    "delay_days": 0,
     "dispatch_date": "2025-09-02",
     "freight_usd": 3260.0,
+    "invoice_number": "INV-2025-017",
     "month": "2025-09",
     "planned_transit_days": 16,
     "route_id": "rte_02",
@@ -269,7 +286,7 @@
     "sku_group": "focus",
     "supplier_id": "sup_02",
     "total_packs": 11500,
-    "transit_days": 17
+    "transit_days": 16
   },
   {
     "arrival_date": "2025-09-26",
@@ -278,6 +295,7 @@
     "delay_days": 1,
     "dispatch_date": "2025-09-03",
     "freight_usd": 2813.8,
+    "invoice_number": "INV-2025-018",
     "month": "2025-09",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -294,6 +312,7 @@
     "delay_days": 1,
     "dispatch_date": "2025-10-02",
     "freight_usd": 3240.0,
+    "invoice_number": "INV-2025-019",
     "month": "2025-10",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -310,6 +329,7 @@
     "delay_days": 0,
     "dispatch_date": "2025-10-03",
     "freight_usd": 3150.4,
+    "invoice_number": "INV-2025-020",
     "month": "2025-10",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -326,6 +346,7 @@
     "delay_days": 0,
     "dispatch_date": "2025-11-02",
     "freight_usd": 3360.0,
+    "invoice_number": "INV-2025-021",
     "month": "2025-11",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -336,12 +357,13 @@
     "transit_days": 18
   },
   {
-    "arrival_date": "2025-11-26",
+    "arrival_date": "2025-11-25",
     "carrier_id": "car_03",
     "contract_id": "cnt_0005",
-    "delay_days": 1,
+    "delay_days": 0,
     "dispatch_date": "2025-11-03",
     "freight_usd": 2675.2,
+    "invoice_number": "INV-2025-022",
     "month": "2025-11",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -349,15 +371,16 @@
     "sku_group": "background",
     "supplier_id": "sup_03",
     "total_packs": 5280,
-    "transit_days": 23
+    "transit_days": 22
   },
   {
-    "arrival_date": "2025-12-18",
+    "arrival_date": "2025-12-20",
     "carrier_id": "car_02",
     "contract_id": "cnt_0003",
-    "delay_days": 0,
+    "delay_days": 2,
     "dispatch_date": "2025-12-02",
     "freight_usd": 3540.0,
+    "invoice_number": "INV-2025-023",
     "month": "2025-12",
     "planned_transit_days": 16,
     "route_id": "rte_02",
@@ -365,15 +388,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_02",
     "total_packs": 13500,
-    "transit_days": 16
+    "transit_days": 18
   },
   {
-    "arrival_date": "2025-12-22",
+    "arrival_date": "2025-12-21",
     "carrier_id": "car_01",
     "contract_id": "cnt_0006",
-    "delay_days": 1,
+    "delay_days": 0,
     "dispatch_date": "2025-12-03",
     "freight_usd": 2829.6,
+    "invoice_number": "INV-2025-024",
     "month": "2025-12",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -381,15 +405,16 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 8580,
-    "transit_days": 19
+    "transit_days": 18
   },
   {
-    "arrival_date": "2026-01-22",
+    "arrival_date": "2026-01-20",
     "carrier_id": "car_01",
     "contract_id": "cnt_0002",
-    "delay_days": 2,
+    "delay_days": 0,
     "dispatch_date": "2026-01-02",
     "freight_usd": 3420.0,
+    "invoice_number": "INV-2026-025",
     "month": "2026-01",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -397,7 +422,7 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 13500,
-    "transit_days": 20
+    "transit_days": 18
   },
   {
     "arrival_date": "2026-01-25",
@@ -406,6 +431,7 @@
     "delay_days": 0,
     "dispatch_date": "2026-01-03",
     "freight_usd": 3253.0,
+    "invoice_number": "INV-2026-026",
     "month": "2026-01",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -416,12 +442,13 @@
     "transit_days": 22
   },
   {
-    "arrival_date": "2026-02-22",
+    "arrival_date": "2026-02-21",
     "carrier_id": "car_01",
     "contract_id": "cnt_0002",
-    "delay_days": 2,
+    "delay_days": 1,
     "dispatch_date": "2026-02-02",
     "freight_usd": 3360.0,
+    "invoice_number": "INV-2026-027",
     "month": "2026-02",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -429,15 +456,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 13000,
-    "transit_days": 20
+    "transit_days": 19
   },
   {
-    "arrival_date": "2026-02-27",
+    "arrival_date": "2026-02-26",
     "carrier_id": "car_03",
     "contract_id": "cnt_0006",
-    "delay_days": 2,
+    "delay_days": 1,
     "dispatch_date": "2026-02-03",
     "freight_usd": 2912.8,
+    "invoice_number": "INV-2026-028",
     "month": "2026-02",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -445,15 +473,16 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 7920,
-    "transit_days": 24
+    "transit_days": 23
   },
   {
-    "arrival_date": "2026-03-19",
+    "arrival_date": "2026-03-18",
     "carrier_id": "car_02",
     "contract_id": "cnt_0003",
-    "delay_days": 1,
+    "delay_days": 0,
     "dispatch_date": "2026-03-02",
     "freight_usd": 3400.0,
+    "invoice_number": "INV-2026-029",
     "month": "2026-03",
     "planned_transit_days": 16,
     "route_id": "rte_02",
@@ -461,15 +490,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_02",
     "total_packs": 12500,
-    "transit_days": 17
+    "transit_days": 16
   },
   {
-    "arrival_date": "2026-03-25",
+    "arrival_date": "2026-03-27",
     "carrier_id": "car_03",
     "contract_id": "cnt_0005",
-    "delay_days": 0,
+    "delay_days": 2,
     "dispatch_date": "2026-03-03",
     "freight_usd": 2813.8,
+    "invoice_number": "INV-2026-030",
     "month": "2026-03",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -477,15 +507,16 @@
     "sku_group": "background",
     "supplier_id": "sup_03",
     "total_packs": 6820,
-    "transit_days": 22
+    "transit_days": 24
   },
   {
-    "arrival_date": "2026-04-21",
+    "arrival_date": "2026-04-22",
     "carrier_id": "car_01",
     "contract_id": "cnt_0002",
-    "delay_days": 1,
+    "delay_days": 2,
     "dispatch_date": "2026-04-02",
     "freight_usd": 3240.0,
+    "invoice_number": "INV-2026-031",
     "month": "2026-04",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -493,7 +524,7 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 12000,
-    "transit_days": 19
+    "transit_days": 20
   },
   {
     "arrival_date": "2026-04-23",
@@ -502,6 +533,7 @@
     "delay_days": 2,
     "dispatch_date": "2026-04-03",
     "freight_usd": 3067.2,
+    "invoice_number": "INV-2026-032",
     "month": "2026-04",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -512,12 +544,13 @@
     "transit_days": 20
   },
   {
-    "arrival_date": "2026-05-21",
+    "arrival_date": "2026-05-20",
     "carrier_id": "car_01",
     "contract_id": "cnt_0002",
-    "delay_days": 1,
+    "delay_days": 0,
     "dispatch_date": "2026-05-02",
     "freight_usd": 3180.0,
+    "invoice_number": "INV-2026-033",
     "month": "2026-05",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -525,7 +558,7 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 11500,
-    "transit_days": 19
+    "transit_days": 18
   },
   {
     "arrival_date": "2026-05-26",
@@ -534,6 +567,7 @@
     "delay_days": 1,
     "dispatch_date": "2026-05-03",
     "freight_usd": 2675.2,
+    "invoice_number": "INV-2026-034",
     "month": "2026-05",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -544,12 +578,13 @@
     "transit_days": 23
   },
   {
-    "arrival_date": "2026-06-18",
+    "arrival_date": "2026-06-19",
     "carrier_id": "car_02",
     "contract_id": "cnt_0003",
-    "delay_days": 0,
+    "delay_days": 1,
     "dispatch_date": "2026-06-02",
     "freight_usd": 3260.0,
+    "invoice_number": "INV-2026-035",
     "month": "2026-06",
     "planned_transit_days": 16,
     "route_id": "rte_02",
@@ -557,7 +592,7 @@
     "sku_group": "focus",
     "supplier_id": "sup_02",
     "total_packs": 11500,
-    "transit_days": 16
+    "transit_days": 17
   },
   {
     "arrival_date": "2026-06-26",
@@ -566,6 +601,7 @@
     "delay_days": 1,
     "dispatch_date": "2026-06-03",
     "freight_usd": 2972.2,
+    "invoice_number": "INV-2026-036",
     "month": "2026-06",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -582,6 +618,7 @@
     "delay_days": 0,
     "dispatch_date": "2026-07-02",
     "freight_usd": 3180.0,
+    "invoice_number": "INV-2026-037",
     "month": "2026-07",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -592,12 +629,13 @@
     "transit_days": 18
   },
   {
-    "arrival_date": "2026-07-27",
+    "arrival_date": "2026-07-25",
     "carrier_id": "car_03",
     "contract_id": "cnt_0005",
-    "delay_days": 2,
+    "delay_days": 0,
     "dispatch_date": "2026-07-03",
     "freight_usd": 3253.0,
+    "invoice_number": "INV-2026-038",
     "month": "2026-07",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -605,7 +643,7 @@
     "sku_group": "background",
     "supplier_id": "sup_03",
     "total_packs": 11700,
-    "transit_days": 24
+    "transit_days": 22
   },
   {
     "arrival_date": "2026-08-21",
@@ -614,6 +652,7 @@
     "delay_days": 1,
     "dispatch_date": "2026-08-02",
     "freight_usd": 3300.0,
+    "invoice_number": "INV-2026-039",
     "month": "2026-08",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -624,12 +663,13 @@
     "transit_days": 19
   },
   {
-    "arrival_date": "2026-08-21",
+    "arrival_date": "2026-08-22",
     "carrier_id": "car_01",
     "contract_id": "cnt_0006",
-    "delay_days": 0,
+    "delay_days": 1,
     "dispatch_date": "2026-08-03",
     "freight_usd": 2750.4,
+    "invoice_number": "INV-2026-040",
     "month": "2026-08",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -637,15 +677,16 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 7920,
-    "transit_days": 18
+    "transit_days": 19
   },
   {
-    "arrival_date": "2026-09-19",
+    "arrival_date": "2026-09-18",
     "carrier_id": "car_02",
-    "contract_id": "cnt_0003",
-    "delay_days": 1,
+    "contract_id": "cnt_0004",
+    "delay_days": 0,
     "dispatch_date": "2026-09-02",
     "freight_usd": 3470.0,
+    "invoice_number": "INV-2026-041",
     "month": "2026-09",
     "planned_transit_days": 16,
     "route_id": "rte_02",
@@ -653,15 +694,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_02",
     "total_packs": 13000,
-    "transit_days": 17
+    "transit_days": 16
   },
   {
-    "arrival_date": "2026-09-25",
+    "arrival_date": "2026-09-26",
     "carrier_id": "car_03",
     "contract_id": "cnt_0005",
-    "delay_days": 0,
+    "delay_days": 1,
     "dispatch_date": "2026-09-03",
     "freight_usd": 2813.8,
+    "invoice_number": "INV-2026-042",
     "month": "2026-09",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -669,15 +711,16 @@
     "sku_group": "background",
     "supplier_id": "sup_03",
     "total_packs": 6820,
-    "transit_days": 22
+    "transit_days": 23
   },
   {
-    "arrival_date": "2026-10-22",
+    "arrival_date": "2026-10-20",
     "carrier_id": "car_01",
     "contract_id": "cnt_0002",
-    "delay_days": 2,
+    "delay_days": 0,
     "dispatch_date": "2026-10-02",
     "freight_usd": 3420.0,
+    "invoice_number": "INV-2026-043",
     "month": "2026-10",
     "planned_transit_days": 18,
     "route_id": "rte_01",
@@ -685,15 +728,16 @@
     "sku_group": "focus",
     "supplier_id": "sup_01",
     "total_packs": 13500,
-    "transit_days": 20
+    "transit_days": 18
   },
   {
-    "arrival_date": "2026-10-26",
+    "arrival_date": "2026-10-27",
     "carrier_id": "car_03",
     "contract_id": "cnt_0006",
-    "delay_days": 1,
+    "delay_days": 2,
     "dispatch_date": "2026-10-03",
     "freight_usd": 3150.4,
+    "invoice_number": "INV-2026-044",
     "month": "2026-10",
     "planned_transit_days": 22,
     "route_id": "rte_03",
@@ -701,6 +745,6 @@
     "sku_group": "background",
     "supplier_id": "sup_04",
     "total_packs": 10560,
-    "transit_days": 23
+    "transit_days": 24
   }
 ]

@@ -6,8 +6,8 @@
     "qty_packs": 400,
     "reason": "Истечение допустимого остаточного срока годности (<= 90 дней)",
     "sku_id": "SKU_CARDIO_01",
-    "unit_cost_uzs": 97049.69,
-    "writeoff_cost_uzs": 38819876.0,
+    "unit_cost_uzs": 105248.76,
+    "writeoff_cost_uzs": 42099504.0,
     "writeoff_date": "2025-02-28",
     "writeoff_id": "wo_0001"
   },
@@ -18,8 +18,8 @@
     "qty_packs": 400,
     "reason": "Истечение допустимого остаточного срока годности (<= 90 дней)",
     "sku_id": "SKU_CARDIO_01",
-    "unit_cost_uzs": 97049.69,
-    "writeoff_cost_uzs": 38819876.0,
+    "unit_cost_uzs": 93774.32,
+    "writeoff_cost_uzs": 37509728.0,
     "writeoff_date": "2026-04-28",
     "writeoff_id": "wo_0002"
   }

@@ -2,6 +2,7 @@
   {
     "amount_uzs": 24640000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-001",
     "cost_id": "cst_0001",
     "month": "2025-01",
     "sku_id": "SKU_CARDIO_01"
@@ -9,6 +10,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-002",
     "cost_id": "cst_0002",
     "month": "2025-01",
     "sku_id": "SKU_CARDIO_01"
@@ -16,13 +18,15 @@
   {
     "amount_uzs": 2385000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-003",
     "cost_id": "cst_0003",
     "month": "2025-01",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 20237117.53,
+    "amount_uzs": 20553405.78,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-004",
     "cost_id": "cst_0004",
     "month": "2025-01",
     "sku_id": "SKU_CARDIO_01"
@@ -30,6 +34,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-005",
     "cost_id": "cst_0005",
     "month": "2025-01",
     "sku_id": "SKU_CARDIO_01"
@@ -37,6 +42,7 @@
   {
     "amount_uzs": 25080000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-006",
     "cost_id": "cst_0006",
     "month": "2025-02",
     "sku_id": "SKU_CARDIO_01"
@@ -44,6 +50,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-007",
     "cost_id": "cst_0007",
     "month": "2025-02",
     "sku_id": "SKU_CARDIO_01"
@@ -51,20 +58,23 @@
   {
     "amount_uzs": 4635000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-008",
     "cost_id": "cst_0008",
     "month": "2025-02",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 21420441.16,
+    "amount_uzs": 22219461.39,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-009",
     "cost_id": "cst_0009",
     "month": "2025-02",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 38819876.0,
+    "amount_uzs": 42099504.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-010",
     "cost_id": "cst_0010",
     "month": "2025-02",
     "sku_id": "SKU_CARDIO_01"
@@ -72,6 +82,7 @@
   {
     "amount_uzs": 25960000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-011",
     "cost_id": "cst_0011",
     "month": "2025-03",
     "sku_id": "SKU_CARDIO_01"
@@ -79,6 +90,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-012",
     "cost_id": "cst_0012",
     "month": "2025-03",
     "sku_id": "SKU_CARDIO_01"
@@ -86,13 +98,15 @@
   {
     "amount_uzs": 4590000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-013",
     "cost_id": "cst_0013",
     "month": "2025-03",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 18884623.95,
+    "amount_uzs": 19958863.07,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-014",
     "cost_id": "cst_0014",
     "month": "2025-03",
     "sku_id": "SKU_CARDIO_01"
@@ -100,6 +114,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-015",
     "cost_id": "cst_0015",
     "month": "2025-03",
     "sku_id": "SKU_CARDIO_01"
@@ -107,6 +122,7 @@
   {
     "amount_uzs": 25520000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-016",
     "cost_id": "cst_0016",
     "month": "2025-04",
     "sku_id": "SKU_CARDIO_01"
@@ -114,6 +130,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-017",
     "cost_id": "cst_0017",
     "month": "2025-04",
     "sku_id": "SKU_CARDIO_01"
@@ -121,13 +138,15 @@
   {
     "amount_uzs": 4635000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-018",
     "cost_id": "cst_0018",
     "month": "2025-04",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 15391582.55,
+    "amount_uzs": 17045364.65,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-019",
     "cost_id": "cst_0019",
     "month": "2025-04",
     "sku_id": "SKU_CARDIO_01"
@@ -135,6 +154,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-020",
     "cost_id": "cst_0020",
     "month": "2025-04",
     "sku_id": "SKU_CARDIO_01"
@@ -142,6 +162,7 @@
   {
     "amount_uzs": 24640000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-021",
     "cost_id": "cst_0021",
     "month": "2025-05",
     "sku_id": "SKU_CARDIO_01"
@@ -149,6 +170,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-022",
     "cost_id": "cst_0022",
     "month": "2025-05",
     "sku_id": "SKU_CARDIO_01"
@@ -156,13 +178,15 @@
   {
     "amount_uzs": 4725000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-023",
     "cost_id": "cst_0023",
     "month": "2025-05",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 12660493.64,
+    "amount_uzs": 14929631.96,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-024",
     "cost_id": "cst_0024",
     "month": "2025-05",
     "sku_id": "SKU_CARDIO_01"
@@ -170,6 +194,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-025",
     "cost_id": "cst_0025",
     "month": "2025-05",
     "sku_id": "SKU_CARDIO_01"
@@ -177,6 +202,7 @@
   {
     "amount_uzs": 23760000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-026",
     "cost_id": "cst_0026",
     "month": "2025-06",
     "sku_id": "SKU_CARDIO_01"
@@ -184,6 +210,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-027",
     "cost_id": "cst_0027",
     "month": "2025-06",
     "sku_id": "SKU_CARDIO_01"
@@ -191,13 +218,15 @@
   {
     "amount_uzs": 4950000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-028",
     "cost_id": "cst_0028",
     "month": "2025-06",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 10852675.73,
+    "amount_uzs": 13275259.41,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-029",
     "cost_id": "cst_0029",
     "month": "2025-06",
     "sku_id": "SKU_CARDIO_01"
@@ -205,6 +234,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-030",
     "cost_id": "cst_0030",
     "month": "2025-06",
     "sku_id": "SKU_CARDIO_01"
@@ -212,6 +242,7 @@
   {
     "amount_uzs": 23100000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-031",
     "cost_id": "cst_0031",
     "month": "2025-07",
     "sku_id": "SKU_CARDIO_01"
@@ -219,6 +250,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-032",
     "cost_id": "cst_0032",
     "month": "2025-07",
     "sku_id": "SKU_CARDIO_01"
@@ -226,13 +258,15 @@
   {
     "amount_uzs": 5040000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-033",
     "cost_id": "cst_0033",
     "month": "2025-07",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 8646613.55,
+    "amount_uzs": 11227648.96,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-034",
     "cost_id": "cst_0034",
     "month": "2025-07",
     "sku_id": "SKU_CARDIO_01"
@@ -240,6 +274,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-035",
     "cost_id": "cst_0035",
     "month": "2025-07",
     "sku_id": "SKU_CARDIO_01"
@@ -247,6 +282,7 @@
   {
     "amount_uzs": 23540000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-036",
     "cost_id": "cst_0036",
     "month": "2025-08",
     "sku_id": "SKU_CARDIO_01"
@@ -254,6 +290,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-037",
     "cost_id": "cst_0037",
     "month": "2025-08",
     "sku_id": "SKU_CARDIO_01"
@@ -261,13 +298,15 @@
   {
     "amount_uzs": 5175000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-038",
     "cost_id": "cst_0038",
     "month": "2025-08",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 6627315.16,
+    "amount_uzs": 9359525.07,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-039",
     "cost_id": "cst_0039",
     "month": "2025-08",
     "sku_id": "SKU_CARDIO_01"
@@ -275,6 +314,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-040",
     "cost_id": "cst_0040",
     "month": "2025-08",
     "sku_id": "SKU_CARDIO_01"
@@ -282,6 +322,7 @@
   {
     "amount_uzs": 24860000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-041",
     "cost_id": "cst_0041",
     "month": "2025-09",
     "sku_id": "SKU_CARDIO_01"
@@ -289,6 +330,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-042",
     "cost_id": "cst_0042",
     "month": "2025-09",
     "sku_id": "SKU_CARDIO_01"
@@ -296,13 +338,15 @@
   {
     "amount_uzs": 5400000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-043",
     "cost_id": "cst_0043",
     "month": "2025-09",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 4765503.32,
+    "amount_uzs": 7397476.71,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-044",
     "cost_id": "cst_0044",
     "month": "2025-09",
     "sku_id": "SKU_CARDIO_01"
@@ -310,6 +354,7 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-045",
     "cost_id": "cst_0045",
     "month": "2025-09",
     "sku_id": "SKU_CARDIO_01"
@@ -317,6 +362,7 @@
   {
     "amount_uzs": 25960000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-046",
     "cost_id": "cst_0046",
     "month": "2025-10",
     "sku_id": "SKU_CARDIO_01"
@@ -324,6 +370,7 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-047",
     "cost_id": "cst_0047",
     "month": "2025-10",
     "sku_id": "SKU_CARDIO_01"
@@ -331,13 +378,15 @@
   {
     "amount_uzs": 5580000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-048",
     "cost_id": "cst_0048",
     "month": "2025-10",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 1914473.24,
+    "amount_uzs": 4260245.76,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-049",
     "cost_id": "cst_0049",
     "month": "2025-10",
     "sku_id": "SKU_CARDIO_01"
@@ -345,83 +394,95 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-050",
     "cost_id": "cst_0050",
     "month": "2025-10",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 75134561.59,
+    "amount_uzs": 21811953.03,
     "category": "general",
+    "cost_doc_no": "АВР-2025-051",
     "cost_id": "cst_0051",
     "month": "2025-01",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 76476250.19,
+    "amount_uzs": 22201452.19,
     "category": "general",
+    "cost_doc_no": "АВР-2025-052",
     "cost_id": "cst_0052",
     "month": "2025-02",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 79159627.39,
+    "amount_uzs": 22980450.52,
     "category": "general",
+    "cost_doc_no": "АВР-2025-053",
     "cost_id": "cst_0053",
     "month": "2025-03",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 77817938.79,
+    "amount_uzs": 22590951.36,
     "category": "general",
+    "cost_doc_no": "АВР-2025-054",
     "cost_id": "cst_0054",
     "month": "2025-04",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 75134561.59,
+    "amount_uzs": 21811953.03,
     "category": "general",
+    "cost_doc_no": "АВР-2025-055",
     "cost_id": "cst_0055",
     "month": "2025-05",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 72451184.39,
+    "amount_uzs": 21032954.71,
     "category": "general",
+    "cost_doc_no": "АВР-2025-056",
     "cost_id": "cst_0056",
     "month": "2025-06",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 73219124.58,
+    "amount_uzs": 21255891.73,
     "category": "general",
+    "cost_doc_no": "АВР-2025-057",
     "cost_id": "cst_0057",
     "month": "2025-07",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 74613774.57,
+    "amount_uzs": 21660765.86,
     "category": "general",
+    "cost_doc_no": "АВР-2025-058",
     "cost_id": "cst_0058",
     "month": "2025-08",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 78797724.55,
+    "amount_uzs": 22875388.24,
     "category": "general",
+    "cost_doc_no": "АВР-2025-059",
     "cost_id": "cst_0059",
     "month": "2025-09",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 82284349.53,
+    "amount_uzs": 23887573.57,
     "category": "general",
+    "cost_doc_no": "АВР-2025-060",
     "cost_id": "cst_0060",
     "month": "2025-10",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 28160000.0,
+    "amount_uzs": 28028000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-061",
     "cost_id": "cst_0061",
     "month": "2025-11",
     "sku_id": "SKU_CARDIO_01"
@@ -429,20 +490,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-062",
     "cost_id": "cst_0062",
     "month": "2025-11",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5760000.0,
+    "amount_uzs": 5787000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-063",
     "cost_id": "cst_0063",
     "month": "2025-11",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 178573.78,
+    "amount_uzs": 2257290.57,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-064",
     "cost_id": "cst_0064",
     "month": "2025-11",
     "sku_id": "SKU_CARDIO_01"
@@ -450,13 +514,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-065",
     "cost_id": "cst_0065",
     "month": "2025-11",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 29480000.0,
+    "amount_uzs": 29304000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-066",
     "cost_id": "cst_0066",
     "month": "2025-12",
     "sku_id": "SKU_CARDIO_01"
@@ -464,20 +530,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-067",
     "cost_id": "cst_0067",
     "month": "2025-12",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5895000.0,
+    "amount_uzs": 5985000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-068",
     "cost_id": "cst_0068",
     "month": "2025-12",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 243403.41,
+    "amount_uzs": 2080565.61,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-069",
     "cost_id": "cst_0069",
     "month": "2025-12",
     "sku_id": "SKU_CARDIO_01"
@@ -485,13 +554,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-070",
     "cost_id": "cst_0070",
     "month": "2025-12",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 29920000.0,
+    "amount_uzs": 29722000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-071",
     "cost_id": "cst_0071",
     "month": "2026-01",
     "sku_id": "SKU_CARDIO_01"
@@ -499,20 +570,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-072",
     "cost_id": "cst_0072",
     "month": "2026-01",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5895000.0,
+    "amount_uzs": 6061500.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-073",
     "cost_id": "cst_0073",
     "month": "2026-01",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 151965.48,
+    "amount_uzs": 1605125.77,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-074",
     "cost_id": "cst_0074",
     "month": "2026-01",
     "sku_id": "SKU_CARDIO_01"
@@ -520,13 +594,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-075",
     "cost_id": "cst_0075",
     "month": "2026-01",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 28380000.0,
+    "amount_uzs": 28248000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-076",
     "cost_id": "cst_0076",
     "month": "2026-02",
     "sku_id": "SKU_CARDIO_01"
@@ -534,20 +610,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-077",
     "cost_id": "cst_0077",
     "month": "2026-02",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5895000.0,
+    "amount_uzs": 6129000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-078",
     "cost_id": "cst_0078",
     "month": "2026-02",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 353015.59,
+    "amount_uzs": 1482213.16,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-079",
     "cost_id": "cst_0079",
     "month": "2026-02",
     "sku_id": "SKU_CARDIO_01"
@@ -555,13 +634,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-080",
     "cost_id": "cst_0080",
     "month": "2026-02",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 27720000.0,
+    "amount_uzs": 27544000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-081",
     "cost_id": "cst_0081",
     "month": "2026-03",
     "sku_id": "SKU_CARDIO_01"
@@ -569,20 +650,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-082",
     "cost_id": "cst_0082",
     "month": "2026-03",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5895000.0,
+    "amount_uzs": 6192000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-083",
     "cost_id": "cst_0083",
     "month": "2026-03",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 844970.75,
+    "amount_uzs": 1820250.11,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-084",
     "cost_id": "cst_0084",
     "month": "2026-03",
     "sku_id": "SKU_CARDIO_01"
@@ -590,13 +674,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-085",
     "cost_id": "cst_0085",
     "month": "2026-03",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 26620000.0,
+    "amount_uzs": 26488000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-086",
     "cost_id": "cst_0086",
     "month": "2026-04",
     "sku_id": "SKU_CARDIO_01"
@@ -604,34 +690,39 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-087",
     "cost_id": "cst_0087",
     "month": "2026-04",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5625000.0,
+    "amount_uzs": 5985000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-088",
     "cost_id": "cst_0088",
     "month": "2026-04",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 491955.16,
+    "amount_uzs": 1025283.13,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-089",
     "cost_id": "cst_0089",
     "month": "2026-04",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 38819876.0,
+    "amount_uzs": 37509728.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-090",
     "cost_id": "cst_0090",
     "month": "2026-04",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 25520000.0,
+    "amount_uzs": 25366000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-091",
     "cost_id": "cst_0091",
     "month": "2026-05",
     "sku_id": "SKU_CARDIO_01"
@@ -639,20 +730,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-092",
     "cost_id": "cst_0092",
     "month": "2026-05",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5355000.0,
+    "amount_uzs": 5773500.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-093",
     "cost_id": "cst_0093",
     "month": "2026-05",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 0.0,
+    "amount_uzs": 73225.25,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-094",
     "cost_id": "cst_0094",
     "month": "2026-05",
     "sku_id": "SKU_CARDIO_01"
@@ -660,13 +754,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-095",
     "cost_id": "cst_0095",
     "month": "2026-05",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 24640000.0,
+    "amount_uzs": 24508000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-096",
     "cost_id": "cst_0096",
     "month": "2026-06",
     "sku_id": "SKU_CARDIO_01"
@@ -674,20 +770,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-097",
     "cost_id": "cst_0097",
     "month": "2026-06",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5445000.0,
+    "amount_uzs": 5922000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-098",
     "cost_id": "cst_0098",
     "month": "2026-06",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 85984.4,
+    "amount_uzs": 0.0,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-099",
     "cost_id": "cst_0099",
     "month": "2026-06",
     "sku_id": "SKU_CARDIO_01"
@@ -695,13 +794,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-100",
     "cost_id": "cst_0100",
     "month": "2026-06",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 25300000.0,
+    "amount_uzs": 25146000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-101",
     "cost_id": "cst_0101",
     "month": "2026-07",
     "sku_id": "SKU_CARDIO_01"
@@ -709,20 +810,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-102",
     "cost_id": "cst_0102",
     "month": "2026-07",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5580000.0,
+    "amount_uzs": 6115500.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-103",
     "cost_id": "cst_0103",
     "month": "2026-07",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 85984.4,
+    "amount_uzs": 0.0,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-104",
     "cost_id": "cst_0104",
     "month": "2026-07",
     "sku_id": "SKU_CARDIO_01"
@@ -730,13 +834,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-105",
     "cost_id": "cst_0105",
     "month": "2026-07",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 26840000.0,
+    "amount_uzs": 26708000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-106",
     "cost_id": "cst_0106",
     "month": "2026-08",
     "sku_id": "SKU_CARDIO_01"
@@ -744,20 +850,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-107",
     "cost_id": "cst_0107",
     "month": "2026-08",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5715000.0,
+    "amount_uzs": 6309000.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-108",
     "cost_id": "cst_0108",
     "month": "2026-08",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 417461.12,
+    "amount_uzs": 46392.32,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-109",
     "cost_id": "cst_0109",
     "month": "2026-08",
     "sku_id": "SKU_CARDIO_01"
@@ -765,13 +874,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-110",
     "cost_id": "cst_0110",
     "month": "2026-08",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 28160000.0,
+    "amount_uzs": 28094000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-111",
     "cost_id": "cst_0111",
     "month": "2026-09",
     "sku_id": "SKU_CARDIO_01"
@@ -779,20 +890,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-112",
     "cost_id": "cst_0112",
     "month": "2026-09",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 5940000.0,
+    "amount_uzs": 6574500.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-113",
     "cost_id": "cst_0113",
     "month": "2026-09",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 1022438.22,
+    "amount_uzs": 46392.32,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-114",
     "cost_id": "cst_0114",
     "month": "2026-09",
     "sku_id": "SKU_CARDIO_01"
@@ -800,13 +914,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-115",
     "cost_id": "cst_0115",
     "month": "2026-09",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 29260000.0,
+    "amount_uzs": 29194000.0,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-116",
     "cost_id": "cst_0116",
     "month": "2026-10",
     "sku_id": "SKU_CARDIO_01"
@@ -814,20 +930,23 @@
   {
     "amount_uzs": 45000000.0,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-117",
     "cost_id": "cst_0117",
     "month": "2026-10",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 6120000.0,
+    "amount_uzs": 6781500.0,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-118",
     "cost_id": "cst_0118",
     "month": "2026-10",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 768715.22,
+    "amount_uzs": 0.0,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-119",
     "cost_id": "cst_0119",
     "month": "2026-10",
     "sku_id": "SKU_CARDIO_01"
@@ -835,118 +954,135 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-120",
     "cost_id": "cst_0120",
     "month": "2026-10",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 66773877.89,
+    "amount_uzs": 98909320.81,
     "category": "general",
+    "cost_doc_no": "АВР-2025-121",
     "cost_id": "cst_0121",
     "month": "2025-11",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 69903903.41,
+    "amount_uzs": 103412256.92,
     "category": "general",
+    "cost_doc_no": "АВР-2025-122",
     "cost_id": "cst_0122",
     "month": "2025-12",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 70947245.25,
+    "amount_uzs": 104887356.68,
     "category": "general",
+    "cost_doc_no": "АВР-2026-123",
     "cost_id": "cst_0123",
     "month": "2026-01",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 67295548.81,
+    "amount_uzs": 99685689.1,
     "category": "general",
+    "cost_doc_no": "АВР-2026-124",
     "cost_id": "cst_0124",
     "month": "2026-02",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 65730536.04,
+    "amount_uzs": 97201310.56,
     "category": "general",
+    "cost_doc_no": "АВР-2026-125",
     "cost_id": "cst_0125",
     "month": "2026-03",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 63122181.44,
+    "amount_uzs": 93474742.74,
     "category": "general",
+    "cost_doc_no": "АВР-2026-126",
     "cost_id": "cst_0126",
     "month": "2026-04",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 60513826.83,
+    "amount_uzs": 89515264.44,
     "category": "general",
+    "cost_doc_no": "АВР-2026-127",
     "cost_id": "cst_0127",
     "month": "2026-05",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 58427143.15,
+    "amount_uzs": 86487428.09,
     "category": "general",
+    "cost_doc_no": "АВР-2026-128",
     "cost_id": "cst_0128",
     "month": "2026-06",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 59992155.91,
+    "amount_uzs": 88738896.14,
     "category": "general",
+    "cost_doc_no": "АВР-2026-129",
     "cost_id": "cst_0129",
     "month": "2026-07",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 63643852.36,
+    "amount_uzs": 94251111.04,
     "category": "general",
+    "cost_doc_no": "АВР-2026-130",
     "cost_id": "cst_0130",
     "month": "2026-08",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 66773877.89,
+    "amount_uzs": 99142231.3,
     "category": "general",
+    "cost_doc_no": "АВР-2026-131",
     "cost_id": "cst_0131",
     "month": "2026-09",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 69382232.49,
+    "amount_uzs": 103024072.77,
     "category": "general",
+    "cost_doc_no": "АВР-2026-132",
     "cost_id": "cst_0132",
     "month": "2026-10",
     "sku_id": "SKU_CARDIO_01"
   },
   {
-    "amount_uzs": 13355833.01,
+    "amount_uzs": 12861618.75,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-133",
     "cost_id": "cst_0133",
     "month": "2025-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18212499.56,
+    "amount_uzs": 17538571.02,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-134",
     "cost_id": "cst_0134",
     "month": "2025-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7284999.82,
+    "amount_uzs": 7015428.41,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-135",
     "cost_id": "cst_0135",
     "month": "2025-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 16557641.61,
+    "amount_uzs": 16816422.91,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-136",
     "cost_id": "cst_0136",
     "month": "2025-01",
     "sku_id": "PORTFOLIO_BG"
@@ -954,41 +1090,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-137",
     "cost_id": "cst_0137",
     "month": "2025-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14569999.65,
+    "amount_uzs": 14030856.81,
     "category": "general",
+    "cost_doc_no": "АВР-2025-138",
     "cost_id": "cst_0138",
     "month": "2025-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 12192059.22,
+    "amount_uzs": 13023344.92,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-139",
     "cost_id": "cst_0139",
     "month": "2025-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 16625535.3,
+    "amount_uzs": 17759106.71,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-140",
     "cost_id": "cst_0140",
     "month": "2025-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 6650214.12,
+    "amount_uzs": 7103642.68,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-141",
     "cost_id": "cst_0141",
     "month": "2025-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 17525815.5,
+    "amount_uzs": 18179559.32,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-142",
     "cost_id": "cst_0142",
     "month": "2025-02",
     "sku_id": "PORTFOLIO_BG"
@@ -996,41 +1138,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-143",
     "cost_id": "cst_0143",
     "month": "2025-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13300428.24,
+    "amount_uzs": 14207285.37,
     "category": "general",
+    "cost_doc_no": "АВР-2025-144",
     "cost_id": "cst_0144",
     "month": "2025-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 19512493.63,
+    "amount_uzs": 19964279.34,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-145",
     "cost_id": "cst_0145",
     "month": "2025-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 26607945.86,
+    "amount_uzs": 27224017.29,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-146",
     "cost_id": "cst_0146",
     "month": "2025-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 10643178.35,
+    "amount_uzs": 10889606.91,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-147",
     "cost_id": "cst_0147",
     "month": "2025-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 15451055.96,
+    "amount_uzs": 16329978.87,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-148",
     "cost_id": "cst_0148",
     "month": "2025-03",
     "sku_id": "PORTFOLIO_BG"
@@ -1038,41 +1186,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-149",
     "cost_id": "cst_0149",
     "month": "2025-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 21286356.69,
+    "amount_uzs": 21779213.83,
     "category": "general",
+    "cost_doc_no": "АВР-2025-150",
     "cost_id": "cst_0150",
     "month": "2025-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18944127.3,
+    "amount_uzs": 16998109.5,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-151",
     "cost_id": "cst_0151",
     "month": "2025-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 25832900.86,
+    "amount_uzs": 23179240.23,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-152",
     "cost_id": "cst_0152",
     "month": "2025-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 10333160.35,
+    "amount_uzs": 9271696.09,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-153",
     "cost_id": "cst_0153",
     "month": "2025-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 12593113.0,
+    "amount_uzs": 13946207.44,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-154",
     "cost_id": "cst_0154",
     "month": "2025-04",
     "sku_id": "PORTFOLIO_BG"
@@ -1080,41 +1234,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-155",
     "cost_id": "cst_0155",
     "month": "2025-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 20666320.69,
+    "amount_uzs": 18543392.18,
     "category": "general",
+    "cost_doc_no": "АВР-2025-156",
     "cost_id": "cst_0156",
     "month": "2025-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 12516133.65,
+    "amount_uzs": 13118661.96,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-157",
     "cost_id": "cst_0157",
     "month": "2025-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 17067454.98,
+    "amount_uzs": 17889084.49,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-158",
     "cost_id": "cst_0158",
     "month": "2025-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 6826981.99,
+    "amount_uzs": 7155633.79,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-159",
     "cost_id": "cst_0159",
     "month": "2025-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 10358585.7,
+    "amount_uzs": 12215153.43,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-160",
     "cost_id": "cst_0160",
     "month": "2025-05",
     "sku_id": "PORTFOLIO_BG"
@@ -1122,41 +1282,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-161",
     "cost_id": "cst_0161",
     "month": "2025-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13653963.99,
+    "amount_uzs": 14311267.59,
     "category": "general",
+    "cost_doc_no": "АВР-2025-162",
     "cost_id": "cst_0162",
     "month": "2025-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13640507.36,
+    "amount_uzs": 13734138.26,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-163",
     "cost_id": "cst_0163",
     "month": "2025-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18600691.85,
+    "amount_uzs": 18728370.35,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-164",
     "cost_id": "cst_0164",
     "month": "2025-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7440276.74,
+    "amount_uzs": 7491348.14,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-165",
     "cost_id": "cst_0165",
     "month": "2025-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 8879461.96,
+    "amount_uzs": 10861575.88,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-166",
     "cost_id": "cst_0166",
     "month": "2025-06",
     "sku_id": "PORTFOLIO_BG"
@@ -1164,41 +1330,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-167",
     "cost_id": "cst_0167",
     "month": "2025-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14880553.48,
+    "amount_uzs": 14982696.28,
     "category": "general",
+    "cost_doc_no": "АВР-2025-168",
     "cost_id": "cst_0168",
     "month": "2025-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 19074605.18,
+    "amount_uzs": 19272261.41,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-169",
     "cost_id": "cst_0169",
     "month": "2025-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 26010825.25,
+    "amount_uzs": 26280356.46,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-170",
     "cost_id": "cst_0170",
     "month": "2025-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 10404330.1,
+    "amount_uzs": 10512142.59,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-171",
     "cost_id": "cst_0171",
     "month": "2025-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7074502.0,
+    "amount_uzs": 9186258.24,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-172",
     "cost_id": "cst_0172",
     "month": "2025-07",
     "sku_id": "PORTFOLIO_BG"
@@ -1206,41 +1378,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-173",
     "cost_id": "cst_0173",
     "month": "2025-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 20808660.2,
+    "amount_uzs": 21024285.17,
     "category": "general",
+    "cost_doc_no": "АВР-2025-174",
     "cost_id": "cst_0174",
     "month": "2025-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 10516916.35,
+    "amount_uzs": 10677594.93,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-175",
     "cost_id": "cst_0175",
     "month": "2025-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14341249.57,
+    "amount_uzs": 14560356.72,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-176",
     "cost_id": "cst_0176",
     "month": "2025-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 5736499.83,
+    "amount_uzs": 5824142.69,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-177",
     "cost_id": "cst_0177",
     "month": "2025-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 5422348.77,
+    "amount_uzs": 7657793.24,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-178",
     "cost_id": "cst_0178",
     "month": "2025-08",
     "sku_id": "PORTFOLIO_BG"
@@ -1248,41 +1426,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-179",
     "cost_id": "cst_0179",
     "month": "2025-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 11472999.66,
+    "amount_uzs": 11648285.38,
     "category": "general",
+    "cost_doc_no": "АВР-2025-180",
     "cost_id": "cst_0180",
     "month": "2025-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13746889.51,
+    "amount_uzs": 14176969.86,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-181",
     "cost_id": "cst_0181",
     "month": "2025-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18745758.42,
+    "amount_uzs": 19332231.62,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-182",
     "cost_id": "cst_0182",
     "month": "2025-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7498303.37,
+    "amount_uzs": 7732892.65,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-183",
     "cost_id": "cst_0183",
     "month": "2025-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 3899048.17,
+    "amount_uzs": 6052480.94,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-184",
     "cost_id": "cst_0184",
     "month": "2025-09",
     "sku_id": "PORTFOLIO_BG"
@@ -1290,41 +1474,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-185",
     "cost_id": "cst_0185",
     "month": "2025-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14996606.73,
+    "amount_uzs": 15465785.3,
     "category": "general",
+    "cost_doc_no": "АВР-2025-186",
     "cost_id": "cst_0186",
     "month": "2025-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 16791466.59,
+    "amount_uzs": 17688326.69,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-187",
     "cost_id": "cst_0187",
     "month": "2025-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 22897454.44,
+    "amount_uzs": 24120445.49,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-188",
     "cost_id": "cst_0188",
     "month": "2025-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 9158981.78,
+    "amount_uzs": 9648178.19,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-189",
     "cost_id": "cst_0189",
     "month": "2025-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 1566387.19,
+    "amount_uzs": 3485655.62,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-190",
     "cost_id": "cst_0190",
     "month": "2025-10",
     "sku_id": "PORTFOLIO_BG"
@@ -1332,41 +1522,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-191",
     "cost_id": "cst_0191",
     "month": "2025-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18317963.56,
+    "amount_uzs": 19296356.39,
     "category": "general",
+    "cost_doc_no": "АВР-2025-192",
     "cost_id": "cst_0192",
     "month": "2025-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14233148.55,
+    "amount_uzs": 13268962.57,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-193",
     "cost_id": "cst_0193",
     "month": "2025-11",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 19408838.93,
+    "amount_uzs": 18094039.87,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-194",
     "cost_id": "cst_0194",
     "month": "2025-11",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7763535.57,
+    "amount_uzs": 7237615.95,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-195",
     "cost_id": "cst_0195",
     "month": "2025-11",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 146105.82,
+    "amount_uzs": 1846874.1,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-196",
     "cost_id": "cst_0196",
     "month": "2025-11",
     "sku_id": "PORTFOLIO_BG"
@@ -1374,41 +1570,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-197",
     "cost_id": "cst_0197",
     "month": "2025-11",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 15527071.14,
+    "amount_uzs": 14475231.9,
     "category": "general",
+    "cost_doc_no": "АВР-2025-198",
     "cost_id": "cst_0198",
     "month": "2025-11",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13877252.83,
+    "amount_uzs": 14808422.45,
     "category": "distribution",
+    "cost_doc_no": "АВР-2025-199",
     "cost_id": "cst_0199",
     "month": "2025-12",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18923526.59,
+    "amount_uzs": 20193303.35,
     "category": "marketing",
+    "cost_doc_no": "АВР-2025-200",
     "cost_id": "cst_0200",
     "month": "2025-12",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7569410.63,
+    "amount_uzs": 8077321.34,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2025-201",
     "cost_id": "cst_0201",
     "month": "2025-12",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 199148.25,
+    "amount_uzs": 1702280.96,
     "category": "financing",
+    "cost_doc_no": "АВР-2025-202",
     "cost_id": "cst_0202",
     "month": "2025-12",
     "sku_id": "PORTFOLIO_BG"
@@ -1416,41 +1618,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2025-203",
     "cost_id": "cst_0203",
     "month": "2025-12",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 15138821.27,
+    "amount_uzs": 16154642.68,
     "category": "general",
+    "cost_doc_no": "АВР-2025-204",
     "cost_id": "cst_0204",
     "month": "2025-12",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 21533252.47,
+    "amount_uzs": 19707923.62,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-205",
     "cost_id": "cst_0205",
     "month": "2026-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 29363526.09,
+    "amount_uzs": 26874441.3,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-206",
     "cost_id": "cst_0206",
     "month": "2026-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 11745410.44,
+    "amount_uzs": 10749776.52,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-207",
     "cost_id": "cst_0207",
     "month": "2026-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 124335.4,
+    "amount_uzs": 1313284.72,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-208",
     "cost_id": "cst_0208",
     "month": "2026-01",
     "sku_id": "PORTFOLIO_BG"
@@ -1458,41 +1666,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-209",
     "cost_id": "cst_0209",
     "month": "2026-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 23490820.87,
+    "amount_uzs": 21499553.04,
     "category": "general",
+    "cost_doc_no": "АВР-2026-210",
     "cost_id": "cst_0210",
     "month": "2026-01",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 10958618.73,
+    "amount_uzs": 10716356.84,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-211",
     "cost_id": "cst_0211",
     "month": "2026-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14943570.99,
+    "amount_uzs": 14613213.87,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-212",
     "cost_id": "cst_0212",
     "month": "2026-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 5977428.4,
+    "amount_uzs": 5845285.55,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-213",
     "cost_id": "cst_0213",
     "month": "2026-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 288830.93,
+    "amount_uzs": 1212719.85,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-214",
     "cost_id": "cst_0214",
     "month": "2026-02",
     "sku_id": "PORTFOLIO_BG"
@@ -1500,41 +1714,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-215",
     "cost_id": "cst_0215",
     "month": "2026-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 11954856.79,
+    "amount_uzs": 11690571.1,
     "category": "general",
+    "cost_doc_no": "АВР-2026-216",
     "cost_id": "cst_0216",
     "month": "2026-02",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13228678.23,
+    "amount_uzs": 13047800.25,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-217",
     "cost_id": "cst_0217",
     "month": "2026-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18039106.67,
+    "amount_uzs": 17792454.89,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-218",
     "cost_id": "cst_0218",
     "month": "2026-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7215642.67,
+    "amount_uzs": 7116981.95,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-219",
     "cost_id": "cst_0219",
     "month": "2026-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 691339.7,
+    "amount_uzs": 1489295.54,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-220",
     "cost_id": "cst_0220",
     "month": "2026-03",
     "sku_id": "PORTFOLIO_BG"
@@ -1542,41 +1762,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-221",
     "cost_id": "cst_0221",
     "month": "2026-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14431285.34,
+    "amount_uzs": 14233963.91,
     "category": "general",
+    "cost_doc_no": "АВР-2026-222",
     "cost_id": "cst_0222",
     "month": "2026-03",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 17028948.74,
+    "amount_uzs": 18604174.86,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-223",
     "cost_id": "cst_0223",
     "month": "2026-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 23221293.73,
+    "amount_uzs": 25369329.35,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-224",
     "cost_id": "cst_0224",
     "month": "2026-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 9288517.49,
+    "amount_uzs": 10147731.74,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-225",
     "cost_id": "cst_0225",
     "month": "2026-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 402508.77,
+    "amount_uzs": 838868.02,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-226",
     "cost_id": "cst_0226",
     "month": "2026-04",
     "sku_id": "PORTFOLIO_BG"
@@ -1584,41 +1810,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-227",
     "cost_id": "cst_0227",
     "month": "2026-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18577034.98,
+    "amount_uzs": 20295463.48,
     "category": "general",
+    "cost_doc_no": "АВР-2026-228",
     "cost_id": "cst_0228",
     "month": "2026-04",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13851504.19,
+    "amount_uzs": 14276035.46,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-229",
     "cost_id": "cst_0229",
     "month": "2026-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18888414.81,
+    "amount_uzs": 19467321.07,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-230",
     "cost_id": "cst_0230",
     "month": "2026-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7555365.92,
+    "amount_uzs": 7786928.43,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-231",
     "cost_id": "cst_0231",
     "month": "2026-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 0.0,
+    "amount_uzs": 59911.57,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-232",
     "cost_id": "cst_0232",
     "month": "2026-05",
     "sku_id": "PORTFOLIO_BG"
@@ -1626,41 +1858,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-233",
     "cost_id": "cst_0233",
     "month": "2026-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 15110731.84,
+    "amount_uzs": 15573856.86,
     "category": "general",
+    "cost_doc_no": "АВР-2026-234",
     "cost_id": "cst_0234",
     "month": "2026-05",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14277377.82,
+    "amount_uzs": 13627395.72,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-235",
     "cost_id": "cst_0235",
     "month": "2026-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 19469151.57,
+    "amount_uzs": 18582812.34,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-236",
     "cost_id": "cst_0236",
     "month": "2026-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7787660.63,
+    "amount_uzs": 7433124.94,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-237",
     "cost_id": "cst_0237",
     "month": "2026-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 70350.88,
+    "amount_uzs": 0.0,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-238",
     "cost_id": "cst_0238",
     "month": "2026-06",
     "sku_id": "PORTFOLIO_BG"
@@ -1668,41 +1906,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-239",
     "cost_id": "cst_0239",
     "month": "2026-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 15575321.26,
+    "amount_uzs": 14866249.87,
     "category": "general",
+    "cost_doc_no": "АВР-2026-240",
     "cost_id": "cst_0240",
     "month": "2026-06",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 20807858.15,
+    "amount_uzs": 20177306.07,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-241",
     "cost_id": "cst_0241",
     "month": "2026-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 28374352.02,
+    "amount_uzs": 27514508.28,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-242",
     "cost_id": "cst_0242",
     "month": "2026-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 11349740.81,
+    "amount_uzs": 11005803.31,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-243",
     "cost_id": "cst_0243",
     "month": "2026-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 70350.88,
+    "amount_uzs": 0.0,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-244",
     "cost_id": "cst_0244",
     "month": "2026-07",
     "sku_id": "PORTFOLIO_BG"
@@ -1710,41 +1954,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-245",
     "cost_id": "cst_0245",
     "month": "2026-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 22699481.62,
+    "amount_uzs": 22011606.62,
     "category": "general",
+    "cost_doc_no": "АВР-2026-246",
     "cost_id": "cst_0246",
     "month": "2026-07",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 10963594.92,
+    "amount_uzs": 11299749.66,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-247",
     "cost_id": "cst_0247",
     "month": "2026-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14950356.71,
+    "amount_uzs": 15408749.53,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-248",
     "cost_id": "cst_0248",
     "month": "2026-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 5980142.68,
+    "amount_uzs": 6163499.81,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-249",
     "cost_id": "cst_0249",
     "month": "2026-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 341559.09,
+    "amount_uzs": 37957.36,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-250",
     "cost_id": "cst_0250",
     "month": "2026-08",
     "sku_id": "PORTFOLIO_BG"
@@ -1752,41 +2002,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-251",
     "cost_id": "cst_0251",
     "month": "2026-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 11960285.36,
+    "amount_uzs": 12326999.63,
     "category": "general",
+    "cost_doc_no": "АВР-2026-252",
     "cost_id": "cst_0252",
     "month": "2026-08",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 13601630.59,
+    "amount_uzs": 13384347.87,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-253",
     "cost_id": "cst_0253",
     "month": "2026-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18547678.08,
+    "amount_uzs": 18251383.46,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-254",
     "cost_id": "cst_0254",
     "month": "2026-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 7419071.23,
+    "amount_uzs": 7300553.38,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-255",
     "cost_id": "cst_0255",
     "month": "2026-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 836540.37,
+    "amount_uzs": 37957.36,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-256",
     "cost_id": "cst_0256",
     "month": "2026-09",
     "sku_id": "PORTFOLIO_BG"
@@ -1794,41 +2050,47 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-257",
     "cost_id": "cst_0257",
     "month": "2026-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 14838142.46,
+    "amount_uzs": 14601106.76,
     "category": "general",
+    "cost_doc_no": "АВР-2026-258",
     "cost_id": "cst_0258",
     "month": "2026-09",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 17143630.26,
+    "amount_uzs": 17465347.51,
     "category": "distribution",
+    "cost_doc_no": "АВР-2026-259",
     "cost_id": "cst_0259",
     "month": "2026-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 23377677.63,
+    "amount_uzs": 23816382.97,
     "category": "marketing",
+    "cost_doc_no": "АВР-2026-260",
     "cost_id": "cst_0260",
     "month": "2026-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 9351071.05,
+    "amount_uzs": 9526553.19,
     "category": "warehouse",
+    "cost_doc_no": "АВР-2026-261",
     "cost_id": "cst_0261",
     "month": "2026-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 628948.81,
+    "amount_uzs": 0.0,
     "category": "financing",
+    "cost_doc_no": "АВР-2026-262",
     "cost_id": "cst_0262",
     "month": "2026-10",
     "sku_id": "PORTFOLIO_BG"
@@ -1836,13 +2098,15 @@
   {
     "amount_uzs": 0.0,
     "category": "writeoffs",
+    "cost_doc_no": "АВР-2026-263",
     "cost_id": "cst_0263",
     "month": "2026-10",
     "sku_id": "PORTFOLIO_BG"
   },
   {
-    "amount_uzs": 18702142.1,
+    "amount_uzs": 19053106.37,
     "category": "general",
+    "cost_doc_no": "АВР-2026-264",
     "cost_id": "cst_0264",
     "month": "2026-10",
     "sku_id": "PORTFOLIO_BG"

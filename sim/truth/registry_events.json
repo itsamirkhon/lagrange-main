@@ -1,7 +1,7 @@
 [
   {
-    "b_uzs": 3500.0,
-    "bx_uzs": 1673.91,
+    "b_uzs": 2633.91,
+    "bx_uzs": 2540.0,
     "calc_base_ex_vat_uzs": 132173.91,
     "chchn_with_vat_uzs": 204288.0,
     "chun_with_vat_uzs": 170240.0,
@@ -11,14 +11,15 @@
     "event_id": "reg_0001",
     "event_type": "initial_registration",
     "order_reference": "Приказ МЗ РУз №3735 (учебная запись 2025-01)",
+    "registry_record_no": "RE-3735-2025-01",
     "rn_uzs": 127000.0,
     "sku_id": "SKU_CARDIO_01",
     "vat_rate": 0.12,
     "wholesale_ex_vat_uzs": 152000.0
   },
   {
-    "b_uzs": 3650.0,
-    "bx_uzs": 1741.3,
+    "b_uzs": 2751.3,
+    "bx_uzs": 2640.0,
     "calc_base_ex_vat_uzs": 137391.3,
     "chchn_with_vat_uzs": 212352.0,
     "chun_with_vat_uzs": 176960.0,
@@ -28,14 +29,15 @@
     "event_id": "reg_0002",
     "event_type": "para_20_indexation",
     "order_reference": "Приказ МЗ РУз №3735, п.20 (индексация 2025-07)",
+    "registry_record_no": "RE-3735-2025-07",
     "rn_uzs": 132000.0,
     "sku_id": "SKU_CARDIO_01",
     "vat_rate": 0.12,
     "wholesale_ex_vat_uzs": 158000.0
   },
   {
-    "b_uzs": 2349.69,
-    "bx_uzs": 1200.0,
+    "b_uzs": 1866.35,
+    "bx_uzs": 1866.34,
     "calc_base_ex_vat_uzs": 97049.69,
     "chchn_with_vat_uzs": 150000.0,
     "chun_with_vat_uzs": 125000.0,
@@ -45,7 +47,8 @@
     "event_id": "reg_0003",
     "event_type": "downward_price_revision",
     "order_reference": "Приказ МЗ РУз №3735 (учебная модель, п.19 и п.20)",
-    "rn_uzs": 93500.0,
+    "registry_record_no": "RE-3735-2025-11",
+    "rn_uzs": 93317.0,
     "sku_id": "SKU_CARDIO_01",
     "vat_rate": 0.12,
     "wholesale_ex_vat_uzs": 111607.14

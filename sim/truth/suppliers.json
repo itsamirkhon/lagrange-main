@@ -11,6 +11,7 @@
     "name": "Medisynth S.A. (Индия, SYNTHETIC)",
     "payment_terms": "60 дней отсрочка",
     "reliability_prob": 0.93,
+    "supplier_code": "ZBP-IND",
     "supplier_id": "sup_01"
   },
   {
@@ -25,6 +26,7 @@
     "name": "VektorPharm Pvt. Ltd. (Турция, SYNTHETIC)",
     "payment_terms": "30% предоплата / 70% по прибытии",
     "reliability_prob": 0.95,
+    "supplier_code": "ANAT-TR",
     "supplier_id": "sup_02"
   },
   {
@@ -39,6 +41,7 @@
     "name": "VektorPharm S.A. (Германия, SYNTHETIC)",
     "payment_terms": "45 дней отсрочка",
     "reliability_prob": 0.97,
+    "supplier_code": "BALT-DE",
     "supplier_id": "sup_03"
   },
   {
@@ -53,6 +56,7 @@
     "name": "BalticGalen Pvt. Ltd. (Словения, SYNTHETIC)",
     "payment_terms": "100% аккредитив",
     "reliability_prob": 0.94,
+    "supplier_code": "KRK-SI",
     "supplier_id": "sup_04"
   }
 ]
