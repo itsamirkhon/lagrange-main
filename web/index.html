@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1120">
+  <meta name="description" content="LAGRANGE Rx — quantitative pharmaceutical profitability lab, National AI Hackathon Uzbekistan 2026.">
+  <title>LAGRANGE Rx — Decision Lab</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<header class="site-header">
+  <a class="brand" href="#home" aria-label="LAGRANGE Rx homepage"><span class="brand-icon">L<span>+</span></span><span>LAGRANGE <em>Rx</em></span></a>
+  <nav aria-label="Site navigation"><a href="#lab">Decision lab</a><a href="#evidence">Evidence</a><a href="#assumptions">Methodology</a></nav>
+  <div class="top-meta"><span class="live-dot"></span> LOCAL DEMONSTRATION <span class="version">V 0.1</span></div>
+</header>
+<main id="home">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="eyebrow-line"></span> NATIONAL AI HACKATHON / CHALLENGE 16</div>
+      <h1>Profit is a <i>constraint</i><br>worth solving.</h1>
+      <p>When medicine prices cannot rise, smarter decisions must. An auditable optimization engine for pharmaceutical supply under reference-price constraints.</p>
+      <div class="hero-actions"><a class="button button-primary" href="#lab">Enter decision lab <span>&#8599;</span></a><a class="button button-outline" href="#evidence">See the mathematics <span>&#8594;</span></a></div>
+    </div>
+    <div class="hero-number" aria-hidden="true"><div class="hero-ring"><span>max</span><strong>&Pi;</strong><small>subject to</small><b>Ax &le; b</b></div><span class="ring-orbit dot-one"></span><span class="ring-orbit dot-two"></span></div>
+  </section>
+  <section class="case-strip" aria-label="Challenge case facts">
+    <div class="strip-label">THE CHALLENGE <span>/</span> THE CONSTRAINTS</div>
+    <div class="strip-stat"><span>Annual volume</span><strong>150,000 <small>packs</small></strong><small class="origin">From official challenge brief</small></div>
+    <div class="strip-stat"><span>Retail price ceiling</span><strong>150,000 <small>UZS</small></strong><small class="origin">From official challenge brief</small></div>
+    <div class="strip-stat"><span>Stated profit margin</span><strong>2–3<span class="danger-sign">%</span></strong><small class="origin">From official challenge brief</small></div>
+    <div class="strip-stat"><span>Modeled wholesale cap</span><strong>125,000 <small>UZS</small></strong><small class="origin">Synthetic assumption, NOT registry data</small></div>
+  </section>
+
+  <section class="section-header" id="lab"><div><span class="section-kicker">01 / OPTIMIZATION ENGINE</span><h2>The decision lab.</h2><p>Make a change. Challenge the assumptions. Let the solver prove what is feasible.</p></div><div class="solver-tag"><span class="live-dot"></span> HiGHS / Mixed-integer linear program</div></section>
+
+  <section class="workbench">
+    <aside class="controls-panel" aria-label="Scenario controls">
+      <div class="panel-title"><div><span class="tiny-label">INPUT PARAMETERS</span><h3>Define your world</h3></div><span class="control-symbol">&#9881;</span></div>
+      <div class="input-block"><div class="label-row"><label for="risk">Risk aversion</label><output id="risk-value">35%</output></div><input type="range" id="risk" min="0" max="100" step="5" value="35"><div class="range-legend"><span>Expected profit</span><span>Worst-case protection</span></div></div>
+      <div class="control-divider"></div>
+      <div class="control-heading">Market shocks <span>HYPOTHETICAL</span></div>
+      <div class="input-block"><div class="label-row"><label for="fx">UZS depreciation scenario</label><output id="fx-value">+12%</output></div><input type="range" id="fx" min="0" max="35" step="1" value="12"></div>
+      <div class="input-block"><div class="label-row"><label for="freight">Freight disruption scenario</label><output id="freight-value">+35%</output></div><input type="range" id="freight" min="0" max="100" step="5" value="35"></div>
+      <div class="input-block"><div class="label-row"><label for="ceiling">Official wholesale cap revision <span class="info" title="This models a hypothetical formal cap revision, not automatic repricing after FX changes.">?</span></label><output id="ceiling-value">0%</output></div><input type="range" id="ceiling" min="-25" max="0" step="1" value="0"></div>
+      <div class="control-divider"></div>
+      <div class="control-heading">Operational constraints <span>MODELED</span></div>
+      <div class="input-block"><div class="label-row"><label for="budget">Working capital ceiling</label><output id="budget-value">18.50B UZS</output></div><input type="range" id="budget" min="1" max="26" step="0.25" value="18.5"></div>
+      <div class="input-block"><div class="label-row"><label for="supplier">Disable a sourcing route</label></div><select id="supplier"><option value="">No disruption</option><option value="standard_road">Status quo / road unavailable</option><option value="regional_pool">Regional pooling unavailable</option><option value="credit_terms">Payment terms unavailable</option><option value="consolidated_rail">Consolidated rail unavailable</option><option value="air_priority">Air freight unavailable</option></select></div>
+      <button class="button button-primary run-button" id="run" type="button"><span id="run-label">Run optimization</span><span>&#8594;</span></button>
+      <div class="two-actions"><button type="button" class="text-action" id="reset">Reset case</button><button type="button" class="text-action warn" id="impossible">Test infeasibility</button></div>
+      <div class="disclosure"><span class="disclosure-dot"></span> All commercial inputs are synthetic. This tool is not legal or investment advice.</div>
+    </aside>
+
+    <div class="result-panel">
+      <div class="results-heading"><div><span class="tiny-label">SOLVER OUTPUT / LIVE</span><h3>Allocation results</h3></div><div id="status" class="status status-loading">INITIALIZING</div></div>
+      <div id="error-banner" class="error-banner" role="status" hidden></div>
+      <div class="metric-grid">
+        <div class="metric metric-primary"><span>Expected annual profit <small>MODELED</small></span><strong id="expected" class="num">—</strong><div class="metric-footer"><span id="margin">—</span> expected margin</div></div>
+        <div class="metric"><span>Improvement vs. baseline <small>MODELED</small></span><strong id="improvement" class="num">—</strong><div class="metric-footer" id="improvement-sub">All else equal</div></div>
+        <div class="metric"><span>Worst-case annual profit <small>MODELED</small></span><strong id="worst" class="num">—</strong><div class="metric-footer" id="worst-sub">Among supplied scenarios</div></div>
+      </div>
+      <div class="result-section"><div class="subhead"><h4>Optimized allocation</h4><span id="total-packs">150K packs</span></div><div id="allocations" class="allocation-list"><div class="placeholder">Running solver...</div></div></div>
+      <div class="result-section"><div class="subhead"><h4>Scenario performance</h4><span>Annual profit / UZS billions</span></div><div class="legend"><span><i class="key key-baseline"></i> Baseline</span><span><i class="key key-optimal"></i> LAGRANGE Rx</span><span class="legend-note">Same scenarios for both</span></div><div id="scenario-chart" class="scenario-chart"><div class="placeholder">Awaiting model output...</div></div></div>
+      <div class="result-section compact"><div class="subhead"><h4>Decision trace</h4><button id="download" type="button" class="download-link">Export JSON &#8599;</button></div><div id="diagnostics" class="diagnostic-list"></div><div class="model-footnote">The optimum is mathematical, not a prediction of real business outcomes. This single-period model does not schedule delivery lead times or validate medicine interchangeability.</div></div>
+    </div>
+  </section>
+
+  <section id="evidence" class="evidence-grid">
+    <article class="evidence-panel paradox">
+      <span class="section-kicker">02 / REGULATORY ECONOMICS</span>
+      <h2>Cheaper isn't always<br><i>more profitable.</i></h2>
+      <p>Test the counterintuitive cost-plus effect. With a binding markup cap, a cheaper invoice can lower the maximum permitted selling price too. This is an illustrative interpretation, not a legal finding.</p>
+      <div class="input-block"><div class="label-row"><label for="discount">Factory discount</label><output id="discount-value">5%</output></div><input type="range" id="discount" min="0" max="20" step="1" value="5"></div>
+      <div class="paradox-grid"><div><span>Base annual profit</span><strong id="paradox-before">—</strong></div><div><span>After discount</span><strong id="paradox-after">—</strong></div></div>
+      <div id="paradox-result" class="paradox-result">Computing the counterfactual...</div>
+      <small>Experiment: the status-quo source, unchanged demand and other costs, base scenario only. All supplier inputs are synthetic.</small>
+    </article>
+    <article class="evidence-panel math-panel"><span class="section-kicker">03 / MATHEMATICAL MODEL</span><h2>Proof over promises.</h2><p>We solve a mixed-integer problem with binary sourcing choices, integer shipment counts, and a common price constrained across stress scenarios.</p><div class="math-box"><span>OBJECTIVE</span><div>max &nbsp;(1 − λ) E[Π] + λ min<sub>s</sub> Π<sub>s</sub></div><span class="separator">SUBJECT TO</span><div class="math-small">Σ x<sub>i</sub> = 150,000<br>x<sub>i</sub> &le; capacity<sub>i</sub> y<sub>i</sub><br>p &le; min(reference cap, 1.15 × cost base)<br>cash<sub>s</sub> &le; available capital &nbsp; ∀s</div></div><div class="model-note"><span class="shiny-dot"></span> Verified against independent exhaustive enumeration on tiny instances. See tests and evidence files in the repository.</div></article>
+  </section>
+
+  <section id="assumptions" class="assumptions-section"><div class="section-header"><div><span class="section-kicker">04 / ENGINEERING TRANSPARENCY</span><h2>Know what we're assuming.</h2><p>Good optimization is only as trustworthy as its inputs. No manufactured regulatory or commercial facts.</p></div></div><div class="assumption-list" id="assumption-list"><div>Loading assumptions...</div></div><div class="source-bar"><div><span class="tiny-label">SOURCE OF TRUTH</span><p>The challenge brief supplies volume and retail ceiling. Regulatory data and distributor wholesale bounds require independent verification before deployment.</p></div><div class="source-links"><a target="_blank" rel="noopener noreferrer" href="https://www.lex.uz/uz/acts/-7952162">Regulation 3735 &#8599;</a><a target="_blank" rel="noopener noreferrer" href="https://lex.uz/uz/acts/-7345588">Presidential Decree PF-13 &#8599;</a></div></div></section>
+</main>
+<footer class="footer"><div class="brand"><span class="brand-icon">L<span>+</span></span><span>LAGRANGE <em>Rx</em></span></div><span>Built to be challenged. Built to be verified.</span><span>2026 / UZBEKISTAN</span></footer>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
