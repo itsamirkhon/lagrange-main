@@ -148,6 +148,10 @@
 - `layer`: `acquisition` (входит в законную базу C) или `below_line` (не входит)
 - `amount_uzs`, `period`, `driver`: `per_pack | per_shipment | fixed | per_uzs_financed`
 - → Shipment или период
+- `product?` → Product и `allocation`: `direct | shared_by_volume | shared_by_revenue | unallocated` (по умолчанию `unallocated`)
+  - `direct` — затрата только этого SKU, `product` обязателен; затраты других SKU в его P&L не попадают;
+  - `shared_by_volume` / `shared_by_revenue` — общая затрата, делится между всеми SKU, проданными в периоде, пропорционально упаковкам или выручке без НДС;
+  - `unallocated` — распределение неизвестно: P&L по SKU не считается, пока человек не укажет правило. Молча на SKU не относится.
 
 **CreditLine** — `limit_uzs`, `annual_rate`, `available_from`
 
