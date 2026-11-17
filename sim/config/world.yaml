@@ -1,0 +1,162 @@
+seed: 42
+
+company:
+  name: "ООО «CardioImport Distribution»"
+  city: "Ташкент"
+  country: "Узбекистан"
+  inn: "000000000 (SYNTHETIC)"
+  watermark: "УЧЕБНЫЙ ОБРАЗЕЦ / SYNTHETIC"
+
+period:
+  start_month: "2025-01"
+  end_month: "2026-10"
+  months_count: 22
+  calibration_window_months: 12
+  calibration_start_month: "2025-11"
+  pre_reform_end_month: "2025-10"
+
+focus_sku:
+  sku_id: "SKU_CARDIO_01"
+  trade_name: "Kardiozan 10 мг №30"
+  inn_name: "Kardiozartan"
+  dosage_form: "таблетки, покрытые плёночной оболочкой, 10 мг, №30 (3 блистера × 10 таб.)"
+  pack_blisters: 3
+  blister_tabs: 10
+  box_packs: 10
+  shelf_life_months: 24
+  base_cip_usd: 7.25
+
+background_skus:
+  - sku_id: "SKU_BG_01"
+    trade_name: "Angiokor 5 мг №30"
+    inn_name: "Angiodipin"
+    base_cip_usd: 4.10
+    retail_uzs: 88000.0
+    shelf_life_months: 24
+  - sku_id: "SKU_BG_02"
+    trade_name: "Tensormin 50 мг №28"
+    inn_name: "Tensorolol"
+    base_cip_usd: 5.20
+    retail_uzs: 112000.0
+    shelf_life_months: 36
+  - sku_id: "SKU_BG_03"
+    trade_name: "Lipidostab 20 мг №30"
+    inn_name: "Lipidostatin"
+    base_cip_usd: 6.40
+    retail_uzs: 138000.0
+    shelf_life_months: 24
+  - sku_id: "SKU_BG_04"
+    trade_name: "Vazopril 10 мг №20"
+    inn_name: "Vazoprilat"
+    base_cip_usd: 3.50
+    retail_uzs: 74000.0
+    shelf_life_months: 24
+  - sku_id: "SKU_BG_05"
+    trade_name: "Ritmokard 200 мг №30"
+    inn_name: "Ritmoamiodar"
+    base_cip_usd: 7.80
+    retail_uzs: 165000.0
+    shelf_life_months: 36
+  - sku_id: "SKU_BG_06"
+    trade_name: "Trombolek 75 мг №30"
+    inn_name: "Trombogrel"
+    base_cip_usd: 4.90
+    retail_uzs: 104000.0
+    shelf_life_months: 24
+
+calibration_targets:
+  annual_sales_packs_target: 150000
+  annual_sales_tolerance_pct: 0.03
+  chchn_with_vat_uzs: 150000.0
+  chun_with_vat_uzs: 125000.0
+  vat_rate: 0.12
+  wholesale_markup_limit: 0.15
+  retail_markup_limit: 0.20
+  wholesale_ex_vat_uzs: 111607.14
+  calc_base_ex_vat_uzs: 97049.69
+  rn_uzs: 93500.0
+  b_uzs: 2349.69
+  bx_uzs: 1200.0
+  net_margin_ex_vat_min: 0.02
+  net_margin_ex_vat_max: 0.03
+  net_margin_ex_vat_target: 0.025
+  pre_reform_margin_min: 0.25
+  pre_reform_margin_max: 0.30
+  pre_reform_margin_target: 0.275
+
+regions:
+  - region_id: "REG_TAS_C"
+    name_ru: "г. Ташкент"
+    name_uz_lat: "Toshkent shahri"
+    name_uz_cyr: "Тошкент шаҳри"
+    demand_weight: 0.24
+  - region_id: "REG_TAS_R"
+    name_ru: "Ташкентская область"
+    name_uz_lat: "Toshkent viloyati"
+    name_uz_cyr: "Тошкент вилояти"
+    demand_weight: 0.09
+  - region_id: "REG_SAM"
+    name_ru: "Самаркандская область"
+    name_uz_lat: "Samarqand viloyati"
+    name_uz_cyr: "Самарқанд вилояти"
+    demand_weight: 0.10
+  - region_id: "REG_FER"
+    name_ru: "Ферганская область"
+    name_uz_lat: "Fargʻona viloyati"
+    name_uz_cyr: "Фарғона вилояти"
+    demand_weight: 0.09
+  - region_id: "REG_AND"
+    name_ru: "Андижанская область"
+    name_uz_lat: "Andijon viloyati"
+    name_uz_cyr: "Андижон вилояти"
+    demand_weight: 0.08
+  - region_id: "REG_NAM"
+    name_ru: "Наманганская область"
+    name_uz_lat: "Namangan viloyati"
+    name_uz_cyr: "Наманган вилояти"
+    demand_weight: 0.07
+  - region_id: "REG_KAS"
+    name_ru: "Кашкадарьинская область"
+    name_uz_lat: "Qashqadaryo viloyati"
+    name_uz_cyr: "Қашқадарё вилояти"
+    demand_weight: 0.07
+  - region_id: "REG_BUK"
+    name_ru: "Бухарская область"
+    name_uz_lat: "Buxoro viloyati"
+    name_uz_cyr: "Бухоро вилояти"
+    demand_weight: 0.05
+  - region_id: "REG_SUR"
+    name_ru: "Сурхандарьинская область"
+    name_uz_lat: "Surxondaryo viloyati"
+    name_uz_cyr: "Сурхондарё вилояти"
+    demand_weight: 0.05
+  - region_id: "REG_KHO"
+    name_ru: "Хорезмская область"
+    name_uz_lat: "Xorazm viloyati"
+    name_uz_cyr: "Хоразм вилояти"
+    demand_weight: 0.04
+  - region_id: "REG_KAR"
+    name_ru: "Республика Каракалпакстан"
+    name_uz_lat: "Qoraqalpogʻiston Respublikasi"
+    name_uz_cyr: "Қорақалпоғистон Республикаси"
+    demand_weight: 0.04
+  - region_id: "REG_JIZ"
+    name_ru: "Джизакская область"
+    name_uz_lat: "Jizzax viloyati"
+    name_uz_cyr: "Жиззах вилояти"
+    demand_weight: 0.03
+  - region_id: "REG_NAV"
+    name_ru: "Навоийская область"
+    name_uz_lat: "Navoiy viloyati"
+    name_uz_cyr: "Навоий вилояти"
+    demand_weight: 0.03
+  - region_id: "REG_SYR"
+    name_ru: "Сырдарьинская область"
+    name_uz_lat: "Sirdaryo viloyati"
+    name_uz_cyr: "Сирдарё вилояти"
+    demand_weight: 0.02
+
+channels:
+  distributors: 0.55
+  pharmacy_chains: 0.30
+  hospital_tenders: 0.15
