@@ -23,9 +23,12 @@ class Scenario(_M):
     ref_fx_path: tuple[float, ...]  # 12 monthly rates of the reference currency (Rn growth in sums)
     cut_month: int | None = Field(default=None, ge=1, le=12)  # 1-based month from which a P22 cut applies
     cut_depth: float = Field(default=0.0, ge=0.0, lt=1.0)
-    freight_mult: float = Field(gt=0.0, default=1.0)
+    freight_mult: dict[str, float] = {}  # by transport mode (sea/rail/air/road); missing = 1.0
     route_available: dict[str, bool] = {}  # missing key = available
     demand: float = Field(ge=0.0)  # packs over the horizon
+
+    def freight(self, mode: str) -> float:
+        return self.freight_mult.get(mode, 1.0)
 
     def available(self, route_id: str) -> bool:
         return self.route_available.get(route_id, True)
