@@ -54,7 +54,7 @@ def build_l0_graph(price_ratio_of_cap: float | None = None) -> ClientGraph:
     base = dict(
         client_id="L0-demo-client",
         product=Product(id="SKU-CARDIO-1", name="Cardio Rx 30 tab", reference_currency="USD",
-                        chun_uzs=112_000.0, chchn_uzs=150_000.0, rn_foreign=7.0),
+                        chun_uzs=112_000.0, chchn_uzs=150_000.0, rn_foreign=7.2464),
         suppliers=[Supplier(id="SUP-A", name="Supplier A", reliability=0.93),
                    Supplier(id="SUP-B", name="Supplier B", reliability=0.96),
                    Supplier(id="SUP-C", name="Supplier C", reliability=0.98)],
