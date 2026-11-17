@@ -1,0 +1,14 @@
+{
+  "_comment": "Pre-registered BEFORE the first evaluation run. Changing any value requires a new commit; the report records the commit hash and file sha256.",
+  "calibration_max_gap_pp": 0.1,
+  "legality_scenarios": 10000,
+  "legality_min_rate": 1.0,
+  "optimality_problems": 50,
+  "optimality_min_match_rate": 1.0,
+  "out_of_sample_scenarios": 1000,
+  "evpi_scenarios": 300,
+  "uplift_min_uzs_per_year": 0.0,
+  "vss_min_uzs": 0.0,
+  "evpi_min_uzs": 0.0,
+  "recompute_after_shock_max_seconds": 5.0
+}

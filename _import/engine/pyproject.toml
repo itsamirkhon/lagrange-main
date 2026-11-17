@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lagrange-rx-engine"
+version = "0.1.0"
+description = "LAGRANGE Rx decision engine: digital twin, scenarios, stochastic MILP optimizer, independent legality check, explanations, evaluation."
+requires-python = ">=3.11"
+license = { text = "GPL-3.0-only" }
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pydantic>=2.5",
+  "pyyaml>=6.0",
+  "fastapi>=0.110",
+  "uvicorn>=0.27",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "hypothesis>=6.100", "httpx>=0.27"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["slow: long-running statistical/property tests"]

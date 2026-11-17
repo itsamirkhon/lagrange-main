@@ -1,0 +1,85 @@
+{
+  "all_pass": true,
+  "code_commit": "e70a7099f66b318c37dd9d416479185fa2dc5891",
+  "fx_source": "synthetic-sample",
+  "metrics": {
+    "calibration": {
+      "gap_pp": 0.03999999999999802,
+      "missing_data": [],
+      "pass": true,
+      "truth_margin": 0.024599999999999997,
+      "twin_margin": 0.024999999999999977
+    },
+    "evpi": {
+      "evpi_uzs": 146678679.90238723,
+      "pass": true,
+      "scenarios": 300,
+      "stochastic_uzs": 236577549.01108387,
+      "wait_and_see_uzs": 383256228.9134711
+    },
+    "legality": {
+      "legal_rate": 1.0,
+      "pass": true,
+      "scenarios": 10000,
+      "violations": 0
+    },
+    "optimality": {
+      "match_rate": 1.0,
+      "matches": 50,
+      "max_gap": 9.633216720904325e-14,
+      "pass": true,
+      "problems": 50
+    },
+    "regret_by_level": {
+      "status": "not available: Ingest has not produced L0-L4 graphs yet"
+    },
+    "speed": {
+      "pass": true,
+      "recompute_after_shock_seconds": 0.2063454090000505
+    },
+    "uplift": {
+      "baseline": {
+        "cvar_uzs": -895720240.4432011,
+        "expected_uzs": 22616836.29758683,
+        "p_loss": 0.388
+      },
+      "cvar_gain_uzs": 737010635.0579703,
+      "engine": {
+        "cvar_uzs": -158709605.38523078,
+        "expected_uzs": 216633388.25127727,
+        "p_loss": 0.144
+      },
+      "p_loss_change": -0.24400000000000002,
+      "pass": true,
+      "scenarios": 1000,
+      "uplift_uzs_per_year": 194016551.95369044
+    },
+    "vss": {
+      "mean_scenario_expected_uzs": 6027841.478763718,
+      "pass": true,
+      "stochastic_expected_uzs": 223937015.4048789,
+      "vss_uzs": 217909173.92611519
+    }
+  },
+  "route_mapping": {
+    "R-AIR-C": "R-AIR-C",
+    "R-AIR-EMERG": "R-AIR-EMERG",
+    "R-RAIL-B": "R-RAIL-B",
+    "R-SEA-A": "R-SEA-A"
+  },
+  "snapshot": {
+    "config_hash": "f0f83c9570ae37389e1e24f638160d9e54753570bcfed968d65fc98f5d37fafc",
+    "engine_version": "0.1.0",
+    "input_hash": "bd31c5fd6db71fdb945eda140f1e05dda0f79eec466e6369ea0f846cf7da6fcd",
+    "rules_sha256": "4bd8dbaa4bc9bf128cf03468c0e4590c750d8a797cac5b2db676bdb6d754e5a9",
+    "rules_version": "2026.11.17-draft1",
+    "scenarios_hash": "837a4fa94fa4ccee7d2a4769b2c6e9aa728964d03adabeb2e23a0ea2cc7ce50b",
+    "seed": 20261117,
+    "snapshot_id": "9e1afb8932d0dda9f12ce4f9",
+    "solver_version": "scipy-1.18.1/highs numpy-2.5.3"
+  },
+  "snapshot_id": "9e1afb8932d0dda9f12ce4f9",
+  "thresholds_commit": "90259be36fd800ad3e589b7d084002fb31f50d22",
+  "thresholds_sha256": "d41c87d23245ef91cfae5a19765bcfb44dbf5d575c85743f28a4acfb86f01f45",
+  "truth": "LocalTruth stand-in (simulation not connected)"
+}
