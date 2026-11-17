@@ -1,0 +1,26 @@
+[
+  {
+    "days_to_expiry": 49,
+    "lot_id": "lot_0005",
+    "month": "2025-02",
+    "qty_packs": 400,
+    "reason": "Истечение допустимого остаточного срока годности (<= 90 дней)",
+    "sku_id": "SKU_CARDIO_01",
+    "unit_cost_uzs": 97049.69,
+    "writeoff_cost_uzs": 38819876.0,
+    "writeoff_date": "2025-02-28",
+    "writeoff_id": "wo_0001"
+  },
+  {
+    "days_to_expiry": 49,
+    "lot_id": "lot_0036",
+    "month": "2026-04",
+    "qty_packs": 400,
+    "reason": "Истечение допустимого остаточного срока годности (<= 90 дней)",
+    "sku_id": "SKU_CARDIO_01",
+    "unit_cost_uzs": 97049.69,
+    "writeoff_cost_uzs": 38819876.0,
+    "writeoff_date": "2026-04-28",
+    "writeoff_id": "wo_0002"
+  }
+]

@@ -1,0 +1,233 @@
+{
+  "level": "L0",
+  "seed": 42,
+  "omitted_documents": [],
+  "documents": [
+    {
+      "document": "worlds/L0/documents/D1_1c_sales_export.csv",
+      "doc_type": "D1",
+      "truth_refs": [
+        "sales/sal_00001",
+        "sales/sal_00002",
+        "sales/sal_00003",
+        "sales/sal_00004",
+        "sales/sal_00005"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D2_regional_sales_central.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00034",
+        "sales/sal_00036",
+        "sales/sal_00035",
+        "sales/sal_00040"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D2_regional_sales_fergana.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00013",
+        "sales/sal_00015",
+        "sales/sal_00014",
+        "sales/sal_00010"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D2_regional_sales_west_south.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00022",
+        "sales/sal_00024",
+        "sales/sal_00023",
+        "sales/sal_00031"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D3_quote_supplier_A_2026-05.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D3_quote_supplier_B_2026-08.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D4_carrier_quote_auto.pdf",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0017"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D4_carrier_rates.xlsx",
+      "doc_type": "D4",
+      "truth_refs": [
+        "routes/rte_01",
+        "routes/rte_02",
+        "routes/rte_03",
+        "routes/rte_04"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D4_carrier_chat_quote.png",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0017"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D5_contract_supplier_A.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D5_contract_supplier_B.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0003"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D6_invoice_packing_shp_0035.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0035",
+        "lots/lot_0040"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D6_invoice_packing_shp_0040.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0040",
+        "lots/lot_0046"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D7_customs_summary.xlsx",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0001",
+        "customs/cus_0002",
+        "customs/cus_0003",
+        "customs/cus_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D7_customs_summary.pdf",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0001",
+        "customs/cus_0002",
+        "customs/cus_0003",
+        "customs/cus_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D8_warehouse_waybill_0101.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0001",
+        "shipments/shp_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D8_warehouse_waybill_0102_photo.jpg",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0002",
+        "shipments/shp_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D9_warehouse_stock_lots.xlsx",
+      "doc_type": "D9",
+      "truth_refs": [
+        "lots/lot_0001",
+        "lots/lot_0002",
+        "lots/lot_0003",
+        "lots/lot_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D10_payments_and_credit.xlsx",
+      "doc_type": "D10",
+      "truth_refs": [
+        "credit/crd_0001",
+        "credit/crd_0002",
+        "credit/crd_0003",
+        "credit/crd_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D11_internal_memo_handwritten.jpg",
+      "doc_type": "D11",
+      "truth_refs": [
+        "costs/cst_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D12_email_supplier_thread.eml",
+      "doc_type": "D12",
+      "truth_refs": [
+        "quotes/q_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D12_email_printout.pdf",
+      "doc_type": "D12",
+      "truth_refs": [
+        "quotes/q_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D13_price_registry_extract.csv",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0001",
+        "registry_events/reg_0002",
+        "registry_events/reg_0003"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L0/documents/D13_price_registry_extract.pdf",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0003"
+      ],
+      "corruptions": []
+    }
+  ]
+}

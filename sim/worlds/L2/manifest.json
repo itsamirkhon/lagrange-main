@@ -1,0 +1,591 @@
+{
+  "level": "L2",
+  "seed": 42,
+  "omitted_documents": [],
+  "documents": [
+    {
+      "document": "worlds/L2/documents/D1_1c_sales_export.csv",
+      "doc_type": "D1",
+      "truth_refs": [
+        "sales/sal_00001",
+        "sales/sal_00002",
+        "sales/sal_00003",
+        "sales/sal_00004",
+        "sales/sal_00005"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D2_regional_sales_central.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00034",
+        "sales/sal_00036",
+        "sales/sal_00035",
+        "sales/sal_00040"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-05",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              480,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-05",
+            "qty_packs": 189
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Recover missing month from D1_1c_sales_export.csv"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              360,
+              160,
+              460,
+              180
+            ]
+          },
+          "true_value": 26144000.0,
+          "shown_value": "26144т",
+          "recoverable": true,
+          "recover_hint": "Normalize number separators against D1_1c_sales_export.csv"
+        },
+        {
+          "operator": "L1",
+          "field": "region_name",
+          "location": {
+            "page": 1,
+            "bbox": [
+              120,
+              180,
+              260,
+              200
+            ]
+          },
+          "true_value": "Джизакская область",
+          "shown_value": "Джизакская  область",
+          "recoverable": true,
+          "recover_hint": "Match mixed Uzbek Latin/Cyrillic region name to world config"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D2_regional_sales_fergana.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00013",
+        "sales/sal_00015",
+        "sales/sal_00014",
+        "sales/sal_00010"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-05",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              480,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-05",
+            "qty_packs": 544
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Recover missing month from D1_1c_sales_export.csv"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              360,
+              160,
+              460,
+              180
+            ]
+          },
+          "true_value": 74328000.0,
+          "shown_value": "74,33 млн",
+          "recoverable": true,
+          "recover_hint": "Normalize number separators against D1_1c_sales_export.csv"
+        },
+        {
+          "operator": "L1",
+          "field": "region_name",
+          "location": {
+            "page": 1,
+            "bbox": [
+              120,
+              180,
+              260,
+              200
+            ]
+          },
+          "true_value": "Andijon viloyati",
+          "shown_value": "Andijon вилояти",
+          "recoverable": true,
+          "recover_hint": "Match mixed Uzbek Latin/Cyrillic region name to world config"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D2_regional_sales_west_south.xlsx",
+      "doc_type": "D2",
+      "truth_refs": [
+        "sales/sal_00022",
+        "sales/sal_00024",
+        "sales/sal_00023",
+        "sales/sal_00031"
+      ],
+      "corruptions": [
+        {
+          "operator": "M1",
+          "field": "monthly_sales_2026-05",
+          "location": {
+            "page": 1,
+            "bbox": [
+              40,
+              200,
+              480,
+              240
+            ]
+          },
+          "true_value": {
+            "month": "2026-05",
+            "qty_packs": 336
+          },
+          "shown_value": "MISSING_MONTH",
+          "recoverable": true,
+          "recover_hint": "Recover missing month from D1_1c_sales_export.csv"
+        },
+        {
+          "operator": "N1",
+          "field": "revenue_ex_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              360,
+              160,
+              460,
+              180
+            ]
+          },
+          "true_value": 50312000.0,
+          "shown_value": "50.312.000",
+          "recoverable": true,
+          "recover_hint": "Normalize number separators against D1_1c_sales_export.csv"
+        },
+        {
+          "operator": "L1",
+          "field": "region_name",
+          "location": {
+            "page": 1,
+            "bbox": [
+              120,
+              180,
+              260,
+              200
+            ]
+          },
+          "true_value": "Бухоро вилояти",
+          "shown_value": "Буххоро вилояти",
+          "recoverable": true,
+          "recover_hint": "Match mixed Uzbek Latin/Cyrillic region name to world config"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D3_quote_supplier_A_2026-05.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D3_quote_supplier_B_2026-08.pdf",
+      "doc_type": "D3",
+      "truth_refs": [
+        "quotes/q_0002"
+      ],
+      "corruptions": [
+        {
+          "operator": "C1",
+          "field": "unit_price",
+          "location": {
+            "page": 1,
+            "bbox": [
+              280,
+              340,
+              380,
+              360
+            ]
+          },
+          "true_value": {
+            "amount": 7.13,
+            "currency": "USD"
+          },
+          "shown_value": "7,13",
+          "recoverable": true,
+          "recover_hint": "Currency stated in D5 supplier contract and D6 invoice"
+        },
+        {
+          "operator": "S1",
+          "field": "valid_until",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              260,
+              300,
+              280
+            ]
+          },
+          "true_value": {
+            "status": "expired",
+            "valid_until": "2025-10-08"
+          },
+          "shown_value": "Valid quote (2025-10-08)",
+          "recoverable": true,
+          "recover_hint": "Quote expired before 2026-08; verify active D5 addendum"
+        },
+        {
+          "operator": "L1",
+          "field": "trade_name",
+          "location": {
+            "page": 1,
+            "bbox": [
+              120,
+              340,
+              260,
+              360
+            ]
+          },
+          "true_value": "Kardiozan 10 мг №30",
+          "shown_value": "Кардиозан 10 мг №30",
+          "recoverable": true,
+          "recover_hint": "Normalize SKU spelling to registry SKU_CARDIO_01"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D4_carrier_quote_auto.pdf",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0017"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D4_carrier_rates.xlsx",
+      "doc_type": "D4",
+      "truth_refs": [
+        "routes/rte_01",
+        "routes/rte_02",
+        "routes/rte_03",
+        "routes/rte_04"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D4_carrier_chat_quote.png",
+      "doc_type": "D4",
+      "truth_refs": [
+        "quotes/q_0017"
+      ],
+      "corruptions": [
+        {
+          "operator": "R4",
+          "field": "unit_price",
+          "location": {
+            "page": 1,
+            "bbox": [
+              680,
+              140,
+              950,
+              240
+            ]
+          },
+          "true_value": 0.121,
+          "shown_value": "partially_clipped_edge",
+          "recoverable": true,
+          "recover_hint": "Verify exact carrier per-pack rate in D4_carrier_rates.xlsx"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D5_contract_supplier_A.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0002"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D5_contract_supplier_B.pdf",
+      "doc_type": "D5",
+      "truth_refs": [
+        "contracts/cnt_0003"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D6_invoice_packing_shp_0035.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0035",
+        "lots/lot_0040"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "dispatch_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              120,
+              320,
+              145
+            ]
+          },
+          "true_value": "2026-06-02",
+          "shown_value": "06/02/2026",
+          "recoverable": true,
+          "recover_hint": "Cross-check ISO dispatch date against D7 customs summary"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D6_invoice_packing_shp_0040.pdf",
+      "doc_type": "D6",
+      "truth_refs": [
+        "shipments/shp_0040",
+        "lots/lot_0046"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "dispatch_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              160,
+              120,
+              320,
+              145
+            ]
+          },
+          "true_value": "2026-08-03",
+          "shown_value": "3 августа 2026 г.",
+          "recoverable": true,
+          "recover_hint": "Cross-check ISO dispatch date against D7 customs summary"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D7_customs_summary.xlsx",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0001",
+        "customs/cus_0002",
+        "customs/cus_0003",
+        "customs/cus_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D7_customs_summary.pdf",
+      "doc_type": "D7",
+      "truth_refs": [
+        "customs/cus_0001",
+        "customs/cus_0002",
+        "customs/cus_0003",
+        "customs/cus_0004"
+      ],
+      "corruptions": [
+        {
+          "operator": "N2",
+          "field": "clearance_date",
+          "location": {
+            "page": 1,
+            "bbox": [
+              140,
+              200,
+              260,
+              225
+            ]
+          },
+          "true_value": "2025-02-20",
+          "shown_value": "02/20/2025",
+          "recoverable": true,
+          "recover_hint": "Normalize date format to ISO YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D8_warehouse_waybill_0101.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0001",
+        "shipments/shp_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D8_warehouse_waybill_0101_dup.pdf",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0001",
+        "shipments/shp_0001"
+      ],
+      "corruptions": [
+        {
+          "operator": "D1x",
+          "field": "shipment_id",
+          "location": {
+            "page": 1,
+            "bbox": [
+              80,
+              740,
+              400,
+              780
+            ]
+          },
+          "true_value": "shp_0001",
+          "shown_value": "WB-0101-DUP",
+          "recoverable": true,
+          "recover_hint": "Duplicate waybill for same lot_id and arrival_date; deduplicate via D9 stock ledger"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D8_warehouse_waybill_0102_photo.jpg",
+      "doc_type": "D8",
+      "truth_refs": [
+        "lots/lot_0002",
+        "shipments/shp_0002"
+      ],
+      "corruptions": [
+        {
+          "operator": "R1",
+          "field": "qty_packs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              64,
+              350,
+              560,
+              405
+            ]
+          },
+          "true_value": 14300,
+          "shown_value": "scan_photo_noise",
+          "recoverable": true,
+          "recover_hint": "Verify noisy scan quantity against D9_warehouse_stock_lots.xlsx"
+        }
+      ]
+    },
+    {
+      "document": "worlds/L2/documents/D9_warehouse_stock_lots.xlsx",
+      "doc_type": "D9",
+      "truth_refs": [
+        "lots/lot_0001",
+        "lots/lot_0002",
+        "lots/lot_0003",
+        "lots/lot_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D10_payments_and_credit.xlsx",
+      "doc_type": "D10",
+      "truth_refs": [
+        "credit/crd_0001",
+        "credit/crd_0002",
+        "credit/crd_0003",
+        "credit/crd_0004"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D11_internal_memo_handwritten.jpg",
+      "doc_type": "D11",
+      "truth_refs": [
+        "costs/cst_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D12_email_supplier_thread.eml",
+      "doc_type": "D12",
+      "truth_refs": [
+        "quotes/q_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D12_email_printout.pdf",
+      "doc_type": "D12",
+      "truth_refs": [
+        "quotes/q_0001"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D13_price_registry_extract.csv",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0001",
+        "registry_events/reg_0002",
+        "registry_events/reg_0003"
+      ],
+      "corruptions": []
+    },
+    {
+      "document": "worlds/L2/documents/D13_price_registry_extract.pdf",
+      "doc_type": "D13",
+      "truth_refs": [
+        "registry_events/reg_0002"
+      ],
+      "corruptions": [
+        {
+          "operator": "S1",
+          "field": "chchn_with_vat_uzs",
+          "location": {
+            "page": 1,
+            "bbox": [
+              260,
+              220,
+              420,
+              250
+            ]
+          },
+          "true_value": 150000.0,
+          "shown_value": 212352.0,
+          "recoverable": true,
+          "recover_hint": "PDF extract reflects pre-revision reg_0002; use latest reg_0003 in D13_price_registry_extract.csv"
+        }
+      ]
+    }
+  ]
+}

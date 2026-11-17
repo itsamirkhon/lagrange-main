@@ -1,0 +1,1850 @@
+[
+  {
+    "amount_uzs": 24640000.0,
+    "category": "distribution",
+    "cost_id": "cst_0001",
+    "month": "2025-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0002",
+    "month": "2025-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 2385000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0003",
+    "month": "2025-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 20237117.53,
+    "category": "financing",
+    "cost_id": "cst_0004",
+    "month": "2025-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0005",
+    "month": "2025-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 25080000.0,
+    "category": "distribution",
+    "cost_id": "cst_0006",
+    "month": "2025-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0007",
+    "month": "2025-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 4635000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0008",
+    "month": "2025-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 21420441.16,
+    "category": "financing",
+    "cost_id": "cst_0009",
+    "month": "2025-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 38819876.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0010",
+    "month": "2025-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 25960000.0,
+    "category": "distribution",
+    "cost_id": "cst_0011",
+    "month": "2025-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0012",
+    "month": "2025-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 4590000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0013",
+    "month": "2025-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 18884623.95,
+    "category": "financing",
+    "cost_id": "cst_0014",
+    "month": "2025-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0015",
+    "month": "2025-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 25520000.0,
+    "category": "distribution",
+    "cost_id": "cst_0016",
+    "month": "2025-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0017",
+    "month": "2025-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 4635000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0018",
+    "month": "2025-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 15391582.55,
+    "category": "financing",
+    "cost_id": "cst_0019",
+    "month": "2025-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0020",
+    "month": "2025-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 24640000.0,
+    "category": "distribution",
+    "cost_id": "cst_0021",
+    "month": "2025-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0022",
+    "month": "2025-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 4725000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0023",
+    "month": "2025-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 12660493.64,
+    "category": "financing",
+    "cost_id": "cst_0024",
+    "month": "2025-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0025",
+    "month": "2025-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 23760000.0,
+    "category": "distribution",
+    "cost_id": "cst_0026",
+    "month": "2025-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0027",
+    "month": "2025-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 4950000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0028",
+    "month": "2025-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 10852675.73,
+    "category": "financing",
+    "cost_id": "cst_0029",
+    "month": "2025-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0030",
+    "month": "2025-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 23100000.0,
+    "category": "distribution",
+    "cost_id": "cst_0031",
+    "month": "2025-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0032",
+    "month": "2025-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5040000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0033",
+    "month": "2025-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 8646613.55,
+    "category": "financing",
+    "cost_id": "cst_0034",
+    "month": "2025-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0035",
+    "month": "2025-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 23540000.0,
+    "category": "distribution",
+    "cost_id": "cst_0036",
+    "month": "2025-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0037",
+    "month": "2025-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5175000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0038",
+    "month": "2025-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 6627315.16,
+    "category": "financing",
+    "cost_id": "cst_0039",
+    "month": "2025-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0040",
+    "month": "2025-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 24860000.0,
+    "category": "distribution",
+    "cost_id": "cst_0041",
+    "month": "2025-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0042",
+    "month": "2025-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5400000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0043",
+    "month": "2025-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 4765503.32,
+    "category": "financing",
+    "cost_id": "cst_0044",
+    "month": "2025-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0045",
+    "month": "2025-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 25960000.0,
+    "category": "distribution",
+    "cost_id": "cst_0046",
+    "month": "2025-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0047",
+    "month": "2025-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5580000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0048",
+    "month": "2025-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 1914473.24,
+    "category": "financing",
+    "cost_id": "cst_0049",
+    "month": "2025-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0050",
+    "month": "2025-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 75134561.59,
+    "category": "general",
+    "cost_id": "cst_0051",
+    "month": "2025-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 76476250.19,
+    "category": "general",
+    "cost_id": "cst_0052",
+    "month": "2025-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 79159627.39,
+    "category": "general",
+    "cost_id": "cst_0053",
+    "month": "2025-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 77817938.79,
+    "category": "general",
+    "cost_id": "cst_0054",
+    "month": "2025-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 75134561.59,
+    "category": "general",
+    "cost_id": "cst_0055",
+    "month": "2025-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 72451184.39,
+    "category": "general",
+    "cost_id": "cst_0056",
+    "month": "2025-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 73219124.58,
+    "category": "general",
+    "cost_id": "cst_0057",
+    "month": "2025-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 74613774.57,
+    "category": "general",
+    "cost_id": "cst_0058",
+    "month": "2025-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 78797724.55,
+    "category": "general",
+    "cost_id": "cst_0059",
+    "month": "2025-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 82284349.53,
+    "category": "general",
+    "cost_id": "cst_0060",
+    "month": "2025-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 28160000.0,
+    "category": "distribution",
+    "cost_id": "cst_0061",
+    "month": "2025-11",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0062",
+    "month": "2025-11",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5760000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0063",
+    "month": "2025-11",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 178573.78,
+    "category": "financing",
+    "cost_id": "cst_0064",
+    "month": "2025-11",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0065",
+    "month": "2025-11",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 29480000.0,
+    "category": "distribution",
+    "cost_id": "cst_0066",
+    "month": "2025-12",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0067",
+    "month": "2025-12",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5895000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0068",
+    "month": "2025-12",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 243403.41,
+    "category": "financing",
+    "cost_id": "cst_0069",
+    "month": "2025-12",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0070",
+    "month": "2025-12",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 29920000.0,
+    "category": "distribution",
+    "cost_id": "cst_0071",
+    "month": "2026-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0072",
+    "month": "2026-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5895000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0073",
+    "month": "2026-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 151965.48,
+    "category": "financing",
+    "cost_id": "cst_0074",
+    "month": "2026-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0075",
+    "month": "2026-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 28380000.0,
+    "category": "distribution",
+    "cost_id": "cst_0076",
+    "month": "2026-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0077",
+    "month": "2026-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5895000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0078",
+    "month": "2026-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 353015.59,
+    "category": "financing",
+    "cost_id": "cst_0079",
+    "month": "2026-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0080",
+    "month": "2026-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 27720000.0,
+    "category": "distribution",
+    "cost_id": "cst_0081",
+    "month": "2026-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0082",
+    "month": "2026-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5895000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0083",
+    "month": "2026-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 844970.75,
+    "category": "financing",
+    "cost_id": "cst_0084",
+    "month": "2026-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0085",
+    "month": "2026-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 26620000.0,
+    "category": "distribution",
+    "cost_id": "cst_0086",
+    "month": "2026-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0087",
+    "month": "2026-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5625000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0088",
+    "month": "2026-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 491955.16,
+    "category": "financing",
+    "cost_id": "cst_0089",
+    "month": "2026-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 38819876.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0090",
+    "month": "2026-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 25520000.0,
+    "category": "distribution",
+    "cost_id": "cst_0091",
+    "month": "2026-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0092",
+    "month": "2026-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5355000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0093",
+    "month": "2026-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "financing",
+    "cost_id": "cst_0094",
+    "month": "2026-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0095",
+    "month": "2026-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 24640000.0,
+    "category": "distribution",
+    "cost_id": "cst_0096",
+    "month": "2026-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0097",
+    "month": "2026-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5445000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0098",
+    "month": "2026-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 85984.4,
+    "category": "financing",
+    "cost_id": "cst_0099",
+    "month": "2026-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0100",
+    "month": "2026-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 25300000.0,
+    "category": "distribution",
+    "cost_id": "cst_0101",
+    "month": "2026-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0102",
+    "month": "2026-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5580000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0103",
+    "month": "2026-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 85984.4,
+    "category": "financing",
+    "cost_id": "cst_0104",
+    "month": "2026-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0105",
+    "month": "2026-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 26840000.0,
+    "category": "distribution",
+    "cost_id": "cst_0106",
+    "month": "2026-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0107",
+    "month": "2026-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5715000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0108",
+    "month": "2026-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 417461.12,
+    "category": "financing",
+    "cost_id": "cst_0109",
+    "month": "2026-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0110",
+    "month": "2026-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 28160000.0,
+    "category": "distribution",
+    "cost_id": "cst_0111",
+    "month": "2026-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0112",
+    "month": "2026-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 5940000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0113",
+    "month": "2026-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 1022438.22,
+    "category": "financing",
+    "cost_id": "cst_0114",
+    "month": "2026-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0115",
+    "month": "2026-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 29260000.0,
+    "category": "distribution",
+    "cost_id": "cst_0116",
+    "month": "2026-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 45000000.0,
+    "category": "marketing",
+    "cost_id": "cst_0117",
+    "month": "2026-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 6120000.0,
+    "category": "warehouse",
+    "cost_id": "cst_0118",
+    "month": "2026-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 768715.22,
+    "category": "financing",
+    "cost_id": "cst_0119",
+    "month": "2026-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0120",
+    "month": "2026-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 66773877.89,
+    "category": "general",
+    "cost_id": "cst_0121",
+    "month": "2025-11",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 69903903.41,
+    "category": "general",
+    "cost_id": "cst_0122",
+    "month": "2025-12",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 70947245.25,
+    "category": "general",
+    "cost_id": "cst_0123",
+    "month": "2026-01",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 67295548.81,
+    "category": "general",
+    "cost_id": "cst_0124",
+    "month": "2026-02",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 65730536.04,
+    "category": "general",
+    "cost_id": "cst_0125",
+    "month": "2026-03",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 63122181.44,
+    "category": "general",
+    "cost_id": "cst_0126",
+    "month": "2026-04",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 60513826.83,
+    "category": "general",
+    "cost_id": "cst_0127",
+    "month": "2026-05",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 58427143.15,
+    "category": "general",
+    "cost_id": "cst_0128",
+    "month": "2026-06",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 59992155.91,
+    "category": "general",
+    "cost_id": "cst_0129",
+    "month": "2026-07",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 63643852.36,
+    "category": "general",
+    "cost_id": "cst_0130",
+    "month": "2026-08",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 66773877.89,
+    "category": "general",
+    "cost_id": "cst_0131",
+    "month": "2026-09",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 69382232.49,
+    "category": "general",
+    "cost_id": "cst_0132",
+    "month": "2026-10",
+    "sku_id": "SKU_CARDIO_01"
+  },
+  {
+    "amount_uzs": 13355833.01,
+    "category": "distribution",
+    "cost_id": "cst_0133",
+    "month": "2025-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18212499.56,
+    "category": "marketing",
+    "cost_id": "cst_0134",
+    "month": "2025-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7284999.82,
+    "category": "warehouse",
+    "cost_id": "cst_0135",
+    "month": "2025-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 16557641.61,
+    "category": "financing",
+    "cost_id": "cst_0136",
+    "month": "2025-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0137",
+    "month": "2025-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14569999.65,
+    "category": "general",
+    "cost_id": "cst_0138",
+    "month": "2025-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 12192059.22,
+    "category": "distribution",
+    "cost_id": "cst_0139",
+    "month": "2025-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 16625535.3,
+    "category": "marketing",
+    "cost_id": "cst_0140",
+    "month": "2025-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 6650214.12,
+    "category": "warehouse",
+    "cost_id": "cst_0141",
+    "month": "2025-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 17525815.5,
+    "category": "financing",
+    "cost_id": "cst_0142",
+    "month": "2025-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0143",
+    "month": "2025-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13300428.24,
+    "category": "general",
+    "cost_id": "cst_0144",
+    "month": "2025-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 19512493.63,
+    "category": "distribution",
+    "cost_id": "cst_0145",
+    "month": "2025-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 26607945.86,
+    "category": "marketing",
+    "cost_id": "cst_0146",
+    "month": "2025-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 10643178.35,
+    "category": "warehouse",
+    "cost_id": "cst_0147",
+    "month": "2025-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 15451055.96,
+    "category": "financing",
+    "cost_id": "cst_0148",
+    "month": "2025-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0149",
+    "month": "2025-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 21286356.69,
+    "category": "general",
+    "cost_id": "cst_0150",
+    "month": "2025-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18944127.3,
+    "category": "distribution",
+    "cost_id": "cst_0151",
+    "month": "2025-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 25832900.86,
+    "category": "marketing",
+    "cost_id": "cst_0152",
+    "month": "2025-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 10333160.35,
+    "category": "warehouse",
+    "cost_id": "cst_0153",
+    "month": "2025-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 12593113.0,
+    "category": "financing",
+    "cost_id": "cst_0154",
+    "month": "2025-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0155",
+    "month": "2025-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 20666320.69,
+    "category": "general",
+    "cost_id": "cst_0156",
+    "month": "2025-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 12516133.65,
+    "category": "distribution",
+    "cost_id": "cst_0157",
+    "month": "2025-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 17067454.98,
+    "category": "marketing",
+    "cost_id": "cst_0158",
+    "month": "2025-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 6826981.99,
+    "category": "warehouse",
+    "cost_id": "cst_0159",
+    "month": "2025-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 10358585.7,
+    "category": "financing",
+    "cost_id": "cst_0160",
+    "month": "2025-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0161",
+    "month": "2025-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13653963.99,
+    "category": "general",
+    "cost_id": "cst_0162",
+    "month": "2025-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13640507.36,
+    "category": "distribution",
+    "cost_id": "cst_0163",
+    "month": "2025-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18600691.85,
+    "category": "marketing",
+    "cost_id": "cst_0164",
+    "month": "2025-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7440276.74,
+    "category": "warehouse",
+    "cost_id": "cst_0165",
+    "month": "2025-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 8879461.96,
+    "category": "financing",
+    "cost_id": "cst_0166",
+    "month": "2025-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0167",
+    "month": "2025-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14880553.48,
+    "category": "general",
+    "cost_id": "cst_0168",
+    "month": "2025-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 19074605.18,
+    "category": "distribution",
+    "cost_id": "cst_0169",
+    "month": "2025-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 26010825.25,
+    "category": "marketing",
+    "cost_id": "cst_0170",
+    "month": "2025-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 10404330.1,
+    "category": "warehouse",
+    "cost_id": "cst_0171",
+    "month": "2025-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7074502.0,
+    "category": "financing",
+    "cost_id": "cst_0172",
+    "month": "2025-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0173",
+    "month": "2025-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 20808660.2,
+    "category": "general",
+    "cost_id": "cst_0174",
+    "month": "2025-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 10516916.35,
+    "category": "distribution",
+    "cost_id": "cst_0175",
+    "month": "2025-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14341249.57,
+    "category": "marketing",
+    "cost_id": "cst_0176",
+    "month": "2025-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 5736499.83,
+    "category": "warehouse",
+    "cost_id": "cst_0177",
+    "month": "2025-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 5422348.77,
+    "category": "financing",
+    "cost_id": "cst_0178",
+    "month": "2025-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0179",
+    "month": "2025-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 11472999.66,
+    "category": "general",
+    "cost_id": "cst_0180",
+    "month": "2025-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13746889.51,
+    "category": "distribution",
+    "cost_id": "cst_0181",
+    "month": "2025-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18745758.42,
+    "category": "marketing",
+    "cost_id": "cst_0182",
+    "month": "2025-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7498303.37,
+    "category": "warehouse",
+    "cost_id": "cst_0183",
+    "month": "2025-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 3899048.17,
+    "category": "financing",
+    "cost_id": "cst_0184",
+    "month": "2025-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0185",
+    "month": "2025-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14996606.73,
+    "category": "general",
+    "cost_id": "cst_0186",
+    "month": "2025-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 16791466.59,
+    "category": "distribution",
+    "cost_id": "cst_0187",
+    "month": "2025-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 22897454.44,
+    "category": "marketing",
+    "cost_id": "cst_0188",
+    "month": "2025-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 9158981.78,
+    "category": "warehouse",
+    "cost_id": "cst_0189",
+    "month": "2025-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 1566387.19,
+    "category": "financing",
+    "cost_id": "cst_0190",
+    "month": "2025-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0191",
+    "month": "2025-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18317963.56,
+    "category": "general",
+    "cost_id": "cst_0192",
+    "month": "2025-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14233148.55,
+    "category": "distribution",
+    "cost_id": "cst_0193",
+    "month": "2025-11",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 19408838.93,
+    "category": "marketing",
+    "cost_id": "cst_0194",
+    "month": "2025-11",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7763535.57,
+    "category": "warehouse",
+    "cost_id": "cst_0195",
+    "month": "2025-11",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 146105.82,
+    "category": "financing",
+    "cost_id": "cst_0196",
+    "month": "2025-11",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0197",
+    "month": "2025-11",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 15527071.14,
+    "category": "general",
+    "cost_id": "cst_0198",
+    "month": "2025-11",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13877252.83,
+    "category": "distribution",
+    "cost_id": "cst_0199",
+    "month": "2025-12",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18923526.59,
+    "category": "marketing",
+    "cost_id": "cst_0200",
+    "month": "2025-12",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7569410.63,
+    "category": "warehouse",
+    "cost_id": "cst_0201",
+    "month": "2025-12",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 199148.25,
+    "category": "financing",
+    "cost_id": "cst_0202",
+    "month": "2025-12",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0203",
+    "month": "2025-12",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 15138821.27,
+    "category": "general",
+    "cost_id": "cst_0204",
+    "month": "2025-12",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 21533252.47,
+    "category": "distribution",
+    "cost_id": "cst_0205",
+    "month": "2026-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 29363526.09,
+    "category": "marketing",
+    "cost_id": "cst_0206",
+    "month": "2026-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 11745410.44,
+    "category": "warehouse",
+    "cost_id": "cst_0207",
+    "month": "2026-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 124335.4,
+    "category": "financing",
+    "cost_id": "cst_0208",
+    "month": "2026-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0209",
+    "month": "2026-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 23490820.87,
+    "category": "general",
+    "cost_id": "cst_0210",
+    "month": "2026-01",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 10958618.73,
+    "category": "distribution",
+    "cost_id": "cst_0211",
+    "month": "2026-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14943570.99,
+    "category": "marketing",
+    "cost_id": "cst_0212",
+    "month": "2026-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 5977428.4,
+    "category": "warehouse",
+    "cost_id": "cst_0213",
+    "month": "2026-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 288830.93,
+    "category": "financing",
+    "cost_id": "cst_0214",
+    "month": "2026-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0215",
+    "month": "2026-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 11954856.79,
+    "category": "general",
+    "cost_id": "cst_0216",
+    "month": "2026-02",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13228678.23,
+    "category": "distribution",
+    "cost_id": "cst_0217",
+    "month": "2026-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18039106.67,
+    "category": "marketing",
+    "cost_id": "cst_0218",
+    "month": "2026-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7215642.67,
+    "category": "warehouse",
+    "cost_id": "cst_0219",
+    "month": "2026-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 691339.7,
+    "category": "financing",
+    "cost_id": "cst_0220",
+    "month": "2026-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0221",
+    "month": "2026-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14431285.34,
+    "category": "general",
+    "cost_id": "cst_0222",
+    "month": "2026-03",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 17028948.74,
+    "category": "distribution",
+    "cost_id": "cst_0223",
+    "month": "2026-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 23221293.73,
+    "category": "marketing",
+    "cost_id": "cst_0224",
+    "month": "2026-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 9288517.49,
+    "category": "warehouse",
+    "cost_id": "cst_0225",
+    "month": "2026-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 402508.77,
+    "category": "financing",
+    "cost_id": "cst_0226",
+    "month": "2026-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0227",
+    "month": "2026-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18577034.98,
+    "category": "general",
+    "cost_id": "cst_0228",
+    "month": "2026-04",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13851504.19,
+    "category": "distribution",
+    "cost_id": "cst_0229",
+    "month": "2026-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18888414.81,
+    "category": "marketing",
+    "cost_id": "cst_0230",
+    "month": "2026-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7555365.92,
+    "category": "warehouse",
+    "cost_id": "cst_0231",
+    "month": "2026-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "financing",
+    "cost_id": "cst_0232",
+    "month": "2026-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0233",
+    "month": "2026-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 15110731.84,
+    "category": "general",
+    "cost_id": "cst_0234",
+    "month": "2026-05",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14277377.82,
+    "category": "distribution",
+    "cost_id": "cst_0235",
+    "month": "2026-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 19469151.57,
+    "category": "marketing",
+    "cost_id": "cst_0236",
+    "month": "2026-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7787660.63,
+    "category": "warehouse",
+    "cost_id": "cst_0237",
+    "month": "2026-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 70350.88,
+    "category": "financing",
+    "cost_id": "cst_0238",
+    "month": "2026-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0239",
+    "month": "2026-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 15575321.26,
+    "category": "general",
+    "cost_id": "cst_0240",
+    "month": "2026-06",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 20807858.15,
+    "category": "distribution",
+    "cost_id": "cst_0241",
+    "month": "2026-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 28374352.02,
+    "category": "marketing",
+    "cost_id": "cst_0242",
+    "month": "2026-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 11349740.81,
+    "category": "warehouse",
+    "cost_id": "cst_0243",
+    "month": "2026-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 70350.88,
+    "category": "financing",
+    "cost_id": "cst_0244",
+    "month": "2026-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0245",
+    "month": "2026-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 22699481.62,
+    "category": "general",
+    "cost_id": "cst_0246",
+    "month": "2026-07",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 10963594.92,
+    "category": "distribution",
+    "cost_id": "cst_0247",
+    "month": "2026-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14950356.71,
+    "category": "marketing",
+    "cost_id": "cst_0248",
+    "month": "2026-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 5980142.68,
+    "category": "warehouse",
+    "cost_id": "cst_0249",
+    "month": "2026-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 341559.09,
+    "category": "financing",
+    "cost_id": "cst_0250",
+    "month": "2026-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0251",
+    "month": "2026-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 11960285.36,
+    "category": "general",
+    "cost_id": "cst_0252",
+    "month": "2026-08",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 13601630.59,
+    "category": "distribution",
+    "cost_id": "cst_0253",
+    "month": "2026-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18547678.08,
+    "category": "marketing",
+    "cost_id": "cst_0254",
+    "month": "2026-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 7419071.23,
+    "category": "warehouse",
+    "cost_id": "cst_0255",
+    "month": "2026-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 836540.37,
+    "category": "financing",
+    "cost_id": "cst_0256",
+    "month": "2026-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0257",
+    "month": "2026-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 14838142.46,
+    "category": "general",
+    "cost_id": "cst_0258",
+    "month": "2026-09",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 17143630.26,
+    "category": "distribution",
+    "cost_id": "cst_0259",
+    "month": "2026-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 23377677.63,
+    "category": "marketing",
+    "cost_id": "cst_0260",
+    "month": "2026-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 9351071.05,
+    "category": "warehouse",
+    "cost_id": "cst_0261",
+    "month": "2026-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 628948.81,
+    "category": "financing",
+    "cost_id": "cst_0262",
+    "month": "2026-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 0.0,
+    "category": "writeoffs",
+    "cost_id": "cst_0263",
+    "month": "2026-10",
+    "sku_id": "PORTFOLIO_BG"
+  },
+  {
+    "amount_uzs": 18702142.1,
+    "category": "general",
+    "cost_id": "cst_0264",
+    "month": "2026-10",
+    "sku_id": "PORTFOLIO_BG"
+  }
+]

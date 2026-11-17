@@ -1,0 +1,19 @@
+{
+  "annual_sales_packs": 150000,
+  "calc_base_ex_vat_uzs": 97049.69,
+  "calibration_window": "2025-11..2026-10",
+  "chchn_with_vat_uzs": 150000.0,
+  "chun_with_vat_uzs": 125000.0,
+  "cogs_ex_vat_uzs": 14557453500.0,
+  "mean_landed_unit_cost_uzs": 97049.69,
+  "net_margin_ex_vat": 0.025,
+  "net_profit_uzs": 418526775.0,
+  "operating_costs_uzs": 1765090725.0,
+  "pre_reform_net_margin_ex_vat": 0.275,
+  "pre_reform_net_profit_uzs": 4767235000.0,
+  "pre_reform_revenue_ex_vat_uzs": 17335400000.0,
+  "pre_reform_window": "2025-01..2025-10",
+  "revenue_ex_vat_uzs": 16741071000.0,
+  "sku_id": "SKU_CARDIO_01",
+  "wholesale_ex_vat_uzs": 111607.14
+}
