@@ -27,5 +27,18 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus tesseract-ocr-uzb
           python -m pip install -q -e ".[ingest,sim,dev]"
+      - name: Install Chromium for real browser rehearsal
+        run: |
+          python -m pip install -q playwright
+          python -m playwright install --with-deps chromium
       - name: Execute actual prepared-company demo contract
         run: python -m pytest tests/e2e/test_judge_demo.py -q -vv
+      - name: Rehearse real presenter clicks in Chromium
+        run: python scripts/judge_demo_browser.py
+      - name: Preserve rehearsal screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: judge-demo-rehearsal
+          path: evidence/judge_browser/
+          if-no-files-found: warn
