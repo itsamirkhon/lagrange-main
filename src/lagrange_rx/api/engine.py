@@ -6,7 +6,9 @@ import math
 from dataclasses import asdict, is_dataclass
 from typing import Any, Literal
 
-from fastapi import FastAPI, HTTPException
+from pathlib import Path
+
+from fastapi import APIRouter, FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 
 from lagrange_rx.engine.explain import apply_change  # noqa: F401  (validates change keys via what_if)
@@ -18,6 +20,8 @@ from lagrange_rx.engine.service import (
 from lagrange_rx.engine.twin import TwinError, twin_baseline, unit_economics
 from lagrange_rx.engine._legacy_ontology import ClientGraph
 from lagrange_rx.engine.rules import load_rules
+from lagrange_rx.api.seam import GraphNotUsable, graph_for_engine
+from lagrange_rx.api.store import GraphStore
 
 
 def jsonable(obj: Any) -> Any:
@@ -69,8 +73,10 @@ class WhatIfRequest(BaseModel):
     change: dict[str, Any]
 
 
-def create_app() -> FastAPI:
-    app = FastAPI(title="LAGRANGE Rx decision engine", version="0.1.0")
+def make_router(data_root: str | Path | None = None) -> APIRouter:
+    """/engine/* router. Graphs committed by /ingest under `data_root` resolve by graph_id."""
+    app = APIRouter()
+    store = GraphStore(Path(data_root)) if data_root is not None else None
     rules = load_rules()
     graphs: dict[str, ClientGraph] = {}
     plans: dict[str, EngineResult] = {}
@@ -81,6 +87,16 @@ def create_app() -> FastAPI:
             return ref.graph
         if ref.graph_id and ref.graph_id in graphs:
             return graphs[ref.graph_id]
+        if ref.graph_id and store is not None:
+            try:
+                committed = store.get(ref.graph_id)
+            except ValueError as exc:
+                raise HTTPException(500, f"stored graph invalid: {exc}") from exc
+            if committed is not None:
+                try:
+                    return graph_for_engine(committed)
+                except GraphNotUsable as exc:
+                    raise HTTPException(422, {"error": "graph_not_usable_by_engine", "reason": str(exc)}) from exc
         raise HTTPException(404, "graph not found: pass `graph` or a registered `graph_id`")
 
     @app.post("/graphs")
@@ -148,6 +164,13 @@ def create_app() -> FastAPI:
             raise HTTPException(404, "plan not found")
         return {"id": plan_id, **_result_json(res)}
 
+    return app
+
+
+def create_app() -> FastAPI:
+    """Standalone engine app (kept for old callers); the unified app is api.app.create_app."""
+    app = FastAPI(title="LAGRANGE Rx decision engine", version="0.1.0")
+    app.include_router(make_router())
     return app
 
 

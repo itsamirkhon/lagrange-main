@@ -1,6 +1,6 @@
 import asyncio
 import httpx
-from lagrange_rx.api.ingest import create_app
+from lagrange_rx.api.app import create_app
 
 
 def test_upload_review_and_commit(tmp_path):

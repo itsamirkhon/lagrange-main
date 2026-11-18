@@ -79,3 +79,20 @@ Ingest собирает подтверждённый `ClientGraph` мира L0 (
 **Тесты**: `tests/ingest` + `tests/ontology` + `tests/test_boundaries.py` — 234 passed, 1 xfailed (ожидаемый); `tests/eval` — 4 passed. Новые: `tests/ingest/test_{ontology_unknowns,pnl_scope,offline_readers,offline_supply_docs,offline_finance_docs,offline_build,sim_human,e2e_ingest_L0}.py` (реальные документы L0, без сети).
 
 **Осталось**: OCR/ИИ-зрение для изображений (флаг включения, записанные ответы); денежные проверки C1/C2/C3/S1 и классификация L3 — у другого потока; L1–L4 (шум в документах) — этот конвейер проверен только на чистом L0; калибровка двойника, оптимизация, оценка на истине — следующий этап.
+## Этап 7
+
+Одно приложение FastAPI: `src/lagrange_rx/api/app.py` (`app`, `create_app(data_dir, ...)`), собранное из роутеров.
+
+| Роутер | Пути |
+|---|---|
+| `api/ingest.py` (`make_router`) | `/ingest/batches*`, `/ingest/review/{id}`, `/ingest/documents/{id}/page/{n}.png`; состояние в `LAGRANGE_DATA_DIR` |
+| `api/ontology.py` | `GET /ontology/rules`, `GET /ontology/graphs`, `GET /ontology/graphs/{id}`, `POST /ontology/validate` |
+| `api/engine.py` (`make_router`) | `POST /graphs`, `/engine/twin`, `/engine/scenarios`, `/engine/optimize`, `/engine/what-if`, `GET /engine/plans/{id}` |
+| `app.py` | `GET /health`; статический фронтенд из `web/` (или `LAGRANGE_WEB_DIR`) монтируется в `/`, если есть `index.html` |
+
+- Граф, закоммиченный в `/ingest/batches/{id}/commit`, лежит в `graphs/{batch_id}.json`; `graph_id = batch_id` разрешается в `/engine/*` и `/ontology/graphs/{id}`.
+- Единственный шов между онтологией и ядром: `api/seam.py::graph_for_engine`. Пока ядро работает на `engine._legacy_ontology.ClientGraph`, граф из ingest отдаёт 422 `graph_not_usable_by_engine`; после миграции ядра меняется только этот файл.
+- `api.ingest.create_app` и `api.engine.create_app` сохранены (старые тесты).
+- CLI: `lagrange-rx serve` (или `python -m lagrange_rx serve`) слушает только `127.0.0.1`; не-loopback хост отвергается без `--allow-non-loopback`. Аутентификации нет.
+- `make install|test|run`, `Dockerfile`, `.env.example` (без секретов).
+- Сквозной тест: `tests/e2e/test_http_flow.py` (два xfail с точными причинами: ядро ещё на legacy-графе; коммит маленьких фикстур даёт пустой граф).
