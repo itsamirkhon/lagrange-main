@@ -116,6 +116,17 @@ def main() -> int:
                     page.locator('a[data-screen="evidence"]').click()
                     page.locator("#evidence-session").get_by_text("Проверки", exact=False).wait_for(timeout=30000)
                     page.screenshot(path=str(out / "04-evidence.png"), full_page=True)
+
+                    # Proof must be visible and source-labelled, not invented UI numbers.
+                    page.locator('a[data-screen="progress"]').click()
+                    page.locator("#progress-summary .proof-tile").first.wait_for(timeout=30000)
+                    tiles = page.locator("#progress-summary .proof-tile")
+                    assert tiles.count() == 4
+                    assert "50 / 50" in tiles.nth(0).inner_text()
+                    assert "10 000" in tiles.nth(1).inner_text()
+                    assert "Архивный отчёт" in page.locator("#progress-summary").inner_text() or "Отчёт:" in page.locator("#progress-summary").inner_text()
+                    assert "НЕ прошёл" in page.locator("#progress-summary").inner_text()
+                    page.screenshot(path=str(out / "05-results.png"), full_page=True)
                     if errors:
                         raise AssertionError(f"Javascript errors in judge demo: {errors}")
                 except Exception:
@@ -126,7 +137,7 @@ def main() -> int:
 
             print(json.dumps({
                 "status": "passed", "data": "synthetic prepared L0",
-                "graph_id": gid, "screens": ["twin", "plan", "fx-shock", "evidence"],
+                "graph_id": gid, "screens": ["twin", "plan", "fx-shock", "evidence", "results"],
                 "screenshots": str(out),
             }, ensure_ascii=False))
         finally:
