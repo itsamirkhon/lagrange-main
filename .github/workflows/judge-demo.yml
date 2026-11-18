@@ -42,3 +42,26 @@ jobs:
           name: judge-demo-rehearsal
           path: evidence/judge_browser/
           if-no-files-found: warn
+
+  real-browser-judge-journey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install browser and application dependencies
+        run: |
+          python -m pip install -q -e ".[ingest,sim,dev]"
+          python -m pip install -q playwright
+          python -m playwright install --with-deps chromium
+      - name: Rehearse real Russian UI through twin, plan, FX shock and evidence
+        run: python scripts/judge_browser_smoke.py
+      - name: Attach actual demo screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: judge-browser-rehearsal
+          path: evidence/judge_browser/
+          if-no-files-found: warn
