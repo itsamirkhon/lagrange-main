@@ -9,8 +9,8 @@ import math
 from hypothesis import strategies as st
 
 from lagrange_rx.engine.types import Plan, PlanLine, Scenario
-from lagrange_rx.engine._legacy_ontology import (
-    CalculationGraph, ClientGraph, CostItem, DemandForecast, Finance, Product, Route, Supplier,
+from lagrange_rx.engine.inputs import (
+    CalculationGraph, EngineGraph, CostSpec, DemandSpec, FinanceSpec, ProductSpec, RouteSpec, SupplierSpec,
 )
 
 CURRENCIES = ("USD", "EUR", "CNY", "INR")
@@ -22,12 +22,12 @@ def _money(lo: float, hi: float):
 
 
 @st.composite
-def _route(draw, rid: str, supplier_ids: list[str], currencies: list[str], emergency: bool) -> Route:
+def _route(draw, rid: str, supplier_ids: list[str], currencies: list[str], emergency: bool) -> RouteSpec:
     lot = draw(st.sampled_from([1, 10, 50, 100]))
     min_k = draw(st.integers(0, 5))
     max_k = draw(st.integers(max(min_k, 1), 20))
     pr = draw(st.one_of(st.none(), _money(0.0, 5000.0)))
-    return Route(
+    return RouteSpec(
         id=rid, supplier_id=draw(st.sampled_from(supplier_ids)), name=rid, mode=draw(st.sampled_from(MODES)),
         currency=draw(st.sampled_from(currencies)), kc=draw(_money(0.1, 100.0)),
         duty_rate=draw(_money(0.0, 0.3)), fees_uzs=draw(_money(0.0, 5000.0)),
@@ -45,7 +45,7 @@ def _route(draw, rid: str, supplier_ids: list[str], currencies: list[str], emerg
 @st.composite
 def calc_graphs(draw) -> CalculationGraph:
     """1-4 regular + 0-2 emergency routes; internally consistent; confirmed data only."""
-    suppliers = [Supplier(id=f"S{i}", name=f"s{i}", reliability=draw(_money(0.5, 1.0))) for i in range(draw(st.integers(1, 3)))]
+    suppliers = [SupplierSpec(id=f"S{i}", name=f"s{i}", reliability=draw(_money(0.5, 1.0))) for i in range(draw(st.integers(1, 3)))]
     others = draw(st.lists(st.sampled_from(CURRENCIES[1:]), min_size=1, max_size=3, unique=True))
     currencies = ["USD", *others]
     nominal_fx = {cur: draw(_money(500.0, 20_000.0)) for cur in currencies}
@@ -56,17 +56,17 @@ def calc_graphs(draw) -> CalculationGraph:
     chun = draw(_money(1000.0, 2_000_000.0))
     contract = draw(st.one_of(st.none(), _money(0.3, 1.2).map(lambda k: round(chun * k / 1.12, 2) or 1.0)))
     items = [
-        CostItem(id=f"c{r.id}", name="acq", layer="acquisition", route_id=r.id, per_pack_uzs=draw(_money(0.0, 2000.0)))
+        CostSpec(id=f"c{r.id}", name="acq", layer="acquisition", route_id=r.id, per_pack_uzs=draw(_money(0.0, 2000.0)))
         for r in routes if draw(st.booleans())
-    ] + [CostItem(id="bl", name="below", layer="below_line", per_pack_uzs=draw(_money(0.0, 500.0)))]
+    ] + [CostSpec(id="bl", name="below", layer="below_line", per_pack_uzs=draw(_money(0.0, 500.0)))]
     q = sorted(draw(st.lists(_money(0.0, 50_000.0), min_size=3, max_size=3)))
     year, month = draw(st.integers(2026, 2027)), draw(st.integers(1, 12))
-    return ClientGraph(
-        client_id="c", product=Product(
+    return EngineGraph(
+        client_id="c", product=ProductSpec(
             id="P", name="p", chun_uzs=chun, chchn_uzs=chun * draw(_money(1.0, 2.0)), contract_price_uzs=contract,
         ),
         suppliers=tuple(suppliers), routes=tuple(routes), cost_items=tuple(items),
-        demand=DemandForecast(p10=q[0], p50=q[1], p90=q[2]), finance=Finance(), nominal_fx=nominal_fx,
+        demand=DemandSpec(p10=q[0], p50=q[1], p90=q[2]), finance=FinanceSpec(), nominal_fx=nominal_fx,
         horizon_start=f"{year}-{month:02d}", penalty_uzs_per_pack=draw(_money(0.0, 5000.0)),
     ).for_calculation()
 
@@ -96,7 +96,7 @@ def scenarios_for(draw, graph: CalculationGraph) -> list[Scenario]:
 
 
 @st.composite
-def _line(draw, route: Route) -> PlanLine | None:
+def _line(draw, route: RouteSpec) -> PlanLine | None:
     shipments = draw(st.integers(1, 6)) if draw(st.integers(0, 9)) else 0
     shipments = min(shipments, route.max_shipments)
     lo = -(-route.min_batch * shipments // route.lot_size)

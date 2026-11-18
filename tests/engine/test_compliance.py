@@ -11,7 +11,7 @@ from lagrange_rx.engine.rules import load_rules
 from tests.engine import compliance_suite as suite
 
 RULES = load_rules()
-ALLOWED_PREFIXES = ("lagrange_rx.engine._legacy_ontology", "lagrange_rx.engine.rules", "lagrange_rx.engine.types")
+ALLOWED_PREFIXES = ("lagrange_rx.engine.inputs", "lagrange_rx.engine.rules", "lagrange_rx.engine.types")
 STDLIB = set(__import__("sys").stdlib_module_names)
 
 

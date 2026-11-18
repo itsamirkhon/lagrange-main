@@ -3,7 +3,6 @@ import ast
 import re
 from pathlib import Path
 
-import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 SKIP = {".venv", "__pycache__", ".git", "node_modules"}
@@ -50,7 +49,6 @@ def test_single_rules_catalog():
     assert [p.relative_to(ROOT).as_posix() for p in found] == ["rules/uz_pharma_rules.yaml"]
 
 
-@pytest.mark.xfail(reason="legacy engine ontology is removed in stage 3", strict=False)
 def test_no_duplicate_domain_models():
     names = {"Product", "Route", "SupplyOption", "Supplier", "CostItem", "ClientGraph"}
     defs: dict[str, list[str]] = {}

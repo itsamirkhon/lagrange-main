@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 
 from lagrange_rx.api.engine import create_app
-from lagrange_rx.fixtures.l0 import build_l0_graph
-from lagrange_rx.engine._legacy_ontology import ActualResult
+from lagrange_rx.fixtures.l0 import build_l0_calculation_graph
+from lagrange_rx.engine.inputs import ActualSpec
 
 client = TestClient(create_app())
-GRAPH = build_l0_graph().model_dump(mode="json")
+GRAPH = build_l0_calculation_graph().model_dump(mode="json")
 FAST = {"n": 200, "k": 20}
 
 

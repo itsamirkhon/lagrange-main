@@ -1,6 +1,6 @@
 import pytest
 
-from lagrange_rx.engine._legacy_ontology import CalculationGraph, require_calculation_graph
+from lagrange_rx.engine.inputs import CalculationGraph, require_calculation_graph
 from lagrange_rx.engine.rules import RulesError, load_rules
 
 

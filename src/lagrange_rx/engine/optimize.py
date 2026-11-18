@@ -21,7 +21,7 @@ from lagrange_rx.engine.twin import (
     UnitEconomics, below_line, capital_per_pack, unit_economics,
 )
 from lagrange_rx.engine.types import Plan, PlanLine, Scenario
-from lagrange_rx.engine._legacy_ontology import CalculationGraph, Route, require_calculation_graph
+from lagrange_rx.engine.inputs import CalculationGraph, RouteSpec, require_calculation_graph
 from lagrange_rx.engine.rules import Rules
 
 INF = math.inf
@@ -148,11 +148,11 @@ class _Vars:
     q: list[int] = field(default_factory=list)  # total sold per scenario
 
 
-def _xmax(r: Route) -> int:
+def _xmax(r: RouteSpec) -> int:
     return r.capacity_packs // r.lot_size
 
 
-def _first_stage(b: _Builder, routes: list[Route], graph, budget: float | None, hedge_levels) -> _Vars:
+def _first_stage(b: _Builder, routes: list[RouteSpec], graph, budget: float | None, hedge_levels) -> _Vars:
     v = _Vars()
     for r in routes:
         v.y[r.id] = b.var(0, 1, True)
@@ -173,7 +173,7 @@ def _first_stage(b: _Builder, routes: list[Route], graph, budget: float | None, 
     return v
 
 
-def _hedge_block(b: _Builder, v: _Vars, routes: list[Route], levels) -> dict[str, dict[int, float]]:
+def _hedge_block(b: _Builder, v: _Vars, routes: list[RouteSpec], levels) -> dict[str, dict[int, float]]:
     """Exact disaggregation: hx_i = sum_k level_k * w_ik, sum_k w_ik = x_i, w_ik <= xmax_i * g_k."""
     v.g = [b.var(0, 1, True) for _ in levels]
     b.row({gk: 1.0 for gk in v.g}, 1.0, 1.0)

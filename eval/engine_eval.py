@@ -20,11 +20,12 @@ from lagrange_rx.engine.optimize import OptimizerConfig, cvar, optimize
 from lagrange_rx.engine.scenarios import (
     FxHistory, ScenarioConfig, load_fx_history, mean_scenario, out_of_sample,
 )
-from lagrange_rx.engine.service import EngineResult, run_optimize, run_what_if
+from lagrange_rx.engine.service import EngineResult, calculation_graph, run_optimize, run_what_if
 from lagrange_rx.engine.twin import evaluate_plan, evaluate_plan_set, twin_baseline
 from lagrange_rx.engine.types import Plan, PlanLine, Scenario
 from eval.oracle import brute_force, random_mini_problem
-from lagrange_rx.engine._legacy_ontology import CalculationGraph, ClientGraph, Route
+from lagrange_rx.engine.adapter import EngineConfig
+from lagrange_rx.engine.inputs import CalculationGraph, RouteSpec
 from lagrange_rx.engine.rules import Rules, load_rules
 
 THRESHOLDS_PATH = Path(__file__).resolve().parent / "thresholds.json"
@@ -36,7 +37,7 @@ class TruthEvaluator(Protocol):
         """Profit (UZS) of the plan in each scenario, evaluated on the truth."""
 
 
-def route_signature(r: Route, supplier_name: str) -> tuple:
+def route_signature(r: RouteSpec, supplier_name: str) -> tuple:
     return (supplier_name, r.mode, r.currency, round(r.kc, 2), r.emergency)
 
 
@@ -161,15 +162,15 @@ def metric_speed(result: EngineResult, thr: dict) -> dict:
     return {"recompute_after_shock_seconds": secs, "pass": secs <= thr["recompute_after_shock_max_seconds"]}
 
 
-def metric_regret(level_graphs: dict[str, ClientGraph], truth_graph: CalculationGraph, rules: Rules,
+def metric_regret(level_graphs: dict, truth_graph: CalculationGraph, rules: Rules,
                   scenarios: Sequence[Scenario], oos: Sequence[Scenario], opt_cfg: OptimizerConfig,
-                  truth: TruthEvaluator) -> dict:
+                  truth: TruthEvaluator, config: EngineConfig | None = None) -> dict:
     """Regret of planning on a graph assembled by Ingest at level Lk, evaluated on the truth, vs planning on truth."""
     best = optimize(truth_graph, scenarios, rules, opt_cfg).plan
     best_val = _mean(truth.evaluate_plan_on_truth(best, oos))
     out = {}
     for level, raw in sorted(level_graphs.items()):
-        g = raw.for_calculation()
+        g = calculation_graph(raw, config)
         plan = optimize(g, scenarios, rules, opt_cfg).plan
         mapping = match_routes(g, truth_graph)
         val = _mean(truth.evaluate_plan_on_truth(translate_plan(plan, mapping), oos))
@@ -192,16 +193,16 @@ def load_thresholds(path: Path = THRESHOLDS_PATH) -> tuple[dict, str]:
     return json.loads(raw), hashlib.sha256(raw).hexdigest()
 
 
-def run_evaluation(raw_graph: ClientGraph, *, truth_graph: ClientGraph | None = None,
-                   level_graphs: dict[str, ClientGraph] | None = None, rules: Rules | None = None,
+def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph=None,
+                   level_graphs: dict | None = None, rules: Rules | None = None,
                    fx: FxHistory | None = None, scen_cfg: ScenarioConfig = ScenarioConfig(),
                    opt_cfg: OptimizerConfig = OptimizerConfig(), thresholds_path: Path = THRESHOLDS_PATH) -> dict:
     thr, thr_sha = load_thresholds(thresholds_path)
     rules = rules or load_rules()
     fx = fx or load_fx_history()
-    g = raw_graph.for_calculation()
-    tg = (truth_graph or raw_graph).for_calculation()
-    result = run_optimize(raw_graph, rules=rules, fx=fx, scen_cfg=scen_cfg, opt_cfg=opt_cfg, demo_mode=True)
+    g = calculation_graph(raw_graph, config)
+    tg = calculation_graph(truth_graph if truth_graph is not None else raw_graph, config)
+    result = run_optimize(g, rules=rules, fx=fx, scen_cfg=scen_cfg, opt_cfg=opt_cfg, demo_mode=True)
     plan, opt_set = result.plan, result.context.scenarios
     truth = LocalTruth(tg, rules, match_routes(g, tg))
     oos = out_of_sample(g, fx, rules, ScenarioConfig(**{**scen_cfg.__dict__, "n": thr["out_of_sample_scenarios"]}))
@@ -227,7 +228,7 @@ def run_evaluation(raw_graph: ClientGraph, *, truth_graph: ClientGraph | None = 
     }
     if level_graphs:
         report["metrics"]["regret_by_level"] = metric_regret(level_graphs, tg, rules, opt_set, oos,
-                                                             OptimizerConfig(risk_mode="expected"), truth)
+                                                             OptimizerConfig(risk_mode="expected"), truth, config)
     else:
         report["metrics"]["regret_by_level"] = {"status": "not available: Ingest has not produced L0-L4 graphs yet"}
     report["all_pass"] = all(m.get("pass", True) for m in report["metrics"].values())
@@ -236,12 +237,12 @@ def run_evaluation(raw_graph: ClientGraph, *, truth_graph: ClientGraph | None = 
 
 def main(argv: list[str] | None = None) -> int:
     import argparse
-    from lagrange_rx.fixtures.l0 import build_l0_graph
+    from lagrange_rx.fixtures.l0 import build_l0_config, build_l0_graph
 
     ap = argparse.ArgumentParser(description="Run the engine evaluation on the L0 fixture")
     ap.add_argument("--out", default=str(DEFAULT_REPORT_PATH))
     args = ap.parse_args(argv)
-    report = run_evaluation(build_l0_graph())
+    report = run_evaluation(build_l0_graph(), config=build_l0_config())
     Path(args.out).write_text(json.dumps(report, indent=2, sort_keys=True, default=str, ensure_ascii=False))
     print(f"report -> {args.out}; all_pass={report['all_pass']}")
     return 0 if report["all_pass"] else 1

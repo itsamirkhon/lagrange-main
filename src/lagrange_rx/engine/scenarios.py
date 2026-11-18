@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 from lagrange_rx.engine.types import Scenario
-from lagrange_rx.engine._legacy_ontology import CalculationGraph
+from lagrange_rx.engine.inputs import CalculationGraph
 from lagrange_rx.engine.rules import Rules
 
 HORIZON = 12

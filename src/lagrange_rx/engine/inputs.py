@@ -1,9 +1,11 @@
-"""Minimal ClientGraph ontology the engine runs on.
+"""Engine-internal calculation inputs (flat, frozen, numeric).
 
-This is the engine-side contract with the ontology (docs/ONTOLOGY.md lives in
-lagrange-ontology and is not in this repo). Every entity carries `confirmed`;
-only `ClientGraph.for_calculation()` output (a `CalculationGraph`) is accepted
-by the engine: unconfirmed data never reaches a calculation.
+NOT a second ontology. The single world model is `lagrange_rx.ontology.ClientGraph`; these types are the
+engine's numeric view of it, produced only by `lagrange_rx.engine.adapter.to_calculation_graph`
+(ontology graph -> `ontology.ClientGraph.for_calculation()` -> these specs). Names deliberately differ from the
+ontology's (`*Spec`, `EngineGraph`). Tests may build them directly to exercise the engine in isolation.
+Every spec carries `confirmed`; only `EngineGraph.for_calculation()` output (a `CalculationGraph`) is accepted by
+the engine.
 """
 from __future__ import annotations
 
@@ -20,29 +22,30 @@ def _is_month(s: str) -> bool:
     return len(s) == 7 and s[4] == "-" and s[:4].isdigit() and s[5:].isdigit() and 1 <= int(s[5:]) <= 12
 
 
-class Product(_M):
+class ProductSpec(_M):
     id: str
     name: str
     reference_currency: str = "USD"
     chun_uzs: float = Field(gt=0, description="published max wholesale price per pack, incl. VAT")
     chchn_uzs: float = Field(gt=0, description="published max retail price per pack, incl. VAT")
     contract_price_uzs: float | None = Field(default=None, gt=0, description="contract sale price per pack, excl. VAT")
+    chun_formula_uzs: float | None = Field(default=None, gt=0, description="ChUN by the p.19 formula (RegistryRecord), incl. VAT")
     rn_foreign: float | None = Field(default=None, gt=0, description="registered reference price, reference currency")
     confirmed: bool = True
 
 
-class Supplier(_M):
+class SupplierSpec(_M):
     id: str
     name: str
     reliability: float = Field(ge=0.0, le=1.0)
     confirmed: bool = True
 
 
-class Route(_M):
+class RouteSpec(_M):
     id: str
     supplier_id: str
     name: str
-    mode: Literal["sea", "rail", "air", "road"]
+    mode: Literal["sea", "rail", "air", "road", "multimodal"]
     currency: str
     kc: float = Field(gt=0, description="contract price per pack, foreign currency")
     duty_rate: float = Field(ge=0.0, lt=1.0)
@@ -72,7 +75,7 @@ class Route(_M):
         return self
 
 
-class CostItem(_M):
+class CostSpec(_M):
     id: str
     name: str
     layer: Literal["acquisition", "below_line"]
@@ -93,7 +96,7 @@ class CostItem(_M):
         return self
 
 
-class DemandForecast(_M):
+class DemandSpec(_M):
     p10: float = Field(ge=0.0)
     p50: float = Field(ge=0.0)
     p90: float = Field(ge=0.0)
@@ -105,7 +108,7 @@ class DemandForecast(_M):
         return self
 
 
-class Finance(_M):
+class FinanceSpec(_M):
     credit_rate_annual: float = Field(ge=0.0, default=0.20)
     budget_uzs: float | None = Field(default=None, ge=0.0, description="working-capital credit line")
     inventory_days: int = Field(ge=0, default=45)
@@ -113,7 +116,7 @@ class Finance(_M):
     hedge_forward_premium: float = Field(default=0.02, description="forward rate premium over nominal (assumption)")
 
 
-class Shipment(_M):
+class ShipmentSpec(_M):
     id: str
     route_id: str
     month: str
@@ -128,7 +131,7 @@ class Shipment(_M):
         return self
 
 
-class Sale(_M):
+class SaleSpec(_M):
     month: str
     packs: int = Field(gt=0)
     price_uzs: float = Field(gt=0, description="price per pack excl. VAT")
@@ -141,7 +144,7 @@ class Sale(_M):
         return self
 
 
-class ActualResult(_M):
+class ActualSpec(_M):
     revenue_uzs: float = Field(gt=0)
     total_cost_uzs: float = Field(ge=0)
     confirmed: bool = True
@@ -151,22 +154,23 @@ class ActualResult(_M):
         return (self.revenue_uzs - self.total_cost_uzs) / self.revenue_uzs
 
 
-class ClientGraph(_M):
+class EngineGraph(_M):
     client_id: str
-    product: Product
-    suppliers: tuple[Supplier, ...]
-    routes: tuple[Route, ...]
-    cost_items: tuple[CostItem, ...] = ()
-    demand: DemandForecast
-    shipments: tuple[Shipment, ...] = ()
-    sales: tuple[Sale, ...] = ()
-    actual: ActualResult | None = None
-    finance: Finance = Finance()
+    product: ProductSpec
+    suppliers: tuple[SupplierSpec, ...]
+    routes: tuple[RouteSpec, ...]
+    cost_items: tuple[CostSpec, ...] = ()
+    demand: DemandSpec
+    shipments: tuple[ShipmentSpec, ...] = ()
+    sales: tuple[SaleSpec, ...] = ()
+    actual: ActualSpec | None = None
+    finance: FinanceSpec = FinanceSpec()
     nominal_fx: dict[str, float]
     horizon_start: str = Field(description="first month of the 12-month plan horizon, YYYY-MM")
     penalty_uzs_per_pack: float = Field(ge=0.0, default=0.0, description="service penalty per unmet pack")
     demo_mode: bool = False
     fixture_note: str | None = None
+    notes: tuple[str, ...] = Field(default=(), description="adapter assumptions and exclusions, surfaced as warnings")
 
     @model_validator(mode="after")
     def _check(self) -> "ClientGraph":
@@ -192,7 +196,7 @@ class ClientGraph(_M):
                 raise ValueError(f"shipment {sh.id}: unknown route {sh.route_id}")
         return self
 
-    def route(self, route_id: str) -> Route:
+    def route(self, route_id: str) -> RouteSpec:
         for r in self.routes:
             if r.id == route_id:
                 return r
@@ -232,13 +236,13 @@ class ClientGraph(_M):
         )
 
 
-class CalculationGraph(ClientGraph):
-    """Marker type: produced only by `ClientGraph.for_calculation()`; the engine requires it."""
+class CalculationGraph(EngineGraph):
+    """Marker type: produced only by `EngineGraph.for_calculation()`; the engine requires it."""
 
-    def eligible_routes(self) -> tuple[Route, ...]:
+    def eligible_routes(self) -> tuple[RouteSpec, ...]:
         return tuple(r for r in self.routes if r.is_eligible and not r.emergency)
 
-    def emergency_routes(self) -> tuple[Route, ...]:
+    def emergency_routes(self) -> tuple[RouteSpec, ...]:
         return tuple(r for r in self.routes if r.is_eligible and r.emergency)
 
 

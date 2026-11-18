@@ -2,7 +2,7 @@ import pytest
 
 from lagrange_rx.engine.twin import TwinError, caps_for, evaluate_plan, unit_economics, below_line
 from lagrange_rx.engine.types import Plan, PlanLine
-from lagrange_rx.engine._legacy_ontology import ClientGraph, CostItem
+from lagrange_rx.engine.inputs import EngineGraph, CostSpec
 from tests.conftest import make_graph, make_route, make_scenario
 
 
@@ -41,16 +41,16 @@ def test_fx_index_raises_caps(tiny, rules):
 
 
 def test_unallocated_cost_refuses(rules):
-    g = make_graph(cost_items=[CostItem(id="b", name="rent", layer="below_line", annual_uzs=10.0, allocation="unallocated")])
+    g = make_graph(cost_items=[CostSpec(id="b", name="rent", layer="below_line", annual_uzs=10.0, allocation="unallocated")])
     with pytest.raises(TwinError, match="rent"):
         below_line(g.for_calculation())
 
 
 def test_shared_allocation_needs_share():
-    g = make_graph(cost_items=[CostItem(id="b", name="rent", layer="below_line", annual_uzs=1000.0, allocation="shared_by_volume")])
+    g = make_graph(cost_items=[CostSpec(id="b", name="rent", layer="below_line", annual_uzs=1000.0, allocation="shared_by_volume")])
     with pytest.raises(TwinError):
         below_line(g.for_calculation())
-    g2 = make_graph(cost_items=[CostItem(id="b", name="rent", layer="below_line", annual_uzs=1000.0,
+    g2 = make_graph(cost_items=[CostSpec(id="b", name="rent", layer="below_line", annual_uzs=1000.0,
                                          per_pack_uzs=10.0, allocation="shared_by_volume", share=0.25)])
     assert below_line(g2.for_calculation()) == (pytest.approx(2.5), pytest.approx(250.0))
 

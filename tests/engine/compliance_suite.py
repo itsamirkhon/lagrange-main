@@ -9,20 +9,20 @@ from __future__ import annotations
 from collections.abc import Callable
 
 from lagrange_rx.engine.types import Plan, PlanLine, Scenario, ScenarioOutcome
-from lagrange_rx.engine._legacy_ontology import CalculationGraph, ClientGraph, DemandForecast, Product, Route, Supplier
+from lagrange_rx.engine.inputs import CalculationGraph, EngineGraph, DemandSpec, ProductSpec, RouteSpec, SupplierSpec
 
 FX = {"USD": 12000.0, "EUR": 13000.0}
 PRICE_OK = 100_000.0  # below every limit of the default fixture
 
 
-def route(rid: str = "R1", **kw) -> Route:
+def route(rid: str = "R1", **kw) -> RouteSpec:
     base = dict(
         id=rid, supplier_id="S1", name=rid, mode="sea", currency="USD", kc=10.0, duty_rate=0.1,
         fees_uzs=1000.0, pr_uzs=500.0, pr_confirmed=True, freight_uzs=800.0, lot_size=100,
         min_batch=100, max_batch=5000, capacity_packs=10_000, max_shipments=4,
     )
     base.update(kw)
-    return Route(**base)
+    return RouteSpec(**base)
 
 
 R1 = route()  # legal base 10*12000*1.1 + 1000 + 500 = 133500
@@ -34,12 +34,12 @@ E1 = route(
 
 
 def graph(routes=(R1,), chun=1_000_000.0, chchn=2_000_000.0, contract=None, horizon="2026-11") -> CalculationGraph:
-    return ClientGraph(
+    return EngineGraph(
         client_id="c",
-        product=Product(id="P", name="p", chun_uzs=chun, chchn_uzs=chchn, contract_price_uzs=contract),
-        suppliers=(Supplier(id="S1", name="s", reliability=0.9),),
+        product=ProductSpec(id="P", name="p", chun_uzs=chun, chchn_uzs=chchn, contract_price_uzs=contract),
+        suppliers=(SupplierSpec(id="S1", name="s", reliability=0.9),),
         routes=tuple(routes),
-        demand=DemandForecast(p10=800, p50=1000, p90=1200),
+        demand=DemandSpec(p10=800, p50=1000, p90=1200),
         nominal_fx=FX,
         horizon_start=horizon,
     ).for_calculation()

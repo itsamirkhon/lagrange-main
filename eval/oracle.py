@@ -9,8 +9,8 @@ import numpy as np
 from lagrange_rx.engine.optimize import horizon_label
 from lagrange_rx.engine.twin import capital_per_pack, evaluate_plan
 from lagrange_rx.engine.types import Plan, PlanLine, Scenario
-from lagrange_rx.engine._legacy_ontology import (
-    CalculationGraph, ClientGraph, CostItem, DemandForecast, Finance, Product, Route, Supplier,
+from lagrange_rx.engine.inputs import (
+    CalculationGraph, EngineGraph, CostSpec, DemandSpec, FinanceSpec, ProductSpec, RouteSpec, SupplierSpec,
 )
 from lagrange_rx.engine.rules import Rules
 
@@ -24,7 +24,7 @@ def _plan(graph: CalculationGraph, choice: dict[str, tuple[int, int]]) -> Plan:
                 lines=lines, risk_mode="expected")
 
 
-def _shipment_options(r: Route, lots: int) -> list[int]:
+def _shipment_options(r: RouteSpec, lots: int) -> list[int]:
     if lots == 0:
         return [0]
     packs = lots * r.lot_size
@@ -81,7 +81,7 @@ def random_mini_problem(seed: int) -> tuple[CalculationGraph, list[Scenario]]:
     routes = []
     for i in range(2):
         lot = 1000
-        routes.append(Route(
+        routes.append(RouteSpec(
             id=f"R{i}", supplier_id=f"S{i}", name=f"r{i}", mode=["sea", "rail"][i], currency="USD",
             kc=float(kc[i]), duty_rate=float(rng.uniform(0.05, 0.15)), fees_uzs=float(rng.uniform(500, 2000)),
             freight_uzs=float(rng.uniform(1000, 5000)), lot_size=lot,
@@ -90,21 +90,21 @@ def random_mini_problem(seed: int) -> tuple[CalculationGraph, list[Scenario]]:
             fixed_per_shipment_uzs=float(rng.uniform(0, 3e6)), fixed_activation_uzs=float(rng.uniform(0, 2e6)),
         ))
     if rng.random() < 0.5:
-        routes.append(Route(
+        routes.append(RouteSpec(
             id="E0", supplier_id="S0", name="air", mode="air", currency="USD", kc=float(kc[2]),
             duty_rate=0.1, fees_uzs=1000.0, freight_uzs=6000.0, lot_size=1000, min_batch=0, max_batch=2000,
             capacity_packs=0, max_shipments=0, emergency=True,
             emergency_premium_uzs=float(rng.uniform(0, 8000)), emergency_cap_packs=int(rng.integers(1, 3)) * 1000,
         ))
     budget = float(rng.uniform(3e8, 9e8)) if rng.random() < 0.4 else None
-    graph = ClientGraph(
-        client_id="mini", product=Product(id="P", name="d", chun_uzs=float(rng.uniform(95_000, 140_000)),
+    graph = EngineGraph(
+        client_id="mini", product=ProductSpec(id="P", name="d", chun_uzs=float(rng.uniform(95_000, 140_000)),
                                           chchn_uzs=float(rng.uniform(130_000, 200_000))),
-        suppliers=[Supplier(id=f"S{i}", name=f"s{i}", reliability=0.9) for i in range(2)],
+        suppliers=[SupplierSpec(id=f"S{i}", name=f"s{i}", reliability=0.9) for i in range(2)],
         routes=routes,
-        cost_items=[CostItem(id="bl", name="bl", layer="below_line", per_pack_uzs=float(rng.uniform(0, 3000)))],
-        demand=DemandForecast(p10=2000, p50=4000, p90=6000),
-        finance=Finance(credit_rate_annual=float(rng.uniform(0, 0.3)), budget_uzs=budget, inventory_days=30,
+        cost_items=[CostSpec(id="bl", name="bl", layer="below_line", per_pack_uzs=float(rng.uniform(0, 3000)))],
+        demand=DemandSpec(p10=2000, p50=4000, p90=6000),
+        finance=FinanceSpec(credit_rate_annual=float(rng.uniform(0, 0.3)), budget_uzs=budget, inventory_days=30,
                         receivable_days=20),
         nominal_fx={"USD": 12_000.0}, horizon_start="2026-11",
         penalty_uzs_per_pack=float(rng.uniform(0, 5000)),

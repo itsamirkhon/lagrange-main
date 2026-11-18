@@ -15,7 +15,7 @@ from lagrange_rx.engine.optimize import (
 )
 from lagrange_rx.engine.twin import capital_per_pack, evaluate_plan
 from lagrange_rx.engine.types import Plan, PlanLine, Scenario, ScenarioOutcome
-from lagrange_rx.engine._legacy_ontology import CalculationGraph
+from lagrange_rx.engine.inputs import CalculationGraph
 from lagrange_rx.engine.rules import Rules
 
 TOL = 1e-6
