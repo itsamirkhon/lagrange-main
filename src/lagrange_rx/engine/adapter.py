@@ -65,6 +65,7 @@ class RouteParams(_C):
     emergency: bool = False
     emergency_premium_uzs: float = Field(default=0.0, ge=0.0)
     emergency_cap_packs: int = Field(default=0, ge=0)
+    max_shipments: int | None = Field(default=None, gt=0)  # only when Route.max_shipments_per_year is not stated
 
 
 class EngineConfig(_C):
@@ -271,6 +272,8 @@ def route_specs(g: onto.ClientGraph, sku: str, cfg: EngineConfig, hs: str, notes
         freight_pack, freight_ship = _freight(g, r, hsd)
         if p.lot_size is None:
             notes.append(f"route '{r.route_id}': lot_size={cfg.default_lot_size} is an engine default")
+        else:
+            notes.append(f"route '{r.route_id}': lot_size={p.lot_size} = gcd of the shipment sizes observed in the documents")
         observed = [s.packs for s, _ in customs]
         if r.min_shipment_packs is not None:
             min_b = r.min_shipment_packs
@@ -299,6 +302,10 @@ def route_specs(g: onto.ClientGraph, sku: str, cfg: EngineConfig, hs: str, notes
                          f"({cfg.capacity_factor} x demand p90; no document states route capacity)")
         if r.max_shipments_per_year is not None:
             max_sh = r.max_shipments_per_year
+        elif p.max_shipments is not None:
+            max_sh = p.max_shipments
+            notes.append(f"route '{r.route_id}': max_shipments={max_sh}/year from EngineConfig "
+                         f"(shipments observed on the route in the 12 months before the horizon)")
         else:
             max_sh = cfg.default_max_shipments_per_year
             notes.append(f"route '{r.route_id}': max_shipments={max_sh}/year is an engine default")
@@ -590,6 +597,30 @@ def derive_calibration_actual(g: onto.ClientGraph, sku: str, hs: str) -> ActualS
     return ActualSpec(revenue_uzs=revenue, total_cost_uzs=cost) if revenue > 0 else None
 
 
+def derive_route_params(g: onto.ClientGraph, hs: str) -> dict[str, RouteParams]:
+    """Per-route engine parameters read from the graph's own shipments (documents, never simulation truth):
+    lot_size = gcd of all observed shipment sizes on the route (only when >= 100: a smaller gcd is noise, not a lot);
+    max_shipments = shipments dispatched on the route in the 12 months before the horizon (the client's observed cadence)."""
+    from math import gcd
+    out: dict[str, RouteParams] = {}
+    for r in g.routes:
+        ships = [s for s in g.shipments if s.route == r.route_id]
+        if not ships:
+            continue
+        lot = 0
+        for s in ships:
+            lot = gcd(lot, s.packs)
+        recent = sum(1 for s in ships if _in_window(_month(s.dispatch_date), hs))
+        kw = {}
+        if lot >= 100:
+            kw["lot_size"] = lot
+        if recent > 0:
+            kw["max_shipments"] = recent
+        if kw:
+            out[r.route_id] = RouteParams(**kw)
+    return out
+
+
 def default_engine_config(g: onto.ClientGraph, *, default_reliability: float = 0.95) -> EngineConfig:
     """EngineConfig derived from the graph for documents-only clients. Every choice is an assumption of the engine,
     not data (each substitution is also written to `CalculationGraph.notes`):
@@ -597,7 +628,8 @@ def default_engine_config(g: onto.ClientGraph, *, default_reliability: float = 0
       default_reliability = 0.95 (no Supplier.reliability in any document); split_freight_from_fees = True (D7 lumps
       inbound freight into fees); financing_cost_items = as_recorded when financing CostItems exist and there is no
       CreditLine (interest is then counted once, from the books); calibration_actual = lagrange_rx.pnl over the 12
-      months before the horizon; all other fields keep the EngineConfig defaults."""
+      months before the horizon; route_params = lot size / shipment cadence observed in the graph's shipments
+      (`derive_route_params`); all other fields keep the EngineConfig defaults."""
     g.for_calculation()
     skus = sorted({r.product for r in g.registry_records})
     if len(skus) != 1:
@@ -610,4 +642,5 @@ def default_engine_config(g: onto.ClientGraph, *, default_reliability: float = 0
     fin = any(c.category == "financing" for c in g.cost_items) and not g.credit_lines
     return EngineConfig(horizon_start=hs, sku_id=skus[0], default_reliability=default_reliability,
                         split_freight_from_fees=True, demand_from_sales=True, financing_cost_items="as_recorded" if fin else "engine_model",
-                        calibration_actual=derive_calibration_actual(g, skus[0], hs))
+                        calibration_actual=derive_calibration_actual(g, skus[0], hs),
+                        route_params=derive_route_params(g, hs))

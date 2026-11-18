@@ -184,6 +184,10 @@ def _customs(d, facts, invoices):
         if inv is None:
             d.issue('missing', 'blocking', f'GTD {gtd}: invoice {row["invoice"]} not found', [row['doc'].document_id])
             continue
+        if inv.get('total_packs') is None:
+            d.issue('missing', 'blocking', f'GTD {gtd}: invoice {row["invoice"]} has no readable total packs; customs entry not built',
+                    [row['doc'].document_id, inv['doc'].document_id])
+            continue
         p = pdf.get(gtd)
         if p and (p['invoice'], p['rate'], p['landed_uzs']) != (row['invoice'], row['rate'], row['landed_uzs']):
             d.issue('contradiction', 'blocking', f'GTD {gtd}: PDF and spreadsheet disagree', [row['doc'].document_id, p['doc'].document_id])
@@ -219,6 +223,10 @@ def _shipments_lots(d, facts, skus, suppliers, entries, latest):
             d.issue('missing', 'blocking', f'invoice {number}: no customs entry or unknown supplier; shipment not built', [doc.document_id])
             continue
         entry, row = pair
+        missing = [k for k in ('dispatch', 'arrival', 'total_packs') if inv.get(k) is None]
+        if missing:
+            d.issue('missing', 'blocking', f"invoice {number}: {', '.join(missing)} not readable on the invoice; shipment not built", [doc.document_id])
+            continue
         code = post_code.get(row['post'])
         if code is None:
             d.issue('missing', 'blocking', f"invoice {number}: customs post {row['post']!r} matches no carrier rate", [doc.document_id])

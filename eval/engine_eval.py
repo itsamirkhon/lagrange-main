@@ -255,17 +255,16 @@ def run_on_simulation(*, ingest_path: Path | None = None, truth_dir: Path | None
 
     ingest_path = ingest_path or ei.INGEST_GRAPH_PATH
     graph, ingest_snapshot = ei.load_ingest_graph(ingest_path)
-    onto_graph, removed = ei.engine_input_graph(graph)
-    cfg = ei.engine_config()
+    onto_graph = graph
+    cfg = ei.engine_config(graph)
     g = calculation_graph(onto_graph, cfg)
     with SimTruth(g, onto_graph, truth_dir or TRUTH_DIR) as st:
         extra = {
             "graph_source": f"ontology graph from Ingest ({ingest_path.name}, snapshot {ingest_snapshot}) -> "
-                            "engine.adapter.to_calculation_graph with EngineConfig from eval/engine_inputs.py",
+                            "engine.adapter.to_calculation_graph with adapter.default_engine_config (single config path, stage 6d)",
             "ingest_snapshot_id": ingest_snapshot,
-            "engine_input_removed": removed,
-            "engine_input_assumptions": ei.ASSUMPTIONS,
-            "adapter_notes": [n for n in g.notes if "financing is modelled" not in n and "outside the 12 months" not in n],
+            "engine_config": cfg.model_dump(mode="json"),
+            "adapter_notes": list(g.notes),
             "truth_native_baseline": st.baseline_on_truth(),
             "truth_overlay": ("scenario -> copy of truth tables: demand = scenario.demand/forecast p50 on window sales; "
                               "USD rate ratio on fx, on the FX-linked share (CIP+duty) of landed unit cost; freight "
