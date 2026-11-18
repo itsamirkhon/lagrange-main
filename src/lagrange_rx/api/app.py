@@ -44,7 +44,7 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
     app = FastAPI(title='LAGRANGE Rx', version=__version__)
     ingest_router, root = ingest_api.make_router(data_dir, scorer=scorer, extractor=extractor, fx_provider=fx_provider, as_of=as_of)
     app.include_router(ingest_router)
-    app.include_router(samples_api.make_router(samples_dir))
+    app.include_router(samples_api.make_router(samples_dir, root))
     app.include_router(ontology_api.make_router(root))
     app.include_router(evidence_api.make_router(eval_dir))
     app.include_router(engine_api.make_router(root))

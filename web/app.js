@@ -88,8 +88,22 @@ async function loadSamples() {
     return;
   }
   box.innerHTML = '<div class="row" style="margin-top:0">' + list.map((s) =>
-    `<button class="small" data-sample="${esc(s.name)}" title="${int(s.files)} файлов, ${int(s.bytes / 1024)} КБ">${esc(s.name)} <span class="muted">· ${int(s.files)}</span></button>`).join('') + '</div>';
+    `<button class="small" data-sample="${esc(s.name)}" title="${int(s.files)} файлов, ${int(s.bytes / 1024)} КБ">${esc(s.name)} <span class="muted">· ${int(s.files)}</span></button>
+     <button class="small primary" data-quick="${esc(s.name)}" title="Разобрать, подтвердить и собрать граф за пару секунд (без ручной проверки)">${esc(s.name)}: граф сразу</button>`).join('') + '</div>';
   $$('[data-sample]', box).forEach((b) => b.addEventListener('click', () => uploadSample(b)));
+  $$('[data-quick]', box).forEach((b) => b.addEventListener('click', () => quickGraph(b)));
+}
+
+async function quickGraph(btn) {
+  busy(btn, true);
+  $('#upload-state').textContent = 'Собираю граф ' + btn.dataset.quick + '…';
+  try {
+    const r = await api(`/ingest/samples/${encodeURIComponent(btn.dataset.quick)}/graph`, { method: 'POST' });
+    S.graphId = r.graph_id; S.batchId = null; S.twin = null; S.plan = null; save(); ctx(); loadGraphs();
+    $('#upload-state').textContent = 'Граф готов: ' + Object.entries(r.counts).filter(([k]) => k !== 'issues' && k !== 'source_documents').map(([k, v]) => k + ' ' + v).join(', ');
+    toast('Граф ' + r.graph_id + ' готов' + (r.unanswered_questions.length ? ' (вопросов без ответа: ' + r.unanswered_questions.length + ')' : ''));
+    location.hash = '#twin';
+  } catch (e) { toast('Ошибка: ' + e.message, true); $('#upload-state').textContent = ''; } finally { busy(btn, false); }
 }
 
 async function loadGraphs() {
@@ -266,7 +280,7 @@ $('#btn-confirm-all').addEventListener('click', async (ev) => {
   if (!confirm(`Подтвердить ${pending.length} вопросов без индивидуальной проверки?`)) return;
   busy(ev.target, true);
   let failed = 0;
-  for (const q of pending) { try { await answer(q.question_id, { action: 'confirm' }); } catch { failed += 1; } }
+  try { await api(`/ingest/batches/${S.batchId}/review/confirm-all`, { method: 'POST' }); } catch { failed = 1; }
   await refreshBatch(); busy(ev.target, false);
   toast(failed ? `Не принято ответов: ${failed}` : 'Все вопросы подтверждены', !!failed);
 });
