@@ -4,6 +4,7 @@ from datetime import date, datetime, timedelta, timezone
 import pytest
 from pydantic import ValidationError
 
+from lagrange_rx import ontology as o
 from lagrange_rx.engine.adapter import AdapterError, to_calculation_graph
 from lagrange_rx.engine.pharma_quality import QualityBlocked, allocate_released_fefo
 from lagrange_rx.fixtures.l0 import SKU, build_l0_config, build_l0_graph
@@ -20,7 +21,7 @@ def _fefo_graph():
     source = G.products[0].provenance
     lots = [
         # Earliest released lot is too short-dated; latest lot is recalled.
-        __import__("lagrange_rx").ontology.Lot(
+        o.Lot(
             lot_number=name, product=SKU, production_date=date(2025, 1, 1),
             expiry_date=base + timedelta(days=expires), qty_packs=quantity,
             remaining_packs=quantity, shipment=shipping, quality_status=status,
@@ -71,7 +72,6 @@ def test_temperature_sensitive_product_excludes_unverified_routes():
 
 
 def test_temperature_verified_route_can_enter_but_excursion_is_excluded():
-    from lagrange_rx import ontology as o
     doc_id = "TEMP-001"
     doc = o.SourceDocument(document_id=doc_id, file_name="synthetic-logger.csv",
                            mime="text/csv", pages=1, uploaded_at=datetime.now(timezone.utc),
