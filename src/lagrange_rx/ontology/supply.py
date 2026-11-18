@@ -4,7 +4,7 @@ from __future__ import annotations
 from datetime import date
 from decimal import Decimal
 from typing import Literal
-from pydantic import Field, computed_field
+from pydantic import Field, computed_field, model_validator
 from .trust import Entity, Evidence, StrictModel
 
 class PaymentTerms(Entity):
@@ -53,6 +53,21 @@ class Route(Entity):
     capacity_packs_per_year: int | None = Field(default=None, ge=0)
     activation_cost_uzs: Decimal | None = Field(default=None, ge=0)
     is_eligible: bool | None = None
+    # Real measured min/max temperatures, linked to a reviewed source document.
+    # Missing evidence is NOT compliant for temperature-sensitive products.
+    temperature_record_status: Literal['missing','verified','excursion'] = 'missing'
+    temperature_record_document: str | None = None
+    observed_min_c: float | None = None
+    observed_max_c: float | None = None
+
+    @model_validator(mode="after")
+    def check_temperature_evidence(self):
+        if self.temperature_record_status == 'verified':
+            if not self.temperature_record_document or self.observed_min_c is None or self.observed_max_c is None:
+                raise ValueError("verified temperature requires a source document and min/max readings")
+        if self.observed_min_c is not None and self.observed_max_c is not None and self.observed_min_c > self.observed_max_c:
+            raise ValueError("observed temperature minimum exceeds maximum")
+        return self
 
 class Quote(Entity):
     quote_id: str
@@ -102,6 +117,8 @@ class Lot(Entity):
     qty_packs: int = Field(ge=0)
     shipment: str
     remaining_packs: int = Field(ge=0)
+    # Unknown is deliberately not released for dispensing or FEFO.
+    quality_status: Literal['unknown','released','quarantined','recalled'] = 'unknown'
 
 class CustomsEntry(Entity):
     entry_ref: str
