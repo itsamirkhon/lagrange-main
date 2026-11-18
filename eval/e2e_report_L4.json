@@ -1,0 +1,250 @@
+{
+ "world": "L4",
+ "stage_reached": "ingest",
+ "failure": {
+  "stage": "engine_config",
+  "error_type": "AdapterError",
+  "message": "no SalesRecord: horizon cannot be derived",
+  "where": "File \"/home/sukhrob/Desktop/lagrange-main/.claude/worktrees/agent-a2b679384e32de26f/src/lagrange_rx/engine/adapter.py\", line 639, in default_engine_config\n    raise AdapterError(\"no SalesRecord: horizon cannot be derived\")"
+ },
+ "truth_evaluation": null,
+ "ingest": {
+  "documents": 83,
+  "questions_to_human": {
+   "total": 7,
+   "answered": 7,
+   "by_kind": {
+    "contract_effective_from": 2,
+    "confirm_group": 5
+   },
+   "rejected_groups": [
+    "confirm_group:routes",
+    "confirm_group:quotes"
+   ]
+  },
+  "rejected_group_reasons": [
+   {
+    "question_id": "confirm_group:routes",
+    "why": "corridor / supplier pairs: extracted ['CHUK-RAIL-03 | -', 'KZ-AUTO-01 | -', 'TAS-AIR-04 | -', 'TM-AUTO-02 | -'], books ['CHUK-RAIL-03 | BalticGalen Pvt. Ltd. (Словения, SYNTHETIC)', 'CHUK-RAIL-03 | VektorPharm S.A. (Германия, SYNTHETIC)', 'KZ-AUTO-01 | BalticGalen Pvt. Ltd. (Словения, SYNTHETIC)', 'KZ-AUTO-01 | Medisynth S.A. (Индия, SYNTHETIC)', 'TAS-AIR-04 | -', 'TM-AUTO-02 | VektorPharm Pvt. Lt"
+   },
+   {
+    "question_id": "confirm_group:quotes",
+    "why": "quote numbers: extracted ['KP-2025-017', 'KP-2025-021', 'KP-2025-022', 'KP-2026-018', 'KP-2026-019', 'KP-2026-020', 'KP-2026-023', 'KP-2026-024'], books ['KP-2025-001', 'KP-2025-002', 'KP-2025-006', 'KP-2025-007', 'KP-2025-011', 'KP-2025-012', 'KP-2025-016', 'KP-2025-017', 'KP-2025-021', 'KP-2025-022', 'KP-2026-003', 'KP-2026-004', 'KP-2026-005', 'KP-2026-008', 'KP-2026-009', 'KP-2026-010', 'KP-20"
+   }
+  ],
+  "dropped_by_collection": {
+   "routes": 4,
+   "quotes": 8
+  },
+  "issues": {
+   "unreadable/warning": 40,
+   "missing/blocking": 24
+  },
+  "not_extracted": [
+   "content of image documents (memos, carrier chats, waybill photos)",
+   "Product: INN, dosage form, manufacturer, registration certificate",
+   "CreditLine: limit, annual rate, available_from",
+   "CustomsEntry: split of fees_uzs into clearance fees and inbound freight; vat_uzs",
+   "Shipment.actual_freight_uzs",
+   "Route: incoterms, min/max shipment packs, shipments per year, capacity, activation cost, eligibility, p90 lead time",
+   "Route production_site for corridors without observed shipments",
+   "Supplier.reliability; PaymentTerms.customer_days",
+   "PriceIndexationEvent, Warehouse capacity, DemandForecast, FxHedge",
+   "Carrier contracts (CNT-CAR-*)",
+   "Quote.vat_status for supplier quotes; Quote.issued_on except the quote named in the document title"
+  ],
+  "graph_counts": {
+   "source_documents": 83,
+   "registry_records": 3,
+   "products": 7,
+   "suppliers": 4,
+   "carriers": 4,
+   "contracts": 6,
+   "currencies": 1,
+   "issues": 64
+  },
+  "extraction_vs_books": {
+   "sales_records": {
+    "extracted": 0,
+    "books": 3694,
+    "share": 0.0
+   },
+   "shipments": {
+    "extracted": 0,
+    "books": 44,
+    "share": 0.0
+   },
+   "customs_entries": {
+    "extracted": 0,
+    "books": 44,
+    "share": 0.0
+   },
+   "lots": {
+    "extracted": 0,
+    "books": 50,
+    "share": 0.0
+   },
+   "quotes": {
+    "extracted": 0,
+    "books": 24,
+    "share": 0.0
+   },
+   "contracts": {
+    "extracted": 6,
+    "books": 10,
+    "share": 0.6
+   },
+   "registry_records": {
+    "extracted": 3,
+    "books": 3,
+    "share": 1.0
+   }
+  },
+  "corruptions_in_manifest": {
+   "total": 365,
+   "by_operator": {
+    "A1": 10,
+    "C1": 22,
+    "C2": 12,
+    "C3": 9,
+    "D1x": 6,
+    "J1": 6,
+    "L1": 40,
+    "M1": 23,
+    "N1": 67,
+    "N2": 77,
+    "R1": 12,
+    "R2": 10,
+    "R3": 10,
+    "R4": 6,
+    "S1": 10,
+    "U1": 11,
+    "V1": 8,
+    "X1": 16,
+    "X2": 10
+   },
+   "recoverability": {
+    "recoverable": 343,
+    "not_recoverable": 22
+   },
+   "by_document_type": {
+    "D1": 69,
+    "D10": 16,
+    "D11": 18,
+    "D13": 4,
+    "D2": 92,
+    "D3": 54,
+    "D4": 14,
+    "D5": 16,
+    "D6": 14,
+    "D7": 25,
+    "D8": 34,
+    "D9": 3,
+    "J1": 6
+   },
+   "omitted_documents": [
+    {
+     "doc_type": "D1",
+     "scope": "2025-09_Ферганская область",
+     "truth_ref": "sales/sal_01365",
+     "reason": "Пропуск продаж 1С и регионального отчёта за 2025-09",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D1",
+     "scope": "2025-11_Наманганская область",
+     "truth_ref": "sales/sal_01671",
+     "reason": "Пропуск продаж 1С и регионального отчёта за 2025-11",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D1",
+     "scope": "2026-02_Андижанская область",
+     "truth_ref": "sales/sal_02221",
+     "reason": "Пропуск продаж 1С и регионального отчёта за 2026-02",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D1",
+     "scope": "2026-08_Ферганская область",
+     "truth_ref": "sales/sal_03236",
+     "reason": "Пропуск продаж 1С и регионального отчёта за 2026-08",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D1",
+     "scope": "2026-07_Ферганская область",
+     "truth_ref": "sales/sal_03024",
+     "reason": "Пропуск продаж 1С и регионального отчёта за 2026-07",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D1",
+     "scope": "2026-08_Андижанская область",
+     "truth_ref": "sales/sal_03239",
+     "reason": "Пропуск продаж 1С и регионального отчёта за 2026-08",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D1",
+     "scope": "2026-09_Ферганская область",
+     "truth_ref": "sales/sal_03408",
+     "reason": "Пропуск продаж 1С и регионального отчёта за 2026-09",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D2",
+     "scope": "2026-07_Ферганская область",
+     "truth_ref": "sales/sal_03023",
+     "reason": "Отсутствуют данные за 2026-07",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D2",
+     "scope": "2026-08_Ферганская область",
+     "truth_ref": "sales/sal_03236",
+     "reason": "Отсутствуют данные за 2026-08",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D2",
+     "scope": "2026-09_Ферганская область",
+     "truth_ref": "sales/sal_03406",
+     "reason": "Отсутствуют данные за 2026-09",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D11",
+     "scope": "D11_memo_marketing_2025.jpg_page_2",
+     "truth_ref": "costs/cst_0002",
+     "reason": "Утеряна 2-я страница служебной записки",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D11",
+     "scope": "D11_memo_logistics_2025.jpg_page_2",
+     "truth_ref": "costs/cst_0001",
+     "reason": "Утеряна 2-я страница служебной записки",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D11",
+     "scope": "D11_memo_writeoffs_2026.jpg_page_2",
+     "truth_ref": "costs/cst_0121",
+     "reason": "Утеряна 2-я страница служебной записки",
+     "recoverable": false
+    },
+    {
+     "doc_type": "D11",
+     "scope": "D11_memo_finance_2026.jpg_page_2",
+     "truth_ref": "costs/cst_0181",
+     "reason": "Утеряна 2-я страница служебной записки",
+     "recoverable": false
+    }
+   ]
+  }
+ },
+ "ingest_snapshot_id": "ingest-L4-6227dec0f7f0c8b8",
+ "snapshot_id": "ingest-L4-6227dec0f7f0c8b8",
+ "report_sha256": "156352066563fbcb"
+}

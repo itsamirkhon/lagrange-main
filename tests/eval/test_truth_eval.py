@@ -11,9 +11,8 @@ from lagrange_rx.engine.types import Plan, PlanLine, Scenario
 @pytest.fixture(scope="module")
 def world():
     g, _ = ei.load_ingest_graph()
-    eg, _ = ei.engine_input_graph(g)
-    cg = to_calculation_graph(eg, ei.engine_config())
-    return cg, eg
+    cg = to_calculation_graph(g, ei.engine_config(g))
+    return cg, g
 
 
 @pytest.fixture(scope="module")
