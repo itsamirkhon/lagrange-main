@@ -45,7 +45,7 @@ class ClientGraph(StrictModel):
         'registry_records': {'product':'products'}, 'price_indexation_events': {'registry_record':'registry_records'},
         'products': {'manufacturer':'manufacturers','registration_certificate':'registration_certificates','originator_sku':'products'},
         'manufacturers': {'same_composition_skus':'products'}, 'production_sites': {'supplier':'suppliers','approved_for':'products'},
-        'routes': {'production_site':'production_sites','carrier':'carriers'}, 'quotes': {'supplier':'suppliers','carrier':'carriers','product':'products'},
+        'routes': {'production_site':'production_sites','carrier':'carriers','temperature_record_document':'source_documents'}, 'quotes': {'supplier':'suppliers','carrier':'carriers','product':'products'},
         'contracts': {'supplier':'suppliers','supersedes':'contracts'}, 'shipments': {'route':'routes','lots':'lots','customs_entry':'customs_entries'},
         'lots': {'product':'products','shipment':'shipments'}, 'cost_items': {'shipment':'shipments','product':'products','scope':'products'},
         'warehouses': {'region':'regions'}, 'customers': {'region':'regions','channel':'channels'},

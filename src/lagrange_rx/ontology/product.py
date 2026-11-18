@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import date
 from typing import Literal
-from pydantic import Field
+from pydantic import Field, model_validator
 from .trust import Entity
 
 class Manufacturer(Entity):
@@ -29,3 +29,16 @@ class Product(Entity):
     registration_certificate: str | None = None
     is_generic: bool | None = None
     originator_sku: str | None = None
+    # Optional pharmaceutical safety profile; absent means NOT ASSESSED, never "safe".
+    storage_temperature_min_c: float | None = None
+    storage_temperature_max_c: float | None = None
+    min_remaining_shelf_life_days: int | None = Field(default=None, ge=0)
+
+    @model_validator(mode="after")
+    def validate_storage_range(self):
+        low, high = self.storage_temperature_min_c, self.storage_temperature_max_c
+        if (low is None) != (high is None):
+            raise ValueError("both storage temperature bounds are required together")
+        if low is not None and low > high:
+            raise ValueError("minimum storage temperature exceeds maximum")
+        return self

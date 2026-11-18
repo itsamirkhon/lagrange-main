@@ -251,6 +251,19 @@ def route_specs(g: onto.ClientGraph, sku: str, cfg: EngineConfig, hs: str, notes
             notes.append(f"route '{r.route_id}' excluded: no production site (no document ties it to a producer)")
             continue
         site = sites[r.production_site]
+        product_record = next((p for p in g.products if p.sku_id == sku), None)
+        if product_record is not None and product_record.storage_temperature_min_c is not None:
+            if (r.temperature_record_status != "verified"
+                    or not r.temperature_record_document
+                    or r.observed_min_c is None or r.observed_max_c is None):
+                notes.append(f"route '{r.route_id}' excluded: cold-chain evidence not verified for '{sku}'")
+                continue
+            if (r.observed_min_c < product_record.storage_temperature_min_c
+                    or r.observed_max_c > product_record.storage_temperature_max_c):
+                notes.append(f"route '{r.route_id}' excluded: measured temperature range "
+                             f"{r.observed_min_c}..{r.observed_max_c} C violates "
+                             f"{product_record.storage_temperature_min_c}..{product_record.storage_temperature_max_c} C")
+                continue
         if sku not in site.approved_for:
             notes.append(f"route '{r.route_id}' excluded: production site '{site.site_id}' is not approved for '{sku}'")
             continue
@@ -560,7 +573,7 @@ def to_calculation_graph(graph: onto.ClientGraph, config: EngineConfig, rules: R
     demand = demand_spec(g, sku.sku_id, hs, notes, config)
     routes = route_specs(g, sku.sku_id, config, hs, notes, demand.p90)
     if not routes:
-        raise AdapterError("no routes approved for the sku")
+        raise AdapterError("no eligible routes: production-site approval or pharmaceutical temperature evidence blocked every route")
     rids = {r.id for r in routes}
     suppliers = supplier_specs(g, rids, config, notes)
     costs = cost_specs(g, sku.sku_id, routes, config, hs, notes)
