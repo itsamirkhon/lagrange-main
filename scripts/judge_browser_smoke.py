@@ -127,6 +127,19 @@ def main() -> int:
                     assert "Архивный отчёт" in page.locator("#progress-summary").inner_text() or "Отчёт:" in page.locator("#progress-summary").inner_text()
                     assert "НЕ прошёл" in page.locator("#progress-summary").inner_text()
                     page.screenshot(path=str(out / "05-results.png"), full_page=True)
+
+                    # Real clicks on pharmaceutical safety demo, backed by the API.
+                    page.locator('a[data-screen="fefo"]').click()
+                    page.locator("#fefo-lots .fefo-lot").first.wait_for(timeout=30000)
+                    assert page.locator("#fefo-lots .fefo-lot").count() == 6
+                    assert page.locator("#fefo-lots .fefo-lot.blocked").count() == 4
+                    assert page.locator("#fefo-lots .fefo-lot.allocated").count() == 2
+                    page.screenshot(path=str(out / "06-fefo-50.png"), full_page=True)
+                    page.locator('[data-fefo-preset="200"]').click()
+                    page.get_by_text("Недостаточно допустимого запаса", exact=False).wait_for(timeout=30000)
+                    assert "140" in page.locator("#fefo-summary").inner_text()
+                    assert page.locator("#fefo-lots .fefo-lot.blocked").count() == 4
+                    page.screenshot(path=str(out / "07-fefo-shortage.png"), full_page=True)
                     if errors:
                         raise AssertionError(f"Javascript errors in judge demo: {errors}")
                 except Exception:
@@ -137,7 +150,7 @@ def main() -> int:
 
             print(json.dumps({
                 "status": "passed", "data": "synthetic prepared L0",
-                "graph_id": gid, "screens": ["twin", "plan", "fx-shock", "evidence", "results"],
+                "graph_id": gid, "screens": ["twin", "plan", "fx-shock", "evidence", "results", "fefo"],
                 "screenshots": str(out),
             }, ensure_ascii=False))
         finally:
