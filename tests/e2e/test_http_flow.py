@@ -6,7 +6,7 @@ upload zip of L0 documents -> question queue -> answers -> commit -> twin -> opt
 Ingest half: runs on the small fixtures (AI off, no network).
 Engine half: the engine still consumes its own graph type, so the engine-side graph is built with the
 public fixture builder and registered via POST /graphs. The ONLY place that changes when the engine
-moves to ontology.ClientGraph is api/seam.py::graph_for_engine (see the xfail below).
+moves to ontology.ClientGraph is api/seam.py::graph_for_engine (stage 6c: the ontology graph reaches the engine through it).
 """
 import io
 import zipfile
@@ -30,7 +30,9 @@ def client(tmp_path_factory):
 
 @pytest.fixture(scope='module')
 def engine_graph():
-    return build_l0_graph().model_dump(mode='json')
+    from lagrange_rx.engine.adapter import to_calculation_graph
+    from lagrange_rx.fixtures.l0 import build_l0_config
+    return to_calculation_graph(build_l0_graph(), build_l0_config()).model_dump(mode='json')
 
 
 @pytest.fixture(scope='module')
@@ -77,10 +79,42 @@ def test_committed_graph_reaches_engine_by_graph_id(client, committed):
     assert r.status_code == 422 and r.json()['detail']['error'] == 'graph_not_usable_by_engine'
 
 
-@pytest.mark.xfail(strict=True, reason='needs engine stage: engine still on engine._legacy_ontology.ClientGraph; '
-                                       'api/seam.py::graph_for_engine has no ontology->engine adapter yet')
-def test_committed_graph_twin_via_ontology_graph(client, committed):
-    assert client.post('/engine/twin', json={'graph_id': committed['batch_id']}).status_code == 200
+@pytest.fixture(scope='module')
+def l0_graph_client(tmp_path_factory):
+    """The graph Ingest builds from the 72 L0 documents (offline builder + simulated human), stored where
+    POST /ingest/.../commit stores committed graphs (graphs/<id>.json)."""
+    import json
+    from datetime import datetime, timezone
+    from pathlib import Path
+    from eval.sim_human import SimHuman
+    from lagrange_rx.ingest.offline.build import build_draft
+    from lagrange_rx.ingest.offline.confirm import commit
+    now = datetime(2026, 11, 18, tzinfo=timezone.utc)
+    draft = build_draft(Path(__file__).resolve().parents[2] / 'sim' / 'worlds' / 'L0' / 'documents', now=now)
+    graph, _ = commit(draft, SimHuman().answer_all(draft.questions), now=now)
+    root = tmp_path_factory.mktemp('l0data')
+    (root / 'graphs').mkdir()
+    (root / 'graphs' / 'l0documents.json').write_text(
+        json.dumps(graph.model_dump(mode='json', exclude_computed_fields=True)), encoding='utf-8')
+    return TestClient(create_app(root, serve_web=False))
+
+
+def test_committed_graph_twin_via_ontology_graph(l0_graph_client):
+    c = l0_graph_client
+    ref = {'graph_id': 'l0documents'}
+    twin = c.post('/engine/twin', json=ref)
+    assert twin.status_code == 200, twin.text
+    body = twin.json()
+    assert body['calibration']['twin_margin'] is not None and body['calibration']['gap_pp'] <= 0.5
+    assert len(body['unit_economics']['routes']) == 2
+    assert c.post('/engine/scenarios', json={**ref, **FAST}).json()['full_count'] == 200
+    opt = c.post('/engine/optimize', json={**ref, **FAST})
+    assert opt.status_code == 200, opt.text
+    plan = opt.json()
+    assert plan['legal'] and plan['checks_failed'] == 0 and plan['plan']['snapshot_id']
+    assert any('EngineConfig' in w for w in plan['warnings'])  # engine-only assumptions are surfaced
+    w = c.post('/engine/what-if', json={'plan_id': plan['id'], 'change': {'fx_shift': 0.15}})
+    assert w.status_code == 200, w.text
 
 
 @pytest.mark.xfail(strict=True, reason='needs ingest stage: committed graph from the small fixture is empty '
