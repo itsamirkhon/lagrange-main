@@ -642,7 +642,7 @@ async function runFefo() {
 }
 
 $('#btn-fefo-calc').addEventListener('click', runFefo);
-$('[data-fefo-preset]').forEach((b) => b.addEventListener('click', () => {
+document.querySelectorAll('[data-fefo-preset]').forEach((b) => b.addEventListener('click', () => {
   $('#fefo-demand').value = b.dataset.fefoPreset;
   runFefo();
 }));
