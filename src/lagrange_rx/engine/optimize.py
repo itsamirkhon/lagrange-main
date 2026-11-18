@@ -221,7 +221,8 @@ def _scenario_block(b: _Builder, v: _Vars, s: Scenario, ue: UnitEconomics, route
     caps = [ue.caps.wholesale, ue.caps.retail] + ([ue.caps.contract] if ue.caps.contract is not None else [])
     for cap in caps:
         b.row({R: 1.0, q_total: -cap / 1000.0}, hi=0.0)
-    b.row({R: 1.0, **{k: -c for k, c in markup_row.items()}}, hi=0.0)
+    if graph.apply_wholesale_markup_rule:
+        b.row({R: 1.0, **{k: -c for k, c in markup_row.items()}}, hi=0.0)
     P = b.var(-INF)
     # P = R + terms - pen*(D - q) - bl_var*q - fixed - bl_fixed
     row = {P: 1.0, R: -1.0}

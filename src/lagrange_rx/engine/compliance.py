@@ -150,7 +150,12 @@ def _contract_checks(graph: CalculationGraph, outcome: ScenarioOutcome) -> list[
     return [] if not contract else [_price_result(RULE_CONTRACT, outcome, contract)]
 
 
+NOT_APPLIED = "not applied (needs_legal_review)"
+
+
 def _markup_check(graph: CalculationGraph, scenario: Scenario, outcome: ScenarioOutcome, rules: Rules) -> CheckResult:
+    if not graph.apply_wholesale_markup_rule:  # explicit legal switch: reported, never silently dropped
+        return _result(RULE_MARKUP, outcome.scenario_id, outcome.price_uzs, outcome.price_uzs, True, NOT_APPLIED)
     limit = _markup_limit(_sold_pool(graph, scenario, outcome), rules)
     if limit is None:
         return _result(RULE_MARKUP, outcome.scenario_id, outcome.price_uzs, 0.0, outcome.sold == 0, "empty sold pool")

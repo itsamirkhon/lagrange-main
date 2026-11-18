@@ -114,8 +114,9 @@ def evaluate_service_recourse(graph, plan, scenarios: Sequence, rules, *,
         for cap in caps:
             row({revenue: 1.0, **{j: -cap / 1000.0 for j in qcols}}, 0.0)
         # Common wholesale revenue bounded by route-weighted legal markup.
-        row({revenue: 1.0, **{j: -(1.0 + rules.max_markup) * ue.routes[rid].legal_base / 1000.0
-                             for rid, j, _, _ in sells}}, 0.0)
+        if graph.apply_wholesale_markup_rule:
+            row({revenue: 1.0, **{j: -(1.0 + rules.max_markup) * ue.routes[rid].legal_base / 1000.0
+                                 for rid, j, _, _ in sells}}, 0.0)
         # Exact profit equation, including costs on all purchased packs.
         fixed_m = (-purchase_cost(graph, plan, ue, s) - fixed_cost
                    - graph.penalty_uzs_per_pack * s.demand - below_fixed) / 1e6
@@ -180,5 +181,5 @@ def evaluate_service_recourse(graph, plan, scenarios: Sequence, rules, *,
         outcomes.append(ScenarioOutcome(scenario_id=s.id, sold=sold,
                                         shortfall=max(s.demand - sold, 0.0), emergency=emergency,
                                         sold_by_route=sold_by_route, price_uzs=price, revenue_uzs=revenue_uzs,
-                                        profit_uzs=profit_uzs, binding=_binding(ue, rec, price, rules)))
+                                        profit_uzs=profit_uzs, binding=_binding(graph, ue, rec, price, rules)))
     return outcomes

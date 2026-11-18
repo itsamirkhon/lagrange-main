@@ -82,3 +82,37 @@ def test_overlays_move_profit_the_right_way(st, world):
 
 def test_overlay_nominal_flag():
     assert Overlay().world_is_nominal and not Overlay(demand_factor=0.9).world_is_nominal
+
+
+# --------------------------------------------------------------------------- 15% rule on the truth (interpretation A)
+
+def test_cap_cuts_revenue_to_115_percent_of_base_and_profit_one_for_one():
+    from eval.truth_eval import cap_wholesale_revenue
+    c = cap_wholesale_revenue(revenue=1_300.0, cogs=1_000.0, kappa=0.9, multiplier=1.15)
+    assert c["legal_base_sold_uzs"] == pytest.approx(900.0)
+    assert c["revenue_uzs"] == pytest.approx(1035.0) and c["excess_uzs"] == pytest.approx(265.0)
+    assert cap_wholesale_revenue(1_000.0, 1_000.0, 0.9, 1.15)["excess_uzs"] == 0.0  # below the cap: untouched
+
+
+def test_client_history_violates_the_rule_and_is_reported_in_uzs():
+    from eval.truth_eval import client_history_violation
+    v = client_history_violation()["window_2025-11_2026-10"]
+    assert v["markup"] > 0.15 and v["excess_over_ceiling_uzs"] > 0
+    assert v["excess_over_ceiling_uzs"] == pytest.approx(v["revenue_uzs"] - v["ceiling_uzs"])
+    assert 0 < v["excess_share_of_revenue"] < 1
+
+
+def test_truth_with_cap_lowers_baseline_by_about_the_excess(world):
+    cg, g = world
+    with SimTruth(cg, g, cap_markup=False) as plain, SimTruth(cg, g, cap_markup=True) as capped:
+        base = baseline_plan(cg)
+        s = scn(cg)
+        a, b = plain.profit(base, s), capped.profit(base, s)
+        assert b < a
+        cut = capped.baseline_on_truth_capped()["excess_cut_uzs"]
+        assert a - b == pytest.approx(cut, rel=0.02)
+
+
+def test_plain_truth_is_the_default(world):
+    with SimTruth(*world) as st:
+        assert st.cap_markup is False

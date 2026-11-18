@@ -270,21 +270,52 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
     return report
 
 
-def run_on_simulation(*, ingest_path: Path | None = None, truth_dir: Path | None = None,
+INTERPRETATIONS = {
+    "A": {"name": "A_rule_applies_everywhere", "engine_rule": True, "truth_cap": True,
+          "text": "UZ-PF13-WHOLESALE-MARKUP applies to everyone: the engine enforces 1.15 x legal base of packs sold, and the "
+                  "truth revenue of BOTH the plan and the client baseline is capped the same way (truth_eval.py)."},
+    "B": {"name": "B_rule_off", "engine_rule": False, "truth_cap": False,
+          "text": "The rule is not applied (needs_legal_review): the engine runs with apply_wholesale_markup_rule=False "
+                  "(compliance reports it as 'not applied (needs_legal_review)') and the truth is as simulated."},
+}
+
+
+def merge_interpretations(a: dict, b: dict) -> dict:
+    """One report with both legal readings. Top level = A (the rule applies everywhere, the stricter reading), so the
+    release gate reads the conservative interpretation; both blocks carry their own snapshot_id and all metrics."""
+    out = dict(a)
+    out["legal_interpretation"] = {
+        "A_rule_applies_everywhere": a, "B_rule_off": b,
+        "client_violation_of_the_rule": a["client_violation_of_the_rule"],
+        "all_pass_by_interpretation": {"A": a["all_pass"], "B": b["all_pass"]},
+        "decision_needed": "legal decision A vs B from the mentor (UZ-PF13-WHOLESALE-MARKUP is needs_legal_review)",
+    }
+    out["all_pass"] = bool(a["all_pass"])  # the gate reads A
+    return out
+
+
+def run_on_simulation(*, interpretation: str = "A", ingest_path: Path | None = None, truth_dir: Path | None = None,
                       thresholds_path: Path = THRESHOLDS_PATH, scen_cfg: ScenarioConfig = ScenarioConfig(),
                       opt_cfg: OptimizerConfig = OptimizerConfig(service_level=DEFAULT_SERVICE_LEVEL)) -> dict:
     """Stage 5: engine graph from the Ingest L0 ontology graph (via the adapter), plans evaluated on the simulation
-    truth through `SimTruth` (feature-mapped, `evaluate_plan_on_truth`)."""
+    truth through `SimTruth` (feature-mapped, `evaluate_plan_on_truth`). `interpretation` A or B: see INTERPRETATIONS."""
     from eval import engine_inputs as ei
-    from eval.truth_eval import TRUTH_DIR, SimTruth
+    from eval.truth_eval import TRUTH_DIR, SimTruth, client_history_violation
 
+    spec = INTERPRETATIONS[interpretation]
     ingest_path = ingest_path or ei.INGEST_GRAPH_PATH
     graph, ingest_snapshot = ei.load_ingest_graph(ingest_path)
     onto_graph = graph
-    cfg = ei.engine_config(graph)
+    cfg = ei.engine_config(graph).model_copy(update={"apply_wholesale_markup_rule": spec["engine_rule"]})
     g = calculation_graph(onto_graph, cfg)
-    with SimTruth(g, onto_graph, truth_dir or TRUTH_DIR) as st:
+    with SimTruth(g, onto_graph, truth_dir or TRUTH_DIR, cap_markup=spec["truth_cap"]) as st:
         extra = {
+            "interpretation": {"id": interpretation, "name": spec["name"], "text": spec["text"],
+                               "engine_apply_wholesale_markup_rule": spec["engine_rule"],
+                               "truth_revenue_capped_at_115_pct_of_legal_base": spec["truth_cap"],
+                               "markup_rule_status": "needs_legal_review"},
+            "client_violation_of_the_rule": client_history_violation(truth_dir or TRUTH_DIR),
+            "truth_baseline_with_cap": st.baseline_on_truth_capped(),
             "graph_source": f"ontology graph from Ingest ({ingest_path.name}, snapshot {ingest_snapshot}) -> "
                             "engine.adapter.to_calculation_graph with adapter.default_engine_config (single config path, stage 6d)",
             "ingest_snapshot_id": ingest_snapshot,
@@ -313,8 +344,18 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Run the engine evaluation (default: Ingest L0 graph on the simulation truth)")
     ap.add_argument("--out", default=str(DEFAULT_REPORT_PATH))
     ap.add_argument("--fixture", action="store_true", help="legacy: synthetic fixture on LocalTruth, not the simulation")
+    ap.add_argument("--interpretation", choices=("A", "B", "both"), default="both",
+                    help="legal reading of UZ-PF13-WHOLESALE-MARKUP: A rule applies everywhere, B rule off, both = merged")
+    ap.add_argument("--merge", nargs=2, metavar=("A_JSON", "B_JSON"), help="merge two partial reports (A then B)")
     args = ap.parse_args(argv)
-    report = run_evaluation(build_l0_graph(), config=build_l0_config()) if args.fixture else run_on_simulation()
+    if args.merge:
+        report = merge_interpretations(*[json.loads(Path(f).read_text(encoding="utf-8")) for f in args.merge])
+    elif args.fixture:
+        report = run_evaluation(build_l0_graph(), config=build_l0_config())
+    elif args.interpretation == "both":
+        report = merge_interpretations(run_on_simulation(interpretation="A"), run_on_simulation(interpretation="B"))
+    else:
+        report = run_on_simulation(interpretation=args.interpretation)
     Path(args.out).write_text(json.dumps(report, indent=2, sort_keys=True, default=str, ensure_ascii=False))
     print(f"report -> {args.out}; all_pass={report['all_pass']}")
     return 0 if report["all_pass"] else 1

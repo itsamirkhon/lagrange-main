@@ -221,7 +221,8 @@ def _solve_recourse(graph, plan, scenario, ue, bl_var, markup, allow_emergency) 
     a_ub, b_ub = [], []
     for cap in caps:  # R <= cap * sum q
         a_ub.append([-cap] * n + [1.0]); b_ub.append(0.0)
-    a_ub.append([-(1.0 + markup) * e.legal_base for e in eco] + [1.0]); b_ub.append(0.0)
+    if graph.apply_wholesale_markup_rule:
+        a_ub.append([-(1.0 + markup) * e.legal_base for e in eco] + [1.0]); b_ub.append(0.0)
     a_ub.append([1.0] * n + [0.0]); b_ub.append(scenario.demand)  # sum q <= D
     ub = list(supply.values()) + [float(r.emergency_cap_packs) for r in emerg]
     res = linprog(c, A_ub=np.array(a_ub), b_ub=np.array(b_ub),
@@ -254,13 +255,15 @@ def evaluate_plan(graph: CalculationGraph, plan: Plan, scenario: Scenario, rules
     return ScenarioOutcome(
         scenario_id=scenario.id, sold=sold, shortfall=shortfall, emergency=rec.emergency,
         sold_by_route=rec.sold_by_route, price_uzs=price, revenue_uzs=revenue, profit_uzs=profit,
-        binding=_binding(ue, rec, price, rules),
+        binding=_binding(graph, ue, rec, price, rules),
     )
 
 
-def _binding(ue: UnitEconomics, rec: _Recourse, price: float, rules: Rules) -> str:
+def _binding(graph: CalculationGraph, ue: UnitEconomics, rec: _Recourse, price: float, rules: Rules) -> str:
     if price <= 0:
         return "none"
+    if not graph.apply_wholesale_markup_rule:
+        return ue.caps.binding_cap()[0]
     pool = sum(rec.sold_by_route.values())
     markup_cap = (1.0 + rules.max_markup) * sum(ue.routes[k].legal_base * v for k, v in rec.sold_by_route.items()) / pool
     name, cap = ue.caps.binding_cap()
