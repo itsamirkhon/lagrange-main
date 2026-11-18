@@ -1,0 +1,31 @@
+name: Judge demo acceptance
+
+on:
+  pull_request:
+    paths:
+      - "tests/e2e/test_judge_demo.py"
+      - ".github/workflows/judge-demo.yml"
+      - "scripts/prepare_demo.py"
+      - "src/lagrange_rx/api/**"
+      - "src/lagrange_rx/engine/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepared-l0-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install application and OCR
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus tesseract-ocr-uzb
+          python -m pip install -q -e ".[ingest,sim,dev]"
+      - name: Execute actual prepared-company demo contract
+        run: python -m pytest tests/e2e/test_judge_demo.py -q -vv
