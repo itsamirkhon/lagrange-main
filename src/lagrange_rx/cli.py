@@ -28,9 +28,23 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def load_dotenv(path: str = '.env') -> None:
+    """Minimal .env loader (no dependency); real environment variables win over the file."""
+    try:
+        lines = open(path, encoding='utf-8').read().splitlines()
+    except OSError:
+        return
+    for line in lines:
+        line = line.strip()
+        if line and not line.startswith('#') and '=' in line:
+            k, v = line.split('=', 1)
+            os.environ.setdefault(k.strip(), v.strip().strip('"\''))
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == 'serve':
+        load_dotenv()
         if not is_loopback(args.host):
             if not args.allow_non_loopback:
                 print(f'refusing to bind {args.host}: the API has no authentication by default. '
