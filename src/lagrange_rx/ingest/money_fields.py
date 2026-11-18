@@ -16,6 +16,7 @@ _CURRENCY = re.compile(r'\b(USD|EUR|UZS|RUB|GBP|CNY|KZT)\b|([$€£₽])', re.I)
 _SYMBOLS = {'$': 'USD', '€': 'EUR', '£': 'GBP', '₽': 'RUB'}
 _QUOTE_COLUMNS = {'quote_number': r'номер кп|quote n|kp n|taklif', 'product_name': r'препарат|product|dori|наименование',
                   'moq': r'\bmoq\b', 'lead_time': r'срок|lead', 'unit_price': r'цена|price|narx', 'valid_until': r'действует до|valid'}
+_LABEL = re.compile(r'\b(?:USD|EUR|UZS|RUB|GBP|CNY|KZT|сум\w*|so.m)\b|[$€£₽]', re.I)
 _QUOTE_NUMBER = re.compile(r'[A-ZА-Я]{2,4}-\d[\w-]*')
 _DRAFT = re.compile(r'проект|draft|loyiha', re.I)
 
@@ -164,7 +165,7 @@ def _unit_outliers(doc):
             middle = median(numbers)
             # A tiny value is only suspicious when its cell carries an explicit currency label that
             # most of the column's cells lack; small bare amounts (e.g. a minor write-off) are normal.
-            labelled = [bool(_CURRENCY.search(str(cell))) for cell, _ in values]
+            labelled = [bool(_LABEL.search(str(cell))) for cell, _ in values]
             if sum(labelled) > len(values) / 2:
                 continue
             for (cell, value), has_label in zip(values, labelled):
