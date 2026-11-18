@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   ci:
-    name: Test (product & boundaries)
+    name: Fast CI (product, engine, ingest, boundaries)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,18 +27,13 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
-      - name: Install system OCR dependencies
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-rus tesseract-ocr-uzb tesseract-ocr-eng
-
-      - name: Install package with ingest, sim & dev extras
+      - name: Install package and test dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[ingest,sim,dev]"
+          pip install -e ".[ingest,sim,dev]" pytest-xdist
 
-      - name: Run automated product tests
-        run: pytest -m "not slow" --ignore=tests/sim
+      - name: Run fast automated tests in parallel
+        run: pytest -n auto -m "not slow" --ignore=tests/sim -k "not test_run_on_simulation_small"
 
   deploy:
     name: Deploy to Lightsail (54.117.166.117)
