@@ -1,0 +1,27 @@
+name: Digital twin calibration regression
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/calibration-regression.yml"
+      - "src/lagrange_rx/engine/twin.py"
+      - "src/lagrange_rx/engine/adapter.py"
+      - "src/lagrange_rx/engine/inputs.py"
+      - "tests/engine/test_lot_traced_calibration.py"
+
+permissions:
+  contents: read
+
+jobs:
+  strict-calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install required application packages
+        run: pip install -e ".[ingest,sim,dev]"
+      - name: Enforce source-derived COGS and preregistered 0.1 pp acceptance
+        run: python -m pytest tests/engine/test_lot_traced_calibration.py tests/engine/test_calibration.py tests/engine/test_adapter.py -q
