@@ -4,7 +4,7 @@ from datetime import date
 import pytest
 from pydantic import BaseModel, ConfigDict
 from lagrange_rx.engine.regulatory_filter import PreflightError, screen_routes
-from test_regulatory_gate import good_packet
+from tests.engine.test_regulatory_gate import good_packet
 
 TODAY = date(2026, 11, 18)
 
