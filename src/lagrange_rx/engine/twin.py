@@ -287,9 +287,14 @@ def last_12_months(graph: CalculationGraph, records):
 
 
 def _historical_cost(graph: CalculationGraph, shipments, sales) -> float:
+    """Cost of sales of the window: acquisition cost of the window's shipments, scaled to the packs actually sold
+    (the twin has no inventory model: cost of sales = sold packs x average purchase cost per pack; identical to the
+    purchase cost when purchased == sold), plus below-the-line cost."""
     cost, used = 0.0, set()
     for sh in shipments:
         r = graph.route(sh.route_id)
+        if sh.kc is not None:
+            r = r.model_copy(update={"kc": sh.kc})  # historical price actually paid, not today's contract price
         scen = Scenario(id="hist", name="hist", fx={**graph.nominal_fx, r.currency: sh.fx_uzs},
                         ref_fx_start=1.0, ref_fx_path=(1.0,) * 12, demand=0.0)
         cost += route_economics(graph, r, scen).unit_cost * sh.packs + r.fixed_per_shipment_uzs
@@ -297,7 +302,10 @@ def _historical_cost(graph: CalculationGraph, shipments, sales) -> float:
             used.add(r.id)
             cost += r.fixed_activation_uzs
     bl_var, bl_fixed = below_line(graph)
-    return cost + bl_var * sum(s.packs for s in sales) + bl_fixed
+    sold, bought = sum(s.packs for s in sales), sum(sh.packs for sh in shipments)
+    if bought > 0:
+        cost *= sold / bought
+    return cost + bl_var * sold + bl_fixed
 
 
 def twin_baseline(graph: CalculationGraph) -> CalibrationResult:

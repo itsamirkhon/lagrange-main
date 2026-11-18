@@ -122,6 +122,8 @@ class ShipmentSpec(_M):
     month: str
     packs: int = Field(gt=0)
     fx_uzs: float = Field(gt=0, description="actual customs rate UZS per 1 unit of route currency")
+    kc: float | None = Field(default=None, gt=0, description="actual CIP value per pack in the route currency (customs "
+                             "entry); calibration uses it instead of the route's current contract price")
     confirmed: bool = True
 
     @model_validator(mode="after")

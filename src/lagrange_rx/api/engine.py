@@ -18,6 +18,7 @@ from lagrange_rx.engine.service import (
     CalibrationRequired, EngineResult, LegalityError, calculation_graph, make_scenarios, run_optimize, run_what_if,
 )
 from lagrange_rx.engine.twin import TwinError, twin_baseline, unit_economics
+from lagrange_rx.engine.adapter import EngineConfig
 from lagrange_rx.engine.inputs import EngineGraph
 from lagrange_rx.engine.rules import load_rules
 from lagrange_rx.api.seam import GraphNotUsable, graph_for_engine
@@ -42,6 +43,8 @@ class GraphRef(BaseModel):
     model_config = ConfigDict(extra="forbid")
     graph_id: str | None = None
     graph: EngineGraph | None = None
+    config: EngineConfig | None = Field(default=None, description="engine-only parameters for an ontology graph committed "
+                                        "by /ingest; omitted -> derived by engine.adapter.default_engine_config")
 
 
 class ScenariosRequest(GraphRef):
@@ -94,7 +97,7 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
                 raise HTTPException(500, f"stored graph invalid: {exc}") from exc
             if committed is not None:
                 try:
-                    return graph_for_engine(committed)
+                    return graph_for_engine(committed, ref.config)
                 except GraphNotUsable as exc:
                     raise HTTPException(422, {"error": "graph_not_usable_by_engine", "reason": str(exc)}) from exc
         raise HTTPException(404, "graph not found: pass `graph` or a registered `graph_id`")
@@ -129,7 +132,7 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
 
     @app.post("/engine/optimize")
     def optimize_endpoint(req: OptimizeRequest):
-        g = resolve(req)
+        g = resolve(req)  # ontology graphs arrive here already adapted (CalculationGraph)
         cfg = OptimizerConfig(risk_mode=req.risk_mode, alpha=req.alpha, lam=req.lam, hedge_enabled=req.hedge_enabled,
                               emergency_enabled=req.emergency_enabled, service_level=req.service_level,
                               min_expected_profit_uzs=req.min_expected_profit_uzs, budget_uzs=req.budget_uzs,
