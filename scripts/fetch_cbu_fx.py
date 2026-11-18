@@ -5,7 +5,9 @@ Usage:
 
 Takes the rate on the first day of each month from 2020-01 to the current month
 (https://cbu.uz/ru/arkhiv-kursov-valyut/json/{CCY}/{YYYY-MM-DD}/) and writes a CSV with
-header `# source: cbu`, which `load_fx_history()` prefers over the synthetic sample.
+header `# source: cbu`. `data/cbu_fx_monthly.csv` is the committed official history (a copy of the simulation's
+CBU export, 2025-01..2026-10); this script can regenerate a longer one (needs network). `load_fx_history()` reads
+that file by default and never falls back to the synthetic sample.
 """
 from __future__ import annotations
 

@@ -40,6 +40,7 @@ def test_report_structure_and_pass(tmp_path):
                          thresholds_path=small_thresholds(tmp_path))
     m = rep["metrics"]
     assert set(m) >= {"calibration", "uplift", "vss", "evpi", "legality", "optimality", "speed", "regret_by_level"}
+    assert rep["fx_source"] == "cbu.uz official"  # real CBU history by default, never the synthetic sample
     assert rep["all_pass"] and rep["snapshot_id"] and len(rep["thresholds_sha256"]) == 64
     assert m["legality"]["legal_rate"] == 1.0 and m["optimality"]["match_rate"] == 1.0
     assert m["evpi"]["evpi_uzs"] >= -1.0

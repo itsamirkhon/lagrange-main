@@ -22,3 +22,10 @@ def test_rules_missing_rule_rejected(tmp_path):
 def test_engine_rejects_raw_graph():
     with pytest.raises(TypeError):
         require_calculation_graph(object())
+
+
+def test_15_percent_rule_is_flagged_needs_legal_review_numbers_unchanged():
+    from lagrange_rx.engine.rules import load_rules
+    r = load_rules()
+    assert "UZ-PF13-WHOLESALE-MARKUP" in r.needs_legal_review
+    assert r.max_markup == 0.15  # the number is untouched; only the status/notes

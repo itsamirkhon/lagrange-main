@@ -50,6 +50,7 @@ class Rules:
     depth_max: float
     hedge_forward_premium: float
     rule_ids: tuple[str, ...]
+    needs_legal_review: tuple[str, ...] = ()  # catalog status of the rules the engine applies
 
 
 def load_rules(path: Path | str | None = None) -> Rules:
@@ -87,4 +88,5 @@ def load_rules(path: Path | str | None = None) -> Rules:
         depth_max=float(par("UZ-3735-P22-REVISION", "depth_max")),
         hedge_forward_premium=float(par("UZ-INV-LEGAL-VS-ECONOMIC-BASE", "hedge_forward_premium")),
         rule_ids=tuple(sorted(rules)),
+        needs_legal_review=tuple(sorted(r for r in REQUIRED_RULES if rules[r].get("status") == "needs_legal_review")),
     )

@@ -93,6 +93,8 @@ def run_optimize(graph: "ontology.ClientGraph | EngineGraph", *, config: EngineC
     snap = make_snapshot(g, scenarios, sset.seed, rules, opt_cfg)
     ctx = EngineContext(g, scenarios, rules, opt_cfg, scen_cfg)
     warnings += list(g.notes)
+    if "UZ-PF13-WHOLESALE-MARKUP" in rules.needs_legal_review:
+        warnings.append("UZ-PF13-WHOLESALE-MARKUP (15%) needs legal review: applied to packs sold, not packs ordered")
     warnings += list(unit_economics(g, scenarios[0], rules).warnings)
     if sset.fx_source != "cbu":
         warnings.append(f"fx history source is '{sset.fx_source}', not real CBU rates")
