@@ -5,7 +5,7 @@
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const S = { batchId: null, graphId: null, batch: null, queue: [], twin: null, plan: null, samples: null, graphs: [] };
-const SCREENS = ['docs', 'understood', 'issues', 'twin', 'plan', 'shock', 'evidence'];
+const SCREENS = ['docs', 'understood', 'issues', 'twin', 'plan', 'shock', 'evidence', 'progress'];
 
 /* ---------- helpers ---------- */
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -69,6 +69,7 @@ function show(name) {
   SCREENS.forEach((s) => { $('#' + s).hidden = s !== name; });
   $$('#nav a').forEach((a) => (a.dataset.screen === name ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
   if (name === 'evidence') loadEvidence();
+  if (name === 'progress') loadProgress();
   if (name === 'shock') fillRoutes();
 }
 window.addEventListener('hashchange', () => show(location.hash.slice(1)));
@@ -467,6 +468,77 @@ function reportHtml(rep) {
   return `<div class="card">${head}<p>${freshness}</p>${d.truth ? `<p class="muted">Истина: ${esc(d.truth)}</p>` : ''}${typeof d.all_pass === 'boolean' ? `<p>Все пороги: ${d.all_pass ? badge('пройдены', 'ok') : badge('не пройдены', 'bad')}</p>` : ''}${tiles}
     <details><summary>${tiles ? 'Остальные поля отчёта' : 'Содержимое отчёта'}</summary>${kvTable(rest)}</details></div>`;
 }
+/* ---------- 8. judge-facing results summary ---------- */
+function proofTile(value, heading, description, note, kind = '') {
+  return `<article class="proof-tile">
+    <div class="proof-tile-value">${esc(value)}</div>
+    <h2>${esc(heading)}</h2>
+    <p>${esc(description)}</p>
+    <div class="proof-tile-note ${esc(kind)}">${esc(note)}</div>
+  </article>`;
+}
+function proofRate(n, d) {
+  return isNum(n) && isNum(d) && d > 0 ? `${int(n)} / ${int(d)}` : '—';
+}
+async function loadProgress() {
+  const box = $('#progress-summary');
+  if (!box) return;
+  try {
+    const [evidence, health, available] = await Promise.all([
+      api('/evidence/reports'), api('/health'), api('/ontology/graphs')
+    ]);
+    const reports = evidence.reports || [];
+    const engine = reports.find((r) => r.name === 'engine_report' && r.data && r.data.metrics);
+    const r = engine && engine.data;
+    const m = r && r.metrics || {};
+    const opt = m.optimality || {};
+    const legal = m.legality || {};
+    const graphIds = available.graph_ids || [];
+    const archived = r && r.code_commit && health.revision && r.code_commit !== health.revision;
+    const rev = r && r.code_commit ? r.code_commit.slice(0, 10) : 'без версии';
+    const label = archived ? 'Архивный отчёт' : 'Отчёт: ' + rev;
+    const comparisons = proofRate(opt.matches, opt.problems);
+    const legality = isNum(legal.scenarios) && isNum(legal.violations)
+      ? `${int(legal.violations)} / ${int(legal.scenarios)}` : '—';
+    const calibration = S.twin && S.twin.calibration || null;
+    const gap = calibration && isNum(calibration.gap_pp)
+      ? pp(calibration.gap_pp) : '—';
+    const calLabel = calibration ? (calibration.calibrated ? 'В пределах допуска модели' : 'Допуск не выполнен') : 'Покажем после расчёта двойника';
+    const dataFlag = graphIds.some((id) => id.startsWith('demo'));
+    const availability = dataFlag
+      ? notice(`<strong>Демонстрационная компания готова.</strong> Синтетический пример доступен на сервере. <a href="#docs" class="proof-inline-link">Выбрать компанию</a>`, 'ok')
+      : notice(`<strong>Нет подготовленной компании на этом сервере.</strong> Для живого расчёта нужен подтверждённый граф L0; результаты тестов ниже — исторические.`, 'warn');
+    const top = `<div class="proof-section-header"><div><h2>Измеренные результаты</h2>
+        <p>Не рекламные обещания, а показатели из сохранённого отчёта и текущего сеанса.</p></div>
+        <span class="proof-source-tag">${esc(label)}</span></div>`;
+    const cards = `<div class="proof-metrics">
+      ${proofTile(comparisons, 'Проверка оптимизатора',
+        'Решения сопоставлены с полным перебором на небольших тестовых задачах.',
+        opt.pass ? 'Пройдено в записанном отчёте' : 'Историческая проверка не пройдена', opt.pass ? 'ok' : 'warn')}
+      ${proofTile(legality, 'Нарушений ограничений модели',
+        'Независимая проверка решений на синтетических сценариях.',
+        legal.pass ? 'Пройдено в записанном отчёте' : 'Историческая проверка не пройдена', legal.pass ? 'ok' : 'warn')}
+      ${proofTile(gap, 'Точность цифрового двойника',
+        'Расхождение между моделью и подтверждённой финансовой историей.',
+        calLabel, calibration ? (calibration.calibrated ? 'ok' : 'warn') : '')}
+      ${proofTile('L0', 'Реальный проход через интерфейс',
+        'Синтетическая компания → двойник → план → рост курса на 15%.',
+        'Автоматизированный тест Chromium · 18.11.2026', 'ok')}
+    </div>`;
+    const caution = r && r.all_pass === false
+      ? notice('<strong>Важно:</strong> этот архивный отчёт НЕ прошёл все экономические пороги. Не трактуйте показатели выше как доказанную прибыль компании.', 'warn')
+      : notice('Коммерческая выгода на реальных данных ещё не подтверждена. Проверки правил модели не заменяют юридическую экспертизу.', 'warn');
+    const sources = `<div class="proof-sources">
+      <span>Источник: ${r ? `engine_report.json · ${esc(rev)}` : 'сохранённый отчёт недоступен'}</span>
+      <span>${health.revision ? 'Текущая сборка: ' + esc(health.revision.slice(0, 10)) : 'Версия сервера не подтверждена'}</span>
+      <a href="https://github.com/itsamirkhon/lagrange-main/actions/runs/44281067006" target="_blank" rel="noopener noreferrer">Проверка реального браузера</a>
+    </div>`;
+    box.innerHTML = availability + top + cards + caution + sources;
+  } catch (error) {
+    box.innerHTML = notice('Не удалось получить проверенные показатели из API: ' + esc(error.message), 'bad');
+  }
+}
+
 async function loadEvidence() {
   const box = $('#evidence-body');
   $('#evidence-session').innerHTML = S.plan
