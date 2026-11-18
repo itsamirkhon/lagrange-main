@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAGRANGE Rx — демо</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><strong>LAGRANGE Rx</strong><span>решение по закупке рецептурного препарата</span></div>
+  <div class="ctx" id="ctx" aria-live="polite"></div>
+</header>
+
+<div class="layout">
+  <nav class="steps" id="nav" aria-label="Шаги">
+    <a href="#docs" data-screen="docs"><i>1</i>Документы клиента</a>
+    <a href="#understood" data-screen="understood"><i>2</i>Что мы поняли</a>
+    <a href="#issues" data-screen="issues"><i>3</i>Проблемы</a>
+    <a href="#twin" data-screen="twin"><i>4</i>Двойник</a>
+    <a href="#plan" data-screen="plan"><i>5</i>План</a>
+    <a href="#shock" data-screen="shock"><i>6</i>Шок</a>
+    <a href="#evidence" data-screen="evidence"><i>7</i>Доказательства</a>
+  </nav>
+
+  <main>
+    <section id="docs" class="screen">
+      <h1>Документы клиента</h1>
+      <p class="lead">Загрузите папку или архив документов клиента. Всё, что распознано, остаётся неподтверждённым, пока человек не ответит на вопросы, и в расчёт не попадает.</p>
+
+      <div class="grid2">
+        <div class="card">
+          <h2>Загрузка</h2>
+          <label class="field">Папка с документами
+            <input type="file" id="in-folder" webkitdirectory multiple></label>
+          <label class="field">Файлы или ZIP
+            <input type="file" id="in-files" multiple></label>
+          <div class="row"><button id="btn-upload" class="primary">Загрузить и разобрать</button><span id="upload-state" class="muted"></span></div>
+        </div>
+        <div class="card">
+          <h2>Образцы документов</h2>
+          <div id="samples" class="muted">Загрузка списка…</div>
+          <h2 class="sub">Уже подтверждённые графы</h2>
+          <div id="graphs" class="muted">Загрузка списка…</div>
+        </div>
+      </div>
+
+      <div class="card" id="batch-card" hidden>
+        <h2>Разобранный пакет <code id="batch-id"></code></h2>
+        <div id="batch-summary"></div>
+        <div class="table-wrap"><table id="doc-table"><thead><tr><th>Документ</th><th>Класс</th><th>Уверенность</th><th>Статус</th></tr></thead><tbody></tbody></table></div>
+        <div class="row">
+          <button id="btn-commit" class="primary">Зафиксировать подтверждённое в граф</button>
+          <span id="commit-state" class="muted"></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="understood" class="screen" hidden>
+      <h1>Что мы поняли</h1>
+      <p class="lead">Значения, извлечённые из документов. Под каждым — цитата-источник; статус показывает, подтвердил ли это человек.</p>
+      <div class="row filters">
+        <label>Поле <input type="search" id="f-field" placeholder="например SalesRecord"></label>
+        <label>Статус <select id="f-status"><option value="">все</option></select></label>
+        <span id="understood-count" class="muted"></span>
+      </div>
+      <div id="understood-body" class="muted">Сначала загрузите документы.</div>
+    </section>
+
+    <section id="issues" class="screen" hidden>
+      <h1>Проблемы</h1>
+      <p class="lead">Найденные расхождения и вопросы к человеку. Ответ уходит в API сразу и меняет статус значения.</p>
+      <div class="card">
+        <h2>Замечания к данным</h2>
+        <div id="issues-body" class="muted">Сначала загрузите документы.</div>
+      </div>
+      <div class="card">
+        <div class="row between"><h2>Очередь подтверждений</h2>
+          <button id="btn-confirm-all" class="ghost" hidden>Подтвердить всё, что осталось</button></div>
+        <div id="queue-body" class="muted">Сначала загрузите документы.</div>
+      </div>
+    </section>
+
+    <section id="twin" class="screen" hidden>
+      <h1>Двойник</h1>
+      <p class="lead">Модель клиента воспроизводит его фактическую маржу. Пока расхождение больше допуска, оптимизация не запускается.</p>
+      <div class="row"><button id="btn-twin" class="primary">Рассчитать двойник</button><span id="twin-state" class="muted"></span></div>
+      <div id="twin-body"></div>
+    </section>
+
+    <section id="plan" class="screen" hidden>
+      <h1>План</h1>
+      <p class="lead">Оптимизация по закону: маршруты, объёмы, хеджирование. Законные ограничения не ослабляются.</p>
+      <div class="card">
+        <div class="params">
+          <label>Риск-режим <select id="p-risk"><option value="cvar">CVaR</option><option value="expected">ожидание</option><option value="worst_case">худший случай</option></select></label>
+          <label>Сценариев <input type="number" id="p-n" value="1000" min="10" max="20000"></label>
+          <label>Репрезентативных <input type="number" id="p-k" value="40" min="1" max="500"></label>
+          <label class="check"><input type="checkbox" id="p-hedge"> хеджирование курса</label>
+        </div>
+        <div class="row"><button id="btn-plan" class="primary">Построить план</button><span id="plan-state" class="muted"></span></div>
+      </div>
+      <div id="plan-body"></div>
+    </section>
+
+    <section id="shock" class="screen" hidden>
+      <h1>Шок</h1>
+      <p class="lead">Изменить условие и пересчитать от плана. Если задача без решения — показываем, почему.</p>
+      <div class="grid3">
+        <div class="card"><h2>Курс</h2>
+          <label class="field">Рост курса, % <input type="number" id="s-fx" value="15" step="1"></label>
+          <button data-shock="fx" class="primary">Пересчитать</button></div>
+        <div class="card"><h2>Потолок цены</h2>
+          <label class="field">Снижение потолка, % <input type="number" id="s-ceil" value="37" min="0" max="100" step="1"></label>
+          <button data-shock="ceil" class="primary">Пересчитать</button></div>
+        <div class="card"><h2>Поставщик недоступен</h2>
+          <label class="field">Маршрут <select id="s-route"><option value="">—</option></select></label>
+          <button data-shock="route" class="primary">Пересчитать</button></div>
+      </div>
+      <div class="card"><h2>Невозможное требование</h2>
+        <p class="muted">Задайте уровень сервиса и бюджет — если так не получится, система назовёт, что именно мешает.</p>
+        <div class="params">
+          <label>Уровень сервиса (0–1) <input type="number" id="s-service" step="0.01" min="0.01" max="1" placeholder="не задан"></label>
+          <label>Бюджет, UZS <input type="number" id="s-budget" step="1000000" placeholder="не задан"></label>
+        </div>
+        <button data-shock="impossible" class="primary">Проверить выполнимость</button>
+      </div>
+      <div id="shock-body"></div>
+    </section>
+
+    <section id="evidence" class="screen" hidden>
+      <h1>Доказательства</h1>
+      <p class="lead">Проверки законности, оптимальности и метрики из отчётов независимой оценки. Только чтение; у каждого отчёта указан snapshot_id.</p>
+      <div id="evidence-session"></div>
+      <div id="evidence-body" class="muted">Загрузка отчётов…</div>
+    </section>
+  </main>
+</div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>

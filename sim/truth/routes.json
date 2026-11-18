@@ -1,0 +1,50 @@
+[
+  {
+    "carrier_id": "car_01",
+    "corridor": "Индия/ЕАЭС -> Казахстан -> Ташкент",
+    "customs_post": "Т/п Яллама (27012)",
+    "freight_per_pack_usd": 0.12,
+    "freight_per_shipment_usd": 1800.0,
+    "incoterms": "CIP Ташкент",
+    "mode": "Auto via Kazakhstan",
+    "route_code": "KZ-AUTO-01",
+    "route_id": "rte_01",
+    "transit_days": 18
+  },
+  {
+    "carrier_id": "car_02",
+    "corridor": "Турция -> Туркменистан -> Ташкент",
+    "customs_post": "Т/п Алат (20005)",
+    "freight_per_pack_usd": 0.14,
+    "freight_per_shipment_usd": 1650.0,
+    "incoterms": "CIP Ташкент",
+    "mode": "Auto via Turkmenistan",
+    "route_code": "TM-AUTO-02",
+    "route_id": "rte_02",
+    "transit_days": 16
+  },
+  {
+    "carrier_id": "car_03",
+    "corridor": "ЕС/РФ -> Казахстан -> Ж/Д Чукурсай",
+    "customs_post": "Т/п Чукурсай (26003)",
+    "freight_per_pack_usd": 0.09,
+    "freight_per_shipment_usd": 2200.0,
+    "incoterms": "DAP Чукурсай",
+    "mode": "Rail",
+    "route_code": "CHUK-RAIL-03",
+    "route_id": "rte_03",
+    "transit_days": 22
+  },
+  {
+    "carrier_id": "car_04",
+    "corridor": "Международный хаб -> Аэропорт Ташкент",
+    "customs_post": "Т/п Аэропорт Ташкент (26001)",
+    "freight_per_pack_usd": 0.65,
+    "freight_per_shipment_usd": 4800.0,
+    "incoterms": "CIP Аэропорт Ташкент",
+    "mode": "Air",
+    "route_code": "TAS-AIR-04",
+    "route_id": "rte_04",
+    "transit_days": 5
+  }
+]

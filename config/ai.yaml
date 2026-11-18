@@ -1,0 +1,4 @@
+extractor: google/gemini-2.5-flash
+decision_scorer: google/gemini-decision-1
+embeddings: null
+classifier: google/gemini-2.5-flash

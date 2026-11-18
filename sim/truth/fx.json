@@ -1,0 +1,2432 @@
+[
+  {
+    "currency": "EUR",
+    "date": "2025-01-01",
+    "rate_uzs": 13436.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-01-01",
+    "rate_uzs": 130.17,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-01-01",
+    "rate_uzs": 12920.48,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-01-08",
+    "rate_uzs": 13502.28,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-08/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-01-08",
+    "rate_uzs": 121.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-08/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-01-08",
+    "rate_uzs": 12948.1,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-08/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-01-15",
+    "rate_uzs": 13308.25,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-15/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-01-15",
+    "rate_uzs": 126.04,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-15/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-01-15",
+    "rate_uzs": 12971.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-15/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-01-22",
+    "rate_uzs": 13442.79,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-22/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-01-22",
+    "rate_uzs": 129.9,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-22/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-01-22",
+    "rate_uzs": 12984.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-22/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-01-23",
+    "rate_uzs": 13570.65,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-23/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-01-23",
+    "rate_uzs": 131.86,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-23/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-01-23",
+    "rate_uzs": 12990.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-23/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-01-29",
+    "rate_uzs": 13540.69,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-29/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-01-29",
+    "rate_uzs": 133.06,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-29/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-01-29",
+    "rate_uzs": 12974.98,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-29/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-01-31",
+    "rate_uzs": 13485.66,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-01-31",
+    "rate_uzs": 132.13,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-01-31",
+    "rate_uzs": 12957.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-01-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-02-01",
+    "rate_uzs": 13485.66,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-02-01",
+    "rate_uzs": 132.13,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-02-01",
+    "rate_uzs": 12957.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-02-05",
+    "rate_uzs": 13439.57,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-05/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-02-05",
+    "rate_uzs": 131.29,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-05/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-02-05",
+    "rate_uzs": 12998.91,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-05/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-02-12",
+    "rate_uzs": 13392.75,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-12/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-02-12",
+    "rate_uzs": 135.34,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-12/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-02-12",
+    "rate_uzs": 12979.99,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-12/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-02-19",
+    "rate_uzs": 13572.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-19/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-02-19",
+    "rate_uzs": 142.2,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-19/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-02-19",
+    "rate_uzs": 12970.19,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-19/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-02-26",
+    "rate_uzs": 13495.35,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-26/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-02-26",
+    "rate_uzs": 148.85,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-26/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-02-26",
+    "rate_uzs": 12884.62,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-26/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-02-28",
+    "rate_uzs": 13501.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-28/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-02-28",
+    "rate_uzs": 148.17,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-28/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-02-28",
+    "rate_uzs": 12877.37,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-02-28/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-03-01",
+    "rate_uzs": 13501.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-03-01",
+    "rate_uzs": 148.17,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-03-01",
+    "rate_uzs": 12877.37,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-03-05",
+    "rate_uzs": 13562.69,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-05/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-03-05",
+    "rate_uzs": 144.48,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-05/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-03-05",
+    "rate_uzs": 12903.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-05/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-03-12",
+    "rate_uzs": 14107.45,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-12/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-03-12",
+    "rate_uzs": 150.18,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-12/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-03-12",
+    "rate_uzs": 12931.94,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-12/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-03-19",
+    "rate_uzs": 14164.57,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-19/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-03-19",
+    "rate_uzs": 158.8,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-19/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-03-19",
+    "rate_uzs": 12935.68,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-19/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-03-26",
+    "rate_uzs": 13963.72,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-26/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-03-26",
+    "rate_uzs": 152.87,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-26/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-03-26",
+    "rate_uzs": 12929.37,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-26/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-03-31",
+    "rate_uzs": 13908.8,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-03-31",
+    "rate_uzs": 154.17,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-03-31",
+    "rate_uzs": 12913.19,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-03-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-04-01",
+    "rate_uzs": 13937.2,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-04-01",
+    "rate_uzs": 154.55,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-04-01",
+    "rate_uzs": 12937.16,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-04-02",
+    "rate_uzs": 13982.48,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-02/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-04-02",
+    "rate_uzs": 152.58,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-02/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-04-02",
+    "rate_uzs": 12925.2,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-02/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-04-09",
+    "rate_uzs": 14152.73,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-09/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-04-09",
+    "rate_uzs": 151.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-09/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-04-09",
+    "rate_uzs": 12960.38,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-09/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-04-16",
+    "rate_uzs": 14722.93,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-16/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-04-16",
+    "rate_uzs": 158.67,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-16/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-04-16",
+    "rate_uzs": 12980.89,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-16/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-04-23",
+    "rate_uzs": 14801.79,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-23/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-04-23",
+    "rate_uzs": 158.39,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-23/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-04-23",
+    "rate_uzs": 12878.96,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-23/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-04-30",
+    "rate_uzs": 14719.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-04-30",
+    "rate_uzs": 158.28,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-04-30",
+    "rate_uzs": 12933.16,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-04-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-05-01",
+    "rate_uzs": 14681.18,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-05-01",
+    "rate_uzs": 158.61,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-05-01",
+    "rate_uzs": 12920.16,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-05-07",
+    "rate_uzs": 14620.67,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-07/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-05-07",
+    "rate_uzs": 159.94,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-07/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-05-07",
+    "rate_uzs": 12924.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-07/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-05-14",
+    "rate_uzs": 14367.2,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-14/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-05-14",
+    "rate_uzs": 160.47,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-14/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-05-14",
+    "rate_uzs": 12935.27,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-14/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-05-21",
+    "rate_uzs": 14512.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-21/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-05-21",
+    "rate_uzs": 160.34,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-21/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-05-21",
+    "rate_uzs": 12892.91,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-21/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-05-28",
+    "rate_uzs": 14625.34,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-28/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-05-28",
+    "rate_uzs": 160.87,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-28/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-05-28",
+    "rate_uzs": 12886.9,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-28/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-05-31",
+    "rate_uzs": 14400.04,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-05-31",
+    "rate_uzs": 162.63,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-05-31",
+    "rate_uzs": 12768.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-05-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-06-01",
+    "rate_uzs": 14400.04,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-06-01",
+    "rate_uzs": 162.63,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-06-01",
+    "rate_uzs": 12768.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-06-04",
+    "rate_uzs": 14672.81,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-04/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-06-04",
+    "rate_uzs": 163.45,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-04/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-06-04",
+    "rate_uzs": 12857.35,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-04/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-06-11",
+    "rate_uzs": 14470.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-11/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-06-11",
+    "rate_uzs": 161.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-11/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-06-11",
+    "rate_uzs": 12674.37,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-11/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-06-18",
+    "rate_uzs": 14640.57,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-18/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-06-18",
+    "rate_uzs": 161.15,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-18/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-06-18",
+    "rate_uzs": 12668.14,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-18/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-06-25",
+    "rate_uzs": 14461.71,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-25/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-06-25",
+    "rate_uzs": 158.36,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-25/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-06-25",
+    "rate_uzs": 12456.25,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-25/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-06-30",
+    "rate_uzs": 14817.99,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-06-30",
+    "rate_uzs": 161.18,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-06-30",
+    "rate_uzs": 12654.13,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-06-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-07-01",
+    "rate_uzs": 14878.5,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-07-01",
+    "rate_uzs": 161.6,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-07-01",
+    "rate_uzs": 12694.97,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-07-02",
+    "rate_uzs": 14975.56,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-02/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-07-02",
+    "rate_uzs": 161.56,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-02/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-07-02",
+    "rate_uzs": 12676.11,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-02/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-07-09",
+    "rate_uzs": 14927.81,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-09/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-07-09",
+    "rate_uzs": 162.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-09/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-07-09",
+    "rate_uzs": 12712.09,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-09/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-07-16",
+    "rate_uzs": 14931.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-16/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-07-16",
+    "rate_uzs": 164.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-16/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-07-16",
+    "rate_uzs": 12778.12,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-16/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-07-23",
+    "rate_uzs": 14871.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-23/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-07-23",
+    "rate_uzs": 162.43,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-23/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-07-23",
+    "rate_uzs": 12704.02,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-23/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-07-30",
+    "rate_uzs": 14471.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-07-30",
+    "rate_uzs": 151.96,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-07-30",
+    "rate_uzs": 12500.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-07-31",
+    "rate_uzs": 14545.78,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-07-31",
+    "rate_uzs": 153.82,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-07-31",
+    "rate_uzs": 12591.57,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-07-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-08-01",
+    "rate_uzs": 14511.24,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-08-01",
+    "rate_uzs": 158.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-08-01",
+    "rate_uzs": 12692.42,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-08-06",
+    "rate_uzs": 14456.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-06/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-08-06",
+    "rate_uzs": 156.54,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-06/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-08-06",
+    "rate_uzs": 12524.89,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-06/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-08-13",
+    "rate_uzs": 14520.16,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-13/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-08-13",
+    "rate_uzs": 156.55,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-13/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-08-13",
+    "rate_uzs": 12509.83,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-13/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-08-20",
+    "rate_uzs": 14630.36,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-20/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-08-20",
+    "rate_uzs": 155.96,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-20/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-08-20",
+    "rate_uzs": 12524.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-20/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-08-27",
+    "rate_uzs": 14384.52,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-27/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-08-27",
+    "rate_uzs": 153.93,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-27/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-08-27",
+    "rate_uzs": 12354.65,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-27/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-08-31",
+    "rate_uzs": 14540.72,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-08-31",
+    "rate_uzs": 155.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-08-31",
+    "rate_uzs": 12482.38,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-08-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-09-01",
+    "rate_uzs": 14540.72,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-09-01",
+    "rate_uzs": 155.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-09-01",
+    "rate_uzs": 12482.38,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-09-03",
+    "rate_uzs": 14457.77,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-03/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-09-03",
+    "rate_uzs": 154.3,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-03/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-09-03",
+    "rate_uzs": 12422.9,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-03/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-09-10",
+    "rate_uzs": 14539.53,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-10/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-09-10",
+    "rate_uzs": 148.48,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-10/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-09-10",
+    "rate_uzs": 12355.14,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-10/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-09-17",
+    "rate_uzs": 14514.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-17/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-09-17",
+    "rate_uzs": 148.62,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-17/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-09-17",
+    "rate_uzs": 12285.16,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-17/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-09-24",
+    "rate_uzs": 14364.25,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-24/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-09-24",
+    "rate_uzs": 145.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-24/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-09-24",
+    "rate_uzs": 12171.03,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-24/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-09-30",
+    "rate_uzs": 14141.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-09-30",
+    "rate_uzs": 145.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-09-30",
+    "rate_uzs": 12067.76,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-09-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-10-01",
+    "rate_uzs": 14141.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-10-01",
+    "rate_uzs": 145.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-10-01",
+    "rate_uzs": 12067.76,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-10-08",
+    "rate_uzs": 14044.32,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-08/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-10-08",
+    "rate_uzs": 146.62,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-08/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-10-08",
+    "rate_uzs": 12038.68,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-08/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-10-15",
+    "rate_uzs": 14081.11,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-15/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-10-15",
+    "rate_uzs": 152.58,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-15/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-10-15",
+    "rate_uzs": 12185.11,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-15/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-10-22",
+    "rate_uzs": 13958.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-22/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-10-22",
+    "rate_uzs": 148.08,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-22/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-10-22",
+    "rate_uzs": 12011.02,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-22/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-10-29",
+    "rate_uzs": 13993.61,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-29/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-10-29",
+    "rate_uzs": 150.22,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-29/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-10-29",
+    "rate_uzs": 12004.47,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-29/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-10-31",
+    "rate_uzs": 13969.7,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-10-31",
+    "rate_uzs": 149.36,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-10-31",
+    "rate_uzs": 12025.22,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-10-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-11-01",
+    "rate_uzs": 13969.7,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-11-01",
+    "rate_uzs": 149.36,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-11-01",
+    "rate_uzs": 12025.22,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-11-05",
+    "rate_uzs": 13744.42,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-05/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-11-05",
+    "rate_uzs": 147.7,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-05/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-11-05",
+    "rate_uzs": 11950.63,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-05/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-11-12",
+    "rate_uzs": 13866.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-12/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-11-12",
+    "rate_uzs": 147.55,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-12/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-11-12",
+    "rate_uzs": 11990.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-12/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-11-19",
+    "rate_uzs": 13839.27,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-19/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-11-19",
+    "rate_uzs": 147.4,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-19/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-11-19",
+    "rate_uzs": 11940.7,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-19/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-11-26",
+    "rate_uzs": 13769.2,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-26/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-11-26",
+    "rate_uzs": 151.56,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-26/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-11-26",
+    "rate_uzs": 11936.89,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-26/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-11-30",
+    "rate_uzs": 13780.48,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-11-30",
+    "rate_uzs": 152.18,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-11-30",
+    "rate_uzs": 11902.3,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-11-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-12-01",
+    "rate_uzs": 13814.49,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-12-01",
+    "rate_uzs": 152.68,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-12-01",
+    "rate_uzs": 11940.95,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-12-03",
+    "rate_uzs": 13794.95,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-03/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-12-03",
+    "rate_uzs": 153.28,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-03/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-12-03",
+    "rate_uzs": 11880.93,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-03/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-12-10",
+    "rate_uzs": 13987.31,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-10/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-12-10",
+    "rate_uzs": 156.68,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-10/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-12-10",
+    "rate_uzs": 12003.18,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-10/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-12-17",
+    "rate_uzs": 14232.51,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-17/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-12-17",
+    "rate_uzs": 152.56,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-17/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-12-17",
+    "rate_uzs": 12105.56,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-17/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-12-24",
+    "rate_uzs": 14213.31,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-24/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-12-24",
+    "rate_uzs": 153.71,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-24/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-12-24",
+    "rate_uzs": 12052.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-24/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-12-30",
+    "rate_uzs": 14162.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-12-30",
+    "rate_uzs": 155.25,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-12-30",
+    "rate_uzs": 12025.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2025-12-31",
+    "rate_uzs": 14162.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2025-12-31",
+    "rate_uzs": 155.25,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2025-12-31",
+    "rate_uzs": 12025.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2025-12-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-01-01",
+    "rate_uzs": 14162.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-01-01",
+    "rate_uzs": 155.25,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-01-01",
+    "rate_uzs": 12025.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-01-07",
+    "rate_uzs": 14020.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-07/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-01-07",
+    "rate_uzs": 147.74,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-07/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-01-07",
+    "rate_uzs": 11968.59,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-07/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-01-14",
+    "rate_uzs": 14062.47,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-14/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-01-14",
+    "rate_uzs": 153.28,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-14/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-01-14",
+    "rate_uzs": 12048.04,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-14/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-01-21",
+    "rate_uzs": 14158.35,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-21/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-01-21",
+    "rate_uzs": 155.16,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-21/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-01-21",
+    "rate_uzs": 12073.29,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-21/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-01-28",
+    "rate_uzs": 14419.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-28/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-01-28",
+    "rate_uzs": 158.52,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-28/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-01-28",
+    "rate_uzs": 12128.02,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-28/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-01-31",
+    "rate_uzs": 14585.24,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-01-31",
+    "rate_uzs": 160.49,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-01-31",
+    "rate_uzs": 12199.1,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-01-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-02-01",
+    "rate_uzs": 14585.24,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-02-01",
+    "rate_uzs": 160.49,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-02-01",
+    "rate_uzs": 12199.1,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-02-04",
+    "rate_uzs": 14455.08,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-04/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-02-04",
+    "rate_uzs": 159.49,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-04/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-02-04",
+    "rate_uzs": 12258.38,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-04/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-02-11",
+    "rate_uzs": 14666.12,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-11/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-02-11",
+    "rate_uzs": 159.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-11/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-02-11",
+    "rate_uzs": 12309.99,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-11/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-02-18",
+    "rate_uzs": 14379.72,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-18/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-02-18",
+    "rate_uzs": 158.13,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-18/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-02-18",
+    "rate_uzs": 12137.86,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-18/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-02-25",
+    "rate_uzs": 14366.84,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-25/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-02-25",
+    "rate_uzs": 159.09,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-25/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-02-25",
+    "rate_uzs": 12187.68,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-25/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-02-28",
+    "rate_uzs": 14318.73,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-28/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-02-28",
+    "rate_uzs": 157.7,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-28/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-02-28",
+    "rate_uzs": 12136.57,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-02-28/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-03-01",
+    "rate_uzs": 14318.73,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-03-01",
+    "rate_uzs": 157.7,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-03-01",
+    "rate_uzs": 12136.57,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-03-04",
+    "rate_uzs": 14170.76,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-04/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-03-04",
+    "rate_uzs": 157.53,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-04/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-03-04",
+    "rate_uzs": 12209.86,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-04/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-03-11",
+    "rate_uzs": 14166.65,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-11/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-03-11",
+    "rate_uzs": 153.98,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-11/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-03-11",
+    "rate_uzs": 12158.13,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-11/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-03-18",
+    "rate_uzs": 13968.98,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-18/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-03-18",
+    "rate_uzs": 147.99,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-18/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-03-18",
+    "rate_uzs": 12129.01,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-18/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-03-25",
+    "rate_uzs": 14141.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-25/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-03-25",
+    "rate_uzs": 151.74,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-25/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-03-25",
+    "rate_uzs": 12196.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-25/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-03-31",
+    "rate_uzs": 14036.21,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-03-31",
+    "rate_uzs": 150.36,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-03-31",
+    "rate_uzs": 12210.71,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-03-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-04-01",
+    "rate_uzs": 13984.32,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-04-01",
+    "rate_uzs": 149.97,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-04-01",
+    "rate_uzs": 12194.21,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-04-08",
+    "rate_uzs": 14116.2,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-08/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-04-08",
+    "rate_uzs": 155.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-08/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-04-08",
+    "rate_uzs": 12208.08,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-08/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-04-15",
+    "rate_uzs": 14313.47,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-15/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-04-15",
+    "rate_uzs": 160.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-15/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-04-15",
+    "rate_uzs": 12141.38,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-15/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-04-22",
+    "rate_uzs": 14183.21,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-22/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-04-22",
+    "rate_uzs": 161.32,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-22/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-04-22",
+    "rate_uzs": 12060.55,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-22/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-04-29",
+    "rate_uzs": 14065.74,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-29/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-04-29",
+    "rate_uzs": 160.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-29/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-04-29",
+    "rate_uzs": 12029.2,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-29/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-04-30",
+    "rate_uzs": 14008.11,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-04-30",
+    "rate_uzs": 159.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-04-30",
+    "rate_uzs": 11974.79,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-04-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-05-01",
+    "rate_uzs": 13961.02,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-05-01",
+    "rate_uzs": 159.47,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-05-01",
+    "rate_uzs": 11937.6,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-05-06",
+    "rate_uzs": 14071.5,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-06/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-05-06",
+    "rate_uzs": 159.62,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-06/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-05-06",
+    "rate_uzs": 12037.21,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-06/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-05-13",
+    "rate_uzs": 14268.71,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-13/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-05-13",
+    "rate_uzs": 164.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-13/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-05-13",
+    "rate_uzs": 12145.65,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-13/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-05-20",
+    "rate_uzs": 14008.85,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-20/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-05-20",
+    "rate_uzs": 169.06,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-20/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-05-20",
+    "rate_uzs": 12055.81,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-20/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-05-27",
+    "rate_uzs": 13967.87,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-27/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-05-27",
+    "rate_uzs": 167.31,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-27/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-05-27",
+    "rate_uzs": 11997.83,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-27/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-05-31",
+    "rate_uzs": 13967.87,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-05-31",
+    "rate_uzs": 167.31,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-05-31",
+    "rate_uzs": 11997.83,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-05-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-06-01",
+    "rate_uzs": 13973.86,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-06-01",
+    "rate_uzs": 166.67,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-06-01",
+    "rate_uzs": 12001.94,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-06-03",
+    "rate_uzs": 13896.69,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-03/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-06-03",
+    "rate_uzs": 164.14,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-03/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-06-03",
+    "rate_uzs": 11934.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-03/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-06-10",
+    "rate_uzs": 13915.12,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-10/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-06-10",
+    "rate_uzs": 167.95,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-10/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-06-10",
+    "rate_uzs": 12035.22,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-10/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-06-17",
+    "rate_uzs": 13935.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-17/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-06-17",
+    "rate_uzs": 166.12,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-17/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-06-17",
+    "rate_uzs": 12012.12,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-17/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-06-24",
+    "rate_uzs": 13712.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-24/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-06-24",
+    "rate_uzs": 160.63,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-24/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-06-24",
+    "rate_uzs": 12017.04,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-24/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-06-30",
+    "rate_uzs": 13754.18,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-06-30",
+    "rate_uzs": 155.0,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-06-30",
+    "rate_uzs": 12060.84,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-06-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-07-01",
+    "rate_uzs": 13688.17,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-07-01",
+    "rate_uzs": 153.75,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-07-01",
+    "rate_uzs": 12009.27,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-07-08",
+    "rate_uzs": 13734.36,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-08/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-07-08",
+    "rate_uzs": 157.64,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-08/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-07-08",
+    "rate_uzs": 12021.32,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-08/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-07-15",
+    "rate_uzs": 13754.66,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-15/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-07-15",
+    "rate_uzs": 155.66,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-15/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-07-15",
+    "rate_uzs": 12065.49,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-15/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-07-22",
+    "rate_uzs": 13691.65,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-22/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-07-22",
+    "rate_uzs": 152.09,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-22/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-07-22",
+    "rate_uzs": 11986.56,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-22/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-07-29",
+    "rate_uzs": 13685.57,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-29/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-07-29",
+    "rate_uzs": 153.29,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-29/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-07-29",
+    "rate_uzs": 12050.34,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-29/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-07-31",
+    "rate_uzs": 13765.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-07-31",
+    "rate_uzs": 150.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-07-31",
+    "rate_uzs": 12006.39,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-07-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-08-01",
+    "rate_uzs": 13765.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-08-01",
+    "rate_uzs": 150.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-08-01",
+    "rate_uzs": 12006.39,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-08-05",
+    "rate_uzs": 13743.1,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-05/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-08-05",
+    "rate_uzs": 147.42,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-05/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-08-05",
+    "rate_uzs": 11942.21,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-05/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-08-12",
+    "rate_uzs": 13717.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-12/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-08-12",
+    "rate_uzs": 143.93,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-12/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-08-12",
+    "rate_uzs": 11889.95,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-12/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-08-19",
+    "rate_uzs": 13684.48,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-19/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-08-19",
+    "rate_uzs": 139.05,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-19/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-08-19",
+    "rate_uzs": 11820.4,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-19/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-08-26",
+    "rate_uzs": 13733.75,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-26/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-08-26",
+    "rate_uzs": 138.96,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-26/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-08-26",
+    "rate_uzs": 11778.52,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-26/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-08-31",
+    "rate_uzs": 13737.81,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-08-31",
+    "rate_uzs": 136.73,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-08-31",
+    "rate_uzs": 11801.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-08-31/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-09-01",
+    "rate_uzs": 13737.81,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-09-01",
+    "rate_uzs": 136.73,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-09-01",
+    "rate_uzs": 11801.23,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-09-02",
+    "rate_uzs": 13766.13,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-02/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-09-02",
+    "rate_uzs": 137.51,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-02/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-09-02",
+    "rate_uzs": 11820.48,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-02/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-09-09",
+    "rate_uzs": 13719.86,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-09/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-09-09",
+    "rate_uzs": 136.71,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-09/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-09-09",
+    "rate_uzs": 11813.21,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-09/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-09-16",
+    "rate_uzs": 13588.26,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-16/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-09-16",
+    "rate_uzs": 139.17,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-16/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-09-16",
+    "rate_uzs": 11774.92,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-16/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-09-23",
+    "rate_uzs": 13527.67,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-23/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-09-23",
+    "rate_uzs": 139.87,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-23/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-09-23",
+    "rate_uzs": 11802.19,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-23/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-09-30",
+    "rate_uzs": 13419.4,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-30/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-09-30",
+    "rate_uzs": 140.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-30/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-09-30",
+    "rate_uzs": 11821.18,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-09-30/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-10-01",
+    "rate_uzs": 13404.12,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-01/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-10-01",
+    "rate_uzs": 142.16,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-01/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-10-01",
+    "rate_uzs": 11808.76,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-01/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-10-07",
+    "rate_uzs": 13285.86,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-07/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-10-07",
+    "rate_uzs": 137.78,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-07/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-10-07",
+    "rate_uzs": 11790.79,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-07/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-10-14",
+    "rate_uzs": 13328.66,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-14/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-10-14",
+    "rate_uzs": 142.39,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-14/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-10-14",
+    "rate_uzs": 11913.35,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-14/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-10-21",
+    "rate_uzs": 13466.99,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-21/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-10-21",
+    "rate_uzs": 145.33,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-21/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-10-21",
+    "rate_uzs": 12012.3,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-21/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-10-28",
+    "rate_uzs": 13283.7,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-28/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-10-28",
+    "rate_uzs": 148.04,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-28/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-10-28",
+    "rate_uzs": 11918.98,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-28/"
+  },
+  {
+    "currency": "EUR",
+    "date": "2026-10-31",
+    "rate_uzs": 13461.47,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-31/"
+  },
+  {
+    "currency": "RUB",
+    "date": "2026-10-31",
+    "rate_uzs": 149.44,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-31/"
+  },
+  {
+    "currency": "USD",
+    "date": "2026-10-31",
+    "rate_uzs": 12023.46,
+    "source": "https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/2026-10-31/"
+  }
+]
