@@ -106,3 +106,8 @@ def test_twin_baseline_calibrates_on_documents(cg):
 def test_missing_reliability_still_errors_without_default(ontology_graph, cfg):
     with pytest.raises(AdapterError, match="reliability"):
         to_calculation_graph(ontology_graph, cfg.model_copy(update={"default_reliability": None}))
+
+
+def test_demand_fallback_is_opt_in(ontology_graph, cfg):
+    with pytest.raises(AdapterError, match="DemandForecast"):
+        to_calculation_graph(ontology_graph, cfg.model_copy(update={"demand_from_sales": False}))

@@ -87,6 +87,7 @@ class EngineConfig(_C):
     default_max_batch_packs: int | None = Field(default=None, gt=0)  # Route.max_shipment_packs, else largest observed shipment, else this
     capacity_factor: float = Field(default=1.5, gt=0.0)  # Route.capacity_packs_per_year, else factor x demand p90
     default_max_shipments_per_year: int = Field(default=24, gt=0)  # Route.max_shipments_per_year, else this
+    demand_from_sales: bool = False  # no DemandForecast -> use trailing-12-month sales instead of failing (opt-in)
     demand_p10_factor: float = Field(default=0.85, gt=0.0)  # no DemandForecast: p10 = factor x trailing-12-month sales
     demand_p90_factor: float = Field(default=1.15, gt=0.0)  # ... p90 = factor x trailing-12-month sales
     default_receivable_days: int = Field(default=30, ge=0)  # PaymentTerms.customer_days unknown everywhere
@@ -430,7 +431,7 @@ def demand_spec(g: onto.ClientGraph, sku: str, hs: str, notes: list[str], cfg: E
     rows = [d for d in g.demand_forecasts if d.product == sku and _in_horizon(d.period, hs)]
     if not rows:
         past = sum(s.qty_packs for s in g.sales_records if s.product == sku and _in_window(s.period, hs))
-        if cfg is None or past <= 0:
+        if cfg is None or not cfg.demand_from_sales or past <= 0:
             raise AdapterError(f"no DemandForecast for '{sku}' in the horizon starting {hs}")
         notes.append(f"no DemandForecast: demand p50 = trailing-12-month sales ({past} packs); "
                      f"p10/p90 = x{cfg.demand_p10_factor}/x{cfg.demand_p90_factor} (EngineConfig assumption, not a forecast)")
@@ -608,5 +609,5 @@ def default_engine_config(g: onto.ClientGraph, *, default_reliability: float = 0
     hs = f"{last // 12:04d}-{last % 12 + 1:02d}"
     fin = any(c.category == "financing" for c in g.cost_items) and not g.credit_lines
     return EngineConfig(horizon_start=hs, sku_id=skus[0], default_reliability=default_reliability,
-                        split_freight_from_fees=True, financing_cost_items="as_recorded" if fin else "engine_model",
+                        split_freight_from_fees=True, demand_from_sales=True, financing_cost_items="as_recorded" if fin else "engine_model",
                         calibration_actual=derive_calibration_actual(g, skus[0], hs))

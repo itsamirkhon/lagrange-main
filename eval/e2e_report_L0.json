@@ -75,6 +75,7 @@
   "default_max_batch_packs": null,
   "capacity_factor": 1.5,
   "default_max_shipments_per_year": 24,
+  "demand_from_sales": true,
   "demand_p10_factor": 0.85,
   "demand_p90_factor": 1.15,
   "default_receivable_days": 30,
@@ -134,7 +135,7 @@
   "solve": {
    "status": "OPTIMAL",
    "proven_optimal": true,
-   "seconds": 0.04383117100223899
+   "seconds": 0.03755245600041235
   },
   "metrics_uzs": {
    "expected": -2148641646.83,
@@ -209,5 +210,5 @@
  ],
  "snapshot_id": "06ba677e950c27e82343633f",
  "truth_evaluation": "pending stage 5",
- "report_sha256": "dc23d6bb356b19e9"
+ "report_sha256": "b2d6ff50a952fcb3"
 }
