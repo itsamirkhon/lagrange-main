@@ -290,6 +290,20 @@ def _historical_cost(graph: CalculationGraph, shipments, sales) -> float:
     """Cost of sales of the window: acquisition cost of the window's shipments, scaled to the packs actually sold
     (the twin has no inventory model: cost of sales = sold packs x average purchase cost per pack; identical to the
     purchase cost when purchased == sold), plus below-the-line cost."""
+    # If the ontology carries a landed COGS value for every sold batch,
+    # historical calibration must use those exact costs, not reconstructed
+    # route averages and a purchased-to-sold scaling factor. The latter
+    # incorrectly prices old inventory at other shipments' landed rates.
+    traced = [sale.unit_landed_cost_uzs for sale in sales]
+    if any(unit is not None for unit in traced):
+        if any(unit is None for unit in traced):
+            raise TwinError("historical lot-level landed COGS coverage is incomplete")
+        bl_var, bl_fixed = below_line(graph)
+        return (sum(sale.packs * sale.unit_landed_cost_uzs for sale in sales)
+                + bl_var * sum(sale.packs for sale in sales) + bl_fixed)
+
+    # Legacy hand-built fixtures without lot-level values retain the
+    # documented approximate route-based calibration path.
     cost, used = 0.0, set()
     for sh in shipments:
         r = graph.route(sh.route_id)
