@@ -123,7 +123,7 @@ def main() -> int:
                     tiles = page.locator("#progress-summary .proof-tile")
                     assert tiles.count() == 4
                     assert "50 / 50" in tiles.nth(0).inner_text()
-                    assert "10 000" in tiles.nth(1).inner_text()
+                    assert "10000" in "".join(tiles.nth(1).inner_text().split()), tiles.nth(1).inner_text()
                     assert "Архивный отчёт" in page.locator("#progress-summary").inner_text() or "Отчёт:" in page.locator("#progress-summary").inner_text()
                     assert "НЕ прошёл" in page.locator("#progress-summary").inner_text()
                     page.screenshot(path=str(out / "05-results.png"), full_page=True)
