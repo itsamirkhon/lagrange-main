@@ -83,7 +83,7 @@ def main() -> int:
                 page.locator("#graph-pick").select_option(graph_id)
                 page.locator("#btn-use-graph").click()
                 page.locator("#btn-twin").click()
-                page.locator("#twin-body .kpis").wait_for()
+                page.locator("#twin-body .kpis").first.wait_for()
                 assert "откалиброван" in page.locator("#twin-body").inner_text().lower(), (
                     page.locator("#twin-body").inner_text()[:1000]
                 )
