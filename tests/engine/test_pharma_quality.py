@@ -91,4 +91,8 @@ def test_temperature_verified_route_can_enter_but_excursion_is_excluded():
 
 def test_temperature_range_is_consistent():
     with pytest.raises(ValidationError):
-        G.products[0].model_copy(update={"storage_temperature_min_c": 8, "storage_temperature_max_c": 2})
+        type(G.products[0]).model_validate({
+            **G.products[0].model_dump(),
+            "storage_temperature_min_c": 8,
+            "storage_temperature_max_c": 2,
+        })
