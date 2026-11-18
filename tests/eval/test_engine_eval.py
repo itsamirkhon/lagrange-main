@@ -49,6 +49,15 @@ def test_report_structure_and_pass(tmp_path):
     assert lv["L2"]["regret_uzs"] >= -1e5  # planning on worse data never beats planning on the truth (up to oos noise)
 
 
+def test_run_on_simulation_small(tmp_path):
+    from eval.engine_eval import run_on_simulation
+    rep = run_on_simulation(scen_cfg=ScenarioConfig(n=60, k=10), thresholds_path=small_thresholds(tmp_path))
+    assert rep["truth"] == "simulation evaluate_plan_on_truth" and rep["fx_source"] == "cbu.uz official"
+    assert rep["truth_mapping"] and rep["min_mapping_confidence"] >= 0.75 and "ingest" in rep["graph_source"]
+    assert {"uplift", "vss", "evpi", "legality"} <= set(rep["metrics"])
+    assert rep["metrics"]["uplift"]["scenarios"] == 120
+
+
 def test_local_truth_translates_plan():
     g = build_l0_calculation_graph()
     from lagrange_rx.engine.baseline import baseline_plan

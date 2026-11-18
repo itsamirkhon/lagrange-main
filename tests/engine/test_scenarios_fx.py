@@ -137,3 +137,10 @@ def test_synthetic_script_deterministic_and_committed():
     h = load_fx_history(ROOT / "data" / "fx_sample_SYNTHETIC.csv")
     assert h.months[0] == "2020-01" and h.months[-1] == "2026-10" and len(h.months) == 82
     assert 9000 < h.rates["USD"][0] < 12000
+
+
+def test_uzs_needs_no_history_and_never_moves():
+    """The national currency is its own unit: zero returns, no 'missing history' error (registry Rn stated in UZS)."""
+    h = load_fx_history()
+    r = h.log_returns(["USD", "UZS"])
+    assert r.shape[1] == 2 and (r[:, 1] == 0.0).all() and (r[:, 0] != 0.0).any()
