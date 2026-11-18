@@ -13,6 +13,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from lagrange_rx.engine.explain import apply_change  # noqa: F401  (validates change keys via what_if)
 from lagrange_rx.engine.optimize import OptimizerConfig
+from lagrange_rx.engine.decision_policy import DEFAULT_SERVICE_LEVEL, decision_status, ServiceLevelAuditError
 from lagrange_rx.engine.scenarios import ScenarioConfig, load_fx_history, mean_scenario
 from lagrange_rx.engine.service import (
     CalibrationRequired, EngineResult, LegalityError, calculation_graph, make_scenarios, run_optimize, run_what_if,
@@ -39,6 +40,27 @@ def jsonable(obj: Any) -> Any:
     return obj
 
 
+from threading import BoundedSemaphore
+
+# Reject overlapping expensive optimization requests instead of exhausting worker threads.
+_solver_slot = BoundedSemaphore(value=1)
+
+def guarded_optimize(*args, **kwargs):
+    if not _solver_slot.acquire(blocking=False):
+        raise HTTPException(429, "Optimization already running; retry after completion")
+    try:
+        return run_optimize(*args, **kwargs)
+    finally:
+        _solver_slot.release()
+
+def guarded_what_if(*args, **kwargs):
+    if not _solver_slot.acquire(blocking=False):
+        raise HTTPException(429, "Optimization already running; retry after completion")
+    try:
+        return run_what_if(*args, **kwargs)
+    finally:
+        _solver_slot.release()
+
 class GraphRef(BaseModel):
     model_config = ConfigDict(extra="forbid")
     graph_id: str | None = None
@@ -60,7 +82,7 @@ class OptimizeRequest(GraphRef):
     lam: float = Field(default=0.5, ge=0.0, le=1.0)
     hedge_enabled: bool = False
     emergency_enabled: bool = True
-    service_level: float | None = Field(default=None, gt=0.0, le=1.0)
+    service_level: float = Field(default=DEFAULT_SERVICE_LEVEL, gt=0.0, le=1.0)
     min_expected_profit_uzs: float | None = None
     budget_uzs: float | None = None
     time_limit_s: float = Field(default=20.0, gt=0.0, le=120.0)
@@ -105,6 +127,8 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
     @app.post("/graphs")
     def register_graph(graph: EngineGraph):
         graphs[graph.client_id] = graph
+        if len(graphs) > 64:
+            graphs.pop(next(iter(graphs)))
         return {"graph_id": graph.client_id}
 
     @app.post("/engine/twin")
@@ -138,7 +162,7 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
                               min_expected_profit_uzs=req.min_expected_profit_uzs, budget_uzs=req.budget_uzs,
                               time_limit_s=req.time_limit_s)
         try:
-            res = run_optimize(g, rules=rules, fx=fx, scen_cfg=ScenarioConfig(seed=req.seed, n=req.n, k=req.k),
+            res = guarded_optimize(g, rules=rules, fx=fx, scen_cfg=ScenarioConfig(seed=req.seed, n=req.n, k=req.k),
                                opt_cfg=cfg, demo_mode=req.demo_mode)
         except CalibrationRequired as exc:
             raise HTTPException(409, {"error": "twin_not_calibrated", "calibration": jsonable(exc.calibration)}) from exc
@@ -146,8 +170,13 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
             raise HTTPException(422, str(exc)) from exc
         except LegalityError as exc:
             raise HTTPException(500, {"error": "legality_check_failed", "failed": jsonable(exc.failed[:20])}) from exc
+        except ServiceLevelAuditError as exc:
+            raise HTTPException(500, {"error": "service_level_audit_failed",
+                                      "observed": exc.observed, "minimum": exc.minimum}) from exc
         key = res.plan.plan_id if res.plan else f"impossible-{res.snapshot.snapshot_id[:12]}"
         plans[key] = res
+        if len(plans) > 64:
+            plans.pop(next(iter(plans)))
         return {"id": key, **_result_json(res)}
 
     @app.post("/engine/what-if")
@@ -156,7 +185,7 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
         if res is None or res.plan is None:
             raise HTTPException(404, "plan not found")
         try:
-            return jsonable(run_what_if(res, req.change))
+            return jsonable(guarded_what_if(res, req.change))
         except (ValueError, KeyError) as exc:
             raise HTTPException(422, str(exc)) from exc
 
@@ -179,9 +208,12 @@ def create_app() -> FastAPI:
 
 def _result_json(res: EngineResult) -> dict[str, Any]:
     failed = [c for c in res.checks if not c.passed]
+    supply = decision_status(res.plan, res.checks)
     return jsonable({
         "plan": res.plan, "snapshot": res.snapshot, "calibration": res.calibration, "solve": res.solve,
-        "metrics": res.metrics, "legal": not failed and bool(res.checks) or res.plan is None,
+        "metrics": res.metrics, **supply,
+        "service_policy": {"minimum_expected_fill_rate": res.context.opt_cfg.service_level if res.context else None,
+                           "basis": "synthetic demonstration policy; not a regulatory guarantee"},
         "checks_total": len(res.checks), "checks_failed": len(failed), "checks": res.checks,
         "constraints": res.constraints, "waterfall": res.waterfall, "warnings": res.warnings,
         "impossible": res.impossible, "seconds": res.seconds,

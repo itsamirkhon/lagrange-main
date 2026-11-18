@@ -92,12 +92,18 @@ def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=No
 
     @router.post('/ingest/batches')
     async def create_batch(files: list[UploadFile] = File(...)):
+        if not files or len(files) > 100:
+            raise HTTPException(413, "Batch must contain 1-100 files")
+        total_bytes = 0
         batch_id = uuid4().hex
         batch = {'batch_id': batch_id, 'as_of': as_of.isoformat(), 'documents': [], 'proposed_instances': [], 'links': [], 'issues': [], 'review_queue': [], 'coverage': {'missing_for_twin': ['ClientGraph and P&L integration are not available']}}
         documents = []
         parsed_documents = []
         for upload in files:
             data = await upload.read(25 * 1024 * 1024 + 1)
+            total_bytes += len(data)
+            if len(data) > 25 * 1024 * 1024 or total_bytes > 40 * 1024 * 1024:
+                raise HTTPException(413, "Batch exceeds file or total size limit")
             try:
                 if (upload.filename or '').lower().endswith('.zip'):
                     documents.extend(store.add_archive(data))

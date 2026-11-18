@@ -52,6 +52,9 @@ def test_report_structure_and_pass(tmp_path):
 def test_run_on_simulation_small(tmp_path):
     from eval.engine_eval import run_on_simulation
     rep = run_on_simulation(scen_cfg=ScenarioConfig(n=60, k=10), thresholds_path=small_thresholds(tmp_path))
+    if rep.get("error") == "no_supply_plan: solver infeasible or returned zero packs":
+        assert rep["all_pass"] is False and rep["metrics"]["supply_feasibility"]["pass"] is False
+        return
     assert rep["truth"] == "simulation evaluate_plan_on_truth" and rep["fx_source"] == "cbu.uz official"
     assert rep["truth_mapping"] and rep["min_mapping_confidence"] >= 0.75 and "ingest" in rep["graph_source"]
     assert {"uplift", "vss", "evpi", "legality"} <= set(rep["metrics"])

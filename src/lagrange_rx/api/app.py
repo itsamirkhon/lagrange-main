@@ -39,7 +39,8 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
 
     @app.get('/health')
     async def health():
-        return {'status': 'ok', 'version': __version__}
+        return {'status': 'ok', 'version': __version__,
+                'revision': os.getenv('LAGRANGE_BUILD_SHA') or None}
 
     web = (Path(web_dir) if web_dir else _web_dir()) if serve_web else None
     if web is not None and (web / 'index.html').is_file():

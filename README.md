@@ -14,6 +14,16 @@ LAGRANGE_SAMPLES_DIR=$PWD/sim/worlds lagrange-rx serve    # http://127.0.0.1:800
 ```
 Ключ ИИ (необязательно): `OPENROUTER_API_KEY` в `.env` (см. `.env.example`), `LAGRANGE_AI_MODE=openrouter|replay`. В ядре ИИ нет. Docker: `Dockerfile` (порт публиковать только на 127.0.0.1).
 
+## Review-patch safety policy (Nov 18, 2026)
+
+The judge-facing `POST /engine/optimize` now defaults to a **0.90 minimum expected service level**, which is an editable synthetic business assumption, **not** a legal or medical guarantee. A solver that cannot meet it returns an infeasible decision instead of presenting zero purchases as a successful strategy. The mathematical optimizer itself remains optionally unconstrained for controlled research and tiny-oracle tests.
+
+The `legal` API field is `null` when no nonzero supply plan was checked; the presence of zero violations in that case must not be described as legal success. The full evaluation uses the same explicit service target; existing committed evaluation JSONs are historical, not post-patch results. Recompute them before showing any updated numbers.
+
+Document upload limits: 100 files per request, 25 MiB per file, 40 MiB total request, and 200 archive entries / 75 MiB expanded per ZIP. Docker includes OCR language data for English, Russian and Uzbek Latin. Real-world legal and business claims remain UNVERIFIED.
+
+For integration, tests, known limitations, and precise evaluation commands see `docs/REVIEW_PATCH_HANDOFF.md`.
+
 ## Архитектура
 | Путь | Что |
 |---|---|

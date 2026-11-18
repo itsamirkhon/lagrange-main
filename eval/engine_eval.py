@@ -17,6 +17,7 @@ from typing import Protocol, Sequence
 from lagrange_rx.engine import compliance
 from lagrange_rx.engine.baseline import baseline_plan
 from lagrange_rx.engine.optimize import OptimizerConfig, cvar, optimize
+from lagrange_rx.engine.decision_policy import DEFAULT_SERVICE_LEVEL, has_supply
 from lagrange_rx.engine.scenarios import (
     FxHistory, ScenarioConfig, load_fx_history, mean_scenario, out_of_sample,
 )
@@ -100,24 +101,30 @@ def metric_uplift(truth: TruthEvaluator, plan: Plan, base: Plan, oos: Sequence[S
             "scenarios": len(oos), "pass": se["expected_uzs"] - sb["expected_uzs"] >= thr["uplift_min_uzs_per_year"]}
 
 
-def metric_vss(graph, rules, scen_set_opt: Sequence[Scenario], mean_scn: Scenario, oos, truth, thr) -> dict:
-    cfg = OptimizerConfig(risk_mode="expected")
+def metric_vss(graph, rules, scen_set_opt: Sequence[Scenario], mean_scn: Scenario, oos, truth, thr, service_level: float | None = None) -> dict:
+    cfg = OptimizerConfig(risk_mode="expected", service_level=service_level)
     stoch = optimize(graph, scen_set_opt, rules, cfg).plan
     ev = optimize(graph, [mean_scn], rules, cfg).plan
+    if not has_supply(stoch) or not has_supply(ev):
+        return {"vss_uzs": None, "pass": False, "status": "no_feasible_supply_plan"}
     vs, ve = _mean(truth.evaluate_plan_on_truth(stoch, oos)), _mean(truth.evaluate_plan_on_truth(ev, oos))
     return {"stochastic_expected_uzs": vs, "mean_scenario_expected_uzs": ve, "vss_uzs": vs - ve,
             "pass": vs - ve >= thr["vss_min_uzs"] - 1.0}
 
 
-def metric_evpi(graph, rules, scen_set_opt, oos: Sequence[Scenario], truth, thr) -> dict:
+def metric_evpi(graph, rules, scen_set_opt, oos: Sequence[Scenario], truth, thr, service_level: float | None = None) -> dict:
     n = min(thr["evpi_scenarios"], len(oos))
     sub = list(oos[:n])
-    cfg = OptimizerConfig(risk_mode="expected")
+    cfg = OptimizerConfig(risk_mode="expected", service_level=service_level)
     stoch = optimize(graph, scen_set_opt, rules, cfg).plan
+    if not has_supply(stoch):
+        return {"evpi_uzs": None, "pass": False, "status": "no_feasible_supply_plan"}
     stoch_vals = truth.evaluate_plan_on_truth(stoch, sub)
     ws_vals = []
     for s in sub:
         res = optimize(graph, [s.model_copy(update={"weight": 1.0})], rules, cfg)
+        if res.plan is None:
+            return {"evpi_uzs": None, "pass": False, "status": "wait_and_see_infeasible"}
         ws_vals.append(truth.evaluate_plan_on_truth(res.plan, [s])[0])
     evpi = _mean(ws_vals) - _mean(stoch_vals)
     return {"wait_and_see_uzs": _mean(ws_vals), "stochastic_uzs": _mean(stoch_vals), "evpi_uzs": evpi,
@@ -126,6 +133,9 @@ def metric_evpi(graph, rules, scen_set_opt, oos: Sequence[Scenario], truth, thr)
 
 def metric_legality(graph, rules, plan: Plan, fx: FxHistory, scen_cfg: ScenarioConfig, thr: dict,
                     allow_emergency: bool = True) -> dict:
+    if not has_supply(plan):
+        return {"scenarios": 0, "legal_rate": None, "violations": 0, "pass": False,
+                "status": "not_evaluated_no_supply"}
     n = thr["legality_scenarios"]
     scs = out_of_sample(graph, fx, rules, ScenarioConfig(**{**scen_cfg.__dict__, "n": n, "seed": scen_cfg.seed + 7}))
     outs = evaluate_plan_set(graph, plan, scs, rules, allow_emergency=allow_emergency)
@@ -211,6 +221,19 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
     tg = g if truth is not None else calculation_graph(truth_graph if truth_graph is not None else raw_graph, config)
     result = run_optimize(g, rules=rules, fx=fx, scen_cfg=scen_cfg, opt_cfg=opt_cfg, demo_mode=True)
     plan, opt_set = result.plan, result.context.scenarios
+    if not has_supply(plan):
+        return {"snapshot_id": result.snapshot.snapshot_id,
+                "snapshot": result.snapshot.__dict__,
+                "thresholds_sha256": thr_sha,
+                "thresholds_commit": _git("log", "-1", "--format=%H", "--", str(THRESHOLDS_PATH)),
+                "code_commit": _git("rev-parse", "HEAD"),
+                "truth": "не оценено: поставок нет plan",
+                "fx_source": fx.source_label,
+                "plan": None if plan is None else plan.model_dump(mode="json", by_alias=True),
+                "supply_policy": {"minimum_expected_fill_rate": opt_cfg.service_level},
+                "error": "no_supply_plan: solver infeasible or returned zero packs",
+                "metrics": {"supply_feasibility": {"pass": False, "status": "no_supply_plan"}},
+                "all_pass": False}
     truth = truth or LocalTruth(tg, rules, match_routes(g, tg))
     oos = out_of_sample(g, fx, rules, ScenarioConfig(**{**scen_cfg.__dict__, "n": thr["out_of_sample_scenarios"]}))
     mean_scn = mean_scenario(oos, g)
@@ -226,11 +249,13 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
         **(extra or {}),
         "plan": plan.model_dump(mode="json", by_alias=True),
         "baseline_plan": baseline_plan(g).model_dump(mode="json", by_alias=True),
+        "supply_policy": {"minimum_expected_fill_rate": opt_cfg.service_level,
+                          "basis": "explicit synthetic business policy"},
         "metrics": {
             "calibration": metric_calibration(g, thr),
             "uplift": metric_uplift(truth, plan, baseline_plan(g), oos, thr),
-            "vss": metric_vss(g, rules, opt_set, mean_scn, oos, truth, thr),
-            "evpi": metric_evpi(g, rules, opt_set, oos, truth, thr),
+            "vss": metric_vss(g, rules, opt_set, mean_scn, oos, truth, thr, opt_cfg.service_level),
+            "evpi": metric_evpi(g, rules, opt_set, oos, truth, thr, opt_cfg.service_level),
             "legality": metric_legality(g, rules, plan, fx, scen_cfg, thr, opt_cfg.emergency_enabled),
             "optimality": metric_optimality(rules, thr),
             "speed": metric_speed(result, thr),
@@ -238,7 +263,7 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
     }
     if level_graphs:
         report["metrics"]["regret_by_level"] = metric_regret(level_graphs, tg, rules, opt_set, oos,
-                                                             OptimizerConfig(risk_mode="expected"), truth, config)
+                                                             OptimizerConfig(risk_mode="expected", service_level=opt_cfg.service_level), truth, config)
     else:
         report["metrics"]["regret_by_level"] = {"status": "not available: Ingest has not produced L0-L4 graphs yet"}
     report["all_pass"] = all(m.get("pass", True) for m in report["metrics"].values())
@@ -247,7 +272,7 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
 
 def run_on_simulation(*, ingest_path: Path | None = None, truth_dir: Path | None = None,
                       thresholds_path: Path = THRESHOLDS_PATH, scen_cfg: ScenarioConfig = ScenarioConfig(),
-                      opt_cfg: OptimizerConfig = OptimizerConfig()) -> dict:
+                      opt_cfg: OptimizerConfig = OptimizerConfig(service_level=DEFAULT_SERVICE_LEVEL)) -> dict:
     """Stage 5: engine graph from the Ingest L0 ontology graph (via the adapter), plans evaluated on the simulation
     truth through `SimTruth` (feature-mapped, `evaluate_plan_on_truth`)."""
     from eval import engine_inputs as ei

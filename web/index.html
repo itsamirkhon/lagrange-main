@@ -7,10 +7,13 @@
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+<a class="skip-link" href="#main-content">К основному содержимому</a>
 <header class="top">
   <div class="brand"><strong>LAGRANGE Rx</strong><span>решение по закупке рецептурного препарата</span></div>
   <div class="ctx" id="ctx" aria-live="polite"></div>
+  <button id="btn-present" class="presentation-toggle" type="button" aria-pressed="false" title="Расширить рабочую область для презентации">Режим презентации</button>
 </header>
+<div class="demo-disclaimer" role="note"><span class="disclaimer-mark">DEMO / SYNTHETIC</span> Коммерческие данные и выгода смоделированы. Проверки правил не заменяют юридическую экспертизу.</div>
 
 <div class="layout">
   <nav class="steps" id="nav" aria-label="Шаги">
@@ -23,7 +26,7 @@
     <a href="#evidence" data-screen="evidence"><i>7</i>Доказательства</a>
   </nav>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section id="docs" class="screen">
       <h1>Документы клиента</h1>
       <p class="lead">Загрузите папку или архив документов клиента. Всё, что распознано, остаётся неподтверждённым, пока человек не ответит на вопросы, и в расчёт не попадает.</p>
@@ -93,12 +96,14 @@
       <p class="lead">Оптимизация по закону: маршруты, объёмы, хеджирование. Законные ограничения не ослабляются.</p>
       <div class="card">
         <div class="params">
-          <label>Риск-режим <select id="p-risk"><option value="cvar">CVaR</option><option value="expected">ожидание</option><option value="worst_case">худший случай</option></select></label>
+          <label>Риск-режим <select id="p-risk"><option value="cvar">CVaR</option><option value="expected" selected>ожидание</option><option value="worst_case">худший случай</option></select></label>
+          <label>Минимальное покрытие спроса (0-1) <input type="number" id="p-service" value="0.90" min="0.01" max="1" step="0.01" aria-describedby="service-policy-help"></label>
           <label>Сценариев <input type="number" id="p-n" value="1000" min="10" max="20000"></label>
           <label>Репрезентативных <input type="number" id="p-k" value="40" min="1" max="500"></label>
           <label class="check"><input type="checkbox" id="p-hedge"> хеджирование курса</label>
         </div>
-        <div class="row"><button id="btn-plan" class="primary">Построить план</button><span id="plan-state" class="muted"></span></div>
+        <p class="policy-help" id="service-policy-help">Выбранный уровень является демонстрационным бизнес-допущением, не нормой закона или медицинским стандартом. Измените уровень для проверки решателя; невозможность решения отображается явно.</p>
+        <div class="row"><button id="btn-plan" class="primary">Построить план</button><span id="plan-state" class="muted" role="status" aria-live="polite"></span></div>
       </div>
       <div id="plan-body"></div>
     </section>

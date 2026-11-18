@@ -13,6 +13,8 @@ from lagrange_rx.engine.explain import (
     waterfall, what_if,
 )
 from lagrange_rx.engine.optimize import OptimizeResult, OptimizerConfig, RiskMetrics, SolveInfo, optimize
+from lagrange_rx.engine.decision_policy import independently_check_service
+from lagrange_rx.engine.joint_recourse import evaluate_service_recourse
 from lagrange_rx.engine.scenarios import FxHistory, ScenarioConfig, ScenarioSet, generate_scenarios, load_fx_history
 from lagrange_rx.engine.snapshot import Snapshot, make_snapshot
 from lagrange_rx.engine.twin import CalibrationResult, evaluate_plan_set, twin_baseline, unit_economics
@@ -104,11 +106,26 @@ def run_optimize(graph: "ontology.ClientGraph | EngineGraph", *, config: EngineC
         return EngineResult(None, snap, cal, res.info, None, (), (), (), (), tuple(warnings), report,
                             time.perf_counter() - t0, ctx)
     plan = res.plan.model_copy(update={"snapshot_id": snap.snapshot_id})
-    outcomes = evaluate_plan_set(g, plan, scenarios, rules, allow_emergency=opt_cfg.emergency_enabled)
+    outcomes = evaluate_service_recourse(
+        g, plan, scenarios, rules, service_level=opt_cfg.service_level,
+        risk_mode=opt_cfg.risk_mode, alpha=opt_cfg.alpha, lam=opt_cfg.lam,
+        allow_emergency=opt_cfg.emergency_enabled,
+    )
     checks = compliance.check_plan(g, plan, scenarios, outcomes, rules)
     if not compliance.is_legal(checks):
         raise LegalityError(_failed(checks))
+    independently_check_service(outcomes, scenarios, opt_cfg.service_level)
     steps = waterfall(g, plan, scenarios, rules, base=baseline_plan(g)) if g.shipments else []
+    if steps and opt_cfg.service_level is not None:
+        # Intermediate waterfalls are unconstrained counterfactuals; final step
+        # must agree with the enforced-service economic outcome.
+        weighted_profit = sum(s.weight * o.profit_uzs for s, o in zip(scenarios, outcomes))
+        weighted_profit /= sum(s.weight for s in scenarios)
+        prior = steps[-2].expected_profit_uzs
+        steps[-1] = WaterfallStep("emergency top-up and service-level enforcement",
+                                  weighted_profit, weighted_profit - prior)
+        warnings.append("Waterfall intermediate steps are unconstrained counterfactuals; "
+                        "the final step enforces the service level")
     cons = binding_constraints(g, plan, outcomes, opt_cfg)
     if not res.info.proven_optimal:
         warnings.append("feasible plan, optimality not proven")

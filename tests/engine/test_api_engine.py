@@ -43,7 +43,8 @@ def test_uncalibrated_is_409_and_demo_flag_allows():
 def test_impossible_returns_reason():
     r = client.post("/engine/optimize", json={"graph": GRAPH, "service_level": 0.98, "budget_uzs": 2e9,
                                               "risk_mode": "expected", **FAST}).json()
-    assert r["plan"] is None and r["impossible"]["relax_sets"] and r["legal"] is True
+    assert r["plan"] is None and r["impossible"]["relax_sets"]
+    assert r["legal"] is None and r["legal_status"] == "not_evaluated"
 
 
 def test_errors():

@@ -26,6 +26,7 @@ from pathlib import Path
 from eval.sim_human import SimHuman, TRUTH
 from lagrange_rx.engine.adapter import default_engine_config, to_calculation_graph
 from lagrange_rx.engine.baseline import baseline_plan
+from lagrange_rx.engine.decision_policy import DEFAULT_SERVICE_LEVEL, has_supply
 from lagrange_rx.engine.optimize import OptimizerConfig
 from lagrange_rx.engine.rules import load_rules
 from lagrange_rx.engine.scenarios import ScenarioConfig, load_fx_history, out_of_sample
@@ -220,7 +221,7 @@ def run_world(level: str, output: Path | None = None, *, n_truth: int = 200, dia
     scen = ScenarioConfig()
     plans: dict[str, Plan | None] = {}
     try:
-        res = run_optimize(cg, scen_cfg=scen, opt_cfg=OptimizerConfig(risk_mode="cvar"), rules=rules, fx=fx)
+        res = run_optimize(cg, scen_cfg=scen, opt_cfg=OptimizerConfig(risk_mode="cvar", service_level=DEFAULT_SERVICE_LEVEL), rules=rules, fx=fx)
     except Exception as exc:  # noqa: BLE001 - e.g. CalibrationRequired: the product refuses to optimise
         fail("optimization", exc)
         return _finish(rep, output, ingest_snapshot)
@@ -236,6 +237,12 @@ def run_world(level: str, output: Path | None = None, *, n_truth: int = 200, dia
                     "p_loss": res.metrics.p_loss}}
     failed = [c for c in res.checks if not c.passed]
     rep["plan"] = plan
+    rep["supply_policy"] = {"minimum_expected_fill_rate": DEFAULT_SERVICE_LEVEL,
+                             "basis": "explicit synthetic business policy"}
+    if not has_supply(res.plan):
+        fail("optimization", ValueError("No supply plan under the required service level"))
+        rep["plan_withheld_reason"] = "no_supply_plan"
+        return _finish(rep, output, res.snapshot.snapshot_id)
     rep["plan_note"] = ("cvar optimum is to import nothing: loss = fixed below-line costs only"
                         if plan and plan["packs_total"] == 0 else None)
     rep["plan_withheld_reason"] = None if res.plan is not None else "no feasible plan"
@@ -243,7 +250,7 @@ def run_world(level: str, output: Path | None = None, *, n_truth: int = 200, dia
     rep["warnings"] = list(res.warnings)
     snapshot_id = res.snapshot.snapshot_id
     plans["engine_cvar"] = res.plan
-    alt = run_optimize(cg, scen_cfg=scen, opt_cfg=OptimizerConfig(risk_mode="expected"), rules=rules, fx=fx)
+    alt = run_optimize(cg, scen_cfg=scen, opt_cfg=OptimizerConfig(risk_mode="expected", service_level=DEFAULT_SERVICE_LEVEL), rules=rules, fx=fx)
     plans["engine_expected"] = alt.plan
     rep["plan_expected_mode"] = None if alt.plan is None else {
         "packs_by_route": alt.plan.packs_by_route(), "metrics_uzs": {
