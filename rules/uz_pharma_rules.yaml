@@ -1,0 +1,106 @@
+version: '1.0'
+# Effective dates have not been verified against the original legal texts.
+# Rules under order No. 3735 marked verified were checked against a machine translation; verification by a native Uzbek speaker is still required.
+rules:
+  - rule_id: UZ-3735-P19-WHOLESALE-CEILING
+    regulation: UZ-MOH-3735
+    point: '19'
+    kind: ceiling
+    status: verified
+    description: Оптовая цена с НДС не превышает опубликованный ChUN.
+  - rule_id: UZ-3735-P19-RETAIL-CEILING
+    regulation: UZ-MOH-3735
+    point: '19'
+    kind: ceiling
+    status: verified
+    parameters: {retail_multiplier: 1.20}
+    description: Розничная цена с НДС не превышает ChChN = ChUN × 1,20.
+  - rule_id: UZ-3735-P19-CEILING-FORMULA
+    regulation: UZ-MOH-3735
+    point: '19'
+    kind: formula
+    status: verified
+    parameters: {bx_share: 0.02, vat_rate: 0.12, wholesale_multiplier: 1.15, discrepancy_threshold: 0.01}
+    description: ChUN = (Rn + B + 0,02 × Rn) × 1,12 × 1,15; отклонение более 1% требует проверки.
+  - rule_id: UZ-3735-P11-RN-MIN
+    regulation: UZ-MOH-3735
+    point: '11'
+    kind: formula
+    status: needs_legal_review
+    parameters: {freight_insurance_max_share: 0.15, reference_countries: 10, cip_months: 12}
+    description: Rn — минимум применимых кандидатов; перечень кандидатов требует проверки.
+  - rule_id: UZ-3735-P20-INDEXATION
+    regulation: UZ-MOH-3735
+    point: '20'
+    kind: indexation
+    status: verified
+    parameters: {scheduled_threshold: 0.03, immediate_threshold: 0.05, scheduled_months: [1, 7], lag_days: 30, assumption_params: [lag_days]}
+    description: Рост курса от 3% ведёт к индексации 1 января или 1 июля; свыше 5% — немедленно.
+  - rule_id: UZ-3735-P22-REVISION
+    regulation: UZ-MOH-3735
+    point: '22'
+    kind: revision
+    status: verified
+    parameters: {decrease_threshold: 0.15, registration_working_days: 10, retail_delay_months: 3, p_cut: 0.3, depth_min: 0.10, depth_max: 0.37, assumption: true, assumption_params: [p_cut, depth_min, depth_max]}
+    description: Снижение цены от 15% требует перерегистрации за 10 рабочих дней; розница меняется через 3 месяца.
+  - rule_id: UZ-3735-P12-SAME-COMPOSITION
+    regulation: UZ-MOH-3735
+    point: '12'
+    kind: formula
+    status: verified
+    parameters: {generic_original_max_ratio: 0.80}
+    description: Для одного производителя и одинакового состава применяется минимальная Rn; дженерик не дороже 80% оригинала.
+  - rule_id: UZ-PF13-WHOLESALE-MARKUP
+    regulation: UZ-PF13
+    point: null
+    kind: markup
+    status: needs_legal_review
+    parameters: {multiplier: 1.15, additional_regulations: [UZ-PKM185]}
+    description: Оптовая цена не превышает 1,15 законной базы C независимо от числа посредников.
+  - rule_id: UZ-PF13-RETAIL-MARKUP
+    regulation: UZ-PF13
+    kind: markup
+    status: verified
+    parameters: {multiplier: 1.20}
+    description: Розничная цена не превышает 1,20 цены закупки аптекой.
+  - rule_id: UZ-PKM185-LEGAL-BASE
+    regulation: UZ-PKM185
+    kind: formula
+    status: needs_legal_review
+    description: C = Kc по курсу ЦБ на дату ГТД + T + Pr, без возмещаемого НДС.
+  - rule_id: UZ-VAT-NORMALIZATION
+    regulation: UZ-MOH-3735
+    point: '19–20'
+    kind: formula
+    status: verified
+    parameters: {vat_rate: 0.12}
+    description: Реестровые потолки включают НДС; P&L и проверка наценки выполняются без НДС.
+  - rule_id: UZ-INV-LEGAL-VS-ECONOMIC-BASE
+    kind: invariant
+    status: modeling_assumption
+    parameters: {hedge_forward_premium: 0.02, assumption: true, assumption_params: [hedge_forward_premium]}
+    description: Хедж и прочие финансовые инструменты не меняют законную базу C.
+  - rule_id: UZ-INV-UNIFORM-WAREHOUSE-PRICE
+    kind: invariant
+    status: modeling_assumption
+    description: Смешанные партии без раздельного учёта продаются по единой минимальной цене партий.
+  - rule_id: UZ-INV-CIP-RATCHET
+    regulation: UZ-MOH-3735
+    point: '11, 22'
+    kind: invariant
+    status: modeling_assumption
+    description: Снижение собственной CIP может снизить будущий Rn через среднюю CIP за 12 месяцев.
+  - rule_id: TRUST-NO-UNCONFIRMED
+    kind: trust
+    status: invariant
+    description: Неподтверждённое извлечённое значение не входит в расчёт.
+  - rule_id: TRUST-VALID-REGISTRATION
+    kind: trust
+    status: invariant
+    description: SKU должен иметь действующее регистрационное удостоверение.
+  - rule_id: TRUST-FX-OFFICIAL
+    regulation: UZ-MOH-3735
+    point: '11'
+    kind: trust
+    status: verified
+    description: Для законной базы применяется официальный курс ЦБ на соответствующую дату.
