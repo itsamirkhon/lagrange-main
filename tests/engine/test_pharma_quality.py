@@ -1,5 +1,5 @@
 """Pharmaceutical quality controls: unsafe stock/transport must not be optimized."""
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 import pytest
 from pydantic import ValidationError
@@ -16,27 +16,27 @@ def _fefo_graph():
     p = next(p for p in G.products if p.sku_id == SKU)
     p = p.model_copy(update={"min_remaining_shelf_life_days": 30})
     base = date(2026, 11, 18)
-    a, b, c, d = G.lots[:4]
+    shipping = G.shipments[0].shipment_id
+    source = G.products[0].provenance
     lots = [
-        a.model_copy(update={"lot_number": "A", "product": SKU, "expiry_date": base + timedelta(days=70),
-                             "remaining_packs": 40, "quality_status": "released"}),
-        b.model_copy(update={"lot_number": "B", "product": SKU, "expiry_date": base + timedelta(days=50),
-                             "remaining_packs": 20, "quality_status": "released"}),
-        c.model_copy(update={"lot_number": "C", "product": SKU, "expiry_date": base + timedelta(days=20),
-                             "remaining_packs": 100, "quality_status": "released"}),
-        d.model_copy(update={"lot_number": "D", "product": SKU, "expiry_date": base + timedelta(days=100),
-                             "remaining_packs": 100, "quality_status": "recalled"}),
+        # Earliest released lot is too short-dated; latest lot is recalled.
+        __import__("lagrange_rx").ontology.Lot(
+            lot_number=name, product=SKU, production_date=date(2025, 1, 1),
+            expiry_date=base + timedelta(days=expires), qty_packs=quantity,
+            remaining_packs=quantity, shipment=shipping, quality_status=status,
+            provenance=source)
+        for name, expires, quantity, status in (
+            ("A", 70, 40, "released"),
+            ("B", 50, 20, "released"),
+            ("C", 20, 100, "released"),
+            ("D", 100, 100, "recalled"),
+        )
     ]
-    # Drop other references to the four replaced synthetic identifiers: FEFO only
-    # needs product and release status, so retain original lots with new statuses
-    # to keep referential integrity for shipment and sales history.
-    by_id = {x.lot_number: x for x in G.lots}
-    selected = G.lots[:4]
-    for original, mutated in zip(selected, lots):
-        by_id[original.lot_number] = mutated.model_copy(update={"lot_number": original.lot_number})
-    return G.model_copy(update={"products": [p if x.sku_id == SKU else x for x in G.products],
-                                "lots": [by_id[x.lot_number] for x in G.lots]}), tuple(x.lot_number for x in selected)
-
+    graph = G.model_copy(update={
+        "products": [p if x.sku_id == SKU else x for x in G.products],
+        "lots": lots,
+    })
+    return graph, tuple(x.lot_number for x in lots)
 
 def test_fefo_released_only_and_nearest_eligible_expiry_first():
     graph, ids = _fefo_graph()
@@ -71,7 +71,11 @@ def test_temperature_sensitive_product_excludes_unverified_routes():
 
 
 def test_temperature_verified_route_can_enter_but_excursion_is_excluded():
-    doc_id = G.source_documents[0].document_id
+    from lagrange_rx import ontology as o
+    doc_id = "TEMP-001"
+    doc = o.SourceDocument(document_id=doc_id, file_name="synthetic-logger.csv",
+                           mime="text/csv", pages=1, uploaded_at=datetime.now(timezone.utc),
+                           provenance=G.products[0].provenance)
     products = [p.model_copy(update={"storage_temperature_min_c": 2.0,
                                      "storage_temperature_max_c": 8.0}) if p.sku_id == SKU else p
                 for p in G.products]
@@ -80,7 +84,7 @@ def test_temperature_verified_route_can_enter_but_excursion_is_excluded():
                                       "temperature_record_document": doc_id,
                                       "observed_min_c": 2.5, "observed_max_c": 7.8})
     routes = [allowed if r.route_id == first.route_id else r for r in G.routes]
-    graph = G.model_copy(update={"products": products, "routes": routes})
+    graph = G.model_copy(update={"products": products, "routes": routes, "source_documents": [doc]})
     result = to_calculation_graph(graph, CFG)
     assert any(r.id == first.route_id for r in result.routes)
     bad = allowed.model_copy(update={"observed_max_c": 10.0})
