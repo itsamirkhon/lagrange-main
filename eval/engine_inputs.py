@@ -29,7 +29,9 @@ ASSUMPTIONS = {
                     "max_shipments_per_year = shipments seen on that route in the last 12 months (the truth "
                     "evaluator takes one order per month, so the total must stay <= 12); capacity_packs_per_year = "
                     "max_shipments x max_shipment_packs; activation cost 0; is_eligible = True",
-    "freight_uzs": "freight per pack / per shipment in UZS = USD rate card (document) x the last USD rate in the graph",
+    "freight_uzs": "freight per pack / per shipment = 0 in the engine route: Ingest's CustomsEntry.fees_uzs is landed cost - CIP - duty "
+                   "and already contains the inbound freight (docs/MONOREPO.md stage 6a), so adding the USD rate card would "
+                   "count it twice (twin margin -2.3% instead of +0.6%); the USD rate card stays in the graph",
     "lot_size": "500 packs: every observed shipment is a multiple of 500",
     "demand": "monthly p50 = packs sold in the same calendar month of the last 12 months; p10/p90 = p50 -/+ 1.2816 x "
               "cv, cv = std/mean of the 12 monthly totals (coverage not calibrated)",
@@ -94,7 +96,6 @@ def demand_rows(graph: onto.ClientGraph, sku: str, horizon_start: str) -> list[o
 
 
 def enrich_routes(graph: onto.ClientGraph, horizon_start: str) -> tuple[list[onto.Route], list[str]]:
-    usd = max((r for r in graph.fx_rates if r.currency == "USD"), key=lambda r: r.date).rate_uzs
     window = set(_window_before(horizon_start))
     out, notes = [], []
     for r in graph.routes:
@@ -109,7 +110,7 @@ def enrich_routes(graph: onto.ClientGraph, horizon_start: str) -> tuple[list[ont
         packs = [s.packs for s in ships]
         n = len(recent)
         upd = dict(
-            freight_per_pack_uzs=r.freight_per_pack_usd * usd, freight_per_shipment_uzs=r.freight_per_shipment_usd * usd,
+            freight_per_pack_uzs=Decimal(0), freight_per_shipment_uzs=Decimal(0),
             min_shipment_packs=min(packs), max_shipment_packs=max(packs), max_shipments_per_year=n,
             capacity_packs_per_year=n * max(packs), activation_cost_uzs=Decimal(0), is_eligible=True,
             field_provenance={**r.field_provenance, **{k: _assume(ASSUMPTIONS["route_limits"]) for k in (
