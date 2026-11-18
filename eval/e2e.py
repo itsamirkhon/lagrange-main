@@ -330,13 +330,41 @@ def regret_by_level(reports: dict[str, dict]) -> dict:
     return out
 
 
+def attach_stage5(out_dir: Path) -> bool:
+    """Put the full Stage 5 result (eval/engine_report.json: 1 000 out-of-sample scenarios, pre-registered thresholds)
+    into the `truth_evaluation` slot of e2e_report_L0.json. Only if both reports carry the same snapshot_id (same
+    graph, scenarios, rules, solver settings); otherwise nothing is attached."""
+    e2e_path, s5_path = out_dir / "e2e_report_L0.json", out_dir / "engine_report.json"
+    rep, s5 = json.loads(e2e_path.read_text(encoding="utf-8")), json.loads(s5_path.read_text(encoding="utf-8"))
+    if rep["snapshot_id"] != s5["snapshot_id"] or not isinstance(rep.get("truth_evaluation"), dict):
+        return False
+    m = s5["metrics"]
+    rep["truth_evaluation"]["stage5_full"] = {
+        "source": "eval/engine_report.json", "snapshot_id": s5["snapshot_id"], "thresholds_sha256": s5["thresholds_sha256"],
+        "truth": s5["truth"], "truth_calls": s5["truth_calls"], "all_pass": s5["all_pass"],
+        "metrics_pass": {k: v.get("pass") for k, v in m.items() if "pass" in v},
+        "calibration_gap_pp": m["calibration"]["gap_pp"], "uplift_uzs_per_year": m["uplift"]["uplift_uzs_per_year"],
+        "uplift_engine": m["uplift"]["engine"], "uplift_baseline": m["uplift"]["baseline"], "vss_uzs": m["vss"]["vss_uzs"],
+        "evpi_uzs": m["evpi"]["evpi_uzs"], "legal_rate": m["legality"]["legal_rate"],
+        "optimality_match_rate": m["optimality"]["match_rate"], "recompute_after_shock_seconds": m["speed"]["recompute_after_shock_seconds"],
+        "plan_lines": s5["plan"]["lines"]}
+    rep.pop("report_sha256", None)
+    rep["report_sha256"] = hashlib.sha256(json.dumps(rep, sort_keys=True, default=str).encode()).hexdigest()[:16]
+    e2e_path.write_text(json.dumps(rep, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
+    return True
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--worlds", nargs="*", default=list(LEVELS))
     ap.add_argument("--n-truth", type=int, default=200)
     ap.add_argument("--out-dir", type=Path, default=ROOT / "eval")
     ap.add_argument("--no-diagnostics", action="store_true")
+    ap.add_argument("--attach-stage5", action="store_true", help="only merge eval/engine_report.json into e2e_report_L0.json")
     a = ap.parse_args()
+    if a.attach_stage5:
+        print("attached" if attach_stage5(a.out_dir) else "not attached: snapshot ids differ")
+        return
     reports = {}
     for level in a.worlds:
         reports[level] = run_world(level, a.out_dir / f"e2e_report_{level}.json", n_truth=a.n_truth,

@@ -126,7 +126,42 @@
     "oos_mean_profit_uzs": -849525998.9239501
    }
   },
-  "truth_calls": 603
+  "truth_calls": 603,
+  "stage5_full": {
+   "source": "eval/engine_report.json",
+   "snapshot_id": "f8ccc2c6b88051556cb6076c",
+   "thresholds_sha256": "d41c87d23245ef91cfae5a19765bcfb44dbf5d575c85743f28a4acfb86f01f45",
+   "truth": "simulation evaluate_plan_on_truth",
+   "truth_calls": 4600,
+   "all_pass": false,
+   "metrics_pass": {
+    "calibration": false,
+    "evpi": true,
+    "legality": true,
+    "optimality": true,
+    "speed": true,
+    "uplift": false,
+    "vss": false
+   },
+   "calibration_gap_pp": 0.1725041345260695,
+   "uplift_uzs_per_year": -554400944.7111797,
+   "uplift_engine": {
+    "cvar_uzs": -2122414053.9113991,
+    "expected_uzs": -1710674131.8759499,
+    "p_loss": 1.0
+   },
+   "uplift_baseline": {
+    "cvar_uzs": -9815984991.448593,
+    "expected_uzs": -1156273187.1647701,
+    "p_loss": 0.502
+   },
+   "vss_uzs": -17051891.74530995,
+   "evpi_uzs": 512963036.45673335,
+   "legal_rate": 1.0,
+   "optimality_match_rate": 1.0,
+   "recompute_after_shock_seconds": 0.04890392700326629,
+   "plan_lines": []
+  }
  },
  "ingest": {
   "documents": 72,
@@ -603,5 +638,5 @@
   }
  },
  "snapshot_id": "f8ccc2c6b88051556cb6076c",
- "report_sha256": "5d94edf9cc972751"
+ "report_sha256": "e349f059afd3c190"
 }
