@@ -27,6 +27,16 @@ def _web_dir() -> Path | None:
     return next((p for p in candidates if (p / 'index.html').is_file()), None)
 
 
+def _build_revision() -> str | None:
+    if rev := os.getenv('LAGRANGE_BUILD_SHA'):
+        return rev
+    for base in (Path(__file__).resolve().parents[3], Path.cwd()):
+        p = base / '.lagrange-version'
+        if p.is_file():
+            return p.read_text(encoding='utf-8').strip() or None
+    return None
+
+
 def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None,
                web_dir: str | Path | None = None, serve_web: bool = True, as_of=None,
                samples_dir: str | Path | None = None, eval_dir: str | Path | None = None,
@@ -41,8 +51,7 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
 
     @app.get('/health')
     async def health():
-        return {'status': 'ok', 'version': __version__,
-                'revision': os.getenv('LAGRANGE_BUILD_SHA') or None}
+        return {'status': 'ok', 'version': __version__, 'revision': _build_revision()}
 
     web = (Path(web_dir) if web_dir else _web_dir()) if serve_web else None
     if web is not None and (web / 'index.html').is_file():

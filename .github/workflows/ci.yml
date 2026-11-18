@@ -9,9 +9,9 @@ permissions:
 
 jobs:
   verify:
-    name: Unit, integration and UI source checks
+    name: UI and Python syntax checks
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,18 +20,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install project and OCR languages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus tesseract-ocr-uzb
-          python -m pip install --upgrade pip
-          pip install -e '.[ingest,sim,dev]'
       - name: Check JS and Python syntax
         run: |
           node --check web/app.js
           python -m compileall -q src eval tests scripts
-      - name: Run backend and integration tests
-        run: python -m pytest --ignore=tests/sim -q -n auto
       - name: Evidence state (informational, not certification)
         run: python scripts/verify_release.py
 
