@@ -1,0 +1,85 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    name: Test (product & boundaries)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install system OCR dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-rus tesseract-ocr-uzb tesseract-ocr-eng
+
+      - name: Install package with ingest, sim & dev extras
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[ingest,sim,dev]"
+
+      - name: Run automated product tests
+        run: pytest -m "not slow" --ignore=tests/sim
+
+  deploy:
+    name: Deploy to Lightsail (54.117.166.117)
+    needs: ci
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Configure SSH key and known host
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          if [ -z "$DEPLOY_SSH_KEY" ]; then
+            echo "::error::DEPLOY_SSH_KEY repository secret is not set."
+            exit 1
+          fi
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          cat << 'EOF' >> ~/.ssh/known_hosts
+          54.117.166.117 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB20DGcT1JDb7eBw5YOBrwGKN5CeBAuKWf59SboKVHfk
+          EOF
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Sync application files to server
+        run: |
+          rsync -az --delete \
+            --exclude '.git/' \
+            --exclude '.venv/' \
+            --exclude '.pytest_cache/' \
+            --exclude '.hypothesis/' \
+            --exclude '__pycache__/' \
+            --exclude '*.pyc' \
+            --exclude '*.egg-info/' \
+            --exclude '.env' \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            ./ ubuntu@54.117.166.117:/opt/lagrange-rx/app/
+
+      - name: Run remote deployment script
+        run: |
+          ssh -i ~/.ssh/deploy_key ubuntu@54.117.166.117 "/opt/lagrange-rx/deploy.sh"
