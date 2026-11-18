@@ -1,0 +1,139 @@
+{
+ "world": "L1",
+ "stage_reached": "ingest",
+ "failure": {
+  "stage": "engine_config",
+  "error_type": "AdapterError",
+  "message": "no SalesRecord: horizon cannot be derived",
+  "where": "File \"/home/sukhrob/Desktop/lagrange-main/.claude/worktrees/agent-a2b679384e32de26f/src/lagrange_rx/engine/adapter.py\", line 639, in default_engine_config\n    raise AdapterError(\"no SalesRecord: horizon cannot be derived\")"
+ },
+ "truth_evaluation": null,
+ "ingest": {
+  "documents": 72,
+  "questions_to_human": {
+   "total": 9,
+   "answered": 9,
+   "by_kind": {
+    "contract_effective_from": 2,
+    "confirm_group": 7
+   },
+   "rejected_groups": [
+    "confirm_group:customs",
+    "confirm_group:invoices",
+    "confirm_group:quotes"
+   ]
+  },
+  "rejected_group_reasons": [
+   {
+    "question_id": "confirm_group:customs",
+    "why": "entries: extracted 36, books 44; GTD numbers: extracted ['26004/2025-0001', '26004/2025-0002', '26004/2025-0003', '26004/2025-0004', '26004/2025-0005', '26004/2025-0006', '26004/2025-0007', '26004/2025-0008', '26004/2025-0017', '26004/2025-0018', '26004/2025-0019', '26004/2025-0020', '26004/2025-0021', '26004/2025-0022', '26004/2025-0023', '26004/2025-0024', '26004/2026-0025', '26004/2026-0026', '"
+   },
+   {
+    "question_id": "confirm_group:invoices",
+    "why": "shipments: extracted 33, books 44; lots: extracted 7, books 50; packs: extracted 350100, books 467580"
+   },
+   {
+    "question_id": "confirm_group:quotes",
+    "why": "quote numbers: extracted ['KP-2025-017', 'KP-2025-021', 'KP-2025-022', 'KP-2026-018', 'KP-2026-019', 'KP-2026-020', 'KP-2026-023', 'KP-2026-024'], books ['KP-2025-001', 'KP-2025-002', 'KP-2025-006', 'KP-2025-007', 'KP-2025-011', 'KP-2025-012', 'KP-2025-016', 'KP-2025-017', 'KP-2025-021', 'KP-2025-022', 'KP-2026-003', 'KP-2026-004', 'KP-2026-005', 'KP-2026-008', 'KP-2026-009', 'KP-2026-010', 'KP-20"
+   }
+  ],
+  "dropped_by_collection": {
+   "customs_entries": 36,
+   "fx_rates": 36,
+   "shipments": 33,
+   "lots": 7,
+   "quotes": 8
+  },
+  "issues": {
+   "unreadable/warning": 33,
+   "missing/blocking": 42,
+   "contradiction/warning": 20
+  },
+  "not_extracted": [
+   "content of image documents (memos, carrier chats, waybill photos)",
+   "Product: INN, dosage form, manufacturer, registration certificate",
+   "CreditLine: limit, annual rate, available_from",
+   "CustomsEntry: split of fees_uzs into clearance fees and inbound freight; vat_uzs",
+   "Shipment.actual_freight_uzs",
+   "Route: incoterms, min/max shipment packs, shipments per year, capacity, activation cost, eligibility, p90 lead time",
+   "Route production_site for corridors without observed shipments",
+   "Supplier.reliability; PaymentTerms.customer_days",
+   "PriceIndexationEvent, Warehouse capacity, DemandForecast, FxHedge",
+   "Carrier contracts (CNT-CAR-*)",
+   "Quote.vat_status for supplier quotes; Quote.issued_on except the quote named in the document title"
+  ],
+  "graph_counts": {
+   "source_documents": 72,
+   "registry_records": 3,
+   "products": 7,
+   "suppliers": 4,
+   "production_sites": 4,
+   "carriers": 4,
+   "routes": 6,
+   "contracts": 6,
+   "currencies": 1,
+   "issues": 95
+  },
+  "extraction_vs_books": {
+   "sales_records": {
+    "extracted": 0,
+    "books": 3694,
+    "share": 0.0
+   },
+   "shipments": {
+    "extracted": 0,
+    "books": 44,
+    "share": 0.0
+   },
+   "customs_entries": {
+    "extracted": 0,
+    "books": 44,
+    "share": 0.0
+   },
+   "lots": {
+    "extracted": 0,
+    "books": 50,
+    "share": 0.0
+   },
+   "quotes": {
+    "extracted": 0,
+    "books": 24,
+    "share": 0.0
+   },
+   "contracts": {
+    "extracted": 6,
+    "books": 10,
+    "share": 0.6
+   },
+   "registry_records": {
+    "extracted": 3,
+    "books": 3,
+    "share": 1.0
+   }
+  },
+  "corruptions_in_manifest": {
+   "total": 54,
+   "by_operator": {
+    "M1": 12,
+    "N1": 17,
+    "N2": 25
+   },
+   "recoverability": {
+    "recoverable": 54
+   },
+   "by_document_type": {
+    "D1": 14,
+    "D10": 4,
+    "D2": 18,
+    "D3": 8,
+    "D6": 5,
+    "D7": 2,
+    "D9": 3
+   },
+   "omitted_documents": []
+  }
+ },
+ "ingest_snapshot_id": "ingest-L1-03beac4c65fd8238",
+ "snapshot_id": "ingest-L1-03beac4c65fd8238",
+ "report_sha256": "40193d714308cd73"
+}

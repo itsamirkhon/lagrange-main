@@ -1,0 +1,186 @@
+{
+ "reference": "plan optimised on L0 (clean documents), evaluated on truth",
+ "levels": {
+  "L0": {
+   "snapshot_id": "f8ccc2c6b88051556cb6076c",
+   "stage_reached": "truth_evaluation",
+   "failure": null,
+   "questions_to_human": 13,
+   "rejected_groups": [],
+   "modes": {
+    "engine_cvar": {
+     "oos_mean_profit_uzs": -1697761379.94275,
+     "nominal_profit_uzs": -1635984358.83,
+     "regret_vs_L0_oos_uzs": 0.0,
+     "regret_vs_L0_nominal_uzs": 0.0
+    },
+    "engine_expected": {
+     "oos_mean_profit_uzs": -771392184.0946499,
+     "nominal_profit_uzs": 176392595.87,
+     "regret_vs_L0_oos_uzs": 0.0,
+     "regret_vs_L0_nominal_uzs": 0.0
+    },
+    "client_baseline": {
+     "oos_mean_profit_uzs": -849525998.9239501,
+     "nominal_profit_uzs": 410375529.32,
+     "regret_vs_L0_oos_uzs": 0.0,
+     "regret_vs_L0_nominal_uzs": 0.0
+    }
+   },
+   "has_plan": true
+  },
+  "L1": {
+   "snapshot_id": "ingest-L1-03beac4c65fd8238",
+   "stage_reached": "ingest",
+   "failure": {
+    "stage": "engine_config",
+    "error_type": "AdapterError",
+    "message": "no SalesRecord: horizon cannot be derived",
+    "where": "File \"/home/sukhrob/Desktop/lagrange-main/.claude/worktrees/agent-a2b679384e32de26f/src/lagrange_rx/engine/adapter.py\", line 639, in default_engine_config\n    raise AdapterError(\"no SalesRecord: horizon cannot be derived\")"
+   },
+   "questions_to_human": 9,
+   "rejected_groups": [
+    "confirm_group:customs",
+    "confirm_group:invoices",
+    "confirm_group:quotes"
+   ],
+   "modes": {
+    "engine_cvar": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "engine_expected": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "client_baseline": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    }
+   },
+   "has_plan": false
+  },
+  "L2": {
+   "snapshot_id": "ingest-L2-49be19a218a1b2e4",
+   "stage_reached": "ingest",
+   "failure": {
+    "stage": "engine_config",
+    "error_type": "AdapterError",
+    "message": "no SalesRecord: horizon cannot be derived",
+    "where": "File \"/home/sukhrob/Desktop/lagrange-main/.claude/worktrees/agent-a2b679384e32de26f/src/lagrange_rx/engine/adapter.py\", line 639, in default_engine_config\n    raise AdapterError(\"no SalesRecord: horizon cannot be derived\")"
+   },
+   "questions_to_human": 9,
+   "rejected_groups": [
+    "confirm_group:customs",
+    "confirm_group:invoices",
+    "confirm_group:quotes"
+   ],
+   "modes": {
+    "engine_cvar": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "engine_expected": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "client_baseline": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    }
+   },
+   "has_plan": false
+  },
+  "L3": {
+   "snapshot_id": "ingest-L3-b78512da17b67c23",
+   "stage_reached": "ingest",
+   "failure": {
+    "stage": "engine_config",
+    "error_type": "AdapterError",
+    "message": "no SalesRecord: horizon cannot be derived",
+    "where": "File \"/home/sukhrob/Desktop/lagrange-main/.claude/worktrees/agent-a2b679384e32de26f/src/lagrange_rx/engine/adapter.py\", line 639, in default_engine_config\n    raise AdapterError(\"no SalesRecord: horizon cannot be derived\")"
+   },
+   "questions_to_human": 7,
+   "rejected_groups": [
+    "confirm_group:routes",
+    "confirm_group:quotes"
+   ],
+   "modes": {
+    "engine_cvar": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "engine_expected": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "client_baseline": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    }
+   },
+   "has_plan": false
+  },
+  "L4": {
+   "snapshot_id": "ingest-L4-6227dec0f7f0c8b8",
+   "stage_reached": "ingest",
+   "failure": {
+    "stage": "engine_config",
+    "error_type": "AdapterError",
+    "message": "no SalesRecord: horizon cannot be derived",
+    "where": "File \"/home/sukhrob/Desktop/lagrange-main/.claude/worktrees/agent-a2b679384e32de26f/src/lagrange_rx/engine/adapter.py\", line 639, in default_engine_config\n    raise AdapterError(\"no SalesRecord: horizon cannot be derived\")"
+   },
+   "questions_to_human": 7,
+   "rejected_groups": [
+    "confirm_group:routes",
+    "confirm_group:quotes"
+   ],
+   "modes": {
+    "engine_cvar": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "engine_expected": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    },
+    "client_baseline": {
+     "oos_mean_profit_uzs": null,
+     "nominal_profit_uzs": null,
+     "regret_vs_L0_oos_uzs": null,
+     "regret_vs_L0_nominal_uzs": null
+    }
+   },
+   "has_plan": false
+  }
+ },
+ "snapshot_ids": {
+  "L0": "f8ccc2c6b88051556cb6076c",
+  "L1": "ingest-L1-03beac4c65fd8238",
+  "L2": "ingest-L2-49be19a218a1b2e4",
+  "L3": "ingest-L3-b78512da17b67c23",
+  "L4": "ingest-L4-6227dec0f7f0c8b8"
+ }
+}

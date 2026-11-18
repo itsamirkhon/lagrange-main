@@ -1,0 +1,148 @@
+{
+ "world": "L3",
+ "stage_reached": "ingest",
+ "failure": {
+  "stage": "engine_config",
+  "error_type": "AdapterError",
+  "message": "no SalesRecord: horizon cannot be derived",
+  "where": "File \"/home/sukhrob/Desktop/lagrange-main/.claude/worktrees/agent-a2b679384e32de26f/src/lagrange_rx/engine/adapter.py\", line 639, in default_engine_config\n    raise AdapterError(\"no SalesRecord: horizon cannot be derived\")"
+ },
+ "truth_evaluation": null,
+ "ingest": {
+  "documents": 78,
+  "questions_to_human": {
+   "total": 7,
+   "answered": 7,
+   "by_kind": {
+    "contract_effective_from": 2,
+    "confirm_group": 5
+   },
+   "rejected_groups": [
+    "confirm_group:routes",
+    "confirm_group:quotes"
+   ]
+  },
+  "rejected_group_reasons": [
+   {
+    "question_id": "confirm_group:routes",
+    "why": "corridor / supplier pairs: extracted ['CHUK-RAIL-03 | -', 'KZ-AUTO-01 | -', 'TAS-AIR-04 | -', 'TM-AUTO-02 | -'], books ['CHUK-RAIL-03 | BalticGalen Pvt. Ltd. (Словения, SYNTHETIC)', 'CHUK-RAIL-03 | VektorPharm S.A. (Германия, SYNTHETIC)', 'KZ-AUTO-01 | BalticGalen Pvt. Ltd. (Словения, SYNTHETIC)', 'KZ-AUTO-01 | Medisynth S.A. (Индия, SYNTHETIC)', 'TAS-AIR-04 | -', 'TM-AUTO-02 | VektorPharm Pvt. Lt"
+   },
+   {
+    "question_id": "confirm_group:quotes",
+    "why": "quote numbers: extracted ['KP-2025-017', 'KP-2025-021', 'KP-2025-022', 'KP-2026-018', 'KP-2026-019', 'KP-2026-020', 'KP-2026-023', 'KP-2026-024'], books ['KP-2025-001', 'KP-2025-002', 'KP-2025-006', 'KP-2025-007', 'KP-2025-011', 'KP-2025-012', 'KP-2025-016', 'KP-2025-017', 'KP-2025-021', 'KP-2025-022', 'KP-2026-003', 'KP-2026-004', 'KP-2026-005', 'KP-2026-008', 'KP-2026-009', 'KP-2026-010', 'KP-20"
+   }
+  ],
+  "dropped_by_collection": {
+   "routes": 4,
+   "quotes": 8
+  },
+  "issues": {
+   "unreadable/warning": 38,
+   "missing/blocking": 28
+  },
+  "not_extracted": [
+   "content of image documents (memos, carrier chats, waybill photos)",
+   "Product: INN, dosage form, manufacturer, registration certificate",
+   "CreditLine: limit, annual rate, available_from",
+   "CustomsEntry: split of fees_uzs into clearance fees and inbound freight; vat_uzs",
+   "Shipment.actual_freight_uzs",
+   "Route: incoterms, min/max shipment packs, shipments per year, capacity, activation cost, eligibility, p90 lead time",
+   "Route production_site for corridors without observed shipments",
+   "Supplier.reliability; PaymentTerms.customer_days",
+   "PriceIndexationEvent, Warehouse capacity, DemandForecast, FxHedge",
+   "Carrier contracts (CNT-CAR-*)",
+   "Quote.vat_status for supplier quotes; Quote.issued_on except the quote named in the document title"
+  ],
+  "graph_counts": {
+   "source_documents": 78,
+   "registry_records": 3,
+   "products": 7,
+   "suppliers": 4,
+   "carriers": 4,
+   "contracts": 6,
+   "currencies": 1,
+   "issues": 66
+  },
+  "extraction_vs_books": {
+   "sales_records": {
+    "extracted": 0,
+    "books": 3694,
+    "share": 0.0
+   },
+   "shipments": {
+    "extracted": 0,
+    "books": 44,
+    "share": 0.0
+   },
+   "customs_entries": {
+    "extracted": 0,
+    "books": 44,
+    "share": 0.0
+   },
+   "lots": {
+    "extracted": 0,
+    "books": 50,
+    "share": 0.0
+   },
+   "quotes": {
+    "extracted": 0,
+    "books": 24,
+    "share": 0.0
+   },
+   "contracts": {
+    "extracted": 6,
+    "books": 10,
+    "share": 0.6
+   },
+   "registry_records": {
+    "extracted": 3,
+    "books": 3,
+    "share": 1.0
+   }
+  },
+  "corruptions_in_manifest": {
+   "total": 253,
+   "by_operator": {
+    "A1": 10,
+    "C1": 22,
+    "C2": 8,
+    "C3": 8,
+    "D1x": 6,
+    "L1": 26,
+    "M1": 12,
+    "N1": 33,
+    "N2": 43,
+    "R1": 8,
+    "R2": 10,
+    "R3": 10,
+    "R4": 6,
+    "S1": 10,
+    "U1": 7,
+    "V1": 8,
+    "X1": 16,
+    "X2": 10
+   },
+   "recoverability": {
+    "recoverable": 253
+   },
+   "by_document_type": {
+    "D1": 28,
+    "D10": 8,
+    "D11": 14,
+    "D13": 4,
+    "D2": 54,
+    "D3": 54,
+    "D4": 14,
+    "D5": 16,
+    "D6": 14,
+    "D7": 18,
+    "D8": 26,
+    "D9": 3
+   },
+   "omitted_documents": []
+  }
+ },
+ "ingest_snapshot_id": "ingest-L3-b78512da17b67c23",
+ "snapshot_id": "ingest-L3-b78512da17b67c23",
+ "report_sha256": "1af7afe72717c2c0"
+}

@@ -1,17 +1,164 @@
 {
  "world": "L0",
- "documents": 72,
- "questions_to_human": {
-  "total": 13,
-  "by_kind": {
-   "contract_effective_from": 2,
-   "confirm_group": 9,
-   "cost_attribution": 2
+ "stage_reached": "truth_evaluation",
+ "failure": null,
+ "truth_evaluation": {
+  "status": "evaluated",
+  "oos_scenarios": 200,
+  "truth_calls_unit": "one simulation call per plan x scenario",
+  "mapping": [
+   {
+    "kind": "route",
+    "engine_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+    "truth_id": "rte_01",
+    "confidence": 1.0,
+    "matched_features": [
+     "mode",
+     "carrier",
+     "customs_post",
+     "transit_days"
+    ],
+    "mismatched_features": [],
+    "not_compared": []
+   },
+   {
+    "kind": "route",
+    "engine_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+    "truth_id": "rte_02",
+    "confidence": 1.0,
+    "matched_features": [
+     "mode",
+     "carrier",
+     "customs_post",
+     "transit_days"
+    ],
+    "mismatched_features": [],
+    "not_compared": []
+   },
+   {
+    "kind": "supplier",
+    "engine_id": "medisynth-s-a-indiya-synthetic",
+    "truth_id": "sup_01",
+    "confidence": 1.0,
+    "matched_features": [
+     "name",
+     "country",
+     "currency"
+    ],
+    "mismatched_features": [],
+    "not_compared": []
+   },
+   {
+    "kind": "supplier",
+    "engine_id": "vektorpharm-pvt-ltd-turtsiya-synthetic",
+    "truth_id": "sup_02",
+    "confidence": 1.0,
+    "matched_features": [
+     "name",
+     "country",
+     "currency"
+    ],
+    "mismatched_features": [],
+    "not_compared": []
+   },
+   {
+    "kind": "sku",
+    "engine_id": "kardiozan-10mg-n30",
+    "truth_id": "SKU_CARDIO_01",
+    "confidence": 1.0,
+    "matched_features": [
+     "trade_name",
+     "retail_uzs"
+    ],
+    "mismatched_features": [],
+    "not_compared": [
+     "manufacturer"
+    ]
+   }
+  ],
+  "truth_native_baseline": {
+   "net_profit_uzs": 404773985.17,
+   "revenue_ex_vat_uzs": 16657365645.0,
+   "cogs_ex_vat_uzs": 14103950013.0,
+   "operating_costs_uzs": 2148641646.83,
+   "net_margin_ex_vat": 0.0243,
+   "annual_sales_packs": 149250,
+   "stockout_packs": 0,
+   "writeoff_packs": 400,
+   "baseline_profit_uzs": 404773985.17,
+   "regret_vs_baseline_uzs": 0.0
   },
-  "consistent_with_live_run": true
+  "plans": {
+   "engine_cvar": {
+    "packs_by_route": {},
+    "nominal_profit_uzs": -1635984358.83,
+    "oos": {
+     "expected_uzs": -1697761379.94275,
+     "cvar_uzs": -2098234769.494,
+     "p_loss": 1.0
+    },
+    "oos_mean_profit_uzs": -1697761379.94275
+   },
+   "engine_expected": {
+    "packs_by_route": {
+     "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 115500,
+     "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 13500
+    },
+    "nominal_profit_uzs": 176392595.87,
+    "oos": {
+     "expected_uzs": -771392184.0946499,
+     "cvar_uzs": -8342073214.612999,
+     "p_loss": 0.395
+    },
+    "oos_mean_profit_uzs": -771392184.0946499
+   },
+   "client_baseline": {
+    "packs_by_route": {
+     "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 100500,
+     "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 50500
+    },
+    "nominal_profit_uzs": 410375529.32,
+    "oos": {
+     "expected_uzs": -849525998.9239501,
+     "cvar_uzs": -9388929674.074997,
+     "p_loss": 0.44
+    },
+    "oos_mean_profit_uzs": -849525998.9239501
+   }
+  },
+  "truth_calls": 603
  },
- "graph": {
-  "counts": {
+ "ingest": {
+  "documents": 72,
+  "questions_to_human": {
+   "total": 13,
+   "answered": 13,
+   "by_kind": {
+    "contract_effective_from": 2,
+    "confirm_group": 9,
+    "cost_attribution": 2
+   },
+   "rejected_groups": []
+  },
+  "rejected_group_reasons": [],
+  "dropped_by_collection": {},
+  "issues": {
+   "unreadable/warning": 10
+  },
+  "not_extracted": [
+   "content of image documents (memos, carrier chats, waybill photos)",
+   "Product: INN, dosage form, manufacturer, registration certificate",
+   "CreditLine: limit, annual rate, available_from",
+   "CustomsEntry: split of fees_uzs into clearance fees and inbound freight; vat_uzs",
+   "Shipment.actual_freight_uzs",
+   "Route: incoterms, min/max shipment packs, shipments per year, capacity, activation cost, eligibility, p90 lead time",
+   "Route production_site for corridors without observed shipments",
+   "Supplier.reliability; PaymentTerms.customer_days",
+   "PriceIndexationEvent, Warehouse capacity, DemandForecast, FxHedge",
+   "Carrier contracts (CNT-CAR-*)",
+   "Quote.vat_status for supplier quotes; Quote.issued_on except the quote named in the document title"
+  ],
+  "graph_counts": {
    "source_documents": 72,
    "registry_records": 3,
    "products": 7,
@@ -32,24 +179,58 @@
    "sales_records": 3694,
    "issues": 10
   },
+  "extraction_vs_books": {
+   "sales_records": {
+    "extracted": 3694,
+    "books": 3694,
+    "share": 1.0
+   },
+   "shipments": {
+    "extracted": 44,
+    "books": 44,
+    "share": 1.0
+   },
+   "customs_entries": {
+    "extracted": 44,
+    "books": 44,
+    "share": 1.0
+   },
+   "lots": {
+    "extracted": 50,
+    "books": 50,
+    "share": 1.0
+   },
+   "quotes": {
+    "extracted": 24,
+    "books": 24,
+    "share": 1.0
+   },
+   "contracts": {
+    "extracted": 6,
+    "books": 10,
+    "share": 0.6
+   },
+   "registry_records": {
+    "extracted": 3,
+    "books": 3,
+    "share": 1.0
+   }
+  },
+  "corruptions_in_manifest": {
+   "total": 0,
+   "by_operator": {},
+   "recoverability": {},
+   "by_document_type": {},
+   "omitted_documents": []
+  }
+ },
+ "ingest_snapshot_id": "ingest-L0-7f7ab26effb16370",
+ "graph": {
   "focus_sku": "kardiozan-10mg-n30",
   "horizon_start": "2026-11",
   "routes_in_engine": [
    "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
    "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic"
-  ],
-  "not_extracted": [
-   "content of image documents (memos, carrier chats, waybill photos)",
-   "Product: INN, dosage form, manufacturer, registration certificate",
-   "CreditLine: limit, annual rate, available_from",
-   "CustomsEntry: split of fees_uzs into clearance fees and inbound freight; vat_uzs",
-   "Shipment.actual_freight_uzs",
-   "Route: incoterms, min/max shipment packs, shipments per year, capacity, activation cost, eligibility, p90 lead time",
-   "Route production_site for corridors without observed shipments",
-   "Supplier.reliability; PaymentTerms.customer_days",
-   "PriceIndexationEvent, Warehouse capacity, DemandForecast, FxHedge",
-   "Carrier contracts (CNT-CAR-*)",
-   "Quote.vat_status for supplier quotes; Quote.issued_on except the quote named in the document title"
   ]
  },
  "engine_config": {
@@ -69,7 +250,83 @@
    "confirmed": true
   },
   "demo_mode": false,
-  "route_params": {},
+  "route_params": {
+   "CHUK-RAIL-03/balticgalen-pvt-ltd-sloveniya-synthetic": {
+    "lot_size": 660,
+    "mode": null,
+    "kc": null,
+    "currency": null,
+    "duty_rate": null,
+    "fees_per_pack_uzs": null,
+    "acquisition_per_pack_uzs": null,
+    "pr_uzs": null,
+    "pr_confirmed": false,
+    "emergency": false,
+    "emergency_premium_uzs": 0.0,
+    "emergency_cap_packs": 0,
+    "max_shipments": 3
+   },
+   "CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic": {
+    "lot_size": null,
+    "mode": null,
+    "kc": null,
+    "currency": null,
+    "duty_rate": null,
+    "fees_per_pack_uzs": null,
+    "acquisition_per_pack_uzs": null,
+    "pr_uzs": null,
+    "pr_confirmed": false,
+    "emergency": false,
+    "emergency_premium_uzs": 0.0,
+    "emergency_cap_packs": 0,
+    "max_shipments": 6
+   },
+   "KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic": {
+    "lot_size": 660,
+    "mode": null,
+    "kc": null,
+    "currency": null,
+    "duty_rate": null,
+    "fees_per_pack_uzs": null,
+    "acquisition_per_pack_uzs": null,
+    "pr_uzs": null,
+    "pr_confirmed": false,
+    "emergency": false,
+    "emergency_premium_uzs": 0.0,
+    "emergency_cap_packs": 0,
+    "max_shipments": 3
+   },
+   "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": {
+    "lot_size": 500,
+    "mode": null,
+    "kc": null,
+    "currency": null,
+    "duty_rate": null,
+    "fees_per_pack_uzs": null,
+    "acquisition_per_pack_uzs": null,
+    "pr_uzs": null,
+    "pr_confirmed": false,
+    "emergency": false,
+    "emergency_premium_uzs": 0.0,
+    "emergency_cap_packs": 0,
+    "max_shipments": 8
+   },
+   "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": {
+    "lot_size": 500,
+    "mode": null,
+    "kc": null,
+    "currency": null,
+    "duty_rate": null,
+    "fees_per_pack_uzs": null,
+    "acquisition_per_pack_uzs": null,
+    "pr_uzs": null,
+    "pr_confirmed": false,
+    "emergency": false,
+    "emergency_premium_uzs": 0.0,
+    "emergency_cap_packs": 0,
+    "max_shipments": 4
+   }
+  },
   "split_freight_from_fees": true,
   "default_min_batch_packs": 0,
   "default_max_batch_packs": null,
@@ -87,19 +344,19 @@
   "route 'CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic' excluded: production site 'vektorpharm-s-a-germaniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
   "route 'KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': inbound freight estimated from the carrier tariff (3,286 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
-  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=1000 is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': min_batch=5000 taken from the supplier Contract MOQ (route states none)",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_batch=16500 = largest observed shipment (route states none)",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
-  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=8/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': eligibility not stated, assumed eligible",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': activation cost not stated, taken as 0",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': inbound freight estimated from the carrier tariff (3,384 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
-  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=1000 is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': min_batch=3000 taken from the supplier Contract MOQ (route states none)",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_batch=13500 = largest observed shipment (route states none)",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
-  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=4/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': eligibility not stated, assumed eligible",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': activation cost not stated, taken as 0",
   "route 'TAS-AIR-04' excluded: no production site (no document ties it to a producer)",
@@ -126,7 +383,7 @@
   "missing_data": []
  },
  "plan": {
-  "plan_id": "plan-06ba677e950c",
+  "plan_id": "plan-f8ccc2c6b880",
   "horizon": "2026-11..2027-10",
   "fx_hedge_share": 0.0,
   "packs_total": 0,
@@ -135,7 +392,7 @@
   "solve": {
    "status": "OPTIMAL",
    "proven_optimal": true,
-   "seconds": 0.03755245600041235
+   "seconds": 0.04603168299945537
   },
   "metrics_uzs": {
    "expected": -2148641646.83,
@@ -145,31 +402,6 @@
   }
  },
  "plan_note": "cvar optimum is to import nothing: loss = fixed below-line costs only",
- "plan_expected_mode": {
-  "packs_by_route": {
-   "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 115000,
-   "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 13000
-  },
-  "metrics_uzs": {
-   "expected": -1151358416.6512365,
-   "cvar95": -3651641629.283715,
-   "worst": -4687365826.923161,
-   "p_loss": 1.0
-  },
-  "legal": true
- },
- "fifteen_percent_rule_freight_effect": {
-  "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": {
-   "legal_base_split": 89847.06685658006,
-   "legal_base_unsplit": 93133.49214522871,
-   "max_price_overstated_by_uzs_per_pack": 3779.3890819459475
-  },
-  "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": {
-   "legal_base_split": 88962.86558334254,
-   "legal_base_unsplit": 92346.80850569549,
-   "max_price_overstated_by_uzs_per_pack": 3891.5343607058853
-  }
- },
  "plan_withheld_reason": null,
  "legality": {
   "checks_total": 352,
@@ -182,19 +414,19 @@
   "route 'CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic' excluded: production site 'vektorpharm-s-a-germaniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
   "route 'KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': inbound freight estimated from the carrier tariff (3,286 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
-  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=1000 is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': min_batch=5000 taken from the supplier Contract MOQ (route states none)",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_batch=16500 = largest observed shipment (route states none)",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
-  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=8/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': eligibility not stated, assumed eligible",
   "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': activation cost not stated, taken as 0",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': inbound freight estimated from the carrier tariff (3,384 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
-  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=1000 is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': min_batch=3000 taken from the supplier Contract MOQ (route states none)",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_batch=13500 = largest observed shipment (route states none)",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
-  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=4/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': eligibility not stated, assumed eligible",
   "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': activation cost not stated, taken as 0",
   "route 'TAS-AIR-04' excluded: no production site (no document ties it to a producer)",
@@ -208,7 +440,168 @@
   "graph contains ASSUMPTION provenance",
   "UZ-PF13-WHOLESALE-MARKUP (15%) needs legal review: applied to packs sold, not packs ordered"
  ],
- "snapshot_id": "06ba677e950c27e82343633f",
- "truth_evaluation": "pending stage 5",
- "report_sha256": "b2d6ff50a952fcb3"
+ "plan_expected_mode": {
+  "packs_by_route": {
+   "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 115500,
+   "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 13500
+  },
+  "metrics_uzs": {
+   "expected": -1149951162.633087,
+   "cvar95": -3661987076.530042,
+   "worst": -4705615414.786153,
+   "p_loss": 1.0
+  },
+  "legal": true
+ },
+ "historical_markup_check": {
+  "avg_sale_price_ex_vat_uzs": 111607.14,
+  "avg_legal_base_freight_split_uzs": 91113.89166101473,
+  "avg_legal_base_incl_freight_uzs": 94432.9304629221,
+  "implied_markup_on_split_base": 0.22491903227259247,
+  "implied_markup_on_base_incl_freight": 0.18186674344307407,
+  "rule_max_markup": 0.15,
+  "history_within_rule_split_base": false,
+  "history_within_rule_base_incl_freight": false,
+  "note": "the client's recorded sales price vs 1.15 x the legal base of the purchases; if the history is above the cap, the engine's model of UZ-PF13 (status needs_legal_review) contradicts the client's own books"
+ },
+ "diagnostic_markup_rule_off": {
+  "status": "diagnostic only: legality checks are against the relaxed rules, so they prove nothing",
+  "max_markup_used": 9.0,
+  "twin_cvar": {
+   "packs_by_route": {
+    "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 99000,
+    "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 27000
+   },
+   "expected_uzs": -138242995.93850014,
+   "cvar95": -3626911401.578217,
+   "p_loss": 0.32568
+  },
+  "twin_expected": {
+   "packs_by_route": {
+    "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 77500,
+    "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 54000
+   },
+   "expected_uzs": -91340143.12118062,
+   "cvar95": -3698212538.8222637,
+   "p_loss": 0.2984
+  },
+  "truth": {
+   "status": "evaluated",
+   "oos_scenarios": 200,
+   "truth_calls_unit": "one simulation call per plan x scenario",
+   "mapping": [
+    {
+     "kind": "route",
+     "engine_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+     "truth_id": "rte_01",
+     "confidence": 1.0,
+     "matched_features": [
+      "mode",
+      "carrier",
+      "customs_post",
+      "transit_days"
+     ],
+     "mismatched_features": [],
+     "not_compared": []
+    },
+    {
+     "kind": "route",
+     "engine_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+     "truth_id": "rte_02",
+     "confidence": 1.0,
+     "matched_features": [
+      "mode",
+      "carrier",
+      "customs_post",
+      "transit_days"
+     ],
+     "mismatched_features": [],
+     "not_compared": []
+    },
+    {
+     "kind": "supplier",
+     "engine_id": "medisynth-s-a-indiya-synthetic",
+     "truth_id": "sup_01",
+     "confidence": 1.0,
+     "matched_features": [
+      "name",
+      "country",
+      "currency"
+     ],
+     "mismatched_features": [],
+     "not_compared": []
+    },
+    {
+     "kind": "supplier",
+     "engine_id": "vektorpharm-pvt-ltd-turtsiya-synthetic",
+     "truth_id": "sup_02",
+     "confidence": 1.0,
+     "matched_features": [
+      "name",
+      "country",
+      "currency"
+     ],
+     "mismatched_features": [],
+     "not_compared": []
+    },
+    {
+     "kind": "sku",
+     "engine_id": "kardiozan-10mg-n30",
+     "truth_id": "SKU_CARDIO_01",
+     "confidence": 1.0,
+     "matched_features": [
+      "trade_name",
+      "retail_uzs"
+     ],
+     "mismatched_features": [],
+     "not_compared": [
+      "manufacturer"
+     ]
+    }
+   ],
+   "truth_native_baseline": {
+    "net_profit_uzs": 404773985.17,
+    "revenue_ex_vat_uzs": 16657365645.0,
+    "cogs_ex_vat_uzs": 14103950013.0,
+    "operating_costs_uzs": 2148641646.83,
+    "net_margin_ex_vat": 0.0243,
+    "annual_sales_packs": 149250,
+    "stockout_packs": 0,
+    "writeoff_packs": 400,
+    "baseline_profit_uzs": 404773985.17,
+    "regret_vs_baseline_uzs": 0.0
+   },
+   "plans": {
+    "diag_cvar": {
+     "packs_by_route": {
+      "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 99000,
+      "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 27000
+     },
+     "nominal_profit_uzs": 115975379.06,
+     "oos": {
+      "expected_uzs": -770283988.35375,
+      "cvar_uzs": -8116582065.393998,
+      "p_loss": 0.39
+     },
+     "oos_mean_profit_uzs": -770283988.35375
+    },
+    "diag_expected": {
+     "packs_by_route": {
+      "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 77500,
+      "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 54000
+     },
+     "nominal_profit_uzs": 228255531.24,
+     "oos": {
+      "expected_uzs": -788400718.6903,
+      "cvar_uzs": -8567169064.464998,
+      "p_loss": 0.425
+     },
+     "oos_mean_profit_uzs": -788400718.6903
+    }
+   },
+   "truth_calls": 402
+  }
+ },
+ "snapshot_id": "f8ccc2c6b88051556cb6076c",
+ "report_sha256": "5d94edf9cc972751"
 }
