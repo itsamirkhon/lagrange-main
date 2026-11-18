@@ -27,7 +27,7 @@ jobs:
       - name: Install app, simulator and OCR
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-dejavu-core tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus tesseract-ocr-uzb
+          sudo apt-get install -y fonts-dejavu-core poppler-utils tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus tesseract-ocr-uzb
           python -m pip install --upgrade pip
           pip install -e ".[ingest,sim,dev]"
       - name: Test independent synthetic world, ontology boundary and clean-document chain
