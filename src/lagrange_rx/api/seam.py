@@ -6,7 +6,7 @@ and nothing else in api/ changes.
 """
 from __future__ import annotations
 
-from lagrange_rx.engine._legacy_ontology import ClientGraph as EngineGraph
+from lagrange_rx.engine.inputs import EngineGraph
 from lagrange_rx.ontology import ClientGraph as OntologyGraph
 
 
