@@ -30,7 +30,8 @@ from lagrange_rx.ingest.cross_document import analyze_cross_documents
 from lagrange_rx.pnl import calculate_pnl
 from lagrange_rx.ontology import ClientGraph
 from lagrange_rx.ontology.rules import load_rules
-from lagrange_rx.ingest.decisions import DecisionQuestion, HeuristicScorer
+from lagrange_rx.ingest.classification import DocumentClassifier
+from lagrange_rx.ai.classify import build_llm_classifier
 from lagrange_rx.ingest.extract.extractor import validate_evidence
 
 
@@ -72,9 +73,10 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
     root.mkdir(parents=True, exist_ok=True)
     store = IntakeStore(root / 'documents')
     app = FastAPI(title='LAGRANGE Rx ingest')
-    scorer = scorer or HeuristicScorer()
     fx_provider = fx_provider or fetch_cbu_rate
     mode = os.getenv('LAGRANGE_AI_MODE', 'off')
+    budget = float(os.getenv('LAGRANGE_AI_BUDGET_USD', '0'))
+    classifier = DocumentClassifier(llm=None if scorer else build_llm_classifier(mode, root / 'cache', budget_usd=budget), scorer=scorer)
     if extractor is None and mode != 'off':
         extractor = configured_extractor(root / 'cache', mode=mode, budget_usd=float(os.getenv('LAGRANGE_AI_BUDGET_USD', '0')))
 
@@ -110,11 +112,10 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
                 batch['issues'].append({'issue_type': 'parse_error', 'severity': 'high', 'affected': [doc.document_id], 'evidence': [], 'detail': str(exc)})
                 continue
             pages = {page.number: page.text for page in parsed.pages}
-            choices = ['sales_export', 'regional_report', 'supplier_quote', 'carrier_quote', 'contract', 'invoice', 'customs', 'waybill', 'stock', 'payments', 'memo', 'email', 'registry_extract', 'irrelevant', 'unknown']
-            question = DecisionQuestion(qid='ALL.doc_class', kind='choice', instructions='Classify this document', options=choices)
-            decision = scorer.decide('\n'.join(pages.values()), [question])[0]
-            doc_class = decision.top if decision.top in choices else 'unknown'
-            batch['documents'].append({'document_id': doc.document_id, 'filename': doc.filename, 'doc_class': doc_class, 'class_confidence': decision.confidence, 'status': 'irrelevant' if doc_class == 'irrelevant' else 'needs_review', 'duplicate': doc.duplicate, 'media_type': doc.media_type, 'pages': len(parsed.pages), 'uploaded_at': datetime.now(timezone.utc).isoformat()})
+            page_texts = [page.text for page in parsed.pages]
+            classification = classifier.classify(doc.filename, page_texts, doc.media_type)
+            doc_class = classification.doc_class
+            batch['documents'].append({'document_id': doc.document_id, 'filename': doc.filename, 'doc_class': doc_class, 'class_confidence': classification.confidence, 'class_method': classification.method, 'class_signals': list(classification.signals), 'status': 'irrelevant' if doc_class == 'irrelevant' else 'needs_review', 'duplicate': doc.duplicate, 'media_type': doc.media_type, 'pages': len(parsed.pages), 'uploaded_at': datetime.now(timezone.utc).isoformat()})
             parsed_documents.append({'document_id': doc.document_id, 'doc_class': doc_class, 'pages': [{'number': page.number, 'text': page.text} for page in parsed.pages], 'tables': [{'page': table.page, 'rows': table.rows} for table in parsed.tables]})
             if extractor and doc_class in FIELDS:
                 try:
