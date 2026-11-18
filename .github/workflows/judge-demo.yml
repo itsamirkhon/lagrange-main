@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - "tests/e2e/test_judge_demo.py"
+      - "tests/e2e/test_fefo_visual.py"
+      - "web/**"
+      - "scripts/judge_browser_smoke.py"
       - ".github/workflows/judge-demo.yml"
       - "scripts/prepare_demo.py"
       - "src/lagrange_rx/api/**"
@@ -32,7 +35,7 @@ jobs:
           python -m pip install -q playwright
           python -m playwright install --with-deps chromium
       - name: Execute actual prepared-company demo contract
-        run: python -m pytest tests/e2e/test_judge_demo.py -q -vv
+        run: python -m pytest tests/e2e/test_judge_demo.py tests/e2e/test_fefo_visual.py -q -vv
       - name: Rehearse real presenter clicks in Chromium
         run: python scripts/judge_demo_browser.py
       - name: Preserve rehearsal screenshots
@@ -56,7 +59,7 @@ jobs:
           python -m pip install -q -e ".[ingest,sim,dev]"
           python -m pip install -q playwright
           python -m playwright install --with-deps chromium
-      - name: Rehearse real Russian UI through twin, plan, FX shock and evidence
+      - name: Rehearse real Russian UI through twin, plan, FX shock, evidence and FEFO
         run: python scripts/judge_browser_smoke.py
       - name: Attach actual demo screenshots
         if: always()
