@@ -5,7 +5,7 @@
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const S = { batchId: null, graphId: null, batch: null, queue: [], twin: null, plan: null, samples: null, graphs: [] };
-const SCREENS = ['docs', 'understood', 'issues', 'twin', 'plan', 'shock', 'evidence', 'progress'];
+const SCREENS = ['docs', 'understood', 'issues', 'twin', 'plan', 'shock', 'evidence', 'progress', 'fefo'];
 
 /* ---------- helpers ---------- */
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -70,6 +70,7 @@ function show(name) {
   $$('#nav a').forEach((a) => (a.dataset.screen === name ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
   if (name === 'evidence') loadEvidence();
   if (name === 'progress') loadProgress();
+  if (name === 'fefo') loadFefo();
   if (name === 'shock') fillRoutes();
 }
 window.addEventListener('hashchange', () => show(location.hash.slice(1)));
@@ -564,6 +565,87 @@ async function loadEvidence() {
     box.innerHTML = r.reports.length ? r.reports.map(reportHtml).join('') : NA(r.directory_exists ? 'В папке отчётов нет JSON-файлов.' : 'Папка отчётов не найдена (LAGRANGE_EVAL_DIR).');
   } catch (e) { box.innerHTML = errBox(e); }
 }
+
+/* ---------- Pharmaceutical FEFO demonstration: real allocation, synthetic data ---------- */
+let fefoLoading = false;
+let fefoCached = null;
+
+const fefoLabel = {
+  recalled: 'ОТЗОВАНА',
+  quarantined: 'КАРАНТИН',
+  unknown: 'НЕ ПОДТВЕРЖДЕНА',
+  released: 'РАЗРЕШЕНА'
+};
+
+function fefoLotCard(lot, index) {
+  const statusClass = !lot.eligible ? 'blocked' : lot.allocated_packs ? 'allocated' : 'reserve';
+  const tag = !lot.eligible ? 'НЕЛЬЗЯ ИСПОЛЬЗОВАТЬ' : lot.allocated_packs ? 'ВЫБРАНА' : 'РЕЗЕРВ';
+  const badgeClass = !lot.eligible ? 'bad' : lot.allocated_packs ? 'ok' : 'warn';
+  const progress = lot.available_packs ? Math.max(0, Math.min(100, lot.allocated_packs / lot.available_packs * 100)) : 0;
+  return `<article class="fefo-lot ${statusClass}">
+    <div class="fefo-lot-top"><span class="fefo-lot-id">${esc(lot.id)}</span>${badge(tag, badgeClass)}</div>
+    <div class="fefo-lot-expiry">${esc(lot.expiry_date)}</div>
+    <div class="fefo-lot-meta">До срока: <b>${int(lot.days_remaining)} дн.</b> · Остаток: <b>${int(lot.available_packs)}</b> уп.</div>
+    <div class="fefo-lot-bar"><span style="width:${progress}%"></span></div>
+    <div class="fefo-lot-bottom"><strong>${lot.allocated_packs ? 'Выбрано: ' + int(lot.allocated_packs) + ' уп.' : esc(lot.reason)}</strong>
+      <small>${esc(fefoLabel[lot.status] || lot.status)}</small></div>
+  </article>`;
+}
+
+function renderFefo(result) {
+  fefoCached = result;
+  const summary = $('#fefo-summary');
+  const lots = $('#fefo-lots');
+  if (!summary || !lots) return;
+  const shortage = result.shortfall_packs > 0;
+  const full = result.allocated_packs === result.requested_packs;
+  summary.innerHTML = `<div class="fefo-kpis">
+    <div class="fefo-kpi"><span>Нужно</span><strong>${int(result.requested_packs)}</strong><small>упаковок</small></div>
+    <div class="fefo-kpi positive"><span>Разрешено</span><strong>${int(result.allocated_packs)}</strong><small>упаковок</small></div>
+    <div class="fefo-kpi ${shortage ? 'negative' : ''}"><span>Не хватает</span><strong>${int(result.shortfall_packs)}</strong><small>упаковок</small></div>
+    <div class="fefo-kpi negative"><span>Заблокировано</span><strong>${int(result.rejected_count)}</strong><small>серии</small></div>
+  </div>
+  ${notice(full ? '<strong>FEFO выполнен:</strong> нужное количество распределено между допустимыми сериями.' :
+    '<strong>Недостаточно допустимого запаса:</strong> неподходящие партии не добавляются в заказ даже при дефиците.', full ? 'ok' : 'warn')}
+  <div class="fefo-selection"><strong>Порядок отпуска:</strong>
+  ${result.allocation.length ? result.allocation.map((a, index) =>
+    `<span class="fefo-order-chip">${index + 1}. ${esc(a.lot_number)} · ${int(a.packs)} уп.</span>`).join('') : 'Нет допустимого объёма для отпуска'}</div>
+  <p class="fefo-small muted">Дата расчёта: ${esc(result.as_of)} · Источник: синтетический пример · Алгоритм: ${esc(result.algorithm)}</p>`;
+  lots.innerHTML = result.lots.map(fefoLotCard).join('');
+}
+
+async function loadFefo() {
+  if (fefoCached || fefoLoading) return;
+  await runFefo();
+}
+
+async function runFefo() {
+  const inp = $('#fefo-demand');
+  const btn = $('#btn-fefo-calc');
+  if (!inp || !btn || fefoLoading) return;
+  const value = Number(inp.value);
+  if (!Number.isInteger(value) || value < 0 || value > 5000) {
+    $('#fefo-summary').innerHTML = notice('Введите целое число от 0 до 5000 упаковок.', 'bad');
+    return;
+  }
+  fefoLoading = true; busy(btn, true);
+  try {
+    const result = await api('/pharma/demo/fefo', {json: {requested_packs: value}});
+    if (!result.synthetic || result.algorithm !== 'allocate_released_fefo')
+      throw new Error('Источник данных демонстрации не подтверждён');
+    renderFefo(result);
+  } catch (e) {
+    $('#fefo-summary').innerHTML = notice('Не удалось выполнить проверку: ' + esc(e.message), 'bad');
+  } finally {
+    fefoLoading = false; busy(btn, false);
+  }
+}
+
+$('#btn-fefo-calc').addEventListener('click', runFefo);
+$('[data-fefo-preset]').forEach((b) => b.addEventListener('click', () => {
+  $('#fefo-demand').value = b.dataset.fefoPreset;
+  runFefo();
+}));
 
 /* ---------- accessible presentation mode ---------- */
 const presentToggle = $('#btn-present');
