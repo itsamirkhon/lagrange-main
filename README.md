@@ -10,8 +10,12 @@
 python -m venv .venv && . .venv/bin/activate
 pip install -e ".[ingest,sim,dev]"      # Tesseract с языками rus/uzb/eng нужен для сканов
 make test                                # или: python -m pytest   (полный прогон ≈ 20 мин, sim-тесты ≈ 7 мин)
-LAGRANGE_SAMPLES_DIR=$PWD/sim/worlds lagrange-rx serve    # http://127.0.0.1:8000 (только loopback, без аутентификации)
+LAGRANGE_SAMPLES_DIR=$PWD/sim/worlds lagrange-rx serve    # http://127.0.0.1:8000 (по умолчанию только loopback)
 ```
+**Безопасность.** По умолчанию API без аутентификации и слушает только `127.0.0.1`. Для доступа извне обязателен пароль: `LAGRANGE_AUTH_PASSWORD` (HTTP Basic, пользователь `lagrange`, `/health` открыт) плюс `--allow-non-loopback`; без пароля сервер отказывается стартовать на не-loopback адресе. Публично — только за TLS.
+
+**CI/деплой.** Деплой на Lightsail запускается только после успешного полного workflow «LAGRANGE Rx validation» (весь backend-набор, проверка JS, браузерный smoke); ручного обхода нет.
+
 Ключ ИИ (необязательно): `OPENROUTER_API_KEY` в `.env` (см. `.env.example`), `LAGRANGE_AI_MODE=openrouter|replay`. В ядре ИИ нет. Docker: `Dockerfile` (порт публиковать только на 127.0.0.1).
 
 ## Review-patch safety policy (Nov 18, 2026)
