@@ -6,6 +6,8 @@ import io
 import zipfile
 
 MAX_FILE_SIZE = 25 * 1024 * 1024
+MAX_ARCHIVE_MEMBERS = 200
+MAX_ARCHIVE_EXPANDED = 75 * 1024 * 1024
 TYPES = {'.pdf': 'application/pdf', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', '.csv': 'text/csv', '.eml': 'message/rfc822', '.txt': 'text/plain'}
 
 class IntakeError(ValueError):
@@ -66,7 +68,7 @@ class IntakeStore:
         try:
             with zipfile.ZipFile(io.BytesIO(content)) as archive:
                 members = [item for item in archive.infolist() if not item.is_dir()]
-                if len(members) > 1000 or sum(item.file_size for item in members) > MAX_FILE_SIZE * 10:
+                if len(members) > MAX_ARCHIVE_MEMBERS or sum(item.file_size for item in members) > MAX_ARCHIVE_EXPANDED:
                     raise IntakeError('Expanded archive is too large')
                 for item in members:
                     path = Path(item.filename.replace('\\', '/'))

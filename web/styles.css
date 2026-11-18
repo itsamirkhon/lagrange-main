@@ -121,3 +121,38 @@ ul.plain { margin: 6px 0; padding-left: 20px; }
   .top { position: static; }
 }
 @media (prefers-reduced-motion: no-preference) { button { transition: border-color .12s; } }
+
+
+/* Review-patch UI: semantics and responsive presentation, using existing tokens. */
+.skip-link { position: absolute; left: 12px; top: -100px; z-index: 100;
+  padding: 10px 14px; background: var(--accent); color: var(--accent-ink); border-radius: 6px; }
+.skip-link:focus { top: 8px; }
+.demo-disclaimer { padding: 9px 20px; background: var(--accent-soft); color: var(--ink);
+  border-bottom: 1px solid var(--line); font-size: 12.5px; line-height: 1.55; }
+.disclaimer-mark { display: inline-block; font-weight: 750; font-size: 11px; line-height: 1.45;
+  letter-spacing: .055em; margin-right: 10px; }
+.presentation-toggle { margin-left: auto; min-height: 36px; }
+.policy-help { color: var(--muted); font-size: 12.5px; max-width: 76ch; margin: 12px 0 2px; }
+.params label { min-width: 142px; }
+button, input[type=number], input[type=search], select { min-height: 40px; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 3px; }
+.presentation-mode .layout { max-width: 1450px; grid-template-columns: 1fr; gap: 14px; padding-top: 16px; }
+.presentation-mode .steps { position: static; flex-direction: row; flex-wrap: wrap; gap: 4px; }
+.presentation-mode .steps a { border: 1px solid var(--line); }
+.presentation-mode .kpi .v { font-size: clamp(1.45rem, 2.3vw, 2.15rem); }
+.presentation-mode .kpis { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.presentation-mode h1 { font-size: clamp(1.6rem, 2.6vw, 2.25rem); }
+@media (max-width: 620px) {
+  .top { display: grid; align-items: start; grid-template-columns: 1fr; }
+  .brand span { display: block; margin: 2px 0 0; }
+  .presentation-toggle { margin-left: 0; }
+  .layout { padding: 12px 12px 50px; }
+  .demo-disclaimer { padding: 10px 12px; }
+  .kpi .v { overflow-wrap: anywhere; }
+  .params > label { flex: 1 1 180px; min-width: 0; }
+  .qcard, .card { padding: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -24,4 +24,7 @@ def graph_for_engine(graph: OntologyGraph | EngineGraph, config: EngineConfig | 
     try:
         return to_calculation_graph(graph, config or default_engine_config(graph))
     except (AdapterError, ValidationError, ValueError) as exc:
-        raise GraphNotUsable(f'graph cannot be used by the engine: {exc}') from exc
+        msg = str(exc)
+        if 'no SalesRecord' in msg:
+            msg += '; Missing confirmed sales. Upload a complete 1C sales export with month, product, quantity, net revenue and lot.'
+        raise GraphNotUsable(f'graph cannot be used by the engine: {msg}') from exc

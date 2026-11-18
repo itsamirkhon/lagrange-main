@@ -112,7 +112,17 @@ def _legal_binding(outcomes: Sequence[ScenarioOutcome]) -> list[Constraint]:
 
 # --------------------------------------------------------------------------- waterfall
 
-def _expected(graph, plan, scenarios, rules, allow_emergency: bool) -> float:
+def _expected(graph, plan, scenarios, rules, allow_emergency: bool,
+              service_level: float | None = None, risk_mode: str = "expected",
+              alpha: float = 0.95, lam: float = 0.5) -> float:
+    if service_level is not None:
+        from lagrange_rx.engine.joint_recourse import evaluate_service_recourse
+        outcomes = evaluate_service_recourse(
+            graph, plan, scenarios, rules, service_level=service_level,
+            risk_mode=risk_mode, alpha=alpha, lam=lam,
+            allow_emergency=allow_emergency,
+        )
+        return sum(s.weight * o.profit_uzs for s, o in zip(scenarios, outcomes)) / sum(s.weight for s in scenarios)
     tw = sum(s.weight for s in scenarios)
     return sum(s.weight * evaluate_plan(graph, plan, s, rules, allow_emergency=allow_emergency).profit_uzs
                for s in scenarios) / tw
@@ -188,12 +198,14 @@ def what_if(graph: CalculationGraph, scenarios: Sequence[Scenario], rules: Rules
             base_plan: Plan, change: dict) -> WhatIfResult:
     """Change a parameter, SOLVE AGAIN, report the difference (no dual prices)."""
     g2, s2 = apply_change(graph, scenarios, change)
-    base_val = _expected(graph, base_plan, scenarios, rules, cfg.emergency_enabled)
+    base_val = _expected(graph, base_plan, scenarios, rules, cfg.emergency_enabled,
+                         cfg.service_level, cfg.risk_mode, cfg.alpha, cfg.lam)
     res = optimize(g2, s2, rules, cfg, plan_id="what-if")
     if res.plan is None:
         return WhatIfResult(change, base_val, float("nan"), float("nan"), base_plan.packs_by_route(), {},
                             res.info.status, f"after the change {change} the problem has no feasible plan")
-    new_val = _expected(g2, res.plan, s2, rules, cfg.emergency_enabled)
+    new_val = _expected(g2, res.plan, s2, rules, cfg.emergency_enabled,
+                        cfg.service_level, cfg.risk_mode, cfg.alpha, cfg.lam)
     delta = new_val - base_val
     text = (f"change {change}: expected profit {base_val / 1e6:,.1f} -> {new_val / 1e6:,.1f} mln UZS "
             f"({delta / 1e6:+,.1f}); packs {base_plan.packs_by_route()} -> {res.plan.packs_by_route()}")

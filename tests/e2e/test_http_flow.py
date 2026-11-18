@@ -149,7 +149,9 @@ def test_twin_optimize_whatif_impossible(client, engine_graph):
 
     imp = client.post('/engine/optimize', json={**gid, 'service_level': 0.98, 'budget_uzs': 2e9,
                                                 'risk_mode': 'expected', **FAST}).json()
-    assert imp['plan'] is None and imp['impossible']['relax_sets'] and imp['legal'] is True
+    assert imp['plan'] is None and imp['impossible']['relax_sets']
+    assert imp['legal'] is None and imp['legal_status'] == 'not_evaluated'
+    assert imp['supply_status'] == 'infeasible' and imp['planned_packs'] == 0
 
 
 def test_unknown_routes_and_errors(client):

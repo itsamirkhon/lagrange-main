@@ -340,7 +340,11 @@ function checksHtml(r) {
   const by = {};
   (r.checks || []).forEach((c) => { const x = by[c.rule_id] || (by[c.rule_id] = { n: 0, f: 0 }); x.n += 1; if (!c.passed) x.f += 1; });
   const rows = Object.entries(by).sort();
-  return `<p>Проверок: <b>${int(r.checks_total)}</b>, нарушений: <b>${int(r.checks_failed)}</b> ${r.legal ? badge('план законен', 'ok') : badge('нарушения', 'bad')}</p>` +
+  const state = r.legal_status || (r.legal === null ? "not_evaluated" : r.legal ? "passed" : "failed");
+  const outcome = state === "not_evaluated" ? badge("не оценено: поставок нет", "warn") :
+    state === "passed" ? badge("Проверки модели пройдены (не юридическое заключение)", "ok") :
+    badge("Нарушены ограничения модели", "bad");
+  return `<p>Проверок: <b>${int(r.checks_total)}</b>, нарушений: <b>${int(r.checks_failed)}</b> ${outcome}</p>` +
     (rows.length ? `<div class="table-wrap"><table><thead><tr><th>rule_id</th><th class="num">проверок</th><th class="num">нарушений</th></tr></thead><tbody>${rows.map(([k, v]) => `<tr><td class="mono">${esc(k)}</td><td class="num">${int(v.n)}</td><td class="num">${int(v.f)}</td></tr>`).join('')}</tbody></table></div>` : '');
 }
 function impossibleHtml(im) {
@@ -358,9 +362,11 @@ function planHtml(r) {
     <div class="kpi"><div class="l">Худший сценарий</div><div class="v">${uzs(m.worst_uzs)}</div></div>
     <div class="kpi"><div class="l">Вероятность убытка</div><div class="v">${pct(m.p_loss, 1)}</div></div>
     <div class="kpi"><div class="l">Решатель</div><div class="v">${esc(s.status || '—')}</div><div class="s">${s.proven_optimal ? 'оптимальность доказана' : 'не доказана'}${isNum(s.seconds) ? ', ' + nf(2).format(s.seconds) + ' с' : ''}</div></div></div>`;
-  if (!p) return head + impossibleHtml(r.impossible) + `<div class="card"><h2>Законность</h2>${checksHtml(r)}</div>`;
+  if (!p) return notice("Нет допустимого плана при заданном покрытии спроса. Отсутствие проверок не доказывает законность.", "bad") + head + impossibleHtml(r.impossible) + `<div class="card"><h2>Законность</h2>${checksHtml(r)}</div>`;
   const lines = p.lines || [];
-  return head + (lines.length ? '' : notice('План не содержит ни одной поставки: при заданных данных оптимизатор не закупает ничего. Сверьте экран «Двойник» и предупреждения ниже.', 'warn')) +
+  const policyText = r.service_policy && isNum(r.service_policy.minimum_expected_fill_rate) ?
+    `<p class="policy-help">Минимальное покрытие: ${pct(r.service_policy.minimum_expected_fill_rate, 0)} (демонстрационное допущение). Запланировано: ${int(r.planned_packs)} упаковок. Эффект на реальных данных не измерен.</p>` : "";
+  return policyText + head + (lines.length ? '' : notice('План не содержит ни одной поставки: при заданных данных оптимизатор не закупает ничего. Сверьте экран «Двойник» и предупреждения ниже.', 'warn')) +
     `<div class="card"><h2>План ${esc(p.plan_id)} <span class="muted">${esc(p.horizon)}</span></h2>
       ${lines.length ? `<div class="table-wrap"><table><thead><tr><th>Маршрут</th><th class="num">Упаковок</th><th class="num">Отгрузок</th><th>Месяцы</th></tr></thead><tbody>${lines.map((l) => `<tr><td>${esc(l.route_id)}</td><td class="num">${int(l.packs)}</td><td class="num">${int(l.shipments)}</td><td>${esc((l.months || []).join(', '))}</td></tr>`).join('')}</tbody></table></div>` : ''}
       <p class="muted">Доля хеджа курса: ${pct(p.fx_hedge_share, 0)} · политика цены: ${esc(p.wholesale_price_policy)} · режим риска: ${esc(p.risk_mode)}</p></div>
@@ -373,12 +379,17 @@ async function runPlan() {
   const box = $('#plan-body');
   if (needGraph(box)) return;
   busy($('#btn-plan'), true); $('#plan-state').textContent = 'Оптимизирую…';
-  const body = { graph_id: S.graphId, risk_mode: $('#p-risk').value, n: +$('#p-n').value, k: +$('#p-k').value, hedge_enabled: $('#p-hedge').checked };
+  const service = Number($('#p-service').value);
+  if (!Number.isFinite(service) || service <= 0 || service > 1) {
+    box.innerHTML = notice("Укажите долю обеспечения от 0 до 1.", "bad"); return;
+  }
+  const body = { service_level: service, graph_id: S.graphId, risk_mode: $('#p-risk').value, n: +$('#p-n').value, k: +$('#p-k').value, hedge_enabled: $('#p-hedge').checked };
   try {
     S.plan = await api('/engine/optimize', { json: body });
-    box.innerHTML = planHtml(S.plan); $('#plan-state').textContent = '';
+    box.innerHTML = planHtml(S.plan);
+    $('#plan-state').textContent = S.plan.supply_status === 'ready' ? 'План пересчитан' : 'Нет допустимого плана';
     ctx();
-  } catch (e) { box.innerHTML = errBox(e); $('#plan-state').textContent = ''; } finally { busy($('#btn-plan'), false); }
+  } catch (e) { box.innerHTML = errBox(e); $('#plan-state').textContent = 'Ошибка'; } finally { busy($('#btn-plan'), false); }
 }
 $('#btn-plan').addEventListener('click', runPlan);
 
@@ -413,6 +424,7 @@ $$('[data-shock]').forEach((b) => b.addEventListener('click', async () => {
       const body = { graph_id: S.graphId, n: +$('#p-n').value, k: +$('#p-k').value, risk_mode: 'expected' };
       if ($('#s-service').value) body.service_level = +$('#s-service').value;
       if ($('#s-budget').value) body.budget_uzs = +$('#s-budget').value;
+      if (!$('#s-service').value) body.service_level = Number($('#p-service').value) || 0.90;
       const r = await api('/engine/optimize', { json: body });
       box.innerHTML = r.plan ? notice('При таких требованиях план существует.', 'ok') + planHtml(r) : planHtml(r);
       return;
@@ -425,6 +437,7 @@ $$('[data-shock]').forEach((b) => b.addEventListener('click', async () => {
   } catch (e) { box.innerHTML = e.status === 404 ? notice('Для этого шока нужен выполнимый план: ' + esc(e.message), 'warn') : errBox(e); } finally { busy(b, false); }
 }));
 
+let LIVE_REVISION = null;
 /* ---------- 7. evidence ---------- */
 function leaves(obj, prefix = '', out = []) {
   if (Array.isArray(obj)) {
@@ -439,6 +452,10 @@ function kvTable(obj) {
   return `<div class="table-wrap"><table><tbody>${leaves(obj).map(([k, v]) => `<tr><td class="mono">${esc(k)}</td><td>${fmtLeaf(v)}${typeof v === 'string' ? flag(v) : ''}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function reportHtml(rep) {
+  const reportRevision = rep.data && rep.data.code_commit;
+  const freshness = !reportRevision ? badge("нет версии кода", "warn") :
+    !LIVE_REVISION ? badge("версия сборки не подтверждена", "warn") :
+    reportRevision === LIVE_REVISION ? badge("отчёт соответствует сборке", "ok") : badge("устаревший отчёт", "bad");
   const head = `<div class="row between"><h2>${esc(rep.name)}</h2><span>${rep.snapshot_id ? `snapshot_id <code>${esc(rep.snapshot_id)}</code>` : badge('snapshot_id не указан', 'warn')}</span></div>`;
   if (rep.skipped) return `<div class="card">${head}${NA('Не показан: ' + rep.skipped)}</div>`;
   const d = rep.data || {};
@@ -447,7 +464,7 @@ function reportHtml(rep) {
     tiles = '<div class="grid2">' + Object.entries(d.metrics).map(([k, v]) => `<div class="card" style="margin:0"><h2>${esc(k)} ${v && typeof v === 'object' && 'pass' in v ? (v.pass ? badge('пройдено', 'ok') : badge('не пройдено', 'bad')) : ''}</h2>${kvTable(v && typeof v === 'object' ? v : { значение: v })}</div>`).join('') + '</div>';
   }
   const rest = { ...d }; if (tiles) delete rest.metrics;
-  return `<div class="card">${head}${d.truth ? `<p class="muted">Истина: ${esc(d.truth)}</p>` : ''}${typeof d.all_pass === 'boolean' ? `<p>Все пороги: ${d.all_pass ? badge('пройдены', 'ok') : badge('не пройдены', 'bad')}</p>` : ''}${tiles}
+  return `<div class="card">${head}<p>${freshness}</p>${d.truth ? `<p class="muted">Истина: ${esc(d.truth)}</p>` : ''}${typeof d.all_pass === 'boolean' ? `<p>Все пороги: ${d.all_pass ? badge('пройдены', 'ok') : badge('не пройдены', 'bad')}</p>` : ''}${tiles}
     <details><summary>${tiles ? 'Остальные поля отчёта' : 'Содержимое отчёта'}</summary>${kvTable(rest)}</details></div>`;
 }
 async function loadEvidence() {
@@ -456,9 +473,20 @@ async function loadEvidence() {
     ? `<div class="card"><h2>Текущий расчёт: проверка законности</h2>${checksHtml(S.plan)}<p class="muted">Снимок <code>${esc((S.plan.snapshot || {}).snapshot_id || '—')}</code>, оптимальность: ${(S.plan.solve || {}).proven_optimal ? badge('доказана решателем', 'ok') : badge('не доказана', 'warn')}</p></div>`
     : notice('Законность текущего расчёта появится здесь после построения плана.');
   try {
-    const r = await api('/evidence/reports');
+    const [r, health] = await Promise.all([api('/evidence/reports'), api('/health')]);
+    LIVE_REVISION = health.revision || null;
     box.innerHTML = r.reports.length ? r.reports.map(reportHtml).join('') : NA(r.directory_exists ? 'В папке отчётов нет JSON-файлов.' : 'Папка отчётов не найдена (LAGRANGE_EVAL_DIR).');
   } catch (e) { box.innerHTML = errBox(e); }
+}
+
+/* ---------- accessible presentation mode ---------- */
+const presentToggle = $('#btn-present');
+if (presentToggle) {
+  presentToggle.addEventListener('click', () => {
+    const active = document.documentElement.classList.toggle('presentation-mode');
+    presentToggle.setAttribute('aria-pressed', String(active));
+    presentToggle.textContent = active ? 'Закрыть режим презентации' : 'Режим презентации';
+  });
 }
 
 /* ---------- boot ---------- */

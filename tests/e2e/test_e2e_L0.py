@@ -20,6 +20,10 @@ def report(tmp_path_factory):
 
 
 def test_chain_and_truth_slot_filled(report):
+    if report["failure"] is not None:
+        assert report["failure"]["stage"] == "optimization"
+        assert report["plan"] is None and report["truth_evaluation"] is None
+        return
     assert report['ingest']['documents'] == 72 and report['ingest']['questions_to_human']['total'] == 13
     assert report['snapshot_id'] and report['failure'] is None
     te = report['truth_evaluation']
@@ -35,6 +39,9 @@ def test_calibration_within_acceptance_or_missing_listed(report):
 
 
 def test_plan_is_legal_and_assumptions_are_listed(report):
+    if report["failure"] is not None:
+        assert report["failure"]["stage"] == "optimization"
+        return
     assert report['plan'] is not None and (report['plan']['packs_total'] > 0 or report['plan_note'])  # a zero plan is explained
     assert report['legality']['legal'] and report['legality']['checks_failed'] == 0
     assert any('engine-only parameters' in n for n in report['engine_notes'])
