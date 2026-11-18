@@ -26,6 +26,7 @@
     <a href="#evidence" data-screen="evidence"><i>7</i>Доказательства</a>
     <a href="#progress" data-screen="progress"><i>★</i>Наши результаты</a>
     <a href="#fefo" data-screen="fefo"><i>+</i>FEFO и безопасность</a>
+    <a href="#compliance" data-screen="compliance"><i>⚖</i>Юридическая проверка</a>
   </nav>
 
   <main id="main-content" tabindex="-1">
@@ -171,6 +172,41 @@
         <h2>Что именно мы показываем?</h2>
         <p><strong>FEFO</strong> означает <em>First Expired, First Out</em>: из допустимых серий первыми выбираются те, срок годности которых наступает раньше. Отозванные и карантинные серии не используются, даже если они самые дешёвые или их много.</p>
         <p class="muted">Это демонстрация распределения существующих запасов, а не готовая система управления медицинским складом. Динамическая температура, подтверждение выпуска партий и помесячная оптимизация поставок требуют отдельного внедрения и проверки.</p>
+      </div>
+    </section>
+
+    <section id="compliance" class="screen" hidden>
+      <div class="fefo-hero">
+        <div class="fefo-eyebrow">ПРАВОВАЯ И ФАРМАЦЕВТИЧЕСКАЯ ПРОВЕРКА · СИНТЕТИЧЕСКИЙ ПРИМЕР</div>
+        <h1>Проверяем до оптимизации</h1>
+        <p>Невыгодные условия можно оптимизировать. Незаконные или неподтверждённые условия — нельзя. Выберите сценарий: система проверяет ограничения и показывает причину отказа с источником данных.</p>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h2>Проверка предложения</h2>
+          <label class="field" for="compliance-case">Сценарий
+            <select id="compliance-case">
+              <option value="eligible">Корректная партия (учебный пример)</option>
+              <option value="overprice">Цена выше допустимого лимита</option>
+              <option value="unlicensed">Лицензия поставщика отозвана</option>
+              <option value="recalled">Отозванная серия</option>
+              <option value="controlled">Психотропное средство без специального разрешения</option>
+              <option value="cold_chain">Нарушена температурная цепь</option>
+              <option value="missing_record">Нет записи о регистрации</option>
+              <option value="public_procurement">Госзакупка без подтверждения канала</option>
+              <option value="wrong_spec">Несовпадение дозировки</option>
+              <option value="bad_marking">Недействительная маркировка</option>
+            </select>
+          </label>
+          <button type="button" id="btn-compliance" class="primary">Проверить предложение</button>
+          <p class="policy-help">Все препараты, лицензии, партии и цены здесь вымышлены. Нет подключения к государственным API и нет разрешения на реальную закупку. «Допустимо» означает только прохождение заданных тестовых проверок.</p>
+          <h2>Официальные источники</h2>
+          <div id="compliance-sources" class="muted">Загрузка ссылок на источники…</div>
+        </div>
+        <div id="compliance-results" class="card" aria-live="polite">
+          <h2>Результат предзакупочной проверки</h2>
+          <p class="muted">Выберите сценарий и нажмите «Проверить предложение».</p>
+        </div>
       </div>
     </section>
     <section id="progress" class="screen" hidden>
