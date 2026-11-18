@@ -32,6 +32,29 @@ jobs:
           test ! -e .env
           printf '%s\n' "${{ github.sha }}" > .lagrange-version
 
+      # The browser demo must have a real approved synthetic L0 graph available.
+      # Build it into the release bundle; GraphStore falls back to demo/graphs
+      # when no user-approved persistent graphs exist. Never touch live state.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare labelled synthetic judge company
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus tesseract-ocr-uzb
+          python -m pip install -q -e '.[ingest,sim]'
+          python scripts/prepare_demo.py --data-dir demo
+          test "$(find demo/graphs -name 'demo*.json' -type f | wc -l)" -ge 1
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          files = sorted(Path('demo/graphs').glob('demo*.json'))
+          assert files
+          g = json.loads(files[0].read_text(encoding='utf-8'))
+          assert len(g['sales_records']) > 0
+          print('Judge demo graph staged:', files[0], 'sales records:', len(g['sales_records']))
+          PY
+
       - name: Configure SSH key and known host
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
