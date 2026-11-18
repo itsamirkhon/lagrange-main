@@ -208,3 +208,53 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   .proof-hero-actions { flex-direction: column; align-items: stretch; }
   .proof-action { text-align: center; }
 }
+
+/* Pharmaceutical FEFO safety demo: intentionally distinct from historical financial metrics. */
+.fefo-hero { background: linear-gradient(118deg,#163d48,#1b635c); border-radius:18px; color:#fffefa; padding:clamp(24px,4vw,44px); margin-bottom:18px; overflow:hidden; position:relative; }
+.fefo-hero:after { content:''; position:absolute; width:260px; height:260px; border:42px solid rgba(255,255,255,.07); border-radius:50%; right:-110px; top:-135px; pointer-events:none; }
+.fefo-eyebrow { color:#bee8df; font-size:11px; font-weight:750; letter-spacing:.14em; margin-bottom:12px; }
+.fefo-hero h1 { font-size:clamp(26px,3.7vw,44px); line-height:1.13; letter-spacing:-.035em; max-width:680px; margin-bottom:12px; }
+.fefo-hero p { max-width:76ch; color:#e1f1eb; font-size:15px; line-height:1.6; }
+.fefo-hero-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.fefo-hero-pills span { font-size:12px; font-weight:650; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:100px; padding:6px 11px; }
+.fefo-demo-layout { display:grid; grid-template-columns:minmax(225px,0.85fr) minmax(0,2fr); gap:16px; align-items:start; }
+.fefo-controls { padding:22px; }
+.fefo-controls h2 { font-size:19px; }
+.fefo-controls #fefo-demand { display:block; width:100%; font-size:30px; padding:12px; font-weight:730; margin-bottom:10px; font-variant-numeric:tabular-nums; }
+.fefo-controls #btn-fefo-calc { width:100%; min-height:44px; margin-top:14px; font-weight:700; }
+.fefo-presets { display:flex; gap:6px; flex-wrap:wrap; }
+.fefo-presets .small { flex:1; }
+.fefo-small { font-size:12px; line-height:1.6; }
+.fefo-controls .fefo-small { margin-top:14px; margin-bottom:0; }
+.fefo-kpis { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
+.fefo-kpi { border-radius:12px; border:1px solid var(--line); padding:17px; background:var(--surface); display:flex; flex-direction:column; min-width:0; }
+.fefo-kpi span { font-size:12px; color:var(--muted); font-weight:600; }
+.fefo-kpi strong { font-size:clamp(27px,3vw,39px); line-height:1.2; letter-spacing:-.04em; font-variant-numeric:tabular-nums; margin:5px 0; }
+.fefo-kpi small { font-size:11px; color:var(--muted); }
+.fefo-kpi.positive { background:var(--ok-soft); border-color:transparent; }
+.fefo-kpi.negative { background:var(--bad-soft); border-color:transparent; }
+.fefo-selection { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:13px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.fefo-selection>strong { font-size:12px; width:100%; }
+.fefo-order-chip { border-radius:7px; background:var(--accent-soft); font-size:12px; font-weight:650; padding:7px 10px; }
+.fefo-batches { padding:21px; }
+.fefo-lot-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.fefo-lot { border:1px solid var(--line); border-radius:11px; padding:15px; min-width:0; background:var(--surface); display:flex; flex-direction:column; gap:7px; }
+.fefo-lot.allocated { border-color:var(--ok); background:var(--ok-soft); }
+.fefo-lot.blocked { border-color:var(--bad); background:var(--bad-soft); }
+.fefo-lot-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:5px; }
+.fefo-lot-id { font:700 14px var(--mono); }
+.fefo-lot-top .badge { font-size:10px; }
+.fefo-lot-expiry { font-size:22px; letter-spacing:-.02em; font-variant-numeric:tabular-nums; font-weight:700; }
+.fefo-lot-meta { color:var(--muted); font-size:12px; }
+.fefo-lot-meta b { color:var(--ink); }
+.fefo-lot-bar { height:7px; width:100%; border-radius:10px; background:var(--line); overflow:hidden; margin-top:5px; }
+.fefo-lot-bar span { display:block; background:var(--ok); height:100%; transition:width .25s ease; }
+.fefo-lot.blocked .fefo-lot-bar span { background:var(--bad); }
+.fefo-lot-bottom { display:flex; flex-direction:column; gap:4px; margin-top:6px; }
+.fefo-lot-bottom strong { font-size:12px; }
+.fefo-lot-bottom small { color:var(--muted); font-size:11px; letter-spacing:.04em; }
+.fefo-explain { padding:23px; }
+.fefo-explain h2 { font-size:19px; }
+.fefo-explain p { max-width:85ch; }
+@media(max-width:950px){.fefo-lot-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .fefo-demo-layout{grid-template-columns:1fr;}}
+@media(max-width:560px){.fefo-lot-grid{grid-template-columns:1fr;} .fefo-hero{padding:24px 20px;} .fefo-hero-pills{flex-direction:column;align-items:flex-start;}}
