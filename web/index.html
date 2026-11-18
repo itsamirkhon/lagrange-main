@@ -24,6 +24,7 @@
     <a href="#plan" data-screen="plan"><i>5</i>План</a>
     <a href="#shock" data-screen="shock"><i>6</i>Шок</a>
     <a href="#evidence" data-screen="evidence"><i>7</i>Доказательства</a>
+    <a href="#progress" data-screen="progress"><i>★</i>Наши результаты</a>
   </nav>
 
   <main id="main-content" tabindex="-1">
@@ -133,6 +134,34 @@
       <div id="shock-body"></div>
     </section>
 
+    <section id="progress" class="screen" hidden>
+      <div class="proof-hero">
+        <div class="proof-eyebrow">LAGRANGE Rx / ПРОВЕРКА РЕШЕНИЙ</div>
+        <h1>Что мы уже доказали</h1>
+        <p>Не просто красивые графики. Мы проверяем расчёты на независимых задачах, воспроизводим экономику тестовой компании и показываем, как решения меняются при рисках.</p>
+        <div class="proof-hero-actions">
+          <a class="proof-action" href="#twin">Открыть цифровой двойник</a>
+          <a class="proof-action secondary" href="#plan">Рассчитать план</a>
+        </div>
+      </div>
+      <div id="progress-summary" aria-live="polite">Загружаю результаты проверок…</div>
+      <div class="proof-flow card">
+        <h2>От документов до обоснованного решения</h2>
+        <div class="proof-chain" role="list" aria-label="Этапы работы продукта">
+          <div class="proof-chain-step" role="listitem"><b>01</b><strong>Документы</strong><span>Файлы и источники данных</span></div>
+          <div class="proof-chain-step" role="listitem"><b>02</b><strong>Проверка</strong><span>Подтверждение человеком</span></div>
+          <div class="proof-chain-step" role="listitem"><b>03</b><strong>Двойник</strong><span>Финансовая модель</span></div>
+          <div class="proof-chain-step" role="listitem"><b>04</b><strong>План</strong><span>Поставщики и маршруты</span></div>
+          <div class="proof-chain-step" role="listitem"><b>05</b><strong>Что, если?</strong><span>Курс, цена, доступность</span></div>
+        </div>
+      </div>
+      <div class="proof-footer card">
+        <h2>Как мы проводили проверки</h2>
+        <p>Для математического ядра сравнивали решения с полным перебором маленьких задач. Ограничения проверяли на множестве сценариев. Полную цепочку продукта прогоняли в настоящем браузере на <strong>синтетической</strong> компании.</p>
+        <p class="muted">Числа берутся из сохранённых отчётов и помечаются версией. Исторический тест не означает, что коммерческий эффект или соблюдение законодательства доказаны. Для реальных клиентов нужны отдельные испытания.</p>
+        <a href="#evidence" class="proof-inline-link">Посмотреть подробные отчёты и текущие проверки</a>
+      </div>
+    </section>
     <section id="evidence" class="screen" hidden>
       <h1>Доказательства</h1>
       <p class="lead">Проверки законности, оптимальности и метрики из отчётов независимой оценки. Только чтение; у каждого отчёта указан snapshot_id.</p>
