@@ -65,6 +65,14 @@ def main():
                     page.locator('#p-service').fill('0.95')
                     page.locator('#btn-plan').click()
                     assert page.locator('#plan-body .notice').count() == 1
+                    # Exercise the judge-facing regulatory gate in a real browser.
+                    page.locator('a[data-screen="compliance"]').click()
+                    page.locator('#btn-compliance').click()
+                    page.locator('#compliance-results').get_by_text('ПРОЙДЕНЫ ТЕСТОВЫЕ ПРОВЕРКИ').wait_for()
+                    page.locator('#compliance-case').select_option('recalled')
+                    page.locator('#compliance-results').get_by_text('ЗАБЛОКИРОВАНО').wait_for()
+                    assert 'BATCH' in page.locator('#compliance-results').inner_text()
+                    page.screenshot(path=str(out / (name + '-regulatory.png')), full_page=True)
                     if errors:
                         raise AssertionError(f'JavaScript errors ({name}): {errors}')
                     overflow = page.evaluate('document.documentElement.scrollWidth > window.innerWidth + 3')

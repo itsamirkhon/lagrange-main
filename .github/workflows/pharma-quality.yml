@@ -7,6 +7,15 @@ on:
       - 'src/lagrange_rx/engine/adapter.py'
       - 'src/lagrange_rx/engine/pharma_quality.py'
       - 'tests/engine/test_pharma_quality.py'
+      - 'src/lagrange_rx/engine/regulatory_*.py'
+      - 'src/lagrange_rx/api/regulatory.py'
+      - 'src/lagrange_rx/api/engine.py'
+      - 'src/lagrange_rx/api/app.py'
+      - 'tests/engine/test_regulatory_*.py'
+      - 'tests/engine/test_regulated_endpoint.py'
+      - 'scripts/verify_regulatory_snapshot.py'
+      - 'web/index.html'
+      - 'web/app.js'
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,4 +31,6 @@ jobs:
       - name: Install
         run: python -m pip install -q -e '.[ingest,sim,dev]'
       - name: Pharmaceutical safeguards and existing adapter tests
-        run: python -m pytest tests/engine/test_pharma_quality.py tests/engine/test_adapter.py tests/engine/test_adapter_ingest_l0.py -q
+        run: python -m pytest tests/engine/test_pharma_quality.py tests/engine/test_adapter.py tests/engine/test_adapter_ingest_l0.py tests/engine/test_regulatory_gate.py tests/engine/test_regulatory_filter.py tests/engine/test_regulatory_api.py tests/engine/test_regulatory_import.py tests/engine/test_regulated_endpoint.py -q
+      - name: Validate browser JS syntax
+        run: node --check web/app.js
