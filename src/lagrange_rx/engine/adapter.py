@@ -502,9 +502,26 @@ def history(g: onto.ClientGraph, sku: str, route_ids: set[str]) -> tuple[tuple[S
                                fx_uzs=_f(entries[s.customs_entry].fx_rate_on_entry),
                                kc=_f(entries[s.customs_entry].cip_value_fx) / s.packs)
                   for s in g.shipments if s.route in route_ids)
-    sales = tuple(SaleSpec(month=s.period, packs=s.qty_packs, price_uzs=_f(s.price_ex_vat))
-                  for s in g.sales_records if s.product == sku and s.qty_packs > 0)
-    return ships, sales
+    # Historical calibration uses the landed cost of the exact batch sold, not an
+    # average of the route's deliveries. This join relies only on documented,
+    # confirmed ontology entities; simulation truth is not available here.
+    lots = {lot.lot_number: lot for lot in g.lots}
+    shipments = {s.shipment_id: s for s in g.shipments}
+    sales = []
+    for sale in g.sales_records:
+        if sale.product != sku or sale.qty_packs <= 0:
+            continue
+        landed = None
+        lot = lots.get(sale.lot)
+        if lot is not None and lot.product == sku:
+            shipment = shipments.get(lot.shipment)
+            if shipment is not None and shipment.route in route_ids:
+                entry = entries.get(shipment.customs_entry)
+                if entry is not None:
+                    landed = _f(entry.legal_base_c_per_pack)
+        sales.append(SaleSpec(month=sale.period, packs=sale.qty_packs,
+                              price_uzs=_f(sale.price_ex_vat), unit_landed_cost_uzs=landed))
+    return ships, tuple(sales)
 
 
 # --------------------------------------------------------------------------------------------- entry point
