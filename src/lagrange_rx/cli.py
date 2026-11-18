@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import ipaddress
+import os
 import sys
 
 
@@ -23,17 +24,21 @@ def build_parser() -> argparse.ArgumentParser:
     serve.add_argument('--port', type=int, default=8000)
     serve.add_argument('--data-dir', default=None, help='state directory (default: $LAGRANGE_DATA_DIR or ./data)')
     serve.add_argument('--allow-non-loopback', action='store_true',
-                       help='DANGEROUS: the API has no authentication; bind a non-loopback host anyway')
+                       help='bind a non-loopback host; requires LAGRANGE_AUTH_PASSWORD (HTTP Basic, user "lagrange")')
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == 'serve':
-        if not is_loopback(args.host) and not args.allow_non_loopback:
-            print(f'refusing to bind {args.host}: the API has no authentication. '
-                  'Use 127.0.0.1, or pass --allow-non-loopback if you really mean it.', file=sys.stderr)
-            return 2
+        if not is_loopback(args.host):
+            if not args.allow_non_loopback:
+                print(f'refusing to bind {args.host}: the API has no authentication by default. '
+                      'Use 127.0.0.1, or pass --allow-non-loopback together with LAGRANGE_AUTH_PASSWORD.', file=sys.stderr)
+                return 2
+            if not os.getenv('LAGRANGE_AUTH_PASSWORD'):
+                print(f'refusing to bind {args.host}: set LAGRANGE_AUTH_PASSWORD to expose the API beyond loopback.', file=sys.stderr)
+                return 2
         import uvicorn
         from lagrange_rx.api.app import create_app
         uvicorn.run(create_app(args.data_dir), host=args.host, port=args.port)

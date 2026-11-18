@@ -1,9 +1,12 @@
 name: Deploy LAGRANGE Rx to Lightsail
 
+# Deploys only a commit on main whose FULL validation workflow ("LAGRANGE Rx validation": complete
+# backend suite, JS/Python checks, real-browser smoke) finished successfully. No manual bypass.
 on:
-  push:
+  workflow_run:
+    workflows: ["LAGRANGE Rx validation"]
+    types: [completed]
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,26 +17,14 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout the validated commit
         uses: actions/checkout@v4
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          cache: 'pip'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e ".[ingest,sim,dev]"
-
-      - name: Run fast release gate (boundaries, ontology, e2e)
-        run: pytest -q tests/test_boundaries.py tests/e2e/ tests/ontology/
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Validate release bundle
         run: |
@@ -43,7 +34,7 @@ jobs:
           test -s rules/uz_pharma_rules.yaml
           test -s data/cbu_fx_monthly.csv
           test ! -e .env
-          printf '%s\n' "${{ github.sha }}" > .lagrange-version
+          printf '%s\n' "${{ github.event.workflow_run.head_sha }}" > .lagrange-version
 
       - name: Configure SSH key and known host
         env:

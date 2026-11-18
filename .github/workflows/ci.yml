@@ -31,7 +31,7 @@ jobs:
           node --check web/app.js
           python -m compileall -q src eval tests scripts
       - name: Run backend and integration tests
-        run: python -m pytest --ignore=tests/sim -q
+        run: python -m pytest --ignore=tests/sim -q -n auto
       - name: Evidence state (informational, not certification)
         run: python scripts/verify_release.py
 

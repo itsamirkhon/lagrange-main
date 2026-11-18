@@ -1,7 +1,7 @@
 """The one FastAPI application: /ingest, /ontology, /engine, /health and (optionally) the static UI.
 
 Run: `lagrange-rx serve` (loopback only) or `uvicorn lagrange_rx.api.app:app --host 127.0.0.1`.
-There is no authentication: the service must never be exposed beyond the local machine.
+Optional HTTP Basic password (LAGRANGE_AUTH_PASSWORD). Without it there is NO authentication: keep it on loopback.
 """
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+from lagrange_rx.api import auth as auth_api
 from lagrange_rx.api import engine as engine_api
 from lagrange_rx.api import ingest as ingest_api
 from lagrange_rx.api import evidence as evidence_api
@@ -28,7 +29,8 @@ def _web_dir() -> Path | None:
 
 def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None,
                web_dir: str | Path | None = None, serve_web: bool = True, as_of=None,
-               samples_dir: str | Path | None = None, eval_dir: str | Path | None = None) -> FastAPI:
+               samples_dir: str | Path | None = None, eval_dir: str | Path | None = None,
+               auth_password: str | None = None) -> FastAPI:
     app = FastAPI(title='LAGRANGE Rx', version=__version__)
     ingest_router, root = ingest_api.make_router(data_dir, scorer=scorer, extractor=extractor, fx_provider=fx_provider, as_of=as_of)
     app.include_router(ingest_router)
@@ -45,6 +47,9 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
     web = (Path(web_dir) if web_dir else _web_dir()) if serve_web else None
     if web is not None and (web / 'index.html').is_file():
         app.mount('/', StaticFiles(directory=web, html=True), name='web')  # last: API routes win
+    password = auth_api.configured_password(auth_password)
+    if password:
+        auth_api.install_basic_auth(app, password)
     return app
 
 

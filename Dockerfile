@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir ".[ingest]"
 ENV LAGRANGE_DATA_DIR=/data LAGRANGE_WEB_DIR=/app/web
 VOLUME /data
 EXPOSE 8000
-# The API has no authentication. Inside the container it listens on all interfaces so the port can be
-# published; publish it to loopback only:  docker run -p 127.0.0.1:8000:8000 lagrange-rx
+# The API is password-protected (HTTP Basic, user "lagrange"). Binding beyond loopback is refused unless
+# LAGRANGE_AUTH_PASSWORD is set:
+#   docker run -e LAGRANGE_AUTH_PASSWORD=... -p 127.0.0.1:8000:8000 lagrange-rx   (put TLS in front for public use)
 CMD ["lagrange-rx", "serve", "--host", "0.0.0.0", "--allow-non-loopback", "--port", "8000"]
