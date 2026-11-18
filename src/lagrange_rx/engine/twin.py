@@ -341,7 +341,12 @@ def twin_baseline(graph: CalculationGraph) -> CalibrationResult:
     if missing:
         return CalibrationResult(None, None, None, False, (CalibrationIssue(0.0, 0.0, tuple(missing)),), tuple(missing))
     revenue = sum(s.packs * s.price_uzs for s in sales)
-    cost = _historical_cost(graph, shipments, sales)
+    try:
+        cost = _historical_cost(graph, shipments, sales)
+    except TwinError as exc:
+        detail = str(exc)
+        return CalibrationResult(None, graph.actual.margin, None, False,
+                                 (CalibrationIssue(0.0, 0.0, (detail,)),), (detail,))
     twin_margin = (revenue - cost) / revenue
     actual_margin = graph.actual.margin
     gap_pp = abs(twin_margin - actual_margin) * 100.0
