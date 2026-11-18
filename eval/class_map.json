@@ -1,6 +1,6 @@
 {
   "sales_export": "D1", "regional_report": "D2", "supplier_quote": "D3",
   "carrier_quote": "D4", "contract": "D5", "invoice": "D6", "customs": "D7",
-  "waybill": "D8", "stock": "D9", "payments": "D10", "memo": "D11",
+  "waybill": "D8", "stock": "D9", "payments": "D10", "memo": "D11", "irrelevant": "J1",
   "email": "D12", "registry_extract": "D13"
 }
