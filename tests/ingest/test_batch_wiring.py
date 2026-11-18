@@ -4,7 +4,7 @@ import asyncio
 
 import httpx
 
-from lagrange_rx.api.ingest import create_app
+from lagrange_rx.api.app import create_app
 
 QUOTE_LINES = ['COMMERCIAL QUOTATION KP-2025-001', 'Date: 2025-01-05 | Incoterms: CIP Tashkent', 'Items', 'Номер КП', 'Препарат', 'MOQ', 'Срок',
                'Цена CIP', 'Действует до', 'KP-2025-001', 'Kardiozan 10 мг', '10000', '22 дн.', '7,50', '2025-02-19']
