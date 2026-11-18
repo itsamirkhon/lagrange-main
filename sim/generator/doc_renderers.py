@@ -20,11 +20,24 @@ from reportlab.pdfgen import canvas
 from sim.generator.domain import WATERMARK_TEXT
 from sim.generator.image_corruptions import ensure_watermark
 
+def _dejavu_font(filename: str) -> str:
+    """Find the same DejaVu TTF on Arch or Debian/Ubuntu; do not silently
+    substitute a different font because that changes document geometry."""
+    candidates = (
+        Path("/usr/share/fonts/TTF") / filename,
+        Path("/usr/share/fonts/truetype/dejavu") / filename,
+    )
+    for path in candidates:
+        if path.is_file():
+            return str(path)
+    return str(candidates[0])
+
+
 FONT_PATHS: dict[str, str] = {
-    "regular": "/usr/share/fonts/TTF/DejaVuSans.ttf",
-    "bold": "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
-    "oblique": "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf",
-    "mono": "/usr/share/fonts/TTF/DejaVuSansMono.ttf",
+    "regular": _dejavu_font("DejaVuSans.ttf"),
+    "bold": _dejavu_font("DejaVuSans-Bold.ttf"),
+    "oblique": _dejavu_font("DejaVuSans-Oblique.ttf"),
+    "mono": _dejavu_font("DejaVuSansMono.ttf"),
 }
 
 REPORTLAB_FONTS: dict[str, str] = {
