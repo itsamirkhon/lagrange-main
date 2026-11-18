@@ -180,6 +180,12 @@ def metric_regret(level_graphs: dict, truth_graph: CalculationGraph, rules: Rule
 
 # --------------------------------------------------------------------------- report
 
+def _truth_label(truth, truth_graph) -> str:
+    if isinstance(truth, LocalTruth):
+        return "LocalTruth stand-in (simulation not connected)" if truth_graph is None else "LocalTruth on provided truth graph"
+    return "simulation evaluate_plan_on_truth"
+
+
 def _git(*args: str) -> str:
     try:
         return subprocess.check_output(["git", *args], cwd=THRESHOLDS_PATH.parent, text=True,
@@ -194,6 +200,7 @@ def load_thresholds(path: Path = THRESHOLDS_PATH) -> tuple[dict, str]:
 
 
 def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph=None,
+                   truth: TruthEvaluator | None = None, extra: dict | None = None,
                    level_graphs: dict | None = None, rules: Rules | None = None,
                    fx: FxHistory | None = None, scen_cfg: ScenarioConfig = ScenarioConfig(),
                    opt_cfg: OptimizerConfig = OptimizerConfig(), thresholds_path: Path = THRESHOLDS_PATH) -> dict:
@@ -201,10 +208,10 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
     rules = rules or load_rules()
     fx = fx or load_fx_history()
     g = calculation_graph(raw_graph, config)
-    tg = calculation_graph(truth_graph if truth_graph is not None else raw_graph, config)
+    tg = g if truth is not None else calculation_graph(truth_graph if truth_graph is not None else raw_graph, config)
     result = run_optimize(g, rules=rules, fx=fx, scen_cfg=scen_cfg, opt_cfg=opt_cfg, demo_mode=True)
     plan, opt_set = result.plan, result.context.scenarios
-    truth = LocalTruth(tg, rules, match_routes(g, tg))
+    truth = truth or LocalTruth(tg, rules, match_routes(g, tg))
     oos = out_of_sample(g, fx, rules, ScenarioConfig(**{**scen_cfg.__dict__, "n": thr["out_of_sample_scenarios"]}))
     mean_scn = mean_scenario(oos, g)
     report = {
@@ -213,9 +220,12 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
         "thresholds_sha256": thr_sha,
         "thresholds_commit": _git("log", "-1", "--format=%H", "--", str(THRESHOLDS_PATH)),
         "code_commit": _git("rev-parse", "HEAD"),
-        "truth": "LocalTruth stand-in (simulation not connected)" if truth_graph is None else "LocalTruth on provided truth graph",
+        "truth": _truth_label(truth, truth_graph),
         "fx_source": fx.source_label,
-        "route_mapping": truth.mapping,
+        **({"truth_mapping": truth.mapping_table()} if hasattr(truth, "mapping_table") else {"route_mapping": truth.mapping}),
+        **(extra or {}),
+        "plan": plan.model_dump(mode="json", by_alias=True),
+        "baseline_plan": baseline_plan(g).model_dump(mode="json", by_alias=True),
         "metrics": {
             "calibration": metric_calibration(g, thr),
             "uplift": metric_uplift(truth, plan, baseline_plan(g), oos, thr),
@@ -235,14 +245,52 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
     return report
 
 
+def run_on_simulation(*, ingest_path: Path | None = None, truth_dir: Path | None = None,
+                      thresholds_path: Path = THRESHOLDS_PATH, scen_cfg: ScenarioConfig = ScenarioConfig(),
+                      opt_cfg: OptimizerConfig = OptimizerConfig()) -> dict:
+    """Stage 5: engine graph from the Ingest L0 ontology graph (via the adapter), plans evaluated on the simulation
+    truth through `SimTruth` (feature-mapped, `evaluate_plan_on_truth`)."""
+    from eval import engine_inputs as ei
+    from eval.truth_eval import TRUTH_DIR, SimTruth
+
+    ingest_path = ingest_path or ei.INGEST_GRAPH_PATH
+    graph, ingest_snapshot = ei.load_ingest_graph(ingest_path)
+    onto_graph, removed = ei.engine_input_graph(graph)
+    cfg = ei.engine_config()
+    g = calculation_graph(onto_graph, cfg)
+    with SimTruth(g, onto_graph, truth_dir or TRUTH_DIR) as st:
+        extra = {
+            "graph_source": f"ontology graph from Ingest ({ingest_path.name}, snapshot {ingest_snapshot}) -> "
+                            "engine.adapter.to_calculation_graph with EngineConfig from eval/engine_inputs.py",
+            "ingest_snapshot_id": ingest_snapshot,
+            "engine_input_removed": removed,
+            "engine_input_assumptions": ei.ASSUMPTIONS,
+            "adapter_notes": [n for n in g.notes if "financing is modelled" not in n and "outside the 12 months" not in n],
+            "truth_native_baseline": st.baseline_on_truth(),
+            "truth_overlay": ("scenario -> copy of truth tables: demand = scenario.demand/forecast p50 on window sales; "
+                              "USD rate ratio on fx, on the FX-linked share (CIP+duty) of landed unit cost; freight "
+                              "multiplier by mode on route rates; P22 cut = demand-weighted mean of monthly cap factors "
+                              "on the registry price; unavailable route = zero packs on it (no re-purchase). "
+                              "Not modelled on truth: emergency routes, hedge, supplier price differences."),
+            "plan_schedule": "one shipment per month; line months used if given, else evenly spread; a taken month "
+                             "moves to the nearest free one; months without shipment are explicit zero orders",
+            "min_mapping_confidence": st.mapping.min_confidence,
+        }
+        report = run_evaluation(g, truth=st, extra=extra, scen_cfg=scen_cfg, opt_cfg=opt_cfg,
+                                thresholds_path=thresholds_path)
+        report["truth_calls"] = st.calls
+    return report
+
+
 def main(argv: list[str] | None = None) -> int:
     import argparse
     from lagrange_rx.fixtures.l0 import build_l0_config, build_l0_graph
 
-    ap = argparse.ArgumentParser(description="Run the engine evaluation on the L0 fixture")
+    ap = argparse.ArgumentParser(description="Run the engine evaluation (default: Ingest L0 graph on the simulation truth)")
     ap.add_argument("--out", default=str(DEFAULT_REPORT_PATH))
+    ap.add_argument("--fixture", action="store_true", help="legacy: synthetic fixture on LocalTruth, not the simulation")
     args = ap.parse_args(argv)
-    report = run_evaluation(build_l0_graph(), config=build_l0_config())
+    report = run_evaluation(build_l0_graph(), config=build_l0_config()) if args.fixture else run_on_simulation()
     Path(args.out).write_text(json.dumps(report, indent=2, sort_keys=True, default=str, ensure_ascii=False))
     print(f"report -> {args.out}; all_pass={report['all_pass']}")
     return 0 if report["all_pass"] else 1
