@@ -632,6 +632,8 @@ def default_engine_config(g: onto.ClientGraph, *, default_reliability: float = 0
       (`derive_route_params`); all other fields keep the EngineConfig defaults."""
     g.for_calculation()
     skus = sorted({r.product for r in g.registry_records})
+    if not skus:  # no registry records: fall back to the product that has sales, then the only product
+        skus = sorted({r.product for r in g.sales_records}) or sorted({p.sku_id for p in g.products})
     if len(skus) != 1:
         raise AdapterError(f"cannot pick the focus SKU: registered products are {skus}; pass an explicit EngineConfig")
     periods = [s.period for s in g.sales_records]
