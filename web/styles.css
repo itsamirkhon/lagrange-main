@@ -258,3 +258,11 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 .fefo-explain p { max-width:85ch; }
 @media(max-width:950px){.fefo-lot-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .fefo-demo-layout{grid-template-columns:1fr;}}
 @media(max-width:560px){.fefo-lot-grid{grid-template-columns:1fr;} .fefo-hero{padding:24px 20px;} .fefo-hero-pills{flex-direction:column;align-items:flex-start;}}
+
+/* Regulatory evidence table: prevent long source identifiers from expanding mobile grid. */
+#compliance .grid2 > *,
+#compliance-results,
+#compliance .table-wrap { min-width: 0; max-width: 100%; }
+#compliance .table-wrap { overflow-x: auto; overscroll-behavior-x: contain; }
+#compliance-results code,
+#compliance-results td { overflow-wrap: anywhere; }
