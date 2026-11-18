@@ -1,4 +1,9 @@
-extractor: google/gemini-2.5-flash
+# All models are called through OpenRouter (ai/openrouter.py); the key comes only from OPENROUTER_API_KEY.
+extractor: google/gemini-2.5-flash            # generative extraction with evidence quotes
+# Closed-choice decisions (Q0 class/language/readability, Q2 links and columns). This is a decisions model:
+# it is served by /api/alpha/decisions, not chat completions, and returns real probabilities.
 decision_scorer: google/gemini-decision-1
-embeddings: null
-classifier: google/gemini-2.5-flash
+decision_fallback: google/gemini-2.5-flash    # plan B (ONTOLOGY 10.2), only if the provider rejects the decisions model
+# Name similarity feature (never numbers). Chosen by eval/embeddings_eval.py -> eval/embeddings_report.json.
+embeddings: google/gemini-embedding-2
+classifier: google/gemini-2.5-flash           # legacy chat classifier (ai/classify.py), no longer on the ingest path

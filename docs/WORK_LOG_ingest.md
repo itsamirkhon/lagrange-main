@@ -48,3 +48,10 @@
 - L0 end-to-end margin remains unresolved: inspected multi-product invoices contain aggregate totals without per-product prices, and confirmed cost allocation and complete graph references are missing. No synthetic figure is claimed as an L0 result.
 - On the fixed newer uncommitted simulation snapshot, full L3 evaluation with model extraction disabled loaded 78 documents and reported 43 grouped questions, 83 technical warnings, 8 quality findings and 8/253 conservatively matched corruption entries (A1 2/10, X2 3/10, D1x 3/6). The snapshot is not comparable to the former 26-document world. Supporting files and the source manifest hash are under `eval/snapshot_2026-11-17/`.
 - Updated checks for localized credit table headers and the newer contract and warehouse receipt formats. Isolated source-document comparisons yielded zero candidates in L0 and 2 arithmetic, 3 contract price and 3 possible duplicate findings in L3; matching remains a review proposal.
+
+## Decision model and embeddings (2026-11-18)
+
+- Verified on OpenRouter: `google/gemini-decision-1` is rejected by chat completions and served by `/api/alpha/decisions`; probed the request schema (question keys `[A-Za-z0-9_-]`, `criteria` is a record for choice and an array for score, `instructions` required). A live 14-document L1 batch made 13 Decisions calls for about $0.002.
+- Wired `GoogleDecisionScorer` into the batch path (Q0 per document, Q2 link choice, Q2.column suggestions) behind `LAGRANGE_AI_MODE`; with the mode off nothing changes. Added `ai/factory.py`, an `embed` method with a per-text cache, and the question bank in `ingest/questions/*.yaml`.
+- Evaluated five embedding models; selected `google/gemini-embedding-2` and raised the cosine threshold from the first-guess 0.80 to 0.85 after a pair-level sweep showed 0.45 precision on regions at 0.80.
+- A first live run exposed that dotted question ids are invalid API keys, and the chat fallback had masked it by silently switching models; the fallback now triggers only when the provider rejects the model.

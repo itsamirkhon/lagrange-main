@@ -1,0 +1,10 @@
+# Q2 templates: the options (candidates or ontology fields) are known only at run time.
+# Every question built from a template gets an abstention option appended.
+version: 1
+templates:
+  Q2.link: >-
+    Which candidate document does the source document explicitly refer to? Compare the reference numbers, parties and
+    terms. Choose none_of_these if no candidate is clearly the referenced one.
+  Q2.column: >-
+    Which ontology field does this spreadsheet column hold? Judge from the header and the sample values.
+    Choose ignore if it holds none of the listed fields, unknown if you cannot tell.

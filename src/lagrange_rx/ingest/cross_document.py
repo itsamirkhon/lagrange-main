@@ -7,6 +7,8 @@ from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 
 from .checks import Observation, check_contradictions
+from .decisions import DecisionQuestion, review_policy
+from .questions import load_templates
 from .resolve import Entity, resolve
 
 
@@ -25,6 +27,10 @@ def _fields(proposals):
             for doc, fields in grouped.items()}
 
 
+def _supplier(fields):
+    return _get(fields, 'supplier_name') or _get(fields, 'supplier')
+
+
 def _get(fields, name):
     return fields.get(name, (None, None, None))[0]
 
@@ -40,7 +46,22 @@ def _number(fields, field):
     return result if result.is_finite() else None
 
 
-def analyze_cross_documents(documents, proposals):
+def _ask_link(scorer, source_class, target_class, source, source_fields, candidates, fields):
+    """Q2: choose among blocked candidates; None when the scorer is unavailable. A proposal, never a confirmation."""
+    def describe(doc_id, doc_fields):
+        return '; '.join(f'{name}={value[0]}' for name, value in sorted(doc_fields.items()) if name != 'totals')
+    ids = [c.id for c in candidates]
+    state = f'Source {source_class} {source}: {describe(source, source_fields)}\n' + '\n'.join(
+        f'Candidate {target_class} {c.id}: {describe(c.id, fields.get(c.id, {}))} (matched on {", ".join(c.features)})' for c in candidates)
+    question = DecisionQuestion(qid='Q2.link', kind='choice', instructions=load_templates('q2')['Q2.link'], options=ids + ['none_of_these'],
+                                descriptions={c.id: f'{target_class} {c.id}: {describe(c.id, fields.get(c.id, {}))}' for c in candidates})
+    try:
+        return scorer.decide(state, [question])[0]
+    except Exception:
+        return None
+
+
+def analyze_cross_documents(documents, proposals, scorer=None, embedder=None):
     """Return candidate links and issues for invoice/contract and quote/contract.
 
     Documents use ``document_id`` and ``doc_class``; proposals use the ingest
@@ -55,17 +76,28 @@ def analyze_cross_documents(documents, proposals):
         ('invoice', 'contract', 'contract_ref', 'contract_number'),
         ('contract', 'supplier_quote', 'quote_ref', 'quote_number'),
     ):
-        targets = [Entity(doc_id, contract_number=_get(fields.get(doc_id, {}), target_key))
+        targets = [Entity(doc_id, contract_number=_get(fields.get(doc_id, {}), target_key), counterparty=_supplier(fields.get(doc_id, {})))
                    for doc_id, kind in classes.items() if kind == target_class and _get(fields.get(doc_id, {}), target_key)]
         for source, kind in classes.items():
             source_fields = fields.get(source, {})
             ref = _get(source_fields, source_key)
             if kind != source_class or not ref:
                 continue
-            resolution = resolve(Entity(source, contract_number=ref), targets)
+            resolution = resolve(Entity(source, contract_number=ref, counterparty=_supplier(source_fields)), targets, embedder)
+            answer = _ask_link(scorer, source_class, target_class, source, source_fields, resolution.candidates, fields) \
+                if scorer and resolution.needs_review else None
             for candidate in resolution.candidates:
-                links.append({'source': source, 'target': candidate.id, 'features': list(candidate.features),
-                              'confidence': candidate.confidence, 'status': 'extracted_unconfirmed'})
+                link = {'source': source, 'target': candidate.id, 'features': list(candidate.features),
+                        'confidence': candidate.confidence, 'status': 'extracted_unconfirmed'}
+                if answer:
+                    link['decision'] = {'qid': answer.qid, 'chosen': answer.top, 'probability': round(answer.distribution.get(candidate.id, 0.0), 4),
+                                        'top_confidence': round(answer.confidence, 4), 'model_id': answer.model_id,
+                                        'policy': review_policy(answer.confidence, answer.top, money=True)}
+                links.append(link)
+            if answer and answer.top == 'none_of_these':
+                issues.append({'issue_type': 'ambiguous_link', 'severity': 'medium', 'affected': [source] + [c.id for c in resolution.candidates],
+                               'evidence': [], 'status': 'extracted_unconfirmed',
+                               'detail': f'Model found no clearly referenced {target_class} for {source_class} {source}.'})
             if resolution.match and source_class == 'contract':
                 other = fields.get(resolution.match.id, {})
                 a, b = _number(source_fields, 'moq'), _number(other, 'moq')

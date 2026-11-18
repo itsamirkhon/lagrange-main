@@ -54,7 +54,21 @@ def _identifier(value: str) -> str:
     return re.sub(r'[^\w]+', '', value.casefold())
 
 
-def _candidate(source: Entity, target: Entity) -> Candidate | None:
+EMBEDDING_THRESHOLD = 0.85  # cosine; pair-level precision sweep in eval/embeddings_report.json (0.80 gave precision 0.45 on regions)
+
+
+def _digits(text: str) -> list[str]:
+    return sorted(re.findall(r'\d+(?:[.,]\d+)?', text))
+
+
+def _embedding_match(left: str, right: str, scores: dict) -> bool:
+    """Embeddings may relate names, never numbers: differing doses or counts (10 mg vs 20 mg) veto the match."""
+    if _digits(left) != _digits(right):
+        return False
+    return scores.get((left, right), 0.0) >= EMBEDDING_THRESHOLD
+
+
+def _candidate(source: Entity, target: Entity, scores: dict | None = None) -> Candidate | None:
     features = []
     score = 0.0
     for field in ('lot_number', 'invoice_number', 'contract_number'):
@@ -72,6 +86,9 @@ def _candidate(source: Entity, target: Entity) -> Candidate | None:
             if a and b and (a == b or similarity(left, right) >= 0.75):
                 features.append(field)
                 score = max(score, 0.55)
+            elif scores and _embedding_match(left, right, scores):
+                features.append(field + '~embedding')
+                score = max(score, 0.55)
     if not features:
         return None
     if source.date and target.date and abs((source.date - target.date).days) <= 7:
@@ -85,12 +102,33 @@ def _candidate(source: Entity, target: Entity) -> Candidate | None:
     return Candidate(target.id, min(score, 1.0), tuple(features))
 
 
-def resolve(source: Entity, targets: list[Entity]) -> Resolution:
-    """Rank up to ten blocked candidates and surface ambiguity for Q2 review."""
+def _embedding_scores(source: Entity, targets: list[Entity], embedder) -> dict:
+    scores = {}
+    for field in ('counterparty', 'name'):
+        left = getattr(source, field)
+        names = sorted({getattr(t, field) for t in targets if getattr(t, field)})
+        if left and names:
+            for name, value in zip(names, embedder.similarities(left, names)):
+                scores[(left, name)] = value
+    return scores
+
+
+def resolve(source: Entity, targets: list[Entity], embedder=None) -> Resolution:
+    """Rank up to ten blocked candidates and surface ambiguity for Q2 review.
+
+    ``embedder`` (optional) adds a name-similarity feature for names the n-gram baseline misses;
+    a failing embedder is ignored so the deterministic result stands.
+    """
     ids = [target.id for target in targets]
     if len(ids) != len(set(ids)):
         raise ValueError('target ids must be unique')
-    candidates = [candidate for target in targets if (candidate := _candidate(source, target))]
+    scores = None
+    if embedder is not None:
+        try:
+            scores = _embedding_scores(source, targets, embedder)
+        except Exception:  # replay miss, budget, network
+            scores = None
+    candidates = [candidate for target in targets if (candidate := _candidate(source, target, scores))]
     candidates.sort(key=lambda candidate: (-candidate.confidence, candidate.id))
     candidates = candidates[:10]
     confident = bool(candidates and candidates[0].confidence >= 0.9 and

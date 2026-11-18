@@ -17,6 +17,7 @@ class DecisionQuestion(BaseModel):
     instructions: str
     options: list[str] | None = None
     rubric: list[str] | None = None
+    descriptions: dict[str, str] | None = None  # optional help text per option (choice only)
 
     @model_validator(mode='after')
     def validate_choices(self):
@@ -199,3 +200,110 @@ class OpenRouterDecisionScorer:
         if set(answers) != set(supplied):
             raise ValueError('Incomplete response')
         return [answers[q.qid] for q in questions]
+
+
+MAX_STATE_CHARS = 24000
+
+
+def _renormalize(probabilities: dict[str, float]) -> dict[str, float]:
+    clean = {k: min(max(float(v), 0.0), 1.0) for k, v in probabilities.items()}
+    total = sum(clean.values())
+    if total <= 0:
+        raise ValueError('Provider returned no probability mass')
+    clean = {k: v / total for k, v in clean.items()}
+    top = max(clean, key=clean.get)
+    clean[top] += 1 - sum(clean.values())  # absorb float drift so the sum is exactly one
+    return clean
+
+
+class GoogleDecisionScorer:
+    """Gemini Decision 1 via the OpenRouter Decisions API: one pass, real probabilities, no generation.
+
+    Probabilities come from the model and are not calibrated; ``review_policy`` and the
+    callers' confidence caps decide what may skip review.
+    """
+    def __init__(self, client, model_id='google/gemini-decision-1'):
+        self.client, self.model_id = client, model_id
+
+    @staticmethod
+    def _payload(question: DecisionQuestion) -> dict:
+        if question.kind == 'score':
+            if not question.rubric or len(question.rubric) < 2:
+                raise ValueError('Score question needs a rubric of at least two levels')
+            return {'type': 'score', 'instructions': question.instructions, 'criteria': list(question.rubric)}
+        options = question.options or []
+        if question.kind == 'boolean':
+            options = ['true', 'false']
+        descriptions = question.descriptions or {}
+        return {'type': 'choice', 'instructions': question.instructions,
+                'criteria': {option: descriptions.get(option, option.replace('_', ' ')) for option in options}}
+
+    def decide(self, document: str, questions: list[DecisionQuestion]) -> list[DecisionAnswer]:
+        if not questions or len({q.qid for q in questions}) != len(questions):
+            raise ValueError('Questions must be non-empty with unique ids')
+        # The API only accepts keys of [A-Za-z0-9_-]{1,64}; our qids contain dots.
+        keys = {q.qid: re.sub(r'[^A-Za-z0-9_-]', '_', q.qid)[:64] for q in questions}
+        if len(set(keys.values())) != len(keys):
+            raise ValueError('Question ids collide after key sanitising')
+        response = self.client.decide(self.model_id, document[:MAX_STATE_CHARS] or ' ', {keys[q.qid]: self._payload(q) for q in questions})
+        answers = []
+        for question in questions:
+            raw = response['answers'].get(keys[question.qid])
+            if not raw or 'probabilities' not in raw:
+                raise ValueError('Incomplete response')
+            distribution = _renormalize(raw['probabilities'])
+            expected = {'boolean': {'true', 'false'}, 'choice': set(question.options or []),
+                        'score': {str(i) for i in range(len(question.rubric or []))}}[question.kind]
+            if set(distribution) != expected:
+                raise ValueError('Unexpected answer options')
+            top = max(distribution, key=lambda k: (distribution[k], k))
+            answers.append(DecisionAnswer(qid=question.qid, distribution=distribution, top=top, confidence=distribution[top],
+                                          model_id=response.get('model_version') or response['model_id'], latency_ms=response['latency_ms']))
+        return answers
+
+
+def _model_unavailable(error) -> bool:
+    """403/404, or a 400 that blames the model; a 400 about our request (bad question) must surface, not be masked."""
+    if error.code in (403, 404):
+        return True
+    if error.code != 400:
+        return False
+    try:
+        body = error.read().decode('utf-8', 'replace').lower()
+    except Exception:
+        return False
+    return 'model' in body and 'question' not in body
+
+
+class FallbackScorer:
+    """Plan B (ONTOLOGY 10.2): use the chat-model scorer only when the primary is unavailable.
+
+    Replay misses, budget limits and validation errors are never masked; only a provider
+    rejection of the model (HTTP 400/403/404) switches to the fallback.
+    """
+    def __init__(self, primary, fallback):
+        self.primary, self.fallback, self.used_fallback = primary, fallback, False
+
+    def decide(self, document: str, questions: list[DecisionQuestion]) -> list[DecisionAnswer]:
+        from urllib.error import HTTPError
+        try:
+            return self.primary.decide(document, questions)
+        except HTTPError as error:
+            if self.fallback is None or not _model_unavailable(error):
+                raise
+        self.used_fallback = True
+        # The chat fallback supports explicit choice questions only; score questions become choices.
+        converted = [q if q.kind == 'choice' else DecisionQuestion(qid=q.qid, kind='choice', instructions=q.instructions,
+                     options=[str(i) for i in range(len(q.rubric))] + ['unknown']) for q in questions]
+        answers = self.fallback.decide(document, converted)
+        return [a if q.kind == 'choice' else _drop_unknown(a) for q, a in zip(questions, answers)]
+
+
+def _drop_unknown(answer: DecisionAnswer) -> DecisionAnswer:
+    rest = {k: v for k, v in answer.distribution.items() if k != 'unknown'}
+    if not rest or sum(rest.values()) <= 0:
+        raise ValueError('Fallback abstained on a score question')
+    distribution = _renormalize(rest)
+    top = max(distribution, key=lambda k: (distribution[k], k))
+    return DecisionAnswer(qid=answer.qid, distribution=distribution, top=top, confidence=distribution[top],
+                          model_id=answer.model_id, latency_ms=answer.latency_ms)

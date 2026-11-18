@@ -42,3 +42,33 @@ def test_unreadable_document_stays_unknown_and_replay_miss_is_not_fatal(tmp_path
     assert batch['documents'][0]['doc_class'] == 'unknown'
     assert 'llm_unavailable' in batch['documents'][0]['class_signals']
     assert any(i['issue_type'] == 'classification_required' for i in batch['issues'])
+
+
+def test_decision_model_classifies_weak_documents_and_flags_damage(tmp_path, monkeypatch):
+    """LAGRANGE_AI_MODE=openrouter routes Q0 through the Decisions API (faked here); deterministic wins when confident."""
+    from lagrange_rx.ai import openrouter
+    calls = []
+
+    def post(url, payload, timeout, key):
+        calls.append(url)
+        answers = {}
+        for qid, q in payload['questions'].items():
+            if q['type'] == 'score':
+                answers[qid] = {'probabilities': {'0': .85, '1': .1, '2': .03, '3': .02}}
+            else:
+                names = list(q['criteria'])
+                top = 'memo' if qid == 'ALL_doc_class' else ('yes' if qid == 'ALL_has_handwritten_edits' else names[-1])
+                answers[qid] = {'probabilities': {n: (.9 if n == top else .1 / (len(names) - 1)) for n in names}}
+        return {'model': 'google/gemini-decision-1-20261111', 'usage': {'cost': 1e-5}, 'answers': answers}
+
+    monkeypatch.setattr(openrouter, '_post', post)
+    monkeypatch.setenv('LAGRANGE_AI_MODE', 'openrouter')
+    monkeypatch.setenv('LAGRANGE_AI_BUDGET_USD', '1')
+    monkeypatch.setenv('OPENROUTER_API_KEY', 'test-key')
+    batch = run(tmp_path, [('notes.txt', b'hello there some words'), ('CNT-1.txt', text(CONTRACT_LINES))], as_of=date(2026, 6, 1))
+    docs = {d['filename']: d for d in batch['documents']}
+    assert docs['notes.txt']['doc_class'] == 'memo' and docs['notes.txt']['class_method'] == 'decision'
+    assert docs['CNT-1.txt']['class_method'] == 'deterministic'
+    kinds = {i['issue_type'] for i in batch['issues'] if i['affected'] == [docs['notes.txt']['document_id']]}
+    assert {'unreadable', 'handwritten_edits'} <= kinds
+    assert calls and all(url.endswith('/api/alpha/decisions') for url in calls)

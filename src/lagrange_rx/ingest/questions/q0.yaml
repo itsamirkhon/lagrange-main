@@ -1,0 +1,44 @@
+# Q0: asked once for every document (ONTOLOGY.md 10.3). Every choice keeps an abstention option.
+version: 1
+questions:
+  - qid: ALL.doc_class
+    kind: choice
+    instructions: >-
+      What kind of business document of a pharmaceutical importer is this? Texts may be Russian, Uzbek or English.
+      Choose irrelevant only for unrelated advertising, blank pages or non-pharma catalogs; choose unknown when the evidence is insufficient.
+    descriptions:
+      sales_export: A table of sales records by month, region, channel and product, exported from an accounting system
+      regional_report: A regional sales manager's summary report
+      supplier_quote: A commercial offer or price quotation from a product supplier
+      carrier_quote: A price offer from a freight carrier or forwarder
+      contract: A supply contract, its version or its amendment
+      invoice: A commercial invoice or packing list for a shipment
+      customs: A customs declaration or customs clearance summary
+      waybill: A warehouse waybill or goods receipt note
+      stock: A stock or inventory table with lots and expiry dates
+      payments: A payment order or a payment register
+      memo: An internal memo or note
+      email: An email thread or a printout of one
+      registry_extract: An extract from the price registry of maximum prices
+      irrelevant: Unrelated to the importer's business
+      unknown: The evidence is insufficient
+  - qid: ALL.language
+    kind: choice
+    instructions: What is the main language and script of the document text?
+    options: [ru, uz_latin, uz_cyrillic, en, mixed, unknown]
+  - qid: ALL.readability
+    kind: score
+    instructions: How readable is the text? Consider broken characters, OCR noise and missing fragments.
+    rubric: [unreadable, poor, fair, clean]
+  - qid: ALL.is_photo_or_scan
+    kind: choice
+    instructions: Does the text look like it came from a photograph or a scan rather than a born-digital file?
+    options: [photo_or_scan, born_digital, unknown]
+  - qid: ALL.has_handwritten_edits
+    kind: choice
+    instructions: Are there signs of handwritten corrections or annotations in the text?
+    options: ['yes', 'no', unknown]
+  - qid: ALL.stamp_over_numbers
+    kind: choice
+    instructions: Are there signs that a stamp or seal covers numbers or other values, such as garbled digits or stamp text mixed into figures?
+    options: ['yes', 'no', unknown]

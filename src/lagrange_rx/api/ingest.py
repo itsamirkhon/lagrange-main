@@ -33,7 +33,10 @@ from lagrange_rx.ontology import ClientGraph
 from lagrange_rx.ingest.decisions import DecisionQuestion, HeuristicScorer
 from lagrange_rx.ontology.rules import load_rules
 from lagrange_rx.ingest.classification import DocumentClassifier
-from lagrange_rx.ai.classify import build_llm_classifier
+from lagrange_rx.ai.factory import build_client, build_decision_scorer, build_embedder
+from lagrange_rx.ai.openrouter import ReplayMiss
+from lagrange_rx.ingest.q0 import Q0Runner
+from lagrange_rx.ingest.column_suggest import suggest_columns
 from lagrange_rx.ingest.extract.extractor import validate_evidence
 
 
@@ -60,7 +63,7 @@ class PnLRequest(BaseModel):
 def _save(path: Path, value: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix('.tmp')
-    temp.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
+    temp.write_text(json.dumps(value, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     temp.replace(path)
 
 
@@ -81,7 +84,12 @@ def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=No
     # Staleness (S1) is relative to an explicit calculation date; the default is today and is recorded in the batch.
     as_of = as_of or (date.fromisoformat(os.environ['LAGRANGE_AS_OF']) if os.getenv('LAGRANGE_AS_OF') else date.today())
     budget = float(os.getenv('LAGRANGE_AI_BUDGET_USD', '0'))
-    classifier = DocumentClassifier(llm=None if scorer else build_llm_classifier(mode, root / 'cache', budget_usd=budget), scorer=scorer)
+    # One client (one budget, one cache) serves the Decisions scorer and the embedder.
+    ai_client = build_client(mode, root / 'cache' / 'ai', budget, 0.02) if mode in ('replay', 'openrouter') else None
+    decision_scorer = None if scorer else build_decision_scorer(mode, None, client=ai_client)
+    embedder = build_embedder(mode, None, client=ai_client)
+    q0 = Q0Runner(decision_scorer) if decision_scorer else None
+    classifier = DocumentClassifier(llm=q0, scorer=scorer)
     if extractor is None and mode != 'off':
         extractor = configured_extractor(root / 'cache', mode=mode, budget_usd=float(os.getenv('LAGRANGE_AI_BUDGET_USD', '0')))
 
@@ -124,6 +132,13 @@ def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=No
             doc_class = classification.doc_class
             batch['documents'].append({'document_id': doc.document_id, 'filename': doc.filename, 'doc_class': doc_class, 'class_confidence': classification.confidence, 'class_method': classification.method, 'class_signals': list(classification.signals), 'status': 'irrelevant' if doc_class == 'irrelevant' else 'needs_review', 'duplicate': doc.duplicate, 'media_type': doc.media_type, 'pages': len(parsed.pages), 'uploaded_at': datetime.now(timezone.utc).isoformat()})
             parsed_documents.append({'document_id': doc.document_id, 'doc_class': doc_class, 'pages': [{'number': page.number, 'text': page.text} for page in parsed.pages], 'tables': [{'page': table.page, 'rows': table.rows} for table in parsed.tables]})
+            if q0 and any(page_texts) and '\n'.join(page_texts).strip():
+                try:
+                    batch['issues'].extend(q0.issues(doc.document_id, '\n'.join(page_texts)))
+                except ReplayMiss:
+                    pass  # a replay run serves recordings only
+                except Exception as exc:
+                    batch['issues'].append({'issue_type': 'decision_error', 'severity': 'info', 'affected': [doc.document_id], 'evidence': [], 'detail': str(exc)})
             if extractor and doc_class in FIELDS:
                 try:
                     result, model_issues, response = extractor.extract(doc_class, pages)
@@ -153,13 +168,18 @@ def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=No
             for table in parsed.tables:
                 batch['issues'].extend(check_table_quality(table, doc.document_id))
                 batch['issues'].extend(check_period_gaps(table, doc.document_id))
-                result = extract_domain_table(table, doc.document_id, doc_class) if doc_class in ('stock', 'customs') else extract_table(table, doc.document_id)
+                sales_table = doc_class not in ('stock', 'customs')
+                result = extract_domain_table(table, doc.document_id, doc_class) if not sales_table else extract_table(table, doc.document_id)
                 if not result['rows']:
                     expense = extract_expenses(table, doc.document_id)
                     if expense['rows']:
-                        result = expense
+                        result, sales_table = expense, False
+                suggestions = suggest_columns(decision_scorer, table, result.get('header_row'), result.get('unmapped_columns', [])) if decision_scorer and sales_table else {}
                 for column in result.get('unmapped_columns', []):
-                    batch['issues'].append({'issue_type': 'unmapped_column', 'severity': 'info', 'affected': [doc.document_id], 'evidence': [], 'detail': column})
+                    issue = {'issue_type': 'unmapped_column', 'severity': 'info', 'affected': [doc.document_id], 'evidence': [], 'detail': column}
+                    if column.get('index') in suggestions:
+                        issue['suggestion'] = suggestions[column['index']]
+                    batch['issues'].append(issue)
                 for row in result['rows']:
                     for field, value in row['fields'].items():
                         if field == 'SalesRecord.revenue_ex_vat_uzs':
@@ -180,7 +200,7 @@ def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=No
         batch['issues'].extend(analyze_document_quality(parsed_documents))
         batch['issues'].extend(analyze_observed_documents([{'document_id': d['document_id'], 'pages': {p['number']: p['text'] for p in d['pages']}} for d in parsed_documents]))
         batch['review_queue'] = build_review_queue(batch['proposed_instances'])
-        cross = analyze_cross_documents(batch['documents'], batch['proposed_instances'])
+        cross = analyze_cross_documents(batch['documents'], batch['proposed_instances'], scorer=decision_scorer, embedder=embedder)
         batch['links'].extend(cross['links'])
         batch['issues'].extend(cross['issues'])
         batch['issues'].extend(check_duplicates([{'id': d['document_id'], 'hash': d['document_id']} for d in batch['documents']], []))
@@ -256,6 +276,28 @@ def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=No
                 _save(path, batch)
                 return question
         raise HTTPException(404, 'Question not found')
+
+    @router.post('/ingest/batches/{batch_id}/review/confirm-all')
+    async def confirm_all(batch_id: str):
+        """Confirm every pending question in one load/save (the per-question endpoint rewrites the whole batch each time)."""
+        path = batch_path(batch_id)
+        batch = _load(path)
+        by_id = {i['id']: i for i in batch['proposed_instances']}
+        done = 0
+        for question in batch['review_queue']:
+            if question['status'] != 'pending':
+                continue
+            ids = question.get('instance_ids', [question['instance_id']])
+            for ident in ids:
+                if ident in by_id:
+                    by_id[ident]['status'] = 'confirmed'
+            question.setdefault('decisions', []).append({'action': 'confirm', 'instance_ids': ids, 'corrected_value': None})
+            question['instance_ids'] = []
+            question['items'] = []
+            question.update(status='answered', action='confirm', corrected_value=None)
+            done += 1
+        _save(path, batch)
+        return {'confirmed': done}
 
     @router.post('/ingest/batches/{batch_id}/commit')
     async def commit(batch_id: str):
