@@ -8,7 +8,7 @@ from pathlib import Path
 from datetime import date, datetime, timezone
 from uuid import uuid4
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import APIRouter, FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import Response
 from pydantic import BaseModel
 
@@ -29,7 +29,6 @@ from lagrange_rx.ingest.commit import commit_batch
 from lagrange_rx.ingest.cross_document import analyze_cross_documents
 from lagrange_rx.pnl import calculate_pnl
 from lagrange_rx.ontology import ClientGraph
-from lagrange_rx.ontology.rules import load_rules
 from lagrange_rx.ingest.decisions import DecisionQuestion, HeuristicScorer
 from lagrange_rx.ingest.extract.extractor import validate_evidence
 
@@ -67,11 +66,12 @@ def _load(path: Path) -> dict:
     return json.loads(path.read_text(encoding='utf-8'))
 
 
-def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None) -> FastAPI:
+def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None) -> tuple[APIRouter, Path]:
+    """The /ingest/* router. Returns (router, data_root); state lives under the data root."""
     root = Path(data_dir or os.getenv('LAGRANGE_DATA_DIR', './data')).resolve()
     root.mkdir(parents=True, exist_ok=True)
     store = IntakeStore(root / 'documents')
-    app = FastAPI(title='LAGRANGE Rx ingest')
+    router = APIRouter()
     scorer = scorer or HeuristicScorer()
     fx_provider = fx_provider or fetch_cbu_rate
     mode = os.getenv('LAGRANGE_AI_MODE', 'off')
@@ -83,11 +83,7 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
             raise HTTPException(404, 'Not found')
         return root / 'batches' / (batch_id + '.json')
 
-    @app.get('/ontology/rules')
-    async def rule_catalog():
-        return load_rules().model_dump(mode='json')
-
-    @app.post('/ingest/batches')
+    @router.post('/ingest/batches')
     async def create_batch(files: list[UploadFile] = File(...)):
         batch_id = uuid4().hex
         batch = {'batch_id': batch_id, 'documents': [], 'proposed_instances': [], 'links': [], 'issues': [], 'review_queue': [], 'coverage': {'missing_for_twin': ['ClientGraph and P&L integration are not available']}}
@@ -174,11 +170,11 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
         _save(batch_path(batch_id), batch)
         return {'batch_id': batch_id}
 
-    @app.get('/ingest/batches/{batch_id}')
+    @router.get('/ingest/batches/{batch_id}')
     async def get_batch(batch_id: str):
         return _load(batch_path(batch_id))
 
-    @app.post('/ingest/batches/{batch_id}/money-checks')
+    @router.post('/ingest/batches/{batch_id}/money-checks')
     async def money_checks(batch_id: str, request: MoneyCheckRequest):
         batch = _load(batch_path(batch_id))
         records = money_records_from_proposals(batch['documents'], batch['proposed_instances'])
@@ -203,11 +199,11 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
         return {'issues': issues, 'rate_fetch_errors': errors, 'fx_coverage': {'status': coverage, 'customs_documents': len(customs), 'eligible_documents': eligible, 'rates_obtained': len(rates)}}
 
 
-    @app.get('/ingest/batches/{batch_id}/review')
+    @router.get('/ingest/batches/{batch_id}/review')
     async def review_queue(batch_id: str):
         return sorted(_load(batch_path(batch_id))['review_queue'], key=lambda q: (q['money_impact_uzs'] is None, -(q['money_impact_uzs'] or 0), not q.get('affects_money', False)))
 
-    @app.post('/ingest/review/{question_id}')
+    @router.post('/ingest/review/{question_id}')
     async def answer_review(question_id: str, answer: ReviewAnswer):
         if answer.action not in {'confirm', 'correct', 'irrelevant', 'need_document'} or (answer.action == 'correct' and not answer.value):
             raise HTTPException(400, 'Invalid review answer')
@@ -244,7 +240,7 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
                 return question
         raise HTTPException(404, 'Question not found')
 
-    @app.post('/ingest/batches/{batch_id}/commit')
+    @router.post('/ingest/batches/{batch_id}/commit')
     async def commit(batch_id: str):
         batch = _load(batch_path(batch_id))
         graph_path = root / 'graphs' / (batch_id + '.json')
@@ -260,13 +256,13 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
         return {'snapshot_id': snapshot_id, 'committed': count, 'target': 'ClientGraph', 'incomplete': incomplete}
 
 
-    @app.post('/ingest/batches/{batch_id}/pnl')
+    @router.post('/ingest/batches/{batch_id}/pnl')
     async def pnl(batch_id: str, request: PnLRequest):
         batch_path(batch_id)
         graph = ClientGraph.model_validate(_load(root / 'graphs' / (batch_id + '.json')))
         return calculate_pnl(graph, request.product, request.period, request.required_expenses, expenses_attributed_to_product=request.expenses_attributed_to_product)
 
-    @app.get('/ingest/documents/{document_id}/page/{number}.png')
+    @router.get('/ingest/documents/{document_id}/page/{number}.png')
     async def page(document_id: str, number: int):
         if len(document_id) != 64 or any(c not in '0123456789abcdef' for c in document_id) or number < 1:
             raise HTTPException(404, 'Not found')
@@ -277,6 +273,16 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
                 return Response(path.read_bytes(), media_type='image/png')
         raise HTTPException(404, 'Not found')
 
+    return router, root
+
+
+def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None) -> FastAPI:
+    """Standalone ingest app (kept for old callers); the unified app is api.app.create_app."""
+    from lagrange_rx.api.ontology import make_router as ontology_router
+    router, root = make_router(data_dir, scorer=scorer, extractor=extractor, fx_provider=fx_provider)
+    app = FastAPI(title='LAGRANGE Rx ingest')
+    app.include_router(router)
+    app.include_router(ontology_router(root))
     return app
 
 
