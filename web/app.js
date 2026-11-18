@@ -5,7 +5,7 @@
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const S = { batchId: null, graphId: null, batch: null, queue: [], twin: null, plan: null, samples: null, graphs: [] };
-const SCREENS = ['docs', 'understood', 'issues', 'twin', 'plan', 'shock', 'evidence', 'progress', 'fefo'];
+const SCREENS = ['docs', 'understood', 'issues', 'twin', 'plan', 'shock', 'evidence', 'progress', 'fefo', 'compliance'];
 
 /* ---------- helpers ---------- */
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -71,6 +71,7 @@ function show(name) {
   if (name === 'evidence') loadEvidence();
   if (name === 'progress') loadProgress();
   if (name === 'fefo') loadFefo();
+  if (name === 'compliance') loadCompliance();
   if (name === 'shock') fillRoutes();
 }
 window.addEventListener('hashchange', () => show(location.hash.slice(1)));
@@ -646,6 +647,48 @@ document.querySelectorAll('[data-fefo-preset]').forEach((b) => b.addEventListene
   $('#fefo-demand').value = b.dataset.fefoPreset;
   runFefo();
 }));
+
+
+/* ---------- Pharmaceutical legal preflight: explicitly synthetic scenario data ---------- */
+let complianceSourcesLoaded = false;
+async function loadCompliance() {
+  if (!complianceSourcesLoaded) {
+    try {
+      const d = await api('/pharma/compliance/sources');
+      if (d.live_government_integrations) throw new Error('Unexpected live-integration flag');
+      $('#compliance-sources').innerHTML = d.sources.map((src) =>
+        `<p><a href="${esc(src.url)}" target="_blank" rel="noopener noreferrer">${esc(src.name)}</a>
+          <small class="muted"> · ${esc(src.status)}</small></p>`).join('');
+      complianceSourcesLoaded = true;
+    } catch (e) {
+      $('#compliance-sources').textContent = 'Источники недоступны: ' + e.message;
+    }
+  }
+}
+async function runCompliance() {
+  const btn = $('#btn-compliance'), target = $('#compliance-results');
+  busy(btn, true);
+  target.textContent = 'Проверка условий…';
+  try {
+    const result = await api('/pharma/demo/compliance', {json: {case: $('#compliance-case').value}});
+    if (!result.synthetic || result.live_government_checks !== false) throw new Error('Неожиданный источник данных');
+    const statusName = {eligible: 'ПРОЙДЕНЫ ТЕСТОВЫЕ ПРОВЕРКИ', blocked: 'ЗАБЛОКИРОВАНО', hold: 'НА ПРОВЕРКЕ'}[result.decision];
+    const statusClass = {eligible: 'ok', blocked: 'bad', hold: 'warn'}[result.decision];
+    target.innerHTML = `<h2>${badge(statusName || result.decision, statusClass)}</h2>
+      <p>Пройдено: <b>${int(result.summary.passed)}</b> · Ожидает подтверждения: <b>${int(result.summary.held)}</b> · Нарушений: <b>${int(result.summary.blocked)}</b></p>
+      ${notice('Демонстрация на вымышленных документах. НЕ результат проверки государственных реестров.', 'warn')}
+      <div class="table-wrap"><table><thead><tr><th>Правило</th><th>Решение</th><th>Основание</th></tr></thead>
+      <tbody>${result.checks.map((c) => `<tr>
+        <td><code>${esc(c.code)}</code></td>
+        <td>${badge(c.status === 'pass' ? 'Пройдено' : c.status === 'hold' ? 'Проверить' : 'Отказ', {pass:'ok',hold:'warn',block:'bad'}[c.status])}</td>
+        <td>${esc(c.detail)}${c.record_id ? '<div class="muted">Демо-источник: '+esc(c.record_id)+'</div>' : ''}</td>
+        </tr>`).join('')}</tbody></table></div>`;
+  } catch (e) {
+    target.innerHTML = notice('Не удалось выполнить проверку: ' + esc(e.message), 'bad');
+  } finally { busy(btn, false); }
+}
+$('#btn-compliance').addEventListener('click', runCompliance);
+$('#compliance-case').addEventListener('change', runCompliance);
 
 /* ---------- accessible presentation mode ---------- */
 const presentToggle = $('#btn-present');
