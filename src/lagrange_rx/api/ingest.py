@@ -76,7 +76,6 @@ def make_router(data_dir: str | Path | None = None, *, scorer=None, extractor=No
     root.mkdir(parents=True, exist_ok=True)
     store = IntakeStore(root / 'documents')
     router = APIRouter()
-    scorer = scorer or HeuristicScorer()
     fx_provider = fx_provider or fetch_cbu_rate
     mode = os.getenv('LAGRANGE_AI_MODE', 'off')
     # Staleness (S1) is relative to an explicit calculation date; the default is today and is recorded in the batch.

@@ -25,9 +25,9 @@ def _web_dir() -> Path | None:
 
 
 def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None,
-               web_dir: str | Path | None = None, serve_web: bool = True) -> FastAPI:
+               web_dir: str | Path | None = None, serve_web: bool = True, as_of=None) -> FastAPI:
     app = FastAPI(title='LAGRANGE Rx', version=__version__)
-    ingest_router, root = ingest_api.make_router(data_dir, scorer=scorer, extractor=extractor, fx_provider=fx_provider)
+    ingest_router, root = ingest_api.make_router(data_dir, scorer=scorer, extractor=extractor, fx_provider=fx_provider, as_of=as_of)
     app.include_router(ingest_router)
     app.include_router(ontology_api.make_router(root))
     app.include_router(engine_api.make_router(root))

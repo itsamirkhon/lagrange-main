@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIP = {".venv", "__pycache__", ".git", "node_modules"}
+SKIP = {".venv", "__pycache__", ".git", "node_modules", ".claude"}
 
 
 def py_files(sub: str):
