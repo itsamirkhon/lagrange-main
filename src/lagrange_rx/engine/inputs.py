@@ -137,6 +137,11 @@ class SaleSpec(_M):
     month: str
     packs: int = Field(gt=0)
     price_uzs: float = Field(gt=0, description="price per pack excl. VAT")
+    unit_landed_cost_uzs: float | None = Field(
+        default=None, ge=0.0,
+        description="historical documented landed COGS per sold pack, joined through lot -> shipment -> customs; "
+                    "not a forward-looking route cost or the reported calibration target",
+    )
     confirmed: bool = True
 
     @model_validator(mode="after")
