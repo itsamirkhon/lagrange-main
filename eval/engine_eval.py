@@ -214,7 +214,7 @@ def run_evaluation(raw_graph, *, config: EngineConfig | None = None, truth_graph
         "thresholds_commit": _git("log", "-1", "--format=%H", "--", str(THRESHOLDS_PATH)),
         "code_commit": _git("rev-parse", "HEAD"),
         "truth": "LocalTruth stand-in (simulation not connected)" if truth_graph is None else "LocalTruth on provided truth graph",
-        "fx_source": fx.source,
+        "fx_source": fx.source_label,
         "route_mapping": truth.mapping,
         "metrics": {
             "calibration": metric_calibration(g, thr),
