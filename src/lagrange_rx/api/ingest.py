@@ -26,7 +26,8 @@ from lagrange_rx.ingest.domain_tables import extract_domain_table
 from lagrange_rx.ingest.checks import check_duplicates
 from lagrange_rx.ingest.config import configured_extractor, FIELDS
 from lagrange_rx.ingest.commit import commit_batch
-from lagrange_rx.ingest.cross_document import analyze_cross_documents
+from lagrange_rx.ingest.cross_document import analyze_cross_documents, check_quote_contract_moq
+from lagrange_rx.ingest.money_fields import money_records
 from lagrange_rx.pnl import calculate_pnl
 from lagrange_rx.ontology import ClientGraph
 from lagrange_rx.ontology.rules import load_rules
@@ -68,13 +69,15 @@ def _load(path: Path) -> dict:
     return json.loads(path.read_text(encoding='utf-8'))
 
 
-def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None) -> FastAPI:
+def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=None, fx_provider=None, as_of: date | None = None) -> FastAPI:
     root = Path(data_dir or os.getenv('LAGRANGE_DATA_DIR', './data')).resolve()
     root.mkdir(parents=True, exist_ok=True)
     store = IntakeStore(root / 'documents')
     app = FastAPI(title='LAGRANGE Rx ingest')
     fx_provider = fx_provider or fetch_cbu_rate
     mode = os.getenv('LAGRANGE_AI_MODE', 'off')
+    # Staleness (S1) is relative to an explicit calculation date; the default is today and is recorded in the batch.
+    as_of = as_of or (date.fromisoformat(os.environ['LAGRANGE_AS_OF']) if os.getenv('LAGRANGE_AS_OF') else date.today())
     budget = float(os.getenv('LAGRANGE_AI_BUDGET_USD', '0'))
     classifier = DocumentClassifier(llm=None if scorer else build_llm_classifier(mode, root / 'cache', budget_usd=budget), scorer=scorer)
     if extractor is None and mode != 'off':
@@ -92,7 +95,7 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
     @app.post('/ingest/batches')
     async def create_batch(files: list[UploadFile] = File(...)):
         batch_id = uuid4().hex
-        batch = {'batch_id': batch_id, 'documents': [], 'proposed_instances': [], 'links': [], 'issues': [], 'review_queue': [], 'coverage': {'missing_for_twin': ['ClientGraph and P&L integration are not available']}}
+        batch = {'batch_id': batch_id, 'as_of': as_of.isoformat(), 'documents': [], 'proposed_instances': [], 'links': [], 'issues': [], 'review_queue': [], 'coverage': {'missing_for_twin': ['ClientGraph and P&L integration are not available']}}
         documents = []
         parsed_documents = []
         for upload in files:
@@ -161,10 +164,15 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
                         evidence = value['evidence']
                         batch['proposed_instances'].append({'type': row['type'], 'id': ident, 'source_row': row['row'], 'source_product': row.get('product'), 'fields': {field: value}, 'status': 'extracted_unconfirmed', 'evidence': [evidence]})
                         batch['review_queue'].append({'question_id': ident, 'instance_id': ident, 'field': field, 'money_impact_uzs': 0.0, 'options': ['confirm', 'correct', 'irrelevant', 'need_document'], 'status': 'pending'})
-        initial_money_issues = check_money(money_records_from_proposals(batch['documents'], batch['proposed_instances']))
+        unique_documents = list({d['document_id']: d for d in reversed(parsed_documents)}.values())[::-1]
+        extra_records, field_issues = money_records(unique_documents, as_of=as_of)
+        batch['money_records'] = extra_records
+        batch['issues'].extend(field_issues)
+        initial_money_issues = check_money(money_records_from_proposals(batch['documents'], batch['proposed_instances']) + extra_records, as_of=as_of)
         for issue in initial_money_issues:
             issue['check_source'] = 'money_checks'
         batch['issues'].extend(initial_money_issues)
+        batch['issues'].extend(check_quote_contract_moq(extra_records))
         batch['issues'].extend(analyze_document_quality(parsed_documents))
         batch['issues'].extend(analyze_observed_documents([{'document_id': d['document_id'], 'pages': {p['number']: p['text'] for p in d['pages']}} for d in parsed_documents]))
         batch['review_queue'] = build_review_queue(batch['proposed_instances'])
@@ -182,7 +190,7 @@ def create_app(data_dir: str | Path | None = None, *, scorer=None, extractor=Non
     @app.post('/ingest/batches/{batch_id}/money-checks')
     async def money_checks(batch_id: str, request: MoneyCheckRequest):
         batch = _load(batch_path(batch_id))
-        records = money_records_from_proposals(batch['documents'], batch['proposed_instances'])
+        records = money_records_from_proposals(batch['documents'], batch['proposed_instances']) + batch.get('money_records', [])
         rates, errors = [], []
         queries = cbu_rate_requests(records)
         if request.fetch_official_rates:

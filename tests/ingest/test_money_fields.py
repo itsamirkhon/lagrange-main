@@ -53,6 +53,11 @@ def test_uzs_column_value_in_foreign_currency_is_flagged():
     assert issues[0]['evidence'][0]['quote'] == '122258.63 UZS' and 'CIP UZS' in issues[0]['detail']
 
 
+def test_small_bare_amount_is_not_flagged_without_a_stray_currency_label():
+    rows = [['Номер', 'Сумма UZS']] + [[f'N{i}', f'{15_000_000 + i}.0'] for i in range(8)] + [['small', '73225.25']]
+    assert money_records([doc('t', 'payments', tables=[rows])])[1] == []
+
+
 def test_natural_variation_is_not_flagged():
     rows = [['Месяц', 'Остаток UZS']] + [[str(i), str(v)] for i, v in enumerate([100, 90, 80, 50, 20, 10, 8], 1)]
     assert money_records([doc('t', 'payments', tables=[rows])])[1] == []

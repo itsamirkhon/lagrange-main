@@ -9,10 +9,22 @@ import argparse
 import asyncio
 import json
 import hashlib
+import os
 import re
 from pathlib import Path
 import tempfile
 from time import perf_counter
+
+
+def simulation_as_of(root: Path) -> str:
+    """Last day of the simulated world's final month (eval may read sim config)."""
+    import calendar
+    config = root / 'config' / 'world.yaml'
+    match = re.search(r'end_month:\s*"?(\d{4})-(\d{2})', config.read_text(encoding='utf-8')) if config.is_file() else None
+    if not match:
+        return ''
+    year, month = int(match.group(1)), int(match.group(2))
+    return f'{year:04d}-{month:02d}-{calendar.monthrange(year, month)[1]:02d}'
 
 
 def document_path(root: Path, relative: str) -> Path:
@@ -27,7 +39,7 @@ def document_path(root: Path, relative: str) -> Path:
 _OPERATOR_ISSUES = {
     'X1': {'contradiction'}, 'X2': {'contradiction'}, 'D1x': {'duplicate'},
     'V1': {'contradiction', 'vat_mismatch', 'vat_ambiguous'}, 'U1': {'unit_mismatch', 'unit_ambiguous'},
-    'A1': {'arithmetic'}, 'M1': {'missing'}, 'C1': {'currency_ambiguous'},
+    'A1': {'arithmetic'}, 'M1': {'missing'}, 'C1': {'currency_ambiguous'}, 'C2': {'currency_ambiguous'},
     'C3': {'contradiction'}, 'S1': {'stale'},
 }
 _TECHNICAL_ISSUES = {'parse_warning', 'parse_error', 'extraction_error', 'classification_required', 'unmapped_column'}
@@ -43,7 +55,8 @@ def score_corruptions(entries, document_ids, issues):
             operator, field = corruption['operator'], corruption['field']
             doc_id = document_ids.get(entry['document'])
             aliases = {('X1', 'min_order_qty'): 'moq', ('C1', 'unit_price'): 'currency',
-                       ('C3', 'landed_cost_ex_vat_uzs'): 'fx_rate_on_entry', ('S1', 'quote_status'): 'valid_until'}
+                       ('C3', 'landed_cost_ex_vat_uzs'): 'fx_rate_on_entry', ('S1', 'quote_status'): 'valid_until',
+                       ('C2', 'cip_uzs'): 'cip uzs', ('C2', 'amount_uzs'): 'сумма uzs', ('S1', 'chchn_with_vat_uzs'): 'registry'}
             field_marker = aliases.get((operator, field), field)
             if operator == 'M1':
                 match = re.search(r'\d{4}-\d{2}', field)
@@ -116,6 +129,9 @@ async def evaluate_level(root: Path, level: str, data_dir: Path, class_map: dict
     results = [{'document': e['document'], 'doc_type': e['doc_type'], 'prediction': None,
                 'questions': 0, 'issues': 0, 'elapsed_seconds': 0} for e in entries]
     start = perf_counter()
+    # The product defaults the staleness date to today; the simulated world ends at world.yaml end_month.
+    if simulation_as_of(root):
+        os.environ['LAGRANGE_AS_OF'] = simulation_as_of(root)
     document_ids = {}
     issues = []
     try:

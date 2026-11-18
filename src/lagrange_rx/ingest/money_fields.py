@@ -16,6 +16,7 @@ _CURRENCY = re.compile(r'\b(USD|EUR|UZS|RUB|GBP|CNY|KZT)\b|([$€£₽])', re.I)
 _SYMBOLS = {'$': 'USD', '€': 'EUR', '£': 'GBP', '₽': 'RUB'}
 _QUOTE_COLUMNS = {'quote_number': r'номер кп|quote n|kp n|taklif', 'product_name': r'препарат|product|dori|наименование',
                   'moq': r'\bmoq\b', 'lead_time': r'срок|lead', 'unit_price': r'цена|price|narx', 'valid_until': r'действует до|valid'}
+_QUOTE_NUMBER = re.compile(r'[A-ZА-Я]{2,4}-\d[\w-]*')
 _DRAFT = re.compile(r'проект|draft|loyiha', re.I)
 
 
@@ -74,24 +75,35 @@ def _quote_records(doc):
         if end is None:
             continue
         header = cells[anchor:end]
-        columns = {}
-        for index, title in enumerate(header):
-            for name, pattern in _QUOTE_COLUMNS.items():
-                if name not in columns.values() and re.search(pattern, title, re.I):
-                    columns[index] = name
-                    break
         header_currency = next((_currency_token(c) for c in header if _currency_token(c)), None)
         stated = pairs.get('currency') or pairs.get('валюта')
-        for start in range(end, len(cells) - len(header) + 1, len(header)):
-            row = cells[start:start + len(header)]
-            if not re.fullmatch(r'[A-ZА-Я]{2,4}-\d[\w-]*', row[0]):
-                break
-            fields = {name: _field(doc['document_id'], page['number'], row[i]) for i, name in columns.items()}
-            price = fields.get('unit_price')
-            if price:
-                currency = _currency_token(price['raw']) or _currency_token(stated) or header_currency
+        starts = [i for i in range(end, len(cells)) if _QUOTE_NUMBER.fullmatch(cells[i])]
+        for n, start in enumerate(starts):
+            # Cells can be dropped (blank) or fused by PDF extraction, so values are recognised by shape, not column index.
+            stop = next((i for i in range(start + 1, len(cells)) if i in starts or '|' in cells[i]), len(cells))
+            row = cells[start:stop]
+            fields = {'quote_number': _field(doc['document_id'], page['number'], row[0])}
+            rest = row[1:]
+            if rest and not re.fullmatch(r'[\d\s.,]+|\d+\s*(?:дн|day)\S*', rest[0], re.I):
+                fields['product_name'] = _field(doc['document_id'], page['number'], rest[0])
+            lead = next((c for c in rest if re.fullmatch(r'\d+\s*(?:дн|day)\S*', c, re.I)), None)
+            price_at = next((i for i, c in enumerate(rest) if re.fullmatch(r'\d{1,5}[.,]\d{1,3}(?:\s*(?:USD|EUR|UZS|RUB))?', c, re.I)), None)
+            moq = next((c for c in rest if re.fullmatch(r'\d{3,6}', c)), None)
+            if moq is None and 'product_name' in fields:
+                fused = re.search(r'№\s*(\d{4,6})$', fields['product_name']['raw'])
+                moq = fused.group(1) if fused else None
+            if lead:
+                fields['lead_time'] = _field(doc['document_id'], page['number'], lead)
+            if moq:
+                fields['moq'] = _field(doc['document_id'], page['number'], moq, fields['product_name']['raw'] if moq not in rest else moq)
+            if price_at is not None:
+                price = rest[price_at]
+                fields['unit_price'] = _field(doc['document_id'], page['number'], price)
+                if price_at + 1 < len(rest):
+                    fields['valid_until'] = _field(doc['document_id'], page['number'], rest[price_at + 1])
+                currency = _currency_token(price) or _currency_token(stated) or header_currency
                 if currency:
-                    quote = price['raw'] if _currency_token(price['raw']) else (stated if _currency_token(stated) else next(c for c in header if _currency_token(c)))
+                    quote = price if _currency_token(price) else (stated if _currency_token(stated) else next(c for c in header if _currency_token(c)))
                     fields['currency'] = _field(doc['document_id'], page['number'], currency, quote)
             if pairs.get('date'):
                 fields['issue_date'] = _field(doc['document_id'], page['number'], pairs['date'])
@@ -150,8 +162,13 @@ def _unit_outliers(doc):
             if len(numbers) < 6 or median(numbers) < 10_000:
                 continue
             middle = median(numbers)
-            for cell, value in values:
-                if value and 0 < value < middle / 100:
+            # A tiny value is only suspicious when its cell carries an explicit currency label that
+            # most of the column's cells lack; small bare amounts (e.g. a minor write-off) are normal.
+            labelled = [bool(_CURRENCY.search(str(cell))) for cell, _ in values]
+            if sum(labelled) > len(values) / 2:
+                continue
+            for (cell, value), has_label in zip(values, labelled):
+                if has_label and value and 0 < value < middle / 100:
                     issues.append(_issue('currency_ambiguous', title, doc['document_id'],
                                          [{'document_id': doc['document_id'], 'page': table['page'], 'quote': str(cell)}],
                                          f'Value {cell} in column "{title}" is over 100 times below the column median {middle:,.0f}; the amount may be in another currency.'))
