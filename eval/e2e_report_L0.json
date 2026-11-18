@@ -1,0 +1,213 @@
+{
+ "world": "L0",
+ "documents": 72,
+ "questions_to_human": {
+  "total": 13,
+  "by_kind": {
+   "contract_effective_from": 2,
+   "confirm_group": 9,
+   "cost_attribution": 2
+  },
+  "consistent_with_live_run": true
+ },
+ "graph": {
+  "counts": {
+   "source_documents": 72,
+   "registry_records": 3,
+   "products": 7,
+   "suppliers": 4,
+   "production_sites": 4,
+   "carriers": 4,
+   "routes": 6,
+   "quotes": 24,
+   "contracts": 6,
+   "shipments": 44,
+   "lots": 50,
+   "customs_entries": 44,
+   "currencies": 2,
+   "fx_rates": 44,
+   "cost_items": 264,
+   "regions": 14,
+   "channels": 3,
+   "sales_records": 3694,
+   "issues": 10
+  },
+  "focus_sku": "kardiozan-10mg-n30",
+  "horizon_start": "2026-11",
+  "routes_in_engine": [
+   "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+   "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic"
+  ],
+  "not_extracted": [
+   "content of image documents (memos, carrier chats, waybill photos)",
+   "Product: INN, dosage form, manufacturer, registration certificate",
+   "CreditLine: limit, annual rate, available_from",
+   "CustomsEntry: split of fees_uzs into clearance fees and inbound freight; vat_uzs",
+   "Shipment.actual_freight_uzs",
+   "Route: incoterms, min/max shipment packs, shipments per year, capacity, activation cost, eligibility, p90 lead time",
+   "Route production_site for corridors without observed shipments",
+   "Supplier.reliability; PaymentTerms.customer_days",
+   "PriceIndexationEvent, Warehouse capacity, DemandForecast, FxHedge",
+   "Carrier contracts (CNT-CAR-*)",
+   "Quote.vat_status for supplier quotes; Quote.issued_on except the quote named in the document title"
+  ]
+ },
+ "engine_config": {
+  "horizon_start": "2026-11",
+  "client_id": null,
+  "sku_id": "kardiozan-10mg-n30",
+  "penalty_uzs_per_pack": 0.0,
+  "default_lot_size": 1000,
+  "inventory_days": 45,
+  "default_credit_rate": 0.2,
+  "receivable_days": null,
+  "default_reliability": 0.95,
+  "contract_price_uzs": null,
+  "calibration_actual": {
+   "revenue_uzs": 16657365645.0,
+   "total_cost_uzs": 16252591506.781502,
+   "confirmed": true
+  },
+  "demo_mode": false,
+  "route_params": {},
+  "split_freight_from_fees": true,
+  "default_min_batch_packs": 0,
+  "default_max_batch_packs": null,
+  "capacity_factor": 1.5,
+  "default_max_shipments_per_year": 24,
+  "demand_p10_factor": 0.85,
+  "demand_p90_factor": 1.15,
+  "default_receivable_days": 30,
+  "financing_cost_items": "as_recorded"
+ },
+ "engine_notes": [
+  "no DemandForecast: demand p50 = trailing-12-month sales (149250 packs); p10/p90 = x0.85/x1.15 (EngineConfig assumption, not a forecast)",
+  "route 'CHUK-RAIL-03/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+  "route 'CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic' excluded: production site 'vektorpharm-s-a-germaniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+  "route 'KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': inbound freight estimated from the carrier tariff (3,286 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=1000 is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': min_batch=5000 taken from the supplier Contract MOQ (route states none)",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_batch=16500 = largest observed shipment (route states none)",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': eligibility not stated, assumed eligible",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': activation cost not stated, taken as 0",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': inbound freight estimated from the carrier tariff (3,384 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=1000 is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': min_batch=3000 taken from the supplier Contract MOQ (route states none)",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_batch=13500 = largest observed shipment (route states none)",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': eligibility not stated, assumed eligible",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': activation cost not stated, taken as 0",
+  "route 'TAS-AIR-04' excluded: no production site (no document ties it to a producer)",
+  "supplier 'medisynth-s-a-indiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+  "supplier 'vektorpharm-pvt-ltd-turtsiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+  "60 CostItem(s) outside the 12 months before the horizon ignored",
+  "no CreditLine: budget unlimited, credit rate 20% from EngineConfig",
+  "financing: recorded financing CostItems are used as they are; the engine's own financing charge is off (rate 0)",
+  "receivable days unknown (PaymentTerms.customer_days): 30 from EngineConfig",
+  "engine-only parameters (EngineConfig, not in the ontology): penalty=0.0 UZS/pack, inventory_days=45, default_lot_size=1000, credit_rate=0.00%, hedge_forward_premium=0.02, financing_cost_items=as_recorded, split_freight_from_fees=True",
+  "graph contains ASSUMPTION provenance"
+ ],
+ "twin_margin": 0.02602505053308796,
+ "calibration_gap": {
+  "twin_margin": 0.02602505053308796,
+  "document_pnl_margin": 0.024300009187827265,
+  "calibrated_vs_documents": true,
+  "truth_margin": 0.0243,
+  "gap_vs_truth_pp": 0.17250505330879615,
+  "twin_volume_packs": 149250,
+  "truth_volume_packs": 149250,
+  "accepted_within_0.5pp": true,
+  "preregistered_threshold_pp": 0.1,
+  "missing_data": []
+ },
+ "plan": {
+  "plan_id": "plan-06ba677e950c",
+  "horizon": "2026-11..2027-10",
+  "fx_hedge_share": 0.0,
+  "packs_total": 0,
+  "packs_by_route": {},
+  "shipments": 0,
+  "solve": {
+   "status": "OPTIMAL",
+   "proven_optimal": true,
+   "seconds": 0.04383117100223899
+  },
+  "metrics_uzs": {
+   "expected": -2148641646.83,
+   "cvar95": -2148641646.83,
+   "worst": -2148641646.83,
+   "p_loss": 1.0
+  }
+ },
+ "plan_note": "cvar optimum is to import nothing: loss = fixed below-line costs only",
+ "plan_expected_mode": {
+  "packs_by_route": {
+   "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": 115000,
+   "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": 13000
+  },
+  "metrics_uzs": {
+   "expected": -1151358416.6512365,
+   "cvar95": -3651641629.283715,
+   "worst": -4687365826.923161,
+   "p_loss": 1.0
+  },
+  "legal": true
+ },
+ "fifteen_percent_rule_freight_effect": {
+  "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": {
+   "legal_base_split": 89847.06685658006,
+   "legal_base_unsplit": 93133.49214522871,
+   "max_price_overstated_by_uzs_per_pack": 3779.3890819459475
+  },
+  "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": {
+   "legal_base_split": 88962.86558334254,
+   "legal_base_unsplit": 92346.80850569549,
+   "max_price_overstated_by_uzs_per_pack": 3891.5343607058853
+  }
+ },
+ "plan_withheld_reason": null,
+ "legality": {
+  "checks_total": 352,
+  "checks_failed": 0,
+  "legal": true
+ },
+ "warnings": [
+  "no DemandForecast: demand p50 = trailing-12-month sales (149250 packs); p10/p90 = x0.85/x1.15 (EngineConfig assumption, not a forecast)",
+  "route 'CHUK-RAIL-03/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+  "route 'CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic' excluded: production site 'vektorpharm-s-a-germaniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+  "route 'KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': inbound freight estimated from the carrier tariff (3,286 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=1000 is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': min_batch=5000 taken from the supplier Contract MOQ (route states none)",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_batch=16500 = largest observed shipment (route states none)",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': eligibility not stated, assumed eligible",
+  "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': activation cost not stated, taken as 0",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': inbound freight estimated from the carrier tariff (3,384 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=1000 is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': min_batch=3000 taken from the supplier Contract MOQ (route states none)",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_batch=13500 = largest observed shipment (route states none)",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=24/year is an engine default",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': eligibility not stated, assumed eligible",
+  "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': activation cost not stated, taken as 0",
+  "route 'TAS-AIR-04' excluded: no production site (no document ties it to a producer)",
+  "supplier 'medisynth-s-a-indiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+  "supplier 'vektorpharm-pvt-ltd-turtsiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+  "60 CostItem(s) outside the 12 months before the horizon ignored",
+  "no CreditLine: budget unlimited, credit rate 20% from EngineConfig",
+  "financing: recorded financing CostItems are used as they are; the engine's own financing charge is off (rate 0)",
+  "receivable days unknown (PaymentTerms.customer_days): 30 from EngineConfig",
+  "engine-only parameters (EngineConfig, not in the ontology): penalty=0.0 UZS/pack, inventory_days=45, default_lot_size=1000, credit_rate=0.00%, hedge_forward_premium=0.02, financing_cost_items=as_recorded, split_freight_from_fees=True",
+  "graph contains ASSUMPTION provenance",
+  "UZ-PF13-WHOLESALE-MARKUP (15%) needs legal review: applied to packs sold, not packs ordered"
+ ],
+ "snapshot_id": "06ba677e950c27e82343633f",
+ "truth_evaluation": "pending stage 5",
+ "report_sha256": "dc23d6bb356b19e9"
+}

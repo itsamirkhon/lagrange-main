@@ -176,3 +176,22 @@ Ingest собирает подтверждённый `ClientGraph` мира L0 (
 Влито: этапы 1–4, 6a, 6b, 7. Состояние после слияния 6b: `tests/ingest tests/e2e tests/test_boundaries.py` → 275 passed, 2 xfailed, **4 failed**:
 `test_batch_wiring` (2, интеграция `as_of`/классификатор в роутере после слияния с этапом 7), `test_http_flow::test_twin_optimize_whatif_impossible`, `test_boundaries::test_single_rules_catalog` (находит копии каталога в `.claude/worktrees/` — исключить `.claude` в тесте).
 Не завершено: этап 5 (TruthEvaluator) и 6c (калибровка на графе L0) — агенты работали в worktree; этап 6d (L1–L4, regret), этап 8 (README, метрики), этап 9 (UI), PR в main.
+
+## Этап 6c
+
+Ядро работает на `ClientGraph`, который Ingest строит из 72 документов L0. Сквозной прогон: `python eval/e2e_L0.py` → `eval/e2e_report_L0.json` (документы → вопросы человеку → граф → маржа двойника → разрыв калибровки → план → законность → `snapshot_id`; слот `truth_evaluation: "pending stage 5"` заполняет TruthEvaluator).
+
+**Шов API.** `api/seam.py::graph_for_engine(graph, config=None)` строит `CalculationGraph` через `adapter.to_calculation_graph`; без `config` берётся `adapter.default_engine_config(graph)`. Запросы `/engine/*` принимают необязательное поле `config` (EngineConfig). Не годный граф даёт 422 `graph_not_usable_by_engine`. Тест `test_committed_graph_twin_via_ontology_graph` больше не xfail: граф L0 из документов кладётся в `graphs/<id>.json` и проходит twin, scenarios, optimize, what-if по `graph_id`.
+
+**Параметры только движка (EngineConfig) и подстановки вместо отсутствующих данных** (каждая пишется в `CalculationGraph.notes` и выводится как warning):
+- `horizon_start` = месяц после последней продажи; `sku_id` = единственный SKU с RegistryRecord; `default_reliability` = 0.95 (ни один документ не даёт Supplier.reliability);
+- спрос: нет DemandForecast, p50 = продажи за последние 12 мес. (149 250), p10/p90 = ×0.85/×1.15 (`demand_p10_factor`, `demand_p90_factor`) — допущение, не прогноз;
+- Route: min_batch = MOQ контракта, иначе `default_min_batch_packs`; max_batch = крупнейшая наблюдённая отгрузка; capacity = `capacity_factor`(1.5) × p90 спроса; max_shipments = `default_max_shipments_per_year`(24); eligibility = истина; activation = 0; lot_size = `default_lot_size`(1000); маршрут без production_site (TAS-AIR-04) исключён;
+- кредит: нет CreditLine, поэтому бюджет не ограничен; `financing_cost_items="as_recorded"` (проценты берутся из D10, собственный финансовый расчёт движка выключен, ставка 0, чтобы не считать дважды); при `engine_model` действует `default_credit_rate`=20%;
+- `default_receivable_days`=30 (customer_days нет в документах); `inventory_days`=45, `penalty_uzs_per_pack`=0, аварийных маршрутов нет;
+- номинальный курс: последний FxRate до горизонта; для Rn в UZS курс=1, в сценариях курс UZS постоянен;
+- `calibration_actual` считается `lagrange_rx.pnl` из самого графа (не из истины).
+
+**Исправления адаптера/двойника.** (1) `CostItem.scope`: общие затраты, чей scope не включает SKU, не относятся к нему (без этого затраты ниже линии были 2 579 М вместо 2 148,64 М UZS). (2) Тариф перевозчика в USD (`freight_per_pack_usd`/`per_shipment_usd`) переводится в UZS. (3) `ShipmentSpec.kc`: калибровка берёт фактическую цену CIP отгрузки, а не нынешний контракт. (4) Себестоимость продаж окна = закупки окна × (проданные упаковки / закупленные) — у двойника нет модели запасов. (5) UZS как референтная валюта допустима в истории курсов (константа).
+
+**Доля фрахта в юридической базе (15%).** D7 даёт только «себестоимость без НДС», поэтому `fees_uzs` = сборы + фрахт; фактический фрахт ни в одном документе не указан (carrier invoices отсутствуют). Точное разделение по документам невозможно; `split_freight_from_fees=True` вычитает тариф перевозчика (D4) на дату ГТД: фрахт идёт в `RouteSpec.freight_uzs`, посадочная стоимость не меняется, а разница факт−тариф остаётся в базе (оценка снизу вверх, не занижает базу). Без разделения база завышена на 3 286 UZS/упак. (KZ-AUTO-01) и 3 385 (TM-AUTO-02), т.е. потолок цены по правилу 15% завышен на ~3 779 и ~3 892 UZS/упак. Онтологический `CustomsEntry.legal_base_c_per_pack` не менялся (он остаётся полной посадочной стоимостью, на нём считает `pnl`); раздельного поля фрахта в онтологии нет.
