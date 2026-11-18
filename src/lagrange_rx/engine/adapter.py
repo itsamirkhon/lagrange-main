@@ -81,6 +81,7 @@ class EngineConfig(_C):
     contract_price_uzs: float | None = Field(default=None, gt=0)  # sale contract price ex VAT, if any
     calibration_actual: ActualSpec | None = None  # client's reported 12-month result (calibration target)
     demo_mode: bool = False
+    apply_wholesale_markup_rule: bool = True  # False: the engine does not apply the 15% wholesale rule (legal switch)
     route_params: dict[str, RouteParams] = Field(default_factory=dict)
     # --- defaults that substitute for data the documents did not state (every use is written to `notes`) ---
     split_freight_from_fees: bool = False  # CustomsEntry.fees_uzs may hold inbound freight (D7): split it out, see below
@@ -579,7 +580,8 @@ def to_calculation_graph(graph: onto.ClientGraph, config: EngineConfig, rules: R
         client_id=config.client_id or sku.sku_id, product=product, suppliers=suppliers, routes=routes, cost_items=costs,
         demand=demand, shipments=ships, sales=sales, actual=config.calibration_actual, finance=finance,
         nominal_fx=fx, horizon_start=hs, penalty_uzs_per_pack=config.penalty_uzs_per_pack,
-        demo_mode=config.demo_mode, fixture_note="synthetic provenance" if "synthetic" in kinds else None,
+        demo_mode=config.demo_mode, apply_wholesale_markup_rule=config.apply_wholesale_markup_rule,
+        fixture_note="synthetic provenance" if "synthetic" in kinds else None,
         notes=tuple(notes))
 
 

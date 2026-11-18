@@ -233,6 +233,79 @@ def translate_plan(plan: Plan, mapping: TruthMapping, horizon_start: str, truth_
             "monthly_orders": [orders[m] for m in _WINDOW], "monthly_marketing_uzs": base["monthly_marketing_uzs"]}
 
 
+# --------------------------------------------------------------------------- the 15% rule on the truth (interpretation A)
+# UZ-PF13-WHOLESALE-MARKUP (needs_legal_review): wholesale revenue <= (1 + 15%) x legal base of the packs SOLD.
+# `evaluate_plan_on_truth` (sim/, untouched) prices at the registry ceiling and does not know the rule. Interpretation A
+# post-processes its result here, independently of the engine's twin: the legal base is read from the truth's own
+# customs tables (CIP + duty + clearance fee, ex VAT, freight EXCLUDED - the PKM-185 base), never from twin/optimize.
+
+def _focus_sales_window(truth: Path, sku: str) -> pd.DataFrame:
+    sales = pd.read_parquet(truth / "sales.parquet")
+    return sales[(sales["sku_id"] == sku) & sales["month"].isin(set(_WINDOW))]
+
+
+def legal_base_per_pack_by_lot(truth: Path, sku: str) -> dict[str, float]:
+    """Legal base per pack of each lot of `sku`: (CIP + duty + clearance fee) / packs of its shipment (inbound freight
+    is not part of the base)."""
+    cus = pd.read_parquet(Path(truth) / "customs.parquet").set_index("shipment_id")
+    lots = pd.read_parquet(Path(truth) / "lots.parquet")
+    lots = lots[lots["sku_id"] == sku]
+    out = {}
+    for _, lot in lots.iterrows():
+        c = cus.loc[lot["shipment_id"]]
+        landed = float(c["landed_cost_ex_vat_uzs"])
+        base = float(c["cip_uzs"] + c["duty_uzs"] + c["clearance_fee_uzs"])
+        out[str(lot["lot_id"])] = float(lot["unit_cost_uzs"]) * base / landed
+    return out
+
+
+def legal_base_share_of_cost(truth: Path, sku: str) -> float:
+    """kappa = legal base / landed cost of the sku's lots (cost-weighted, freight is the difference). The evaluator does
+    not return which lots a plan sold, so the base of the packs a plan sold is estimated as kappa x its COGS."""
+    lots = pd.read_parquet(Path(truth) / "lots.parquet")
+    lots = lots[lots["sku_id"] == sku]
+    base = legal_base_per_pack_by_lot(truth, sku)
+    cost = sum(float(r["unit_cost_uzs"]) * float(r["initial_qty"]) for _, r in lots.iterrows())
+    b = sum(base[str(r["lot_id"])] * float(r["initial_qty"]) for _, r in lots.iterrows())
+    return b / cost
+
+
+def cap_wholesale_revenue(revenue: float, cogs: float, kappa: float, multiplier: float) -> dict:
+    """Interpretation A applied to one evaluation: revenue is cut to multiplier x legal base of packs sold
+    (= kappa x COGS); the cut is subtracted from profit one for one (costs are unchanged)."""
+    base = kappa * cogs
+    cap = multiplier * base
+    capped = min(revenue, cap)
+    return {"revenue_uzs": capped, "excess_uzs": revenue - capped, "legal_base_sold_uzs": base,
+            "markup_before": (revenue / base - 1.0) if base > 0 else None}
+
+
+def client_history_violation(truth: Path = TRUTH_DIR, sku: str = "SKU_CARDIO_01", multiplier: float | None = None) -> dict:
+    """How much the client ALREADY sells above the ceiling, from the truth history (the 12-month window of the
+    evaluator and, for scale, the whole history): sales rows x the legal base of the lot each pack came from."""
+    from lagrange_rx.engine.rules import load_rules
+    mult = 1.0 + (load_rules().max_markup if multiplier is None else multiplier)
+    base = legal_base_per_pack_by_lot(truth, sku)
+    sales = pd.read_parquet(Path(truth) / "sales.parquet")
+    sales = sales[sales["sku_id"] == sku]
+
+    def block(df: pd.DataFrame) -> dict:
+        rev = float((df["qty_packs"] * df["unit_price_ex_vat_uzs"]).sum())
+        lb = float(sum(q * base[str(l)] for q, l in zip(df["qty_packs"], df["lot_id"])))
+        excess = max(0.0, rev - mult * lb)
+        return {"packs": int(df["qty_packs"].sum()), "revenue_uzs": rev, "legal_base_sold_uzs": lb,
+                "ceiling_uzs": mult * lb, "markup": rev / lb - 1.0, "excess_over_ceiling_uzs": excess,
+                "excess_share_of_revenue": excess / rev}
+    win = sales[sales["month"].isin(set(_WINDOW))]
+    w = block(win)
+    return {"rule": "UZ-PF13-WHOLESALE-MARKUP (needs_legal_review)", "multiplier": mult,
+            "basis": "sales rows x legal base of the lot sold (CIP + duty + clearance fee, freight excluded), pooled over the period",
+            "window_2025-11_2026-10": w, "whole_history": block(sales),
+            "headline": f"today the company sells above the legal ceiling by "
+                        f"{w['excess_over_ceiling_uzs'] / 1e6:,.1f} M UZS per year "
+                        f"({w['excess_share_of_revenue']:.1%} of revenue; markup on the legal base {w['markup']:.1%})"}
+
+
 # --------------------------------------------------------------------------- scenario overlay
 
 @dataclass(frozen=True)
@@ -305,9 +378,15 @@ class SimTruth:
     """`TruthEvaluator` on the simulation truth. `evaluate_plan_on_truth(plan, scenarios)` -> profit (UZS) per scenario."""
 
     def __init__(self, graph: CalculationGraph, onto_graph: onto.ClientGraph, truth_dir: Path = TRUTH_DIR,
-                 scratch: Path | None = None):
+                 scratch: Path | None = None, cap_markup: bool = False):
+        """`cap_markup=True`: interpretation A - the 15% rule is applied on the truth for every plan evaluated here
+        (the plan and the client baseline alike). False: the truth as simulated (rule not applied)."""
         self.graph, self.truth_dir = graph, Path(truth_dir)
         self.mapping = build_mapping(graph, onto_graph, self.truth_dir)
+        self.cap_markup = cap_markup
+        from lagrange_rx.engine.rules import load_rules
+        self.markup_multiplier = 1.0 + load_rules().max_markup
+        self.kappa = legal_base_share_of_cost(self.truth_dir, self.mapping.sku.truth_id)
         self.ccy = next(iter(sorted(c for c in graph.nominal_fx if c != "UZS")))
         sales = pd.read_parquet(self.truth_dir / "sales.parquet")
         sales = sales[sales["sku_id"] == self.mapping.sku.truth_id]
@@ -344,7 +423,12 @@ class SimTruth:
         ov = self.overlay(s)
         tp = translate_plan(plan, self.mapping, self.graph.horizon_start, self.truth_dir, ov.unavailable)
         self.calls += 1
-        return float(evaluate_plan_on_truth(tp, self._dir(ov)))
+        res = evaluate_plan_on_truth(tp, self._dir(ov))
+        if not self.cap_markup:
+            return float(res)
+        cut = cap_wholesale_revenue(float(res["revenue_ex_vat_uzs"]), float(res["cogs_ex_vat_uzs"]),
+                                    self.kappa, self.markup_multiplier)
+        return float(res) - cut["excess_uzs"]
 
     def evaluate_plan_on_truth(self, plan: Plan, scenarios: Sequence[Scenario]) -> list[float]:
         return [self.profit(plan, s) for s in scenarios]
@@ -353,8 +437,16 @@ class SimTruth:
         return self.mapping.table()
 
     def baseline_on_truth(self) -> dict:
-        """The truth's own baseline (what the client really did), for reference in the report."""
+        """The truth's own baseline (what the client really did), for reference in the report. Always as simulated
+        (rule not applied); with interpretation A the capped figure is in `baseline_on_truth_capped`."""
         return evaluate_plan_on_truth(None, self.truth_dir).to_dict()
+
+    def baseline_on_truth_capped(self) -> dict:
+        m = evaluate_plan_on_truth(None, self.truth_dir).to_dict()
+        cut = cap_wholesale_revenue(m["revenue_ex_vat_uzs"], m["cogs_ex_vat_uzs"], self.kappa, self.markup_multiplier)
+        return {**m, "revenue_ex_vat_uzs": cut["revenue_uzs"], "net_profit_uzs": m["net_profit_uzs"] - cut["excess_uzs"],
+                "excess_cut_uzs": cut["excess_uzs"], "legal_base_sold_uzs": cut["legal_base_sold_uzs"],
+                "kappa_legal_base_share_of_cost": self.kappa}
 
 
 def table_json(mapping: TruthMapping) -> str:

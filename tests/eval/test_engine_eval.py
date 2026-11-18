@@ -68,3 +68,19 @@ def test_local_truth_translates_plan():
     t = LocalTruth(g, load_rules(), {r.id: r.id for r in g.routes})
     assert len(t.evaluate_plan_on_truth(p, [])) == 0
     assert translate_plan(p, {"R-SEA-A": "Z"}).lines[0].route_id == "Z" or len(translate_plan(p, {"R-SEA-A": "Z"}).lines) == 1
+
+
+def test_both_legal_interpretations_small(tmp_path):
+    from eval.engine_eval import merge_interpretations, run_on_simulation
+    cfg = dict(scen_cfg=ScenarioConfig(n=60, k=10), thresholds_path=small_thresholds(tmp_path))
+    a, b = run_on_simulation(interpretation="A", **cfg), run_on_simulation(interpretation="B", **cfg)
+    assert a["interpretation"]["engine_apply_wholesale_markup_rule"] is True
+    assert a["interpretation"]["truth_revenue_capped_at_115_pct_of_legal_base"] is True
+    assert b["interpretation"]["engine_apply_wholesale_markup_rule"] is False
+    assert b["engine_config"]["apply_wholesale_markup_rule"] is False
+    assert a["client_violation_of_the_rule"]["window_2025-11_2026-10"]["excess_over_ceiling_uzs"] > 0
+    assert a["truth_baseline_with_cap"]["net_profit_uzs"] < a["truth_native_baseline"]["net_profit_uzs"]
+    merged = merge_interpretations(a, b)
+    li = merged["legal_interpretation"]
+    assert li["A_rule_applies_everywhere"]["snapshot_id"] and li["B_rule_off"]["snapshot_id"]
+    assert merged["all_pass"] == a["all_pass"]

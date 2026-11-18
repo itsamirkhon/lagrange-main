@@ -176,6 +176,7 @@ class EngineGraph(_M):
     horizon_start: str = Field(description="first month of the 12-month plan horizon, YYYY-MM")
     penalty_uzs_per_pack: float = Field(ge=0.0, default=0.0, description="service penalty per unmet pack")
     demo_mode: bool = False
+    apply_wholesale_markup_rule: bool = True  # UZ-PF13-WHOLESALE-MARKUP (needs_legal_review); False = not applied
     fixture_note: str | None = None
     notes: tuple[str, ...] = Field(default=(), description="adapter assumptions and exclusions, surfaced as warnings")
 
