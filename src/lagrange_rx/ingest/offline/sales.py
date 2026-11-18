@@ -56,8 +56,9 @@ def parse_regional(rows, sheet=''):
             continue
         out = []
         for index, row in enumerate(rows[header_index + 1:], header_index + 1):
-            if len(row) <= max(columns.values()) or row[columns['qty']] in (None, ''):
-                continue
+            if len(row) <= max(columns.values()) or row[columns['qty']] in (None, '') \
+                    or not re.fullmatch(r'\d{4}-\d{2}', str(row[columns['period']])):
+                continue  # blank, title or total row
             out.append({'row': index, 'sheet': sheet, 'period': str(row[columns['period']]),
                         'region': str(row[columns['region']]), 'lot': str(row[columns['lot']]),
                         'qty': int(number(row[columns['qty']])), 'amount': number(row[columns['amount']])})

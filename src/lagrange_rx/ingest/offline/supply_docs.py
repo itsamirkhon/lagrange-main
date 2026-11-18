@@ -19,6 +19,14 @@ def _labelled(lines, labels):
     return {line[:-1]: lines[i + 1] for i, line in enumerate(lines[:-1]) if line.endswith(':') and line[:-1] in labels}
 
 
+_QUOTE_ROW = re.compile(r'(KP-\d{4}-\d+)\s+(.+?)\s*(\d{3,6})\s+(\d+)\s*дн\.\s+([\d.]+)\s+([A-Z]{3})\s+(\d{4}-\d{2}-\d{2})')
+
+
+def _grid(cells, width):
+    if len(cells) % width:
+        raise ValueError(f'table cells ({len(cells)}) do not form rows of {width}')
+
+
 def parse_invoice_page(lines: list[str]) -> dict:
     title = re.match(r'INVOICE & PACKING LIST (\S+)', lines[0])
     if not title:
@@ -40,7 +48,8 @@ def parse_invoice_page(lines: list[str]) -> dict:
         if line.startswith('Invoice '):
             break
         cells.append(line)
-    for i in range(0, len(cells) - len(cells) % 5, 5):
+    _grid(cells, 5)
+    for i in range(0, len(cells), 5):
         lot, product, qty, produced, expiry = cells[i:i + 5]
         out['lots'].append({'lot': lot, 'product': product, 'qty': int(re.match(r'\d+', qty).group()),
                             'produced': date.fromisoformat(produced), 'expiry': date.fromisoformat(expiry)})
@@ -51,9 +60,10 @@ def parse_customs_pdf(lines: list[str]) -> list[dict]:
     """GTD register: number, invoice, date, rate, CIP in the invoice currency, landed cost ex VAT."""
     header = next(i for i, line in enumerate(lines) if line.startswith('Себест'))
     currency = re.search(r'CIP (\w{3})', ' '.join(lines)).group(1)
-    cells = lines[header + 1:]
+    cells = [c for c in lines[header + 1:] if '.pdf' not in c]
+    _grid(cells, 6)
     rows = []
-    for i in range(0, len(cells) - len(cells) % 6, 6):
+    for i in range(0, len(cells), 6):
         gtd, invoice, day, rate, cip, landed = cells[i:i + 6]
         rows.append({'gtd': gtd, 'invoice': invoice, 'date': date.fromisoformat(day), 'rate': number(rate),
                      'cip_fx': number(cip), 'currency': currency, 'landed_uzs': number(landed)})
@@ -97,13 +107,15 @@ def parse_supplier_quote(lines: list[str]) -> dict:
     meta = re.search(r'Date: (\S+) \| Incoterms: (.+)', ' '.join(lines))
     labels = _labelled(lines, {'Оплата'})
     start = lines.index('Действует до') + 1
-    cells = [c for c in lines[start:] if not c.startswith('ООО')]
+    # Cells are truncated and may run together ("Trombolek 75 мг №" + "3000"), so rows are
+    # read from the joined text; the number of rows must equal the number of quote numbers.
+    text = ' '.join(c for c in lines[start:] if not c.startswith('ООО'))
     items = []
-    for i in range(0, len(cells) - len(cells) % 6, 6):
-        number_, product, moq, days, price, valid = cells[i:i + 6]
-        amount, currency = price.split()
-        items.append({'quote': number_, 'product': product, 'moq': int(moq), 'lead_days': int(days.split()[0]),
-                      'price': number(amount), 'currency': currency, 'valid_until': date.fromisoformat(valid)})
+    for row in _QUOTE_ROW.finditer(text):
+        items.append({'quote': row.group(1), 'product': row.group(2).strip(), 'moq': int(row.group(3)), 'lead_days': int(row.group(4)),
+                      'price': number(row.group(5)), 'currency': row.group(6), 'valid_until': date.fromisoformat(row.group(7))})
+    if len(items) != len(re.findall(r'KP-\d{4}-\d+', text)):
+        raise ValueError('quote items table is not fully readable')
     return {'quote': title.group(1), 'supplier': m.group(1), 'supplier_code': m.group(2),
             'date': date.fromisoformat(meta.group(1)), 'incoterms': meta.group(2).strip(),
             'payment_terms': labels.get('Оплата'), 'items': items}
@@ -111,9 +123,10 @@ def parse_supplier_quote(lines: list[str]) -> dict:
 
 def parse_carrier_quotes(lines: list[str]) -> list[dict]:
     start = lines.index('Срок') + 1
-    cells = [c for c in lines[start:] if not c.endswith('.pdf')]
+    cells = [c for c in lines[start:] if '.pdf' not in c]
+    _grid(cells, 6)
     rows = []
-    for i in range(0, len(cells) - len(cells) % 6, 6):
+    for i in range(0, len(cells), 6):
         number_, code, mode, rate, vat, days = cells[i:i + 6]
         amount, currency = rate.split()
         rows.append({'quote': number_, 'route_code': code, 'mode_prefix': mode, 'rate_per_pack': number(amount),

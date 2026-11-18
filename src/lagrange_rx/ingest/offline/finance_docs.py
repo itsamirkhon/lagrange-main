@@ -19,7 +19,7 @@ def parse_expenses(rows) -> list[dict]:
         if not r or not r[0]:
             continue
         article = str(r[col['Статья']]).strip()
-        out.append({'row': n, 'doc': str(r[col['Акт/Док.']]).strip(), 'period': str(r[col['Месяц']]).strip(),
+        out.append({'row': n, 'doc_no': str(r[col['Акт/Док.']]).strip(), 'period': str(r[col['Месяц']]).strip(),
                     'label': str(r[col['Номенклатура']]).strip(), 'article': article,
                     'category': ARTICLES.get(article.casefold()), 'amount': number(r[col['Сумма UZS']])})
     return out

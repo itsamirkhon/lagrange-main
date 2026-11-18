@@ -22,7 +22,7 @@ def test_expense_rows_map_english_articles_to_categories(by_name):
     rows = fd.parse_expenses(d.tables[d.sheets.index('Расходы')])
     assert len(rows) == 144
     first = rows[0]
-    assert (first['doc'], first['period'], first['label'], first['article'], first['category']) == \
+    assert (first['doc_no'], first['period'], first['label'], first['article'], first['category']) == \
         ('АВР-2025-001', '2025-01', 'Kardiozan 10 мг №30', 'distribution', 'distribution')
     assert first['amount'] == Decimal('24640000.0')
     assert {r['article']: r['category'] for r in rows} == {
