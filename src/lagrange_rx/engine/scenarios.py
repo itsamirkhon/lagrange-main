@@ -43,10 +43,11 @@ class FxHistory:
 
     def log_returns(self, currencies: Sequence[str]) -> np.ndarray:
         """Array (T-1, len(currencies)) of monthly log-returns."""
-        missing = [c for c in currencies if c not in self.rates]
+        missing = [c for c in currencies if c not in self.rates and c != "UZS"]
         if missing:
             raise ValueError(f"FX history has no data for currencies {missing}")
-        return np.diff(np.log(np.array([self.rates[c] for c in currencies])), axis=1).T
+        flat = np.ones(len(self.months))  # UZS per UZS: constant, zero returns
+        return np.diff(np.log(np.array([self.rates.get(c, flat) for c in currencies])), axis=1).T
 
 
 def default_fx_path() -> Path:
