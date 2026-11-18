@@ -70,8 +70,33 @@
     "snapshot_id": "",
     "wholesale_price_policy": "max_legal_common_price"
   },
-  "code_commit": "cea4da62e3f89d0bb4b23c72e6d6d6d22b6398ae",
+  "client_violation_of_the_rule": {
+    "basis": "sales rows x legal base of the lot sold (CIP + duty + clearance fee, freight excluded), pooled over the period",
+    "headline": "today the company sells above the legal ceiling by 1,208.3 M UZS per year (7.3% of revenue; markup on the legal base 24.0%)",
+    "multiplier": 1.15,
+    "rule": "UZ-PF13-WHOLESALE-MARKUP (needs_legal_review)",
+    "whole_history": {
+      "ceiling_uzs": 27998093449.49517,
+      "excess_over_ceiling_uzs": 5994672195.504829,
+      "excess_share_of_revenue": 0.17635141130055673,
+      "legal_base_sold_uzs": 24346168216.952324,
+      "markup": 0.39622651671858233,
+      "packs": 261550,
+      "revenue_uzs": 33992765645.0
+    },
+    "window_2025-11_2026-10": {
+      "ceiling_uzs": 15449083577.689098,
+      "excess_over_ceiling_uzs": 1208282067.3109016,
+      "excess_share_of_revenue": 0.0725374043568281,
+      "legal_base_sold_uzs": 13433985719.729652,
+      "markup": 0.2399421878598822,
+      "packs": 149250,
+      "revenue_uzs": 16657365645.0
+    }
+  },
+  "code_commit": "5cb20fb396316f1cda2b47b0b01c28f76e89c846",
   "engine_config": {
+    "apply_wholesale_markup_rule": true,
     "calibration_actual": {
       "confirmed": true,
       "revenue_uzs": 16657365645.0,
@@ -179,6 +204,903 @@
   "fx_source": "cbu.uz official",
   "graph_source": "ontology graph from Ingest (ingest_graph_L0.json, snapshot ingest-L0-7f7ab26effb16370) -> engine.adapter.to_calculation_graph with adapter.default_engine_config (single config path, stage 6d)",
   "ingest_snapshot_id": "ingest-L0-7f7ab26effb16370",
+  "interpretation": {
+    "engine_apply_wholesale_markup_rule": true,
+    "id": "A",
+    "markup_rule_status": "needs_legal_review",
+    "name": "A_rule_applies_everywhere",
+    "text": "UZ-PF13-WHOLESALE-MARKUP applies to everyone: the engine enforces 1.15 x legal base of packs sold, and the truth revenue of BOTH the plan and the client baseline is capped the same way (truth_eval.py).",
+    "truth_revenue_capped_at_115_pct_of_legal_base": true
+  },
+  "legal_interpretation": {
+    "A_rule_applies_everywhere": {
+      "adapter_notes": [
+        "no DemandForecast: demand p50 = trailing-12-month sales (149250 packs); p10/p90 = x0.85/x1.15 (EngineConfig assumption, not a forecast)",
+        "route 'CHUK-RAIL-03/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+        "route 'CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic' excluded: production site 'vektorpharm-s-a-germaniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+        "route 'KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': inbound freight estimated from the carrier tariff (3,286 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': min_batch=5000 taken from the supplier Contract MOQ (route states none)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_batch=16500 = largest observed shipment (route states none)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=8/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': eligibility not stated, assumed eligible",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': activation cost not stated, taken as 0",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': inbound freight estimated from the carrier tariff (3,384 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': min_batch=3000 taken from the supplier Contract MOQ (route states none)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_batch=13500 = largest observed shipment (route states none)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=4/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': eligibility not stated, assumed eligible",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': activation cost not stated, taken as 0",
+        "route 'TAS-AIR-04' excluded: no production site (no document ties it to a producer)",
+        "supplier 'medisynth-s-a-indiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+        "supplier 'vektorpharm-pvt-ltd-turtsiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+        "60 CostItem(s) outside the 12 months before the horizon ignored",
+        "no CreditLine: budget unlimited, credit rate 20% from EngineConfig",
+        "financing: recorded financing CostItems are used as they are; the engine's own financing charge is off (rate 0)",
+        "receivable days unknown (PaymentTerms.customer_days): 30 from EngineConfig",
+        "engine-only parameters (EngineConfig, not in the ontology): penalty=0.0 UZS/pack, inventory_days=45, default_lot_size=1000, credit_rate=0.00%, hedge_forward_premium=0.02, financing_cost_items=as_recorded, split_freight_from_fees=True",
+        "graph contains ASSUMPTION provenance"
+      ],
+      "all_pass": false,
+      "baseline_plan": {
+        "alpha": null,
+        "fx_hedge_share": 0.0,
+        "horizon": "2026-11..2027-10",
+        "lambda": null,
+        "lines": [
+          {
+            "months": [
+              "2025-11",
+              "2026-01",
+              "2026-02",
+              "2026-04",
+              "2026-05",
+              "2026-07",
+              "2026-08",
+              "2026-10"
+            ],
+            "packs": 100500,
+            "route_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+            "shipments": 8
+          },
+          {
+            "months": [
+              "2025-12",
+              "2026-03",
+              "2026-06",
+              "2026-09"
+            ],
+            "packs": 50500,
+            "route_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+            "shipments": 4
+          }
+        ],
+        "plan_id": "baseline",
+        "risk_mode": "baseline",
+        "sku_id": "kardiozan-10mg-n30",
+        "snapshot_id": "",
+        "wholesale_price_policy": "max_legal_common_price"
+      },
+      "client_violation_of_the_rule": {
+        "basis": "sales rows x legal base of the lot sold (CIP + duty + clearance fee, freight excluded), pooled over the period",
+        "headline": "today the company sells above the legal ceiling by 1,208.3 M UZS per year (7.3% of revenue; markup on the legal base 24.0%)",
+        "multiplier": 1.15,
+        "rule": "UZ-PF13-WHOLESALE-MARKUP (needs_legal_review)",
+        "whole_history": {
+          "ceiling_uzs": 27998093449.49517,
+          "excess_over_ceiling_uzs": 5994672195.504829,
+          "excess_share_of_revenue": 0.17635141130055673,
+          "legal_base_sold_uzs": 24346168216.952324,
+          "markup": 0.39622651671858233,
+          "packs": 261550,
+          "revenue_uzs": 33992765645.0
+        },
+        "window_2025-11_2026-10": {
+          "ceiling_uzs": 15449083577.689098,
+          "excess_over_ceiling_uzs": 1208282067.3109016,
+          "excess_share_of_revenue": 0.0725374043568281,
+          "legal_base_sold_uzs": 13433985719.729652,
+          "markup": 0.2399421878598822,
+          "packs": 149250,
+          "revenue_uzs": 16657365645.0
+        }
+      },
+      "code_commit": "5cb20fb396316f1cda2b47b0b01c28f76e89c846",
+      "engine_config": {
+        "apply_wholesale_markup_rule": true,
+        "calibration_actual": {
+          "confirmed": true,
+          "revenue_uzs": 16657365645.0,
+          "total_cost_uzs": 16252591506.781502
+        },
+        "capacity_factor": 1.5,
+        "client_id": null,
+        "contract_price_uzs": null,
+        "default_credit_rate": 0.2,
+        "default_lot_size": 1000,
+        "default_max_batch_packs": null,
+        "default_max_shipments_per_year": 24,
+        "default_min_batch_packs": 0,
+        "default_receivable_days": 30,
+        "default_reliability": 0.95,
+        "demand_from_sales": true,
+        "demand_p10_factor": 0.85,
+        "demand_p90_factor": 1.15,
+        "demo_mode": false,
+        "financing_cost_items": "as_recorded",
+        "horizon_start": "2026-11",
+        "inventory_days": 45,
+        "penalty_uzs_per_pack": 0.0,
+        "receivable_days": null,
+        "route_params": {
+          "CHUK-RAIL-03/balticgalen-pvt-ltd-sloveniya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 660,
+            "max_shipments": 3,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": null,
+            "max_shipments": 6,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 660,
+            "max_shipments": 3,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 500,
+            "max_shipments": 8,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 500,
+            "max_shipments": 4,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          }
+        },
+        "sku_id": "kardiozan-10mg-n30",
+        "split_freight_from_fees": true
+      },
+      "fx_source": "cbu.uz official",
+      "graph_source": "ontology graph from Ingest (ingest_graph_L0.json, snapshot ingest-L0-7f7ab26effb16370) -> engine.adapter.to_calculation_graph with adapter.default_engine_config (single config path, stage 6d)",
+      "ingest_snapshot_id": "ingest-L0-7f7ab26effb16370",
+      "interpretation": {
+        "engine_apply_wholesale_markup_rule": true,
+        "id": "A",
+        "markup_rule_status": "needs_legal_review",
+        "name": "A_rule_applies_everywhere",
+        "text": "UZ-PF13-WHOLESALE-MARKUP applies to everyone: the engine enforces 1.15 x legal base of packs sold, and the truth revenue of BOTH the plan and the client baseline is capped the same way (truth_eval.py).",
+        "truth_revenue_capped_at_115_pct_of_legal_base": true
+      },
+      "metrics": {
+        "calibration": {
+          "gap_pp": 0.1725041345260695,
+          "missing_data": [],
+          "pass": false,
+          "truth_margin": 0.024300009187827265,
+          "twin_margin": 0.02602505053308796
+        },
+        "evpi": {
+          "evpi_uzs": null,
+          "pass": false,
+          "status": "wait_and_see_infeasible"
+        },
+        "legality": {
+          "legal_rate": 1.0,
+          "pass": true,
+          "scenarios": 10000,
+          "violations": 0
+        },
+        "optimality": {
+          "match_rate": 1.0,
+          "matches": 50,
+          "max_gap": 9.633216720904325e-14,
+          "pass": true,
+          "problems": 50
+        },
+        "regret_by_level": {
+          "status": "not available: Ingest has not produced L0-L4 graphs yet"
+        },
+        "speed": {
+          "pass": true,
+          "recompute_after_shock_seconds": 0.09323978699103463
+        },
+        "uplift": {
+          "baseline": {
+            "cvar_uzs": -9815984991.448593,
+            "expected_uzs": -2249565402.852485,
+            "p_loss": 1.0
+          },
+          "cvar_gain_uzs": 253110216.97880173,
+          "engine": {
+            "cvar_uzs": -9562874774.469791,
+            "expected_uzs": -2167367288.40141,
+            "p_loss": 1.0
+          },
+          "p_loss_change": 0.0,
+          "pass": true,
+          "scenarios": 1000,
+          "uplift_uzs_per_year": 82198114.45107508
+        },
+        "vss": {
+          "mean_scenario_expected_uzs": -2155913393.494538,
+          "pass": true,
+          "stochastic_expected_uzs": -2148620803.0049605,
+          "vss_uzs": 7292590.489577293
+        }
+      },
+      "min_mapping_confidence": 1.0,
+      "plan": {
+        "alpha": 0.95,
+        "fx_hedge_share": 0.0,
+        "horizon": "2026-11..2027-10",
+        "lambda": 0.5,
+        "lines": [
+          {
+            "months": [
+              "2026-12",
+              "2027-02",
+              "2027-04",
+              "2027-06",
+              "2027-08",
+              "2027-10"
+            ],
+            "packs": 94500,
+            "route_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+            "shipments": 6
+          },
+          {
+            "months": [
+              "2026-12",
+              "2027-03",
+              "2027-06",
+              "2027-09"
+            ],
+            "packs": 54000,
+            "route_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+            "shipments": 4
+          }
+        ],
+        "plan_id": "plan-38422f5c2732",
+        "risk_mode": "cvar",
+        "sku_id": "kardiozan-10mg-n30",
+        "snapshot_id": "38422f5c27320e0edd3db37b",
+        "wholesale_price_policy": "max_legal_common_price"
+      },
+      "plan_schedule": "one shipment per month; line months used if given, else evenly spread; a taken month moves to the nearest free one; months without shipment are explicit zero orders",
+      "snapshot": {
+        "config_hash": "4e5687efd0448db484cbc2ac53e1d49fa5fa5603180040db0c4cedbf7cddbccb",
+        "engine_version": "0.1.0",
+        "input_hash": "7ea89e99d16adde069f3c5d71d92421d3c821155618b6604452d2b6d3b308be7",
+        "rules_sha256": "15a381d14d8f1f2ed2b789638f059e55594a859300c1457f4841cdca7c197857",
+        "rules_version": "1.0",
+        "scenarios_hash": "c94f6b853fe58e957b68b4c5642a12a0ebc1fcc47957637964782a272a02d37d",
+        "seed": 20261117,
+        "snapshot_id": "38422f5c27320e0edd3db37b",
+        "solver_version": "scipy-1.18.1/highs numpy-2.5.5"
+      },
+      "snapshot_id": "38422f5c27320e0edd3db37b",
+      "supply_policy": {
+        "basis": "explicit synthetic business policy",
+        "minimum_expected_fill_rate": 0.9
+      },
+      "thresholds_commit": "4ef0981425e82be3baa95d8f0662126898145eab",
+      "thresholds_sha256": "d41c87d23245ef91cfae5a19765bcfb44dbf5d575c85743f28a4acfb86f01f45",
+      "truth": "simulation evaluate_plan_on_truth",
+      "truth_baseline_with_cap": {
+        "annual_sales_packs": 149250,
+        "baseline_profit_uzs": 404773985.17,
+        "cogs_ex_vat_uzs": 14103950013.0,
+        "excess_cut_uzs": 1202626319.5518723,
+        "kappa_legal_base_share_of_cost": 0.9528468087927308,
+        "legal_base_sold_uzs": 13438903761.259243,
+        "net_margin_ex_vat": 0.0243,
+        "net_profit_uzs": -797852334.3818722,
+        "operating_costs_uzs": 2148641646.83,
+        "regret_vs_baseline_uzs": 0.0,
+        "revenue_ex_vat_uzs": 15454739325.448128,
+        "stockout_packs": 0,
+        "writeoff_packs": 400
+      },
+      "truth_calls": 4300,
+      "truth_mapping": [
+        {
+          "confidence": 1.0,
+          "engine_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+          "kind": "route",
+          "matched_features": [
+            "mode",
+            "carrier",
+            "customs_post",
+            "transit_days"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "rte_01"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+          "kind": "route",
+          "matched_features": [
+            "mode",
+            "carrier",
+            "customs_post",
+            "transit_days"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "rte_02"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "medisynth-s-a-indiya-synthetic",
+          "kind": "supplier",
+          "matched_features": [
+            "name",
+            "country",
+            "currency"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "sup_01"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "vektorpharm-pvt-ltd-turtsiya-synthetic",
+          "kind": "supplier",
+          "matched_features": [
+            "name",
+            "country",
+            "currency"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "sup_02"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "kardiozan-10mg-n30",
+          "kind": "sku",
+          "matched_features": [
+            "trade_name",
+            "retail_uzs"
+          ],
+          "mismatched_features": [],
+          "not_compared": [
+            "manufacturer"
+          ],
+          "truth_id": "SKU_CARDIO_01"
+        }
+      ],
+      "truth_native_baseline": {
+        "annual_sales_packs": 149250,
+        "baseline_profit_uzs": 404773985.17,
+        "cogs_ex_vat_uzs": 14103950013.0,
+        "net_margin_ex_vat": 0.0243,
+        "net_profit_uzs": 404773985.17,
+        "operating_costs_uzs": 2148641646.83,
+        "regret_vs_baseline_uzs": 0.0,
+        "revenue_ex_vat_uzs": 16657365645.0,
+        "stockout_packs": 0,
+        "writeoff_packs": 400
+      },
+      "truth_overlay": "scenario -> copy of truth tables: demand = scenario.demand/forecast p50 on window sales; USD rate ratio on fx, on the FX-linked share (CIP+duty) of landed unit cost; freight multiplier by mode on route rates; P22 cut = demand-weighted mean of monthly cap factors on the registry price; unavailable route = zero packs on it (no re-purchase). Not modelled on truth: emergency routes, hedge, supplier price differences."
+    },
+    "B_rule_off": {
+      "adapter_notes": [
+        "no DemandForecast: demand p50 = trailing-12-month sales (149250 packs); p10/p90 = x0.85/x1.15 (EngineConfig assumption, not a forecast)",
+        "route 'CHUK-RAIL-03/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+        "route 'CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic' excluded: production site 'vektorpharm-s-a-germaniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+        "route 'KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic' excluded: production site 'balticgalen-pvt-ltd-sloveniya-synthetic-site' is not approved for 'kardiozan-10mg-n30'",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': inbound freight estimated from the carrier tariff (3,286 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': min_batch=5000 taken from the supplier Contract MOQ (route states none)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_batch=16500 = largest observed shipment (route states none)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': max_shipments=8/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': eligibility not stated, assumed eligible",
+        "route 'KZ-AUTO-01/medisynth-s-a-indiya-synthetic': activation cost not stated, taken as 0",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': inbound freight estimated from the carrier tariff (3,384 UZS/pack) and split out of CustomsEntry.fees_uzs; actual freight paid is not in the documents, so the legal base carries the (actual - tariff) difference",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': lot_size=500 = gcd of the shipment sizes observed in the documents",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': min_batch=3000 taken from the supplier Contract MOQ (route states none)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_batch=13500 = largest observed shipment (route states none)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': capacity=257456 packs/year is an engine assumption (1.5 x demand p90; no document states route capacity)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': max_shipments=4/year from EngineConfig (shipments observed on the route in the 12 months before the horizon)",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': eligibility not stated, assumed eligible",
+        "route 'TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic': activation cost not stated, taken as 0",
+        "route 'TAS-AIR-04' excluded: no production site (no document ties it to a producer)",
+        "supplier 'medisynth-s-a-indiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+        "supplier 'vektorpharm-pvt-ltd-turtsiya-synthetic': reliability not stated in any document, EngineConfig.default_reliability=0.95 used (an assumption, not data)",
+        "60 CostItem(s) outside the 12 months before the horizon ignored",
+        "no CreditLine: budget unlimited, credit rate 20% from EngineConfig",
+        "financing: recorded financing CostItems are used as they are; the engine's own financing charge is off (rate 0)",
+        "receivable days unknown (PaymentTerms.customer_days): 30 from EngineConfig",
+        "engine-only parameters (EngineConfig, not in the ontology): penalty=0.0 UZS/pack, inventory_days=45, default_lot_size=1000, credit_rate=0.00%, hedge_forward_premium=0.02, financing_cost_items=as_recorded, split_freight_from_fees=True",
+        "graph contains ASSUMPTION provenance"
+      ],
+      "all_pass": false,
+      "baseline_plan": {
+        "alpha": null,
+        "fx_hedge_share": 0.0,
+        "horizon": "2026-11..2027-10",
+        "lambda": null,
+        "lines": [
+          {
+            "months": [
+              "2025-11",
+              "2026-01",
+              "2026-02",
+              "2026-04",
+              "2026-05",
+              "2026-07",
+              "2026-08",
+              "2026-10"
+            ],
+            "packs": 100500,
+            "route_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+            "shipments": 8
+          },
+          {
+            "months": [
+              "2025-12",
+              "2026-03",
+              "2026-06",
+              "2026-09"
+            ],
+            "packs": 50500,
+            "route_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+            "shipments": 4
+          }
+        ],
+        "plan_id": "baseline",
+        "risk_mode": "baseline",
+        "sku_id": "kardiozan-10mg-n30",
+        "snapshot_id": "",
+        "wholesale_price_policy": "max_legal_common_price"
+      },
+      "client_violation_of_the_rule": {
+        "basis": "sales rows x legal base of the lot sold (CIP + duty + clearance fee, freight excluded), pooled over the period",
+        "headline": "today the company sells above the legal ceiling by 1,208.3 M UZS per year (7.3% of revenue; markup on the legal base 24.0%)",
+        "multiplier": 1.15,
+        "rule": "UZ-PF13-WHOLESALE-MARKUP (needs_legal_review)",
+        "whole_history": {
+          "ceiling_uzs": 27998093449.49517,
+          "excess_over_ceiling_uzs": 5994672195.504829,
+          "excess_share_of_revenue": 0.17635141130055673,
+          "legal_base_sold_uzs": 24346168216.952324,
+          "markup": 0.39622651671858233,
+          "packs": 261550,
+          "revenue_uzs": 33992765645.0
+        },
+        "window_2025-11_2026-10": {
+          "ceiling_uzs": 15449083577.689098,
+          "excess_over_ceiling_uzs": 1208282067.3109016,
+          "excess_share_of_revenue": 0.0725374043568281,
+          "legal_base_sold_uzs": 13433985719.729652,
+          "markup": 0.2399421878598822,
+          "packs": 149250,
+          "revenue_uzs": 16657365645.0
+        }
+      },
+      "code_commit": "5cb20fb396316f1cda2b47b0b01c28f76e89c846",
+      "engine_config": {
+        "apply_wholesale_markup_rule": false,
+        "calibration_actual": {
+          "confirmed": true,
+          "revenue_uzs": 16657365645.0,
+          "total_cost_uzs": 16252591506.781502
+        },
+        "capacity_factor": 1.5,
+        "client_id": null,
+        "contract_price_uzs": null,
+        "default_credit_rate": 0.2,
+        "default_lot_size": 1000,
+        "default_max_batch_packs": null,
+        "default_max_shipments_per_year": 24,
+        "default_min_batch_packs": 0,
+        "default_receivable_days": 30,
+        "default_reliability": 0.95,
+        "demand_from_sales": true,
+        "demand_p10_factor": 0.85,
+        "demand_p90_factor": 1.15,
+        "demo_mode": false,
+        "financing_cost_items": "as_recorded",
+        "horizon_start": "2026-11",
+        "inventory_days": 45,
+        "penalty_uzs_per_pack": 0.0,
+        "receivable_days": null,
+        "route_params": {
+          "CHUK-RAIL-03/balticgalen-pvt-ltd-sloveniya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 660,
+            "max_shipments": 3,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "CHUK-RAIL-03/vektorpharm-s-a-germaniya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": null,
+            "max_shipments": 6,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "KZ-AUTO-01/balticgalen-pvt-ltd-sloveniya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 660,
+            "max_shipments": 3,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "KZ-AUTO-01/medisynth-s-a-indiya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 500,
+            "max_shipments": 8,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          },
+          "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic": {
+            "acquisition_per_pack_uzs": null,
+            "currency": null,
+            "duty_rate": null,
+            "emergency": false,
+            "emergency_cap_packs": 0,
+            "emergency_premium_uzs": 0.0,
+            "fees_per_pack_uzs": null,
+            "kc": null,
+            "lot_size": 500,
+            "max_shipments": 4,
+            "mode": null,
+            "pr_confirmed": false,
+            "pr_uzs": null
+          }
+        },
+        "sku_id": "kardiozan-10mg-n30",
+        "split_freight_from_fees": true
+      },
+      "fx_source": "cbu.uz official",
+      "graph_source": "ontology graph from Ingest (ingest_graph_L0.json, snapshot ingest-L0-7f7ab26effb16370) -> engine.adapter.to_calculation_graph with adapter.default_engine_config (single config path, stage 6d)",
+      "ingest_snapshot_id": "ingest-L0-7f7ab26effb16370",
+      "interpretation": {
+        "engine_apply_wholesale_markup_rule": false,
+        "id": "B",
+        "markup_rule_status": "needs_legal_review",
+        "name": "B_rule_off",
+        "text": "The rule is not applied (needs_legal_review): the engine runs with apply_wholesale_markup_rule=False (compliance reports it as 'not applied (needs_legal_review)') and the truth is as simulated.",
+        "truth_revenue_capped_at_115_pct_of_legal_base": false
+      },
+      "metrics": {
+        "calibration": {
+          "gap_pp": 0.1725041345260695,
+          "missing_data": [],
+          "pass": false,
+          "truth_margin": 0.024300009187827265,
+          "twin_margin": 0.02602505053308796
+        },
+        "evpi": {
+          "evpi_uzs": null,
+          "pass": false,
+          "status": "wait_and_see_infeasible"
+        },
+        "legality": {
+          "legal_rate": 1.0,
+          "pass": true,
+          "scenarios": 10000,
+          "violations": 0
+        },
+        "optimality": {
+          "match_rate": 1.0,
+          "matches": 50,
+          "max_gap": 9.633216720904325e-14,
+          "pass": true,
+          "problems": 50
+        },
+        "regret_by_level": {
+          "status": "not available: Ingest has not produced L0-L4 graphs yet"
+        },
+        "speed": {
+          "pass": true,
+          "recompute_after_shock_seconds": 0.08099068200681359
+        },
+        "uplift": {
+          "baseline": {
+            "cvar_uzs": -9815984991.448593,
+            "expected_uzs": -1156273187.1647701,
+            "p_loss": 0.502
+          },
+          "cvar_gain_uzs": 253110216.97880173,
+          "engine": {
+            "cvar_uzs": -9562874774.469791,
+            "expected_uzs": -1094727970.87442,
+            "p_loss": 0.49
+          },
+          "p_loss_change": -0.01200000000000001,
+          "pass": true,
+          "scenarios": 1000,
+          "uplift_uzs_per_year": 61545216.2903502
+        },
+        "vss": {
+          "mean_scenario_expected_uzs": -1094727970.87442,
+          "pass": true,
+          "stochastic_expected_uzs": -1094727970.87442,
+          "vss_uzs": 0.0
+        }
+      },
+      "min_mapping_confidence": 1.0,
+      "plan": {
+        "alpha": 0.95,
+        "fx_hedge_share": 0.0,
+        "horizon": "2026-11..2027-10",
+        "lambda": 0.5,
+        "lines": [
+          {
+            "months": [
+              "2026-12",
+              "2027-02",
+              "2027-04",
+              "2027-06",
+              "2027-08",
+              "2027-10"
+            ],
+            "packs": 94500,
+            "route_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+            "shipments": 6
+          },
+          {
+            "months": [
+              "2026-12",
+              "2027-03",
+              "2027-06",
+              "2027-09"
+            ],
+            "packs": 54000,
+            "route_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+            "shipments": 4
+          }
+        ],
+        "plan_id": "plan-93f379235cc5",
+        "risk_mode": "cvar",
+        "sku_id": "kardiozan-10mg-n30",
+        "snapshot_id": "93f379235cc5f79ccc68406a",
+        "wholesale_price_policy": "max_legal_common_price"
+      },
+      "plan_schedule": "one shipment per month; line months used if given, else evenly spread; a taken month moves to the nearest free one; months without shipment are explicit zero orders",
+      "snapshot": {
+        "config_hash": "4e5687efd0448db484cbc2ac53e1d49fa5fa5603180040db0c4cedbf7cddbccb",
+        "engine_version": "0.1.0",
+        "input_hash": "73add98b42bbde1987e5edf9a500d7f95e47fb95e11d2c1b36cbb4b32b8642db",
+        "rules_sha256": "15a381d14d8f1f2ed2b789638f059e55594a859300c1457f4841cdca7c197857",
+        "rules_version": "1.0",
+        "scenarios_hash": "c94f6b853fe58e957b68b4c5642a12a0ebc1fcc47957637964782a272a02d37d",
+        "seed": 20261117,
+        "snapshot_id": "93f379235cc5f79ccc68406a",
+        "solver_version": "scipy-1.18.1/highs numpy-2.5.5"
+      },
+      "snapshot_id": "93f379235cc5f79ccc68406a",
+      "supply_policy": {
+        "basis": "explicit synthetic business policy",
+        "minimum_expected_fill_rate": 0.9
+      },
+      "thresholds_commit": "4ef0981425e82be3baa95d8f0662126898145eab",
+      "thresholds_sha256": "d41c87d23245ef91cfae5a19765bcfb44dbf5d575c85743f28a4acfb86f01f45",
+      "truth": "simulation evaluate_plan_on_truth",
+      "truth_baseline_with_cap": {
+        "annual_sales_packs": 149250,
+        "baseline_profit_uzs": 404773985.17,
+        "cogs_ex_vat_uzs": 14103950013.0,
+        "excess_cut_uzs": 1202626319.5518723,
+        "kappa_legal_base_share_of_cost": 0.9528468087927308,
+        "legal_base_sold_uzs": 13438903761.259243,
+        "net_margin_ex_vat": 0.0243,
+        "net_profit_uzs": -797852334.3818722,
+        "operating_costs_uzs": 2148641646.83,
+        "regret_vs_baseline_uzs": 0.0,
+        "revenue_ex_vat_uzs": 15454739325.448128,
+        "stockout_packs": 0,
+        "writeoff_packs": 400
+      },
+      "truth_calls": 4300,
+      "truth_mapping": [
+        {
+          "confidence": 1.0,
+          "engine_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+          "kind": "route",
+          "matched_features": [
+            "mode",
+            "carrier",
+            "customs_post",
+            "transit_days"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "rte_01"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+          "kind": "route",
+          "matched_features": [
+            "mode",
+            "carrier",
+            "customs_post",
+            "transit_days"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "rte_02"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "medisynth-s-a-indiya-synthetic",
+          "kind": "supplier",
+          "matched_features": [
+            "name",
+            "country",
+            "currency"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "sup_01"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "vektorpharm-pvt-ltd-turtsiya-synthetic",
+          "kind": "supplier",
+          "matched_features": [
+            "name",
+            "country",
+            "currency"
+          ],
+          "mismatched_features": [],
+          "not_compared": [],
+          "truth_id": "sup_02"
+        },
+        {
+          "confidence": 1.0,
+          "engine_id": "kardiozan-10mg-n30",
+          "kind": "sku",
+          "matched_features": [
+            "trade_name",
+            "retail_uzs"
+          ],
+          "mismatched_features": [],
+          "not_compared": [
+            "manufacturer"
+          ],
+          "truth_id": "SKU_CARDIO_01"
+        }
+      ],
+      "truth_native_baseline": {
+        "annual_sales_packs": 149250,
+        "baseline_profit_uzs": 404773985.17,
+        "cogs_ex_vat_uzs": 14103950013.0,
+        "net_margin_ex_vat": 0.0243,
+        "net_profit_uzs": 404773985.17,
+        "operating_costs_uzs": 2148641646.83,
+        "regret_vs_baseline_uzs": 0.0,
+        "revenue_ex_vat_uzs": 16657365645.0,
+        "stockout_packs": 0,
+        "writeoff_packs": 400
+      },
+      "truth_overlay": "scenario -> copy of truth tables: demand = scenario.demand/forecast p50 on window sales; USD rate ratio on fx, on the FX-linked share (CIP+duty) of landed unit cost; freight multiplier by mode on route rates; P22 cut = demand-weighted mean of monthly cap factors on the registry price; unavailable route = zero packs on it (no re-purchase). Not modelled on truth: emergency routes, hedge, supplier price differences."
+    },
+    "all_pass_by_interpretation": {
+      "A": false,
+      "B": false
+    },
+    "client_violation_of_the_rule": {
+      "basis": "sales rows x legal base of the lot sold (CIP + duty + clearance fee, freight excluded), pooled over the period",
+      "headline": "today the company sells above the legal ceiling by 1,208.3 M UZS per year (7.3% of revenue; markup on the legal base 24.0%)",
+      "multiplier": 1.15,
+      "rule": "UZ-PF13-WHOLESALE-MARKUP (needs_legal_review)",
+      "whole_history": {
+        "ceiling_uzs": 27998093449.49517,
+        "excess_over_ceiling_uzs": 5994672195.504829,
+        "excess_share_of_revenue": 0.17635141130055673,
+        "legal_base_sold_uzs": 24346168216.952324,
+        "markup": 0.39622651671858233,
+        "packs": 261550,
+        "revenue_uzs": 33992765645.0
+      },
+      "window_2025-11_2026-10": {
+        "ceiling_uzs": 15449083577.689098,
+        "excess_over_ceiling_uzs": 1208282067.3109016,
+        "excess_share_of_revenue": 0.0725374043568281,
+        "legal_base_sold_uzs": 13433985719.729652,
+        "markup": 0.2399421878598822,
+        "packs": 149250,
+        "revenue_uzs": 16657365645.0
+      }
+    },
+    "decision_needed": "legal decision A vs B from the mentor (UZ-PF13-WHOLESALE-MARKUP is needs_legal_review)"
+  },
   "metrics": {
     "calibration": {
       "gap_pp": 0.1725041345260695,
@@ -188,11 +1110,9 @@
       "twin_margin": 0.02602505053308796
     },
     "evpi": {
-      "evpi_uzs": 512963036.45673335,
-      "pass": true,
-      "scenarios": 300,
-      "stochastic_uzs": -837990410.8456,
-      "wait_and_see_uzs": -325027374.38886666
+      "evpi_uzs": null,
+      "pass": false,
+      "status": "wait_and_see_infeasible"
     },
     "legality": {
       "legal_rate": 1.0,
@@ -212,30 +1132,30 @@
     },
     "speed": {
       "pass": true,
-      "recompute_after_shock_seconds": 0.04890392700326629
+      "recompute_after_shock_seconds": 0.09323978699103463
     },
     "uplift": {
       "baseline": {
         "cvar_uzs": -9815984991.448593,
-        "expected_uzs": -1156273187.1647701,
-        "p_loss": 0.502
-      },
-      "cvar_gain_uzs": 7693570937.537194,
-      "engine": {
-        "cvar_uzs": -2122414053.9113991,
-        "expected_uzs": -1710674131.8759499,
+        "expected_uzs": -2249565402.852485,
         "p_loss": 1.0
       },
-      "p_loss_change": 0.498,
-      "pass": false,
+      "cvar_gain_uzs": 253110216.97880173,
+      "engine": {
+        "cvar_uzs": -9562874774.469791,
+        "expected_uzs": -2167367288.40141,
+        "p_loss": 1.0
+      },
+      "p_loss_change": 0.0,
+      "pass": true,
       "scenarios": 1000,
-      "uplift_uzs_per_year": -554400944.7111797
+      "uplift_uzs_per_year": 82198114.45107508
     },
     "vss": {
-      "mean_scenario_expected_uzs": -1031287990.85791,
-      "pass": false,
-      "stochastic_expected_uzs": -1048339882.60322,
-      "vss_uzs": -17051891.74530995
+      "mean_scenario_expected_uzs": -2155913393.494538,
+      "pass": true,
+      "stochastic_expected_uzs": -2148620803.0049605,
+      "vss_uzs": 7292590.489577293
     }
   },
   "min_mapping_confidence": 1.0,
@@ -244,30 +1164,74 @@
     "fx_hedge_share": 0.0,
     "horizon": "2026-11..2027-10",
     "lambda": 0.5,
-    "lines": [],
-    "plan_id": "plan-f8ccc2c6b880",
+    "lines": [
+      {
+        "months": [
+          "2026-12",
+          "2027-02",
+          "2027-04",
+          "2027-06",
+          "2027-08",
+          "2027-10"
+        ],
+        "packs": 94500,
+        "route_id": "KZ-AUTO-01/medisynth-s-a-indiya-synthetic",
+        "shipments": 6
+      },
+      {
+        "months": [
+          "2026-12",
+          "2027-03",
+          "2027-06",
+          "2027-09"
+        ],
+        "packs": 54000,
+        "route_id": "TM-AUTO-02/vektorpharm-pvt-ltd-turtsiya-synthetic",
+        "shipments": 4
+      }
+    ],
+    "plan_id": "plan-38422f5c2732",
     "risk_mode": "cvar",
     "sku_id": "kardiozan-10mg-n30",
-    "snapshot_id": "f8ccc2c6b88051556cb6076c",
+    "snapshot_id": "38422f5c27320e0edd3db37b",
     "wholesale_price_policy": "max_legal_common_price"
   },
   "plan_schedule": "one shipment per month; line months used if given, else evenly spread; a taken month moves to the nearest free one; months without shipment are explicit zero orders",
   "snapshot": {
-    "config_hash": "f0f83c9570ae37389e1e24f638160d9e54753570bcfed968d65fc98f5d37fafc",
+    "config_hash": "4e5687efd0448db484cbc2ac53e1d49fa5fa5603180040db0c4cedbf7cddbccb",
     "engine_version": "0.1.0",
-    "input_hash": "bd5dda581e6f36859ddb92910b994ac74e0e32a4d5ca52cff05ba858cdf74684",
+    "input_hash": "7ea89e99d16adde069f3c5d71d92421d3c821155618b6604452d2b6d3b308be7",
     "rules_sha256": "15a381d14d8f1f2ed2b789638f059e55594a859300c1457f4841cdca7c197857",
     "rules_version": "1.0",
     "scenarios_hash": "c94f6b853fe58e957b68b4c5642a12a0ebc1fcc47957637964782a272a02d37d",
     "seed": 20261117,
-    "snapshot_id": "f8ccc2c6b88051556cb6076c",
+    "snapshot_id": "38422f5c27320e0edd3db37b",
     "solver_version": "scipy-1.18.1/highs numpy-2.5.5"
   },
-  "snapshot_id": "f8ccc2c6b88051556cb6076c",
+  "snapshot_id": "38422f5c27320e0edd3db37b",
+  "supply_policy": {
+    "basis": "explicit synthetic business policy",
+    "minimum_expected_fill_rate": 0.9
+  },
   "thresholds_commit": "4ef0981425e82be3baa95d8f0662126898145eab",
   "thresholds_sha256": "d41c87d23245ef91cfae5a19765bcfb44dbf5d575c85743f28a4acfb86f01f45",
   "truth": "simulation evaluate_plan_on_truth",
-  "truth_calls": 4600,
+  "truth_baseline_with_cap": {
+    "annual_sales_packs": 149250,
+    "baseline_profit_uzs": 404773985.17,
+    "cogs_ex_vat_uzs": 14103950013.0,
+    "excess_cut_uzs": 1202626319.5518723,
+    "kappa_legal_base_share_of_cost": 0.9528468087927308,
+    "legal_base_sold_uzs": 13438903761.259243,
+    "net_margin_ex_vat": 0.0243,
+    "net_profit_uzs": -797852334.3818722,
+    "operating_costs_uzs": 2148641646.83,
+    "regret_vs_baseline_uzs": 0.0,
+    "revenue_ex_vat_uzs": 15454739325.448128,
+    "stockout_packs": 0,
+    "writeoff_packs": 400
+  },
+  "truth_calls": 4300,
   "truth_mapping": [
     {
       "confidence": 1.0,
