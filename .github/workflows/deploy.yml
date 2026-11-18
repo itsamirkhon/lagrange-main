@@ -1,0 +1,109 @@
+name: Deploy LAGRANGE Rx to Lightsail
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-lightsail
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[ingest,sim,dev]"
+
+      - name: Run fast release gate (boundaries, ontology, e2e)
+        run: pytest -q tests/test_boundaries.py tests/e2e/ tests/ontology/
+
+      - name: Validate release bundle
+        run: |
+          set -eu
+          test -s pyproject.toml
+          test -s web/index.html
+          test -s rules/uz_pharma_rules.yaml
+          test -s data/cbu_fx_monthly.csv
+          test ! -e .env
+          printf '%s\n' "${{ github.sha }}" > .lagrange-version
+
+      - name: Configure SSH key and known host
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          if [ -z "$DEPLOY_SSH_KEY" ]; then
+            echo "::error::DEPLOY_SSH_KEY repository secret is not set."
+            exit 1
+          fi
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          cat << 'EOF' >> ~/.ssh/known_hosts
+          54.117.166.117 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB20DGcT1JDb7eBw5YOBrwGKN5CeBAuKWf59SboKVHfk
+          EOF
+          chmod 644 ~/.ssh/known_hosts
+
+      # Never overwrite the live app mid-transfer. Stage first, then promote with rollback.
+      - name: Stage complete release on Lightsail
+        run: |
+          stage="/tmp/lagrange-stage-${{ github.run_id }}-${{ github.run_attempt }}"
+          ssh -i ~/.ssh/deploy_key ubuntu@54.117.166.117 "rm -rf -- '$stage' && mkdir -p '$stage'"
+          rsync -az --delete \
+            --exclude '.git/' \
+            --exclude '.venv/' \
+            --exclude '.pytest_cache/' \
+            --exclude '.hypothesis/' \
+            --exclude '__pycache__/' \
+            --exclude '*.pyc' \
+            --exclude '*.egg-info/' \
+            --exclude '.env' \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            ./ "ubuntu@54.117.166.117:${stage}/"
+
+      - name: Verify staged release, promote, and rollback on failure
+        run: |
+          ssh -i ~/.ssh/deploy_key ubuntu@54.117.166.117 bash -s << 'EOS'
+          set -eu
+          stage="/tmp/lagrange-stage-${{ github.run_id }}-${{ github.run_attempt }}"
+          live="/opt/lagrange-rx/app"
+          backup="/tmp/lagrange-backup-${{ github.run_id }}-${{ github.run_attempt }}"
+
+          test -s "$stage/pyproject.toml"
+          test -s "$stage/web/index.html"
+          test -s "$stage/rules/uz_pharma_rules.yaml"
+          test -s "$stage/data/cbu_fx_monthly.csv"
+          test -s "$stage/.lagrange-version"
+
+          mkdir -p "$live" "$backup"
+          rsync -a --exclude '*.egg-info/' "$live/" "$backup/"
+
+          if rsync -a --delete --exclude '*.egg-info/' "$stage/" "$live/" && /opt/lagrange-rx/deploy.sh; then
+            echo "Published LAGRANGE Rx commit $(cat "$live/.lagrange-version")"
+            rm -rf -- "$stage" "$backup"
+          else
+            echo "Deployment failed; rolling back previous release" >&2
+            rsync -a --delete --exclude '*.egg-info/' "$backup/" "$live/"
+            /opt/lagrange-rx/deploy.sh || sudo systemctl restart lagrange-rx || true
+            rm -rf -- "$stage" "$backup"
+            exit 1
+          fi
+          EOS
