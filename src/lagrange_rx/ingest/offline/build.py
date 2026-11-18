@@ -142,7 +142,6 @@ def _suppliers_carriers(d, facts):
             cid = slug(r['carrier'])
             carriers[r['carrier']] = cid
             d.add('carriers', Carrier(carrier_id=cid, name=r['carrier'], modes=[mode], provenance=unconfirmed(r['doc'], 'rate table')), 'master')
-    codes = {q['supplier']: q['supplier_code'] for q in facts['supplier_quotes']}
     names = {}
     for inv in facts['invoices']:
         if inv['supplier']:
@@ -159,7 +158,7 @@ def _suppliers_carriers(d, facts):
             d.issue('missing', 'blocking', f'payment terms of supplier {name!r} not found or not understood', [names[name].document_id])
             continue
         country = re.search(r'\(([^,)]+),', name)
-        sid = codes.get(name) or slug(name)
+        sid = slug(name)
         suppliers[name] = sid
         d.add('suppliers', Supplier(
             supplier_id=sid, name=name, country=country.group(1) if country else 'unknown',
@@ -389,18 +388,22 @@ def _costs(d, facts):
 def _questions(d: Draft, labels, skus_names: Names, skus):
     summaries = {
         'sales': lambda es: {'rows': len(es), 'packs': sum(e.qty_packs for e in es), 'revenue_ex_vat_uzs': str(sum(e.qty_packs * e.price_ex_vat for e in es)),
-                              'packs_by_product': _by(es, 'product', 'qty_packs')},
+                              'packs_by_product': {trade[k]: v for k, v in _by(es, 'product', 'qty_packs').items()}},
         'master': lambda es: {'collections': _count(d, 'master'), 'product_names': sorted(e.trade_name for e in d.of('products')),
                                'supplier_names': sorted(e.name for e in d.of('suppliers')), 'carrier_names': sorted(e.name for e in d.of('carriers'))},
         'invoices': lambda es: {'shipments': len(d.of('shipments')), 'lots': len(d.of('lots')), 'packs': sum(s.packs for s in d.of('shipments'))},
         'customs': lambda es: {'entries': len(d.of('customs_entries')), 'refs': sorted(e.entry_ref for e in d.of('customs_entries')),
                                 'landed_cost_ex_vat_uzs': str(sum(e.legal_base_c_per_pack * e.packs for e in d.of('customs_entries')))},
-        'routes': lambda es: {'route_ids': sorted(r.route_id for r in d.of('routes')), 'customs_posts': sorted({r.customs_post for r in d.of('routes')})},
+        'routes': lambda es: {'corridor_supplier': sorted(f"{r.route_id.split('/')[0]} | {supplier_name[sites[r.production_site]] if r.production_site else '-'}"
+                                                         for r in d.of('routes')), 'customs_posts': sorted({r.customs_post for r in d.of('routes')})},
         'quotes': lambda es: {'quote_ids': sorted(q.quote_id for q in d.of('quotes'))},
         'contracts': lambda es: {'contract_ids': sorted(c.contract_id for c in d.of('contracts'))},
         'registry': lambda es: {'registration_numbers': sorted(r.registration_number for r in d.of('registry_records'))},
         'costs': lambda es: {'rows': len(es), 'total_uzs': str(sum(e.amount_uzs for e in es)), 'labels': sorted(labels)},
     }
+    trade = {sku: name for name, sku in skus.items()}
+    sites = {s.site_id: s.supplier for s in d.of('production_sites')}
+    supplier_name = {s.supplier_id: s.name for s in d.of('suppliers')}
     groups = defaultdict(list)
     for e in d.entries:
         groups[e.group].append(e.entity)
