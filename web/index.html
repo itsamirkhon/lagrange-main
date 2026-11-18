@@ -25,6 +25,7 @@
     <a href="#shock" data-screen="shock"><i>6</i>Шок</a>
     <a href="#evidence" data-screen="evidence"><i>7</i>Доказательства</a>
     <a href="#progress" data-screen="progress"><i>★</i>Наши результаты</a>
+    <a href="#fefo" data-screen="fefo"><i>+</i>FEFO и безопасность</a>
   </nav>
 
   <main id="main-content" tabindex="-1">
@@ -134,6 +135,44 @@
       <div id="shock-body"></div>
     </section>
 
+    <section id="fefo" class="screen" hidden>
+      <div class="fefo-hero">
+        <div class="fefo-eyebrow">ФАРМАЦЕВТИЧЕСКАЯ БЕЗОПАСНОСТЬ · ИНТЕРАКТИВНАЯ СИМУЛЯЦИЯ</div>
+        <h1>FEFO: сначала партии с ближайшим сроком</h1>
+        <p>Не просто выбираем самый дешёвый товар. Проверяем статус каждой серии, срок годности и порядок отпуска. Запрещённые партии не попадают в распределение.</p>
+        <div class="fefo-hero-pills">
+          <span>✓ Приоритет ближайшего срока</span><span>✕ Отзыв и карантин</span><span>✓ Проверка остаточного срока</span>
+        </div>
+      </div>
+      <div class="fefo-demo-layout">
+        <div class="card fefo-controls">
+          <h2>Попробуйте сами</h2>
+          <p class="muted">Синтетический товар: <strong>Cardio Rx 30 tab</strong>. Минимальный остаточный срок — 30 дней (условие примера, не универсальная норма).</p>
+          <label class="field" for="fefo-demand">Сколько упаковок нужно отпустить?</label>
+          <input type="number" id="fefo-demand" min="0" max="5000" step="10" value="50" inputmode="numeric">
+          <div class="fefo-presets">
+            <button type="button" class="small" data-fefo-preset="30">30</button>
+            <button type="button" class="small" data-fefo-preset="50">50</button>
+            <button type="button" class="small" data-fefo-preset="100">100</button>
+            <button type="button" class="small" data-fefo-preset="200">200</button>
+          </div>
+          <button type="button" id="btn-fefo-calc" class="primary">Рассчитать FEFO</button>
+          <p class="muted fefo-small">Алгоритм использует реальные правила фильтрации и сортировки; все партии и количества специально придуманы для демонстрации.</p>
+        </div>
+        <div class="fefo-results" id="fefo-summary" aria-live="polite">
+          <div class="card">Выберите количество упаковок и нажмите «Рассчитать FEFO».</div>
+        </div>
+      </div>
+      <div class="card fefo-batches">
+        <div class="row between"><h2>Все серии на складе</h2><span class="muted">Проверка каждой партии отдельно</span></div>
+        <div id="fefo-lots" class="fefo-lot-grid"><p class="muted">Результаты появятся после расчёта.</p></div>
+      </div>
+      <div class="card fefo-explain">
+        <h2>Что именно мы показываем?</h2>
+        <p><strong>FEFO</strong> означает <em>First Expired, First Out</em>: из допустимых серий первыми выбираются те, срок годности которых наступает раньше. Отозванные и карантинные серии не используются, даже если они самые дешёвые или их много.</p>
+        <p class="muted">Это демонстрация распределения существующих запасов, а не готовая система управления медицинским складом. Динамическая температура, подтверждение выпуска партий и помесячная оптимизация поставок требуют отдельного внедрения и проверки.</p>
+      </div>
+    </section>
     <section id="progress" class="screen" hidden>
       <div class="proof-hero">
         <div class="proof-eyebrow">LAGRANGE Rx / ПРОВЕРКА РЕШЕНИЙ</div>
