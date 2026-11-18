@@ -22,6 +22,9 @@ from lagrange_rx.engine.twin import TwinError, twin_baseline, unit_economics
 from lagrange_rx.engine.adapter import EngineConfig
 from lagrange_rx.engine.inputs import EngineGraph
 from lagrange_rx.engine.rules import load_rules
+from lagrange_rx.engine.regulatory_gate import Packet
+from lagrange_rx.engine.regulatory_filter import screen_routes, PreflightError
+from datetime import date
 from lagrange_rx.api.seam import GraphNotUsable, graph_for_engine
 from lagrange_rx.api.store import GraphStore
 
@@ -90,6 +93,13 @@ class OptimizeRequest(GraphRef):
     n: int = Field(default=1000, ge=10, le=20000)
     k: int = Field(default=40, ge=1, le=500)
     demo_mode: bool = False
+
+
+
+class RegulatedOptimizeRequest(OptimizeRequest):
+    """Regulated decision support requires a reviewed evidence packet for each route."""
+    as_of: date
+    packets: tuple[Packet, ...] = Field(min_length=1, max_length=100)
 
 
 class WhatIfRequest(BaseModel):
@@ -178,6 +188,52 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
         if len(plans) > 64:
             plans.pop(next(iter(plans)))
         return {"id": key, **_result_json(res)}
+
+
+    @app.post("/engine/optimize/regulated")
+    def regulated_optimize_endpoint(req: RegulatedOptimizeRequest):
+        # Fail closed before invoking the numerical solver. This endpoint never
+        # places orders, and unverified public JSON is NOT a legal attestation.
+        graph = resolve(req)
+        try:
+            safe_graph, preflight = screen_routes(graph, req.packets, req.as_of)
+        except PreflightError as exc:
+            raise HTTPException(422, {"error": "regulatory_preflight_invalid", "reason": str(exc)}) from exc
+        selected = [r for r in safe_graph.routes if r.is_eligible and not r.emergency]
+        if not selected:
+            return {"plan": None, "regulatory_status": "hold_or_blocked",
+                    "regulatory_checks": preflight, "legal": None,
+                    "legal_status": "not_evaluated",
+                    "can_auto_order": False, "live_government_checks": False,
+                    "note": "No offer has enough eligible reviewed evidence to enter optimization"}
+        cfg = OptimizerConfig(
+            risk_mode=req.risk_mode, alpha=req.alpha, lam=req.lam,
+            hedge_enabled=req.hedge_enabled, emergency_enabled=req.emergency_enabled,
+            service_level=req.service_level, min_expected_profit_uzs=req.min_expected_profit_uzs,
+            budget_uzs=req.budget_uzs, time_limit_s=req.time_limit_s,
+        )
+        # Only approved routes may enter the optimization; emergency recourse
+        # is also filtered through the same preflight, not silently exempted.
+        try:
+            res = guarded_optimize(
+                safe_graph, rules=rules, fx=fx,
+                scen_cfg=ScenarioConfig(seed=req.seed, n=req.n, k=req.k),
+                opt_cfg=cfg, demo_mode=req.demo_mode,
+            )
+        except CalibrationRequired as exc:
+            raise HTTPException(409, {"error": "twin_not_calibrated",
+                                      "calibration": jsonable(exc.calibration)}) from exc
+        except (TwinError, ValueError) as exc:
+            raise HTTPException(422, str(exc)) from exc
+        except LegalityError as exc:
+            raise HTTPException(500, {"error": "legality_check_failed",
+                                      "failed": jsonable(exc.failed[:20])}) from exc
+        except ServiceLevelAuditError as exc:
+            raise HTTPException(500, {"error": "service_level_audit_failed",
+                                      "observed": exc.observed, "minimum": exc.minimum}) from exc
+        return {**_result_json(res), "regulatory_status": "screened_operator_snapshot",
+                "regulatory_checks": preflight, "live_government_checks": False,
+                "can_auto_order": False, "note": "No government endorsement or API connection"}
 
     @app.post("/engine/what-if")
     def what_if_endpoint(req: WhatIfRequest):
