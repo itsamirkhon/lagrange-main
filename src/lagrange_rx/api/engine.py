@@ -18,7 +18,7 @@ from lagrange_rx.engine.service import (
     CalibrationRequired, EngineResult, LegalityError, calculation_graph, make_scenarios, run_optimize, run_what_if,
 )
 from lagrange_rx.engine.twin import TwinError, twin_baseline, unit_economics
-from lagrange_rx.engine._legacy_ontology import ClientGraph
+from lagrange_rx.engine.inputs import EngineGraph
 from lagrange_rx.engine.rules import load_rules
 from lagrange_rx.api.seam import GraphNotUsable, graph_for_engine
 from lagrange_rx.api.store import GraphStore
@@ -41,7 +41,7 @@ def jsonable(obj: Any) -> Any:
 class GraphRef(BaseModel):
     model_config = ConfigDict(extra="forbid")
     graph_id: str | None = None
-    graph: ClientGraph | None = None
+    graph: EngineGraph | None = None
 
 
 class ScenariosRequest(GraphRef):
@@ -78,11 +78,11 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
     app = APIRouter()
     store = GraphStore(Path(data_root)) if data_root is not None else None
     rules = load_rules()
-    graphs: dict[str, ClientGraph] = {}
+    graphs: dict[str, EngineGraph] = {}
     plans: dict[str, EngineResult] = {}
     fx = load_fx_history()
 
-    def resolve(ref: GraphRef) -> ClientGraph:
+    def resolve(ref: GraphRef) -> EngineGraph:
         if ref.graph is not None:
             return ref.graph
         if ref.graph_id and ref.graph_id in graphs:
@@ -100,7 +100,7 @@ def make_router(data_root: str | Path | None = None) -> APIRouter:
         raise HTTPException(404, "graph not found: pass `graph` or a registered `graph_id`")
 
     @app.post("/graphs")
-    def register_graph(graph: ClientGraph):
+    def register_graph(graph: EngineGraph):
         graphs[graph.client_id] = graph
         return {"graph_id": graph.client_id}
 

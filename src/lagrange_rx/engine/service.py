@@ -17,7 +17,9 @@ from lagrange_rx.engine.scenarios import FxHistory, ScenarioConfig, ScenarioSet,
 from lagrange_rx.engine.snapshot import Snapshot, make_snapshot
 from lagrange_rx.engine.twin import CalibrationResult, evaluate_plan_set, twin_baseline, unit_economics
 from lagrange_rx.engine.types import CheckResult, Plan, Scenario, ScenarioOutcome
-from lagrange_rx.engine._legacy_ontology import CalculationGraph, ClientGraph
+from lagrange_rx import ontology
+from lagrange_rx.engine.adapter import EngineConfig, as_calculation_graph
+from lagrange_rx.engine.inputs import CalculationGraph, EngineGraph
 from lagrange_rx.engine.rules import Rules, load_rules
 
 DEMO_WARNING = "demo mode: the twin is NOT calibrated"
@@ -61,8 +63,9 @@ class EngineResult:
     context: EngineContext = field(repr=False, default=None)  # type: ignore[assignment]
 
 
-def calculation_graph(graph: ClientGraph) -> CalculationGraph:
-    return graph if isinstance(graph, CalculationGraph) else graph.for_calculation()
+def calculation_graph(graph: "ontology.ClientGraph | EngineGraph", config: EngineConfig | None = None) -> CalculationGraph:
+    """Single entry: an `ontology.ClientGraph` (with `config`) goes through `adapter.to_calculation_graph`."""
+    return as_calculation_graph(graph, config)
 
 
 def make_scenarios(graph: CalculationGraph, rules: Rules, fx: FxHistory | None = None,
@@ -74,12 +77,12 @@ def _failed(checks: Sequence[CheckResult]) -> list[CheckResult]:
     return [c for c in checks if not c.passed]
 
 
-def run_optimize(graph: ClientGraph, *, rules: Rules | None = None, fx: FxHistory | None = None,
+def run_optimize(graph: "ontology.ClientGraph | EngineGraph", *, config: EngineConfig | None = None, rules: Rules | None = None, fx: FxHistory | None = None,
                  scen_cfg: ScenarioConfig = ScenarioConfig(), opt_cfg: OptimizerConfig = OptimizerConfig(),
                  demo_mode: bool = False, scenario_set: ScenarioSet | None = None) -> EngineResult:
     t0 = time.perf_counter()
     rules = rules or load_rules()
-    g = calculation_graph(graph)
+    g = calculation_graph(graph, config)
     cal = twin_baseline(g)
     demo = demo_mode or g.demo_mode
     if not cal.calibrated and not demo:
@@ -89,6 +92,9 @@ def run_optimize(graph: ClientGraph, *, rules: Rules | None = None, fx: FxHistor
     scenarios = sset.optimisation_set()
     snap = make_snapshot(g, scenarios, sset.seed, rules, opt_cfg)
     ctx = EngineContext(g, scenarios, rules, opt_cfg, scen_cfg)
+    warnings += list(g.notes)
+    if "UZ-PF13-WHOLESALE-MARKUP" in rules.needs_legal_review:
+        warnings.append("UZ-PF13-WHOLESALE-MARKUP (15%) needs legal review: applied to packs sold, not packs ordered")
     warnings += list(unit_economics(g, scenarios[0], rules).warnings)
     if sset.fx_source != "cbu":
         warnings.append(f"fx history source is '{sset.fx_source}', not real CBU rates")

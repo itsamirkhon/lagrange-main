@@ -45,9 +45,9 @@ def test_waterfall_sums_to_total_gain():
 
 
 def test_waterfall_on_l0_baseline_is_worse_or_equal():
-    from lagrange_rx.fixtures.l0 import build_l0_graph
+    from lagrange_rx.fixtures.l0 import build_l0_calculation_graph
     from tests.conftest import make_scenario
-    g = build_l0_graph().for_calculation()
+    g = build_l0_calculation_graph()
     scen = [make_scenario(id=f"s{i}", fx={"USD": 12_000.0 * (1 + 0.03 * i), "EUR": 13_100.0 * (1 + 0.03 * i)},
                           ref_fx_start=12_000.0, ref_fx_path=(12_000.0,) * 12, demand=d)
             for i, d in enumerate([95_000.0, 110_000.0, 128_000.0])]

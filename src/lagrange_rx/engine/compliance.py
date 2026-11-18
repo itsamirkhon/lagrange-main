@@ -14,7 +14,7 @@ from collections.abc import Iterable, Sequence
 from typing import NamedTuple
 
 from lagrange_rx.engine.types import CheckResult, Plan, Scenario, ScenarioOutcome
-from lagrange_rx.engine._legacy_ontology import CalculationGraph, Route
+from lagrange_rx.engine.inputs import CalculationGraph, RouteSpec
 from lagrange_rx.engine.rules import Rules
 
 REL_TOL = 1e-6
@@ -108,7 +108,7 @@ def published_ceilings(graph: CalculationGraph, scenario: Scenario, rules: Rules
 
 
 # ---- legal base and pooled 15% limit -------------------------------------------------------------------
-def legal_base(route: Route, scenario: Scenario) -> float:
+def legal_base(route: RouteSpec, scenario: Scenario) -> float:
     """PKM-185 base: Kc x customs rate x (1+duty) + fees (+ Pr if confirmed). No freight, no hedge."""
     pr = route.pr_uzs if route.pr_confirmed and route.pr_uzs is not None else 0.0
     return route.kc * scenario.fx[route.currency] * (1.0 + route.duty_rate) + route.fees_uzs + pr
@@ -163,7 +163,7 @@ def _uniform_check(outcome: ScenarioOutcome) -> CheckResult:
 
 
 # ---- physical feasibility ---------------------------------------------------------------------------------------
-def _emergency_limit(route: Route | None, scenario: Scenario) -> float:
+def _emergency_limit(route: RouteSpec | None, scenario: Scenario) -> float:
     valid = route is not None and route.is_eligible and route.emergency and scenario.available(route.id)
     return float(route.emergency_cap_packs) if valid else 0.0
 
@@ -185,7 +185,7 @@ def _emergency_checks(graph: CalculationGraph, scenario: Scenario, outcome: Scen
     ]
 
 
-def _sold_route_limit(route: Route | None, rid: str, plan: Plan, scenario: Scenario, outcome: ScenarioOutcome) -> float:
+def _sold_route_limit(route: RouteSpec | None, rid: str, plan: Plan, scenario: Scenario, outcome: ScenarioOutcome) -> float:
     if route is None:
         return 0.0
     if route.emergency:
@@ -223,7 +223,7 @@ def _physical_checks(
 
 
 # ---- route limits (scenario independent) ------------------------------------------------------------------------
-def _route_checks(rid: str, route: Route | None, packs: int, shipments: int) -> list[CheckResult]:
+def _route_checks(rid: str, route: RouteSpec | None, packs: int, shipments: int) -> list[CheckResult]:
     def res(detail: str, observed: float, limit: float, passed: bool) -> CheckResult:
         return _result(RULE_LIMITS, EVERY_SCENARIO, observed, limit, passed, f"{rid}:{detail}")
 

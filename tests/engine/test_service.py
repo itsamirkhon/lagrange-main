@@ -3,8 +3,8 @@ import pytest
 from lagrange_rx.engine.optimize import OptimizerConfig
 from lagrange_rx.engine.scenarios import ScenarioConfig
 from lagrange_rx.engine.service import CalibrationRequired, run_optimize, run_what_if
-from lagrange_rx.fixtures.l0 import build_l0_graph
-from lagrange_rx.engine._legacy_ontology import ActualResult
+from lagrange_rx.fixtures.l0 import build_l0_calculation_graph, build_l0_config, build_l0_graph
+from lagrange_rx.engine.inputs import ActualSpec
 
 SC = ScenarioConfig(n=300, k=20)
 OC = OptimizerConfig(risk_mode="cvar", time_limit_s=20)
@@ -12,7 +12,7 @@ OC = OptimizerConfig(risk_mode="cvar", time_limit_s=20)
 
 @pytest.fixture(scope="module")
 def l0_result():
-    return run_optimize(build_l0_graph(), scen_cfg=SC, opt_cfg=OC)
+    return run_optimize(build_l0_graph(), config=build_l0_config(), scen_cfg=SC, opt_cfg=OC)
 
 
 def test_l0_end_to_end_is_legal_and_proven(l0_result):
@@ -26,20 +26,19 @@ def test_l0_end_to_end_is_legal_and_proven(l0_result):
 
 
 def test_same_snapshot_same_plan(l0_result):
-    again = run_optimize(build_l0_graph(), scen_cfg=SC, opt_cfg=OC)
+    again = run_optimize(build_l0_graph(), config=build_l0_config(), scen_cfg=SC, opt_cfg=OC)
     assert again.snapshot.snapshot_id == l0_result.snapshot.snapshot_id
     assert again.plan == l0_result.plan
 
 
 def test_changed_input_changes_snapshot(l0_result):
-    g = build_l0_graph()
-    g2 = g.model_copy(update={"penalty_uzs_per_pack": 3500.0})
-    assert run_optimize(g2, scen_cfg=SC, opt_cfg=OC).snapshot.snapshot_id != l0_result.snapshot.snapshot_id
+    g2 = build_l0_config(penalty_uzs_per_pack=3500.0)
+    assert run_optimize(build_l0_graph(), config=g2, scen_cfg=SC, opt_cfg=OC).snapshot.snapshot_id != l0_result.snapshot.snapshot_id
 
 
 def test_uncalibrated_twin_blocks_solver_unless_demo():
-    g = build_l0_graph()
-    bad = g.model_copy(update={"actual": ActualResult(revenue_uzs=g.actual.revenue_uzs,
+    g = build_l0_calculation_graph()
+    bad = g.model_copy(update={"actual": ActualSpec(revenue_uzs=g.actual.revenue_uzs,
                                                       total_cost_uzs=g.actual.total_cost_uzs * 0.9)})
     with pytest.raises(CalibrationRequired) as e:
         run_optimize(bad, scen_cfg=SC, opt_cfg=OC)
@@ -58,7 +57,7 @@ def test_what_if_after_shock_is_fast(l0_result):
 
 
 def test_impossible_service_reported_with_reason():
-    r = run_optimize(build_l0_graph(), scen_cfg=SC,
+    r = run_optimize(build_l0_graph(), config=build_l0_config(), scen_cfg=SC,
                      opt_cfg=OptimizerConfig(risk_mode="expected", service_level=0.98, budget_uzs=2_000_000_000.0))
     assert r.plan is None and r.impossible is not None and not r.impossible.feasible_as_stated
     assert any("budget" in rs or "service" in rs for rs in r.impossible.relax_sets)

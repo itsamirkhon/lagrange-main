@@ -15,11 +15,11 @@ from pathlib import Path
 import numpy as np
 
 from lagrange_rx.engine.types import Scenario
-from lagrange_rx.engine._legacy_ontology import CalculationGraph
+from lagrange_rx.engine.inputs import CalculationGraph
 from lagrange_rx.engine.rules import Rules
 
 HORIZON = 12
-MIN_HISTORY_MONTHS = 24
+MIN_HISTORY_MONTHS = 18  # the committed official CBU history (data/cbu_fx_monthly.csv) covers 22 months
 DATA_DIR = Path(__file__).resolve().parents[3] / "data"
 DEFAULT_SIGMA = 0.15
 _EPS = 1e-12
@@ -27,11 +27,19 @@ _EPS = 1e-12
 
 # --------------------------------------------------------------------------- FX history
 
+FX_SOURCE_LABELS = {"cbu": "cbu.uz official", "synthetic-sample": "SYNTHETIC (tests only, not real rates)"}
+
+
 @dataclass(frozen=True)
 class FxHistory:
     source: str  # "cbu" | "synthetic-sample"
     months: tuple[str, ...]
     rates: dict[str, tuple[float, ...]]  # UZS per 1 unit, monthly, aligned with months
+
+    @property
+    def source_label(self) -> str:
+        """Human-readable source for reports: 'cbu.uz official' for the real history."""
+        return FX_SOURCE_LABELS[self.source]
 
     def log_returns(self, currencies: Sequence[str]) -> np.ndarray:
         """Array (T-1, len(currencies)) of monthly log-returns."""
@@ -41,12 +49,16 @@ class FxHistory:
         return np.diff(np.log(np.array([self.rates[c] for c in currencies])), axis=1).T
 
 
-def _default_fx_path() -> Path:
-    real = DATA_DIR / "cbu_fx_monthly.csv"
-    return real if real.exists() else DATA_DIR / "fx_sample_SYNTHETIC.csv"
+def default_fx_path() -> Path:
+    """The official CBU history. There is deliberately NO fallback to the synthetic sample: a missing real file is
+    an error, the synthetic CSV is passed explicitly by tests."""
+    return DATA_DIR / "cbu_fx_monthly.csv"
 
 
 def _read_csv(path: Path) -> tuple[str, list[dict[str, str]]]:
+    """Two formats: `month,currency,rate` with a `# source:` header (fetch script / synthetic sample), and the
+    official export `date,currency,rate_uzs,source` (several observations per month; the first of each month is
+    used, like the fetch script's first-of-month rate). The export's source column must be a cbu.uz URL."""
     if not path.exists():
         raise FileNotFoundError(f"FX history file not found: {path}")
     source, body = "", []
@@ -56,9 +68,18 @@ def _read_csv(path: Path) -> tuple[str, list[dict[str, str]]]:
                 source = line.split(":", 1)[1].strip()
         elif line.strip():
             body.append(line)
+    rows = list(csv.DictReader(body))
+    if rows and "rate_uzs" in rows[0] and "date" in rows[0]:
+        if not all("cbu.uz" in (r.get("source") or "") for r in rows):
+            raise ValueError(f"{path}: every row must cite a cbu.uz source")
+        first: dict[tuple[str, str], dict[str, str]] = {}
+        for r in sorted(rows, key=lambda r: r["date"]):
+            first.setdefault((r["currency"], r["date"][:7]), {"month": r["date"][:7], "currency": r["currency"],
+                                                              "rate": r["rate_uzs"]})
+        return "cbu", list(first.values())
     if source not in ("cbu", "synthetic-sample"):
         raise ValueError(f"{path}: header must contain '# source: cbu' or '# source: synthetic-sample'")
-    return source, list(csv.DictReader(body))
+    return source, rows
 
 
 def _table(rows: list[dict[str, str]], path: Path) -> dict[str, dict[str, float]]:
@@ -75,7 +96,7 @@ def _table(rows: list[dict[str, str]], path: Path) -> dict[str, dict[str, float]
 
 
 def load_fx_history(path: Path | str | None = None) -> FxHistory:
-    p = Path(path) if path else _default_fx_path()
+    p = Path(path) if path else default_fx_path()
     source, rows = _read_csv(p)
     table = _table(rows, p)
     months = sorted({m for per in table.values() for m in per})

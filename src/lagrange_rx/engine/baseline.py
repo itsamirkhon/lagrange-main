@@ -4,7 +4,7 @@ from __future__ import annotations
 from lagrange_rx.engine.optimize import horizon_label
 from lagrange_rx.engine.twin import last_12_months_shipments
 from lagrange_rx.engine.types import Plan, PlanLine
-from lagrange_rx.engine._legacy_ontology import CalculationGraph
+from lagrange_rx.engine.inputs import CalculationGraph
 
 
 def baseline_plan(graph: CalculationGraph, plan_id: str = "baseline") -> Plan:

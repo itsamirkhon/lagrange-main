@@ -12,7 +12,7 @@ from scipy.optimize import linprog
 
 from lagrange_rx.engine.indexation import annual_ceiling_factor
 from lagrange_rx.engine.types import Plan, Scenario, ScenarioOutcome
-from lagrange_rx.engine._legacy_ontology import CalculationGraph, Route, require_calculation_graph
+from lagrange_rx.engine.inputs import CalculationGraph, RouteSpec, require_calculation_graph
 from lagrange_rx.engine.rules import Rules
 
 CALIBRATION_TOLERANCE_PP = 0.5  # percentage points
@@ -93,10 +93,13 @@ def caps_for(graph: CalculationGraph, scenario: Scenario, rules: Rules) -> Caps:
 def formula_warnings(graph: CalculationGraph, rules: Rules) -> tuple[str, ...]:
     """Published ChUN vs the P19 formula (assumption in rules yaml): >1% divergence -> warning."""
     p = graph.product
-    if p.rn_foreign is None:
+    if p.chun_formula_uzs is not None:  # from RegistryRecord.chun_formula_incl_vat (with the filing-date rate)
+        formula = p.chun_formula_uzs
+    elif p.rn_foreign is None:
         return ()
-    formula = (p.rn_foreign * graph.nominal_fx[p.reference_currency]
-               * (1.0 + rules.formula_wholesale_markup) * (1.0 + rules.vat))
+    else:
+        formula = (p.rn_foreign * graph.nominal_fx[p.reference_currency]
+                   * (1.0 + rules.formula_wholesale_markup) * (1.0 + rules.vat))
     gap = abs(p.chun_uzs - formula) / formula
     if gap > rules.formula_tolerance:
         return (f"published ChUN differs from P19 formula by {gap:.1%} (>{rules.formula_tolerance:.0%})",)
@@ -105,7 +108,7 @@ def formula_warnings(graph: CalculationGraph, rules: Rules) -> tuple[str, ...]:
 
 # --------------------------------------------------------------------------- costs
 
-def legal_base(route: Route, fx: float) -> float:
+def legal_base(route: RouteSpec, fx: float) -> float:
     customs = route.kc * fx
     pr = route.pr_uzs if (route.pr_confirmed and route.pr_uzs is not None) else 0.0
     return customs * (1.0 + route.duty_rate) + route.fees_uzs + pr
@@ -115,18 +118,18 @@ def acquisition_extra(graph: CalculationGraph, route_id: str) -> float:
     return sum(i.per_pack_uzs for i in graph.cost_items if i.layer == "acquisition" and i.route_id == route_id)
 
 
-def finance_per_pack(graph: CalculationGraph, route: Route, cash_cost: float) -> float:
+def finance_per_pack(graph: CalculationGraph, route: RouteSpec, cash_cost: float) -> float:
     fin = graph.finance
     days = max(0, route.lead_time_days + fin.inventory_days + fin.receivable_days - route.supplier_terms_days)
     return cash_cost * fin.credit_rate_annual * days / DAYS
 
 
-def hedge_unit(graph: CalculationGraph, route: Route, fx_spot: float) -> float:
+def hedge_unit(graph: CalculationGraph, route: RouteSpec, fx_spot: float) -> float:
     forward = graph.nominal_fx[route.currency] * (1.0 + graph.finance.hedge_forward_premium)
     return route.kc * (forward - fx_spot)
 
 
-def route_economics(graph: CalculationGraph, route: Route, scenario: Scenario) -> RouteEconomics:
+def route_economics(graph: CalculationGraph, route: RouteSpec, scenario: Scenario) -> RouteEconomics:
     fx = scenario.fx[route.currency]
     base = legal_base(route, fx)
     cash = base + route.freight_uzs * scenario.freight(route.mode) + acquisition_extra(graph, route.id)
@@ -141,7 +144,7 @@ def unit_economics(graph: CalculationGraph, scenario: Scenario, rules: Rules) ->
     return UnitEconomics(scenario.id, routes, caps_for(graph, scenario, rules), formula_warnings(graph, rules))
 
 
-def capital_per_pack(graph: CalculationGraph, route: Route) -> float:
+def capital_per_pack(graph: CalculationGraph, route: RouteSpec) -> float:
     """Working-capital outlay per pack at nominal rates (cash cost incl. freight, acquisition items)."""
     base = legal_base(route, graph.nominal_fx[route.currency])
     return base + route.freight_uzs + acquisition_extra(graph, route.id)
@@ -188,7 +191,7 @@ def purchase_cost(graph: CalculationGraph, plan: Plan, ue: UnitEconomics, scenar
     return total
 
 
-def _emergency_routes(graph: CalculationGraph, scenario: Scenario, allow: bool) -> list[Route]:
+def _emergency_routes(graph: CalculationGraph, scenario: Scenario, allow: bool) -> list[RouteSpec]:
     if not allow:
         return []
     return [r for r in graph.emergency_routes() if scenario.available(r.id) and r.emergency_cap_packs > 0]

@@ -50,13 +50,15 @@ rules:
     status: verified
     parameters: {generic_original_max_ratio: 0.80}
     description: Для одного производителя и одинакового состава применяется минимальная Rn; дженерик не дороже 80% оригинала.
+  # needs_legal_review: the engine applies the 15% to the legal base of the packs actually SOLD (R <= 1.15 * sum b_i q_i),
+  # not to ordered lots. Whether the law means sold or ordered packs is unconfirmed (docs/MONOREPO.md, stage 3).
   - rule_id: UZ-PF13-WHOLESALE-MARKUP
     regulation: UZ-PF13
     point: null
     kind: markup
     status: needs_legal_review
     parameters: {multiplier: 1.15, additional_regulations: [UZ-PKM185]}
-    description: Оптовая цена не превышает 1,15 законной базы C независимо от числа посредников.
+    description: Оптовая цена не превышает 1,15 законной базы C независимо от числа посредников. Ядро применяет 15% к проданным упаковкам (needs_legal_review - спорно, к проданным или к заказанным).
   - rule_id: UZ-PF13-RETAIL-MARKUP
     regulation: UZ-PF13
     kind: markup
