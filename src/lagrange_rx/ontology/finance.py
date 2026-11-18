@@ -28,6 +28,8 @@ class CostItem(Entity):
     # (`shared_by_revenue`). `unallocated` is never silently assigned to a SKU.
     product: str | None = None
     allocation: Literal['direct','shared_by_volume','shared_by_revenue','unallocated'] = 'unallocated'
+    # Shared costs that cover only some SKUs (e.g. a background portfolio): the split is limited to them.
+    scope: list[str] | None = None
 
     @model_validator(mode='after')
     def _check_allocation(self) -> 'CostItem':
@@ -35,6 +37,8 @@ class CostItem(Entity):
             raise ValueError('direct allocation requires product')
         if self.product and self.allocation != 'direct':
             raise ValueError('a cost with product must use direct allocation')
+        if self.scope is not None and self.allocation not in ('shared_by_volume', 'shared_by_revenue'):
+            raise ValueError('scope is only for shared allocations')
         return self
 
 class CreditLine(Entity):

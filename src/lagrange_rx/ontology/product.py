@@ -20,12 +20,12 @@ class RegistrationCertificate(Entity):
 class Product(Entity):
     sku_id: str
     trade_name: str
-    inn: str
-    dosage_form: str
+    inn: str | None = None
+    dosage_form: str | None = None
     strength: str
     pack_size: int = Field(gt=0)
     rx: Literal[True]
-    manufacturer: str
-    registration_certificate: str
+    manufacturer: str | None = None
+    registration_certificate: str | None = None
     is_generic: bool | None = None
     originator_sku: str | None = None

@@ -47,7 +47,7 @@ class ClientGraph(StrictModel):
         'manufacturers': {'same_composition_skus':'products'}, 'production_sites': {'supplier':'suppliers','approved_for':'products'},
         'routes': {'production_site':'production_sites','carrier':'carriers'}, 'quotes': {'supplier':'suppliers','carrier':'carriers','product':'products'},
         'contracts': {'supplier':'suppliers','supersedes':'contracts'}, 'shipments': {'route':'routes','lots':'lots','customs_entry':'customs_entries'},
-        'lots': {'product':'products','shipment':'shipments'}, 'cost_items': {'shipment':'shipments','product':'products'},
+        'lots': {'product':'products','shipment':'shipments'}, 'cost_items': {'shipment':'shipments','product':'products','scope':'products'},
         'warehouses': {'region':'regions'}, 'customers': {'region':'regions','channel':'channels'},
         'sales_records': {'product':'products','region':'regions','channel':'channels','lot':'lots'},
         'demand_forecasts': {'product':'products'}, 'scenarios': {'supplier_disrupted':'routes'},
